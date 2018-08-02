@@ -1,0 +1,120 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    @RenderSection("head_meta", required: false)
+    <title>@ViewBag.Title</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jqueryui")
+    @Scripts.Render("~/bundles/modernizr")
+	<script src="https://apis.google.com/js/platform.js" async defer></script>
+	<meta property="og:image" content="http://QuranX.com/Content/Images/QuranXSocialIcon.png" />
+	<meta property="og:title" content="QuranX.com The most complete Quran / Hadith / Tafsir collection available!" />
+	<meta property="og:url" content="http://QuranX.com@(Request.RawUrl)" />
+	<meta property="og:type" content="website" />
+</head>
+@{
+    MvcHtmlString itemScopeHtml = null;
+    if (ViewBag.IsArticle != null && ViewBag.IsArticle)
+    {
+        itemScopeHtml = MvcHtmlString.Create("itemscope itemtype=\"http://schema.org/Article\"");
+    }
+}
+<body @itemScopeHtml>
+	<!-- facebook share -->
+	<div id="fb-root"></div>
+	<script>(function (d, s, id) {
+		var js, fjs = d.getElementsByTagName(s)[0];
+		if (d.getElementById(id)) return;
+		js = d.createElement(s); js.id = id;
+		js.src = "//connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v2.0";
+		fjs.parentNode.insertBefore(js, fjs);
+	}(document, 'script', 'facebook-jssdk'));</script>
+	<!-- /facebook share -->
+
+
+    <script>
+        if (self !== top)
+            top.location.replace(self.location.href)
+    </script>
+    @Html.Partial("GoogleAnalytics")
+    <header>
+        <nav>
+            <ul>
+                <li>@Html.RouteLink("Quran", "Quran")</li>
+                <li>@Html.RouteLink("Tafsirs", "Tafsirs")</li>
+                <li>@Html.RouteLink("Hadiths", "Hadiths")</li>
+                <li>@Html.RouteLink("Full search", "Search")</li>
+                <li>@Html.RouteLink("Help", "Help")</li>
+				<li>@Html.RouteLink("About", "About")</li>
+            </ul>
+        </nav>
+        <img id="logo" src="@Url.Content("~/Content/Images/QuranX.png")" alt="QuranX" itemprop="image"/>
+    </header>
+
+    <section id="contentsHolder">
+        <div id="sidebar">
+			@using (Html.BeginForm(actionName: "Index", controllerName: "Search", method: FormMethod.Get))
+   {
+	   @Html.Hidden("context", "Quran")
+			<aside id="verseNavigator">
+				<ul class="sideNavigation">
+					<li>Quran search</li>
+					<li>@Html.TextBox("q")</li>
+				</ul>
+			</aside>
+   }
+            <aside class="sponsor">
+                <a href="http://www.patreon.com/QuranX">
+                    Support this website
+                    <img src="~/Content/Images/patreon.png" alt="Patreon" />
+                </a>
+            </aside>
+
+			@RenderSection("topsidebar", required: false)
+            @if ((ViewBag.Chapter ?? 0) > 0)
+            {
+                @Html.Partial("VerseNavigator")
+            }
+            @RenderSection("sidebar", required: false)
+        </div>
+			<aside id="socialButtons">
+				<ul>
+					<li>
+						<div class="fb-share-button" data-href="http://QuranX.com@(Request.RawUrl)" data-layout="button"></div>		
+					</li>
+					<li>
+						<a href="https://twitter.com/share" class="twitter-share-button" data-count="none">Tweet</a>
+					</li>
+					<li>
+						<div class="g-plus" data-action="share" data-annotation="none"></div>
+						<script>!function (d, s, id) { var js, fjs = d.getElementsByTagName(s)[0], p = /^http:/.test(d.location) ? 'http' : 'https'; if (!d.getElementById(id)) { js = d.createElement(s); js.id = id; js.src = p + '://platform.twitter.com/widgets.js'; fjs.parentNode.insertBefore(js, fjs); } }(document, 'script', 'twitter-wjs');</script>			
+					</li>
+				</ul>
+			</aside>
+        <div id="contents">
+            @RenderBody()
+        </div>
+    </section>
+
+
+    @RenderSection("scripts", required: false)
+	<script type="text/javascript">
+		$(document).ready(function () {
+			$('#socialButtons').fadeTo(0, 0.01).delay(1000).fadeTo(1000,1);
+		});
+	</script>
+
+    @if (ViewBag.AnchorPoint != null)
+    {
+        <script type="text/javascript">
+            $(document).ready(function () {
+                var tag = $('a[name="@ViewBag.AnchorPoint"]');
+                $('html,body').animate({ scrollTop: tag.offset().top - 50}, 'slow');
+
+		});
+        </script>
+    }
+</body>
+</html>

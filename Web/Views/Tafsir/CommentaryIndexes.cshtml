@@ -1,0 +1,44 @@
+﻿@model QuranX.DocumentModel.Tafsir
+
+@{
+	if (@Model.IsTafsir)
+	{
+		ViewBag.Title = "Quranic commentary by Tafsir " + Model.Mufassir;
+	}
+	else
+	{
+		ViewBag.Title = Model.Mufassir;
+	}
+}
+
+@section head_meta {
+	<meta name="description" content="Hadith collections" />
+	<meta property="og:description" content="Hadith colletions" />
+}
+
+<hgroup>
+    <h1>The Quran</h1>
+    <h2>@ViewBag.Title</h2>
+</hgroup>
+
+<div id="commentaryIndex">
+    @foreach (var chapter in QuranX.SharedData.Document.QuranDocument.Chapters)
+    {
+        <h3>@chapter.Index: @chapter.EnglishName - @chapter.ArabicName</h3>
+        <div>
+            <ul>
+                @foreach (var commentary in @Model.CommentariesForChapter(chapter.Index))
+                {
+                    <li>
+                        @Html.ActionLink(
+                                linkText: commentary.VerseReference.ToString(),
+                                actionName: "Verse",
+                                routeValues: new { Chapter = chapter.Index, Verse = commentary.VerseReference.FirstVerse }
+                        )
+                    </li>
+                }
+            </ul>
+        </div>
+    }
+</div>
+

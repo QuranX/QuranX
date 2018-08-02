@@ -1,0 +1,43 @@
+﻿<aside>
+    @using (Html.BeginForm(null, null, FormMethod.Post, new { id = "TranslationsForm" }))
+    {
+        @Html.Hidden("Chapter")
+        @Html.Hidden("Verse")
+        @Html.Hidden("LastVerse")
+        <div>Translations</div>
+        <ul class="unnumberedList">
+            <li>
+                @{
+                    string isChecked = (ViewBag.Translations.Contains("Arabic")) ? "checked" : "";
+                }
+                <input type="checkbox" name="translations" value="Arabic" @isChecked /> Arabic
+            </li>
+            @foreach (var translation in QuranX.SharedData.Document.QuranDocument[1][1].Translations)
+            {
+                isChecked = "";
+                if (ViewBag.Translations.Contains(translation.TranslatorCode))
+                {
+                    isChecked = "checked";
+                }
+                <li>
+                    <input type="checkbox" name="Translations" value="@translation.TranslatorCode" @isChecked />
+                    @translation.TranslatorName</li>
+            }
+        </ul>
+        <input type="submit" value="Refresh" id="RefreshTranslations" />
+    }
+</aside>
+
+<script>
+    $(document).ready(function () {
+        var translationsForm = $("#TranslationsForm");
+        $("#TranslationsForm input[type=checkbox]").click(function (e) { translationsForm.submit(); });
+        translationsForm.submit(function (e) {
+            $.post("@Url.Action(actionName: null)", translationsForm.serialize(), function (html) {
+                $("#VersesContainer").html(html);
+            });
+            return false;
+        });
+        $("#RefreshTranslations").hide();
+    });
+</script>

@@ -1,0 +1,567 @@
+﻿body {
+    margin: 0px;
+    background-color: #f0f0f0;
+    font-family: Arial;
+}
+
+a {
+    color: black;
+    text-decoration: none;
+}
+
+    a:hover {
+        color: #879735;
+    }
+
+
+
+header {
+    background-image: url(/Content/Images/HeaderRepeat.jpg);
+    background-repeat: repeat;
+    border-bottom: 4px solid #879735;
+    font-family: Arial;
+    margin-bottom: 16px;
+}
+
+    header nav ul {
+        margin: 0px;
+        padding: 2px;
+        padding-right: 1em;
+        text-align: right;
+        background-color: rgba(0, 0, 0, 0.1);
+    }
+
+        header nav ul li {
+            display: inline;
+        }
+
+            header nav ul li + li::before {
+                content: " | ";
+            }
+
+            header nav ul li a {
+                color: white;
+                text-decoration: none;
+                font-weight: bold;
+                padding: 4px;
+                margin: 0px;
+            }
+
+                header nav ul li a:hover {
+                    color: yellow;
+                }
+
+
+    header aside {
+        float: right;
+        margin-right: 1em;
+    }
+
+h1 {
+    margin: 0px;
+    color: #919E45;
+    font-size: 2em;
+    text-align: center;
+}
+
+h2 {
+    margin: 0px;
+    margin-bottom: 0.5em;
+    color: #a1b049;
+    font-size: 1.25em;
+    text-align: center;
+}
+
+    h2 > a {
+        color: #0381d6;
+        text-decoration: underline;
+    }
+
+        h2 > a:visited {
+            color: #0381d6;
+        }
+
+        h2 > a:hover {
+            color: #3cabf5;
+        }
+
+        h2 > a:active {
+            color: #3cabf5;
+        }
+
+
+h3 {
+    color: #bfc96e;
+}
+
+
+
+aside input[type=submit] {
+    float: right;
+    margin: 0px;
+}
+
+
+aside select {
+    max-width: 100%;
+}
+
+.sponsor {
+    margin: 0px;
+    padding: 4px;
+}
+
+    .sponsor a {
+        color: black;
+        display: block;
+        text-align: center;
+    }
+
+        .sponsor a:hover {
+            color: black;
+        }
+
+        .sponsor a:visited {
+            color: black;
+        }
+
+        .sponsor a:active {
+            color: black;
+        }
+
+dt {
+    font-weight: bold;
+    color: #089cff;
+    margin-left: 0.5em;
+}
+
+    dt a {
+        font-weight: bold;
+        color: #089cff;
+    }
+
+
+dd {
+    margin-bottom: 0.5em;
+}
+
+#contentsHolder {
+    margin: 1em;
+}
+
+#sidebar {
+    position: absolute;
+    width: 11em;
+}
+
+    #sidebar aside {
+        width: 100%;
+        background-color: white;
+        border-radius: 0.5em;
+        padding: 0.5em;
+        margin: 0em;
+        margin-bottom: 0.5em;
+    }
+
+figcaption {
+    font-style: italic;
+    font-size: 0.9em;
+    font-weight: bold;
+    text-decoration: underline;
+}
+
+#contents {
+    margin-left: 12.5em;
+    background-color: white;
+    background-color: white;
+    border-radius: 0.5em;
+    padding: 0.5em;
+    min-width: 200px;
+}
+
+#logo {
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+}
+
+#inlineSearch {
+    display: inline;
+}
+
+    #inlineSearch input[type=search] {
+        width: 20em;
+    }
+
+#searchBox {
+    text-align: center;
+    width: 50%;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 1em;
+}
+
+    #searchBox input[type=submit] {
+    }
+
+    #searchBox input[type=search] {
+        width: 75%;
+    }
+
+#searchResults {
+    border: 1px solid #eee;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 0.25em 1.5em;
+    border-radius: 0.25em;
+    box-shadow: 2px 2px rgba(0, 0, 0, 0.25);
+    border-collapse: collapse;
+}
+
+    #searchResults ul {
+        margin-top: 0px;
+    }
+
+    #searchResults th {
+        color: #089cff;
+        text-align: left;
+        padding: 0.25em 1em;
+    }
+
+    #searchResults tr:nth-child(odd) {
+        background-color: #eee;
+    }
+
+    #searchResults td {
+        padding: 0.25em 1em;
+        text-align: left;
+    }
+
+.googleAds {
+    text-align: center;
+}
+
+.hadithReferences {
+    display: inline-block;
+    margin: 0px;
+    width: 49%;
+    padding: 0em;
+    vertical-align: top;
+}
+
+.verseReference {
+    background-color: #fef2da;
+    padding: 0.25em 0.5em;
+    border-radius: 1em;
+    color: #d69149;
+    margin: 0px;
+    margin-right: 1.25em;
+    font-size: 1.25em;
+    font-weight: bold;
+    box-shadow: 2px 2px rgba(0, 0, 0, 0.1);
+}
+
+
+dl.countAndLabel {
+    background-color: #fef2da;
+    padding: 0.25em 0.5em;
+    border-radius: 8px;
+    color: #d6b169;
+    margin: 0px;
+    margin-right: 0.5em;
+    font-size: 0.75em;
+    display: inline-block;
+    box-shadow: 2px 2px rgba(0, 0, 0, 0.1);
+}
+
+    dl.countAndLabel a {
+        color: #d6b169;
+    }
+
+    dl.countAndLabel dt {
+        font-weight: normal;
+        font-size: 0.75em;
+        text-align: center;
+        margin: 0px;
+        padding: 0px;
+    }
+
+    dl.countAndLabel dd {
+        font-weight: bold;
+        font-size: 1.25em;
+        text-align: center;
+        margin: 0px;
+        padding: 0px;
+    }
+
+.sideNavigation {
+    list-style: none;
+    padding: 0px;
+    margin: 0px;
+}
+
+    .sideNavigation li {
+        margin: 0px;
+        padding: 0px;
+        display: inline;
+    }
+
+.arabicText {
+    text-align: right;
+    font-size: 1.5em;
+	direction: rtl;
+}
+
+    .arabicText a {
+        text-decoration: underline;
+        text-decoration-style: dotted;
+    }
+
+.inlineArabicText {
+}
+
+.largeNumberedList {
+    display: table;
+}
+
+    .largeNumberedList li {
+        width: 20em;
+        float: left;
+    }
+
+    .largeNumberedList a {
+        text-decoration: none;
+        color: #444;
+    }
+
+        .largeNumberedList a:hover {
+            color: #879735;
+        }
+
+.hadithIndexList {
+    display: table;
+    width: 100%;
+    margin: 0px;
+    padding: 0px;
+    list-style: none;
+    font-weight: bold;
+}
+
+    .hadithIndexList li {
+        width: 25%;
+        display: inline;
+        float: left;
+        background-color: #ddd;
+        padding: 4px;
+        margin-right: 8px;
+        text-align: center;
+    }
+
+        .hadithIndexList li.selected {
+            background-color: #bfc96e;
+            box-shadow: rgba(0, 0, 0, 0.1) 2px 2px inset;
+        }
+
+    .hadithIndexList a {
+        text-decoration: none;
+        color: #444;
+        display: block;
+    }
+
+        .hadithIndexList a:hover {
+            color: #879735;
+        }
+
+.hadithReferenceList {
+    display: table;
+}
+
+    .hadithReferenceList li {
+        width: 10em;
+        display: inline;
+        float: left;
+    }
+
+    .hadithReferenceList a {
+        text-decoration: none;
+        color: #444;
+    }
+
+        .hadithReferenceList a:hover {
+            color: #879735;
+        }
+
+
+.verse {
+    margin: 0px;
+    margin-bottom: 1em;
+    border-bottom: 1px dotted #aaa;
+}
+
+.translations {
+    clear: both;
+    padding-left: 1em;
+    padding-top: 1em;
+}
+
+    .translations dt {
+        font-family: Georgia;
+        color: #6798BF;
+    }
+
+    .translations dd {
+        margin-bottom: 0.25em;
+    }
+
+.unnumberedList {
+    list-style: none;
+    margin: 0px;
+    padding: 0.25em;
+}
+
+.hadith {
+    margin-bottom: 2em;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    border-radius: 0.5em;
+    padding: 0.5em;
+    box-shadow: 4px 4px rgba(0, 0, 0, 0.75);
+}
+
+    .hadith dt {
+        background-color: #fef2da;
+        color: black;
+        margin-bottom: 0.5em;
+        font-weight: bold;
+        padding: 0.25em 0.5em;
+        border-radius: 0.25em;
+        box-shadow: 2px 2px rgba(0, 0, 0, 0.1);
+    }
+
+    .hadith dd {
+        background-color: #f8f8f8;
+        border-radius: 0.25em;
+        padding: 0.5em;
+        margin-bottom: 0.25em;
+    }
+
+        .hadith dd.additional {
+            background-color: white;
+        }
+
+#commentaryIndex {
+}
+
+    #commentaryIndex h3 {
+        clear: left;
+        margin: 0px;
+    }
+
+    #commentaryIndex ul {
+        margin: 0.5em 0em 1em 0em;
+        list-style: none;
+        overflow: auto;
+    }
+
+        #commentaryIndex ul li {
+            float: left;
+            margin: 0px;
+            padding: 0px;
+            width: 6em;
+        }
+
+table.wordTable {
+    border-spacing: 10px;
+    border-collapse: separate;
+}
+
+    table.wordTable th {
+        text-align: left;
+    }
+
+    table.wordTable tbody tr:nth-child(even) {
+        background-color: #f8f8f8;
+    }
+
+    table.wordTable th {
+    }
+
+    table.wordTable td {
+    }
+
+
+.highlight {
+    font-weight: bold;
+    background-color: yellow;
+    padding: 2px;
+}
+
+.helpList {
+    padding: 0px;
+    list-style: none;
+    line-height: 2em;
+    border: 1px solid rgba(0, 0, 0, 0.5);
+    border-radius: 8px;
+    box-shadow: rgba(0, 0, 0, 0.5) 2px 2px;
+}
+
+    .helpList > li {
+        padding: 0px;
+        background-color: rgba(0, 0, 0, 0.25);
+    }
+
+        .helpList > li .header {
+            font-weight: bold;
+            padding-left: 1em;
+        }
+
+        .helpList > li > ul {
+            list-style: none;
+            background-color: white;
+        }
+
+            .helpList > li > ul > li {
+                border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+            }
+
+                .helpList > li > ul > li:last-child {
+                    border: none;
+                }
+
+    .helpList label {
+        display: inline-block;
+        width: 10em;
+    }
+
+    .helpList em {
+        background-color: #ffffcc;
+        padding: 0.25em;
+        text-decoration: none;
+        font-style: normal;
+        font-weight: bold;
+        text-shadow: 2px 2px rgba(0, 0, 0, 0.3);
+        border: 1px solid black;
+    }
+
+#socialButtons {
+    text-align: right;
+    height: 0px;
+    position: relative;
+    top: -10px;
+    right: 16px;
+    display: none;
+}
+
+    #socialButtons ul {
+        list-style: none;
+        padding: 0px;
+        margin: 0px;
+    }
+
+        #socialButtons ul li {
+            display: inline;
+        }
+
+.fb-share-button {
+    position: relative;
+    top: -4px;
+}

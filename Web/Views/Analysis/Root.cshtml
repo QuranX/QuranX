@@ -1,0 +1,55 @@
+﻿@model QuranX.Models.Analysis_Root
+@using QuranX.DocumentModel
+
+@{
+    ViewBag.Title = "Classical Arabic analysis of root word " + Model.LetterNames + " " + Model.ArabicRoot + " in the Quran";
+}
+@section head_meta {
+    <meta name="robots" content="noindex" />
+    <meta property="og:description" content="@ViewBag.Title" />
+}
+
+<hgroup>
+    <h1>The quran</h1>
+    <h2>Word analysis - @Model.ArabicRoot (@Model.LetterNames)</h2>
+</hgroup>
+
+<table class="wordTable">
+    <thead>
+        <tr>
+            <th>Reference</th>
+            <th>Type</th>
+            <th>Transliteration</th>
+            <th>Extract</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var wordUseage in Model.WordUseages)
+            {
+            <tr>
+                <td>
+                    <a href="@Url.Action("Verse", routeValues: new { Chapter = wordUseage.Reference.ChapterIndex, Verse = wordUseage.Reference.VerseIndex })#word_@wordUseage.Reference.WordIndex" class="verseReference">
+                        @wordUseage.Reference.ChapterIndex.@wordUseage.Reference.VerseIndex
+                    </a>
+                </td>
+                <td>
+                    @wordUseage.Reference.WordTypeDescription
+                </td>
+                <td>
+                    @wordUseage.Reference.BuckwalterText
+                </td>
+                <td class="highlightable">
+                    @foreach (var word in wordUseage.Extract.PrecedingWords)
+                    {
+                        @(word.English + " ")
+                    }
+                    <strong>@wordUseage.Reference.EnglishText</strong>
+                    @foreach (var word in wordUseage.Extract.FollowingWords)
+                    {
+                        @(word.English + " ")
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

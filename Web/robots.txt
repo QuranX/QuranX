@@ -1,0 +1,5 @@
+user-agent: *
+disallow: /Analysis/
+
+User-agent: Mediapartners-Google
+disallow:

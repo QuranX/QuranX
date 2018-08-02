@@ -1,0 +1,23 @@
+﻿@model IEnumerable<QuranX.DocumentModel.HadithCollection>
+
+@{
+    ViewBag.Title = "Hadith collections";
+}
+
+@section head_meta {
+	<meta property="og:description" content="Hadith colletions" />
+}
+
+
+<hgroup>
+    <h1>Hadith collections</h1>
+</hgroup>
+
+<ul>
+    @foreach (var collection in Model)
+    {
+        <li>
+            @Html.ActionLink(collection.Name, "Collection", new { CollectionCode = collection.Code, IndexCode = collection.PrimaryReferenceDefinition.Code })
+        </li>
+    }
+</ul>

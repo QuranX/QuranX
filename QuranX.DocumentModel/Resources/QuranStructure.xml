@@ -1,0 +1,117 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<quran>
+  <chapter index="1" name="Al Fatiha (The opening)" period="Makka" verses="7" />
+  <chapter index="2" name="Al Baqara (The cow)" period="Madina" verses="286" />
+  <chapter index="3" name="Al Imran (The family of Imran)" period="Madina" verses="200" />
+  <chapter index="4" name="An Nisa (The women)" period="Madina" verses="176" />
+  <chapter index="5" name="Al Maida (The food)" period="Madina" verses="120" />
+  <chapter index="6" name="Al Anam (Cattle)" period="Makka" verses="165" />
+  <chapter index="7" name="Al Araf (The heights)" period="Makka" verses="206" />
+  <chapter index="8" name="Al Anfal (Spoils of war)" period="Madina" verses="75" />
+  <chapter index="9" name="Al Tawba (Immunity)" period="Madina" verses="129" />
+  <chapter index="10" name="Yunus (Jonah)" period="Makka" verses="109" />
+  <chapter index="11" name="Hud" period="Makka" verses="123" />
+  <chapter index="12" name="Yusuf (Joseph)" period="Makka" verses="111" />
+  <chapter index="13" name="Ar Rad (The thunder)" period="Makka" verses="43" />
+  <chapter index="14" name="Ibrahim (Abraham)" period="Makka" verses="52" />
+  <chapter index="15" name="Al Hijr (The rock)" period="Makka" verses="99" />
+  <chapter index="16" name="An Nahl (The bee)" period="Makka" verses="128" />
+  <chapter index="17" name="Bani Israil (The Israelites)" period="Makka" verses="111" />
+  <chapter index="18" name="Al Kahf (The cave)" period="Makka" verses="110" />
+  <chapter index="19" name="Maryamn (Mary)" period="Makka" verses="98" />
+  <chapter index="20" name="Ta-Ha" period="Makka" verses="135" />
+  <chapter index="21" name="Al Anbiya (The prophets)" period="Makka" verses="112" />
+  <chapter index="22" name="Al Hajj (The pilgrimage)" period="Madina" verses="78" />
+  <chapter index="23" name="Al Muminun (The believers)" period="Makka" verses="118" />
+  <chapter index="24" name="An Nur (The light)" period="Madina" verses="64" />
+  <chapter index="25" name="Al Furqan (The discrimination)" period="Makka" verses="77" />
+  <chapter index="26" name="Ash Shuara (The poets)" period="Makka" verses="227" />
+  <chapter index="27" name="An Naml (The ant)" period="Makka" verses="93" />
+  <chapter index="28" name="Al Qasas (The narrative)" period="Makka" verses="88" />
+  <chapter index="29" name="Al Ankabut (The spider)" period="Makka" verses="69" />
+  <chapter index="30" name="Ar Rum (The Romans)" period="Makka" verses="60" />
+  <chapter index="31" name="Luqman" period="Makka" verses="34" />
+  <chapter index="32" name="As Sajda (The adoration)" period="Makka" verses="30" />
+  <chapter index="33" name="Al Ahzab (The allies)" period="Madina" verses="73" />
+  <chapter index="34" name="Al Saba (The Saba)" period="Makka" verses="54" />
+  <chapter index="35" name="Al Fatir (The angels)" period="Makka" verses="45" />
+  <chapter index="36" name="Ya Sin" period="Makka" verses="83" />
+  <chapter index="37" name="As Saffat (Those who set up ranks)" period="Makka" verses="182" />
+  <chapter index="38" name="Saad" period="Makka" verses="88" />
+  <chapter index="39" name="Az Zumar (The troops)" period="Makka" verses="75" />
+  <chapter index="40" name="Al Ghafir (The forgiver)" period="Makka" verses="85" />
+  <chapter index="41" name="Fussilat (Explained in detail)" period="Makka" verses="54" />
+  <chapter index="42" name="Ash Shura (The council)" period="Makka" verses="53" />
+  <chapter index="43" name="Az Zukhruf (Gold)" period="Makka" verses="89" />
+  <chapter index="44" name="Ad Dukhan (Drought)" period="Makka" verses="59" />
+  <chapter index="45" name="Al Jathiya (Kneeling)" period="Makka" verses="37" />
+  <chapter index="46" name="Al Ahqaf (The dunes)" period="Makka" verses="35" />
+  <chapter index="47" name="Muhammad" period="Madina" verses="38" />
+  <chapter index="48" name="Al Fath (Victory)" period="Madina" verses="29" />
+  <chapter index="49" name="Al Hujraat (The apartments)" period="Madina" verses="18" />
+  <chapter index="50" name="Qaf" period="Makka" verses="45" />
+  <chapter index="51" name="Adh Dhariyat (The scatterers)" period="Makka" verses="60" />
+  <chapter index="52" name="At Tur (The mount)" period="Makka" verses="49" />
+  <chapter index="53" name="An Najm (The star)" period="Makka" verses="62" />
+  <chapter index="54" name="Al Qamar (The Moon)" period="Makka" verses="55" />
+  <chapter index="55" name="Ar Rahman (The beneficent)" period="Makka" verses="78" />
+  <chapter index="56" name="Al Waqia (The event)" period="Makka" verses="96" />
+  <chapter index="57" name="Al Hadid (Iron)" period="Madina" verses="29" />
+  <chapter index="58" name="Al Mujadila (The pleading woman)" period="Madina" verses="22" />
+  <chapter index="59" name="Al Hashr (Exile)" period="Madina" verses="24" />
+  <chapter index="60" name="Al Mumtahana (The examined woman)" period="Madina" verses="13" />
+  <chapter index="61" name="As Saff (The ranks)" period="Madina" verses="14" />
+  <chapter index="62" name="Al Jumua (The congregation)" period="Madina" verses="11" />
+  <chapter index="63" name="Al Munafiqun (The hypocrites)" period="Madina" verses="11" />
+  <chapter index="64" name="At Taghabun (Manifestation of losses)" period="Makka" verses="18" />
+  <chapter index="65" name="At Talaq (Divorce)" period="Madina" verses="12" />
+  <chapter index="66" name="At Tahrim (Prohibition)" period="Madina" verses="12" />
+  <chapter index="67" name="Al Mulk (The kingdom)" period="Makka" verses="30" />
+  <chapter index="68" name="Al Qalam (The pen)" period="Makka" verses="52" />
+  <chapter index="69" name="Al Haqqa (The reality)" period="Makka" verses="52" />
+  <chapter index="70" name="Al Maarij (Ascending stairways)" period="Makka" verses="44" />
+  <chapter index="71" name="Nuh (Noah)" period="Makka" verses="28" />
+  <chapter index="72" name="Al Jinn (The Jinn)" period="Makka" verses="28" />
+  <chapter index="73" name="Al Muzzammil (The enshrouded one)" period="Makka" verses="20" />
+  <chapter index="74" name="Al Muddaththir (The cloaked one)" period="Makka" verses="56" />
+  <chapter index="75" name="Al Qiyama (Resurrection)" period="Makka" verses="40" />
+  <chapter index="76" name="Al Insan (Man)" period="Makka" verses="31" />
+  <chapter index="77" name="Al Mursalat (The emissaries)" period="Makka" verses="50" />
+  <chapter index="78" name="An Naba (The tidings)" period="Makka" verses="40" />
+  <chapter index="79" name="An Naziat (Those who yearn)" period="Makka" verses="46" />
+  <chapter index="80" name="Abasa (He frowned)" period="Makka" verses="42" />
+  <chapter index="81" name="At Takwir (The folding up)" period="Makka" verses="29" />
+  <chapter index="82" name="Al Infitar (The cleaving)" period="Makka" verses="19" />
+  <chapter index="83" name="Al Mutaffifin (The cheats)" period="Makka" verses="36" />
+  <chapter index="84" name="Al Isnhiqaq (Splitting open)" period="Makka" verses="25" />
+  <chapter index="85" name="Al Buruj (The stars)" period="Makka" verses="22" />
+  <chapter index="86" name="At Tariq (The morning star)" period="Makka" verses="17" />
+  <chapter index="87" name="Al Ala (The most high)" period="Makka" verses="19" />
+  <chapter index="88" name="Al Ghashiya (The overwhelming)" period="Makka" verses="26" />
+  <chapter index="89" name="Al Fajr (The dawn)" period="Makka" verses="30" />
+  <chapter index="90" name="Al Balad (The city)" period="Makka" verses="20" />
+  <chapter index="91" name="Ash Shams (The Sun)" period="Makka" verses="15" />
+  <chapter index="92" name="Al Lail (The night)" period="Makka" verses="21" />
+  <chapter index="93" name="Ad Duhaa (The brightness of day)" period="Makka" verses="11" />
+  <chapter index="94" name="Al Inshirah (The expansion)" period="Makka" verses="8" />
+  <chapter index="95" name="At tin (The fig)" period="Makka" verses="8" />
+  <chapter index="96" name="Al Alaq (The clot)" period="Makka" verses="19" />
+  <chapter index="97" name="Al Qadr (The power)" period="Makka" verses="5" />
+  <chapter index="98" name="Al Bayyina (Clear proof)" period="Madina" verses="8" />
+  <chapter index="99" name="Al Zalzala (The shaking)" period="Makka" verses="8" />
+  <chapter index="100" name="Al Adiyat (The assaulters)" period="Makka" verses="11" />
+  <chapter index="101" name="Al Qaria (The calamity)" period="Makka" verses="11" />
+  <chapter index="102" name="At Takathur (Abundance of wealth)" period="Makka" verses="8" />
+  <chapter index="103" name="Al Asr (The time)" period="Makka" verses="3" />
+  <chapter index="104" name="Al Humaza (The slanderer)" period="Makka" verses="9" />
+  <chapter index="105" name="Al Fil (The elephant)" period="Makka" verses="5" />
+  <chapter index="106" name="Quraish (The Quraish)" period="Makka" verses="4" />
+  <chapter index="107" name="Al Maun (Almsgiving)" period="Makka" verses="7" />
+  <chapter index="108" name="Al Kauthar (Abundance)" period="Makka" verses="3" />
+  <chapter index="109" name="Al Kafirun (The disbelievers)" period="Makka" verses="6" />
+  <chapter index="110" name="An Nasr (Divine support)" period="Madina" verses="3" />
+  <chapter index="111" name="Al Lahab (The flame)" period="Makka" verses="5" />
+  <chapter index="112" name="Al Ikhlas (The unity)" period="Makka" verses="4" />
+  <chapter index="113" name="Al Falaq (Dawn)" period="Makka" verses="5" />
+  <chapter index="114" name="An Nas (Mankind)" period="Makka" verses="6" />
+</quran>

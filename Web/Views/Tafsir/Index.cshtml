@@ -1,0 +1,23 @@
+﻿@model IEnumerable<QuranX.DocumentModel.Tafsir>
+
+@{
+    ViewBag.Title = "Tafsirs of the Quran";
+}
+
+@section head_meta {
+	<meta name="description" content="@Model.Count() Tafsirs of the Quran" />
+	<meta property="og:description" content="@Model.Count() Tafsirs of the Quran" />
+}
+
+<hgroup>
+    <h1>Tafsirs etc</h1>
+</hgroup>
+
+<ul>
+    @foreach (var item in Model)
+    {
+        <li>
+            @Html.ActionLink(item.Mufassir, "CommentaryIndexes", new { Tafsir = item.Code })
+        </li>    
+    }
+</ul>

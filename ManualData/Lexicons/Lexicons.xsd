@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2006 sp2 U (http://www.altova.com) by Matthew Bowen (Eden BI) -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:element name="lexicons">
+		<xs:annotation>
+			<xs:documentation>Comment describing your root element</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="lexicon" minOccurs="0">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="name">
+								<xs:simpleType>
+									<xs:restriction base="xs:string">
+										<xs:minLength value="1"/>
+									</xs:restriction>
+								</xs:simpleType>
+							</xs:element>
+							<xs:element name="roots">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="root" minOccurs="0">
+											<xs:complexType>
+												<xs:sequence>
+													<xs:element name="word">
+														<xs:simpleType>
+															<xs:restriction base="xs:string">
+																<xs:minLength value="3"/>
+																<xs:maxLength value="3"/>
+															</xs:restriction>
+														</xs:simpleType>
+													</xs:element>
+													<xs:element name="meaning">
+														<xs:simpleType>
+															<xs:restriction base="xs:string">
+																<xs:minLength value="1"/>
+															</xs:restriction>
+														</xs:simpleType>
+													</xs:element>
+													<xs:element name="images">
+														<xs:complexType>
+															<xs:sequence>
+																<xs:element name="image">
+																	<xs:complexType>
+																		<xs:sequence>
+																			<xs:element name="url" type="xs:anyURI"/>
+																			<xs:element name="x">
+																				<xs:simpleType>
+																					<xs:restriction base="xs:int">
+																						<xs:minInclusive value="0"/>
+																					</xs:restriction>
+																				</xs:simpleType>
+																			</xs:element>
+																			<xs:element name="y">
+																				<xs:simpleType>
+																					<xs:restriction base="xs:int">
+																						<xs:minInclusive value="0"/>
+																					</xs:restriction>
+																				</xs:simpleType>
+																			</xs:element>
+																			<xs:element name="width">
+																				<xs:simpleType>
+																					<xs:restriction base="xs:int">
+																						<xs:minInclusive value="1"/>
+																					</xs:restriction>
+																				</xs:simpleType>
+																			</xs:element>
+																			<xs:element name="height">
+																				<xs:simpleType>
+																					<xs:restriction base="xs:int">
+																						<xs:minInclusive value="1"/>
+																					</xs:restriction>
+																				</xs:simpleType>
+																			</xs:element>
+																		</xs:sequence>
+																	</xs:complexType>
+																</xs:element>
+															</xs:sequence>
+														</xs:complexType>
+													</xs:element>
+												</xs:sequence>
+											</xs:complexType>
+										</xs:element>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>
