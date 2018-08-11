@@ -43,6 +43,15 @@ namespace QuranX
 					Action = "About"
 				}
 			);
+			routes.MapRoute(
+				name: "NotFound",
+				url: "NotFound",
+				defaults: new
+				{
+					Controller = "Error",
+					Action = "NotFound"
+				}
+			);
 		}
 
 		static void RegisterSearchRoutes(RouteCollection routes)

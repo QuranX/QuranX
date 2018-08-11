@@ -19,6 +19,10 @@ namespace QuranX.Models
 			string indexCode,
 			string path)
 		{
+			string keyNotFoundInformation = $"CollectionCode={collectionCode}\r\n" +
+				$"IndexCode={indexCode}\r\n" +
+				$"path={path}";
+
 			if (string.IsNullOrWhiteSpace(collectionCode))
 				throw new ArgumentNullException(nameof(collectionCode));
 			if (string.IsNullOrWhiteSpace(indexCode))
@@ -28,7 +32,7 @@ namespace QuranX.Models
 			this.Collection = SharedData.Document.HadithDocument[collectionCode];
 			ReferenceDefinition = Collection.GetReferenceDefinition(indexCode);
 			if (ReferenceDefinition == null)
-				throw new KeyNotFoundException(nameof(indexCode));
+				throw new KeyNotFoundException(keyNotFoundInformation);
 
 			this.NextKeyPartSelection = new List<string>();
 			this.SelectedKeyParts =
@@ -38,7 +42,7 @@ namespace QuranX.Models
 				.Select(x =>
 					{
 						string[] keyAndValue = x.Split('-');
-						return new KeyValuePair<string, string>(keyAndValue[0], keyAndValue[1]);
+						return new KeyValuePair<string, string>(keyAndValue[0], keyAndValue.Length >= 2 ? keyAndValue[1] : "");
 					}
 				)
 				.ToList();
@@ -50,6 +54,7 @@ namespace QuranX.Models
 				.Select(x => new KeyValuePair<HadithReference, Hadith>(x.GetReference(ReferenceDefinition.Code), x))
 				.Where(x => x.Key != null)
 				.OrderBy(x => x.Key);
+
 			foreach (var keyPartAndValue in SelectedKeyParts)
 			{
 				if (string.Compare(keyPartAndValue.Key, ReferenceDefinition.PartNames[referencePartIndex], true) != 0)
@@ -66,7 +71,8 @@ namespace QuranX.Models
 				NextKeyPartName = ReferenceDefinition.PartNames[referencePartIndex];
 				NextKeyPartSelection = HadithsInCurrentSelection.Select(x => x.Key[referencePartIndex]).Distinct();
 			}
+			if (!HadithsInCurrentSelection.Any())
+				throw new KeyNotFoundException(keyNotFoundInformation);
 		}
-
 	}
 }
