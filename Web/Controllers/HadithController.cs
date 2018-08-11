@@ -1,4 +1,5 @@
 ﻿using QuranX.Models;
+using System.Collections.Generic;
 using System.Web.Mvc;
 
 namespace QuranX.Controllers
@@ -15,12 +16,19 @@ namespace QuranX.Controllers
 
 		public ActionResult Collection(string collectionCode, string indexCode, string path)
 		{
-			var model = new Hadith_DrillDown(
-				collectionCode: collectionCode,
-                indexCode: indexCode,
-				path: path
-			);
-			return View(model);
+			try
+			{
+				var model = new Hadith_DrillDown(
+					collectionCode: collectionCode,
+					indexCode: indexCode,
+					path: path
+				);
+				return View(model);
+			}
+			catch (KeyNotFoundException)
+			{
+				return HttpNotFound();
+			}
 		}
 
 		[HttpPost]
