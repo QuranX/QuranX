@@ -38,18 +38,7 @@ namespace QuranX.Models
 			Collection = SharedData.Document.HadithDocument[collectionCode];
 			ReferenceDefinition = Collection.GetReferenceDefinition(indexCode);
 			if (ReferenceDefinition == null)
-			{
-				// See if we have a URL with a missing index that we might be able to fix
-				if (IndexCode.IndexOf('-') < 0)
-					throw new KeyNotFoundException();
-				else
-				{ 
-					string primaryIndexCode = Collection.PrimaryReferenceDefinition.Code;
-					Path = IndexCode + "/" + Path;
-					IndexCode = primaryIndexCode;
-					return;
-				}
-			}
+				throw new KeyNotFoundException();
 
 			NextKeyPartSelection = new List<string>();
 			SelectedKeyParts =
@@ -64,7 +53,7 @@ namespace QuranX.Models
 				)
 				.Take(ReferenceDefinition.PartNames.Length)
 				.ToList();
-			Path = string.Join("/", 
+			Path = string.Join("/",
 				SelectedKeyParts
 				.Select(x => x.Key + "-" + x.Value)
 			);
