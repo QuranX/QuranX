@@ -60,7 +60,7 @@
     <ul class="hadithReferenceList">
         @foreach (string value in Model.NextKeyPartSelection)
         {
-            string newUrl = string.Format("{0}{1}-{2}/", Url.Action("Collection"), Model.NextKeyPartName, value);
+            string newUrl = string.Format("{0}/{1}-{2}/", Url.Action("Collection"), Model.NextKeyPartName, value);
             <li>
                 <a href="@newUrl">@Model.NextKeyPartName @value</a>
             </li>
