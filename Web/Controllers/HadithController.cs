@@ -23,6 +23,8 @@ namespace QuranX.Controllers
 					indexCode: indexCode,
 					path: path
 				);
+				if (model.CollectionCode + model.IndexCode + model.Path != collectionCode + indexCode + path)
+					return Redirect($"/Hadith/{model.CollectionCode}/{model.IndexCode}/{model.Path}");
 				return View(model);
 			}
 			catch (KeyNotFoundException)

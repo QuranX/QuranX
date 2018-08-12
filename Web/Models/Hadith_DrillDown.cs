@@ -7,6 +7,9 @@ namespace QuranX.Models
 {
 	public class Hadith_DrillDown
 	{
+		public string CollectionCode { get; private set; }
+		public string IndexCode { get; private set; }
+		public string Path { get; private set; }
 		public HadithCollection Collection { get; private set; }
 		public List<KeyValuePair<string, string>> SelectedKeyParts { get; private set; }
 		public string NextKeyPartName { get; private set; }
@@ -19,6 +22,9 @@ namespace QuranX.Models
 			string indexCode,
 			string path)
 		{
+			CollectionCode = collectionCode;
+			IndexCode = indexCode;
+			Path = path;
 			string keyNotFoundInformation = $"CollectionCode={collectionCode}\r\n" +
 				$"IndexCode={indexCode}\r\n" +
 				$"path={path}";
@@ -29,13 +35,13 @@ namespace QuranX.Models
 				throw new ArgumentNullException(nameof(indexCode));
 
 			path = path ?? "";
-			this.Collection = SharedData.Document.HadithDocument[collectionCode];
+			Collection = SharedData.Document.HadithDocument[collectionCode];
 			ReferenceDefinition = Collection.GetReferenceDefinition(indexCode);
 			if (ReferenceDefinition == null)
 				throw new KeyNotFoundException(keyNotFoundInformation);
 
-			this.NextKeyPartSelection = new List<string>();
-			this.SelectedKeyParts =
+			NextKeyPartSelection = new List<string>();
+			SelectedKeyParts =
 				path.Split('/')
 				.Where(x => !string.IsNullOrEmpty(x))
 				.Select(x => x.Trim())
@@ -45,7 +51,12 @@ namespace QuranX.Models
 						return new KeyValuePair<string, string>(keyAndValue[0], keyAndValue.Length >= 2 ? keyAndValue[1] : "");
 					}
 				)
+				.Take(ReferenceDefinition.PartNames.Length)
 				.ToList();
+			Path = string.Join("/", 
+				SelectedKeyParts
+				.Select(x => x.Key + "-" + x.Value)
+			);
 
 			int referencePartIndex = 0;
 			HadithsInCurrentSelection =
