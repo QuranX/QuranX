@@ -5,6 +5,7 @@ using System.Text;
 using QuranX.DocumentModel;
 using System.Xml.Linq;
 using System.IO;
+using QuranX.Shared.Models;
 
 namespace QuranX.DocumentModel.Factories
 {

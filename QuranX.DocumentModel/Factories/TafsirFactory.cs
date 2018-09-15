@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Xml.Linq;
 using QuranX.DocumentModel;
+using QuranX.Shared.Models;
 
 namespace QuranX.DocumentModel.Factories
 {

@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System;
 using System.Linq;
+using QuranX.Shared.Models;
 
 namespace QuranX.DocumentModel
 {
