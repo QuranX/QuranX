@@ -2,7 +2,7 @@
 using System.Xml.Linq;
 using System.Collections.Generic;
 
-namespace QuranX.DocumentModel
+namespace QuranX.Shared.Models
 {
 	public class VerseRangeReference :
 		IComparable,
@@ -15,18 +15,12 @@ namespace QuranX.DocumentModel
 
 		public VerseRangeReference(int chapter, int firstVerse, int lastVerse)
 		{
-			this.Chapter = chapter;
-			this.FirstVerse = firstVerse;
-			this.LastVerse = lastVerse;
+			QuranStructure.EnsureChapterAndVerseAreValid(chapter, firstVerse);
+			QuranStructure.EnsureChapterAndVerseAreValid(chapter, lastVerse);
 
-			QuranStructure.ValidateChapterAndVerse(
-					chapter: chapter,
-					verse: firstVerse
-				);
-			QuranStructure.ValidateChapterAndVerse(
-					chapter: chapter,
-					verse: lastVerse
-				);
+			Chapter = chapter;
+			FirstVerse = firstVerse;
+			LastVerse = lastVerse;
 		}
 
 		public IEnumerable<VerseReference> ToVerseReferences()
@@ -67,7 +61,7 @@ namespace QuranX.DocumentModel
 
 		public bool Includes(int chapter, int verse)
 		{
-			return chapter == this.Chapter
+			return chapter == Chapter
 				&& verse >= FirstVerse
 				&& verse <= LastVerse;
 		}
@@ -91,9 +85,9 @@ namespace QuranX.DocumentModel
 
 			var other = (VerseRangeReference)obj;
 			return
-				this.Chapter == other.Chapter
-				&& this.FirstVerse == other.FirstVerse
-				&& this.LastVerse == other.LastVerse;
+				Chapter == other.Chapter
+				&& FirstVerse == other.FirstVerse
+				&& LastVerse == other.LastVerse;
 		}
 
 		public static bool operator ==(VerseRangeReference left, VerseRangeReference right)
@@ -108,17 +102,17 @@ namespace QuranX.DocumentModel
 
 		public int CompareTo(VerseRangeReference other)
 		{
-			if (this.Chapter < other.Chapter)
+			if (Chapter < other.Chapter)
 				return -1;
-			if (this.Chapter > other.Chapter)
+			if (Chapter > other.Chapter)
 				return 1;
-			if (this.FirstVerse < other.FirstVerse)
+			if (FirstVerse < other.FirstVerse)
 				return -1;
-			if (this.FirstVerse > other.FirstVerse)
+			if (FirstVerse > other.FirstVerse)
 				return 1;
-			if (this.LastVerse < other.LastVerse)
+			if (LastVerse < other.LastVerse)
 				return -1;
-			if (this.LastVerse > other.LastVerse)
+			if (LastVerse > other.LastVerse)
 				return 1;
 			return 0;
 		}

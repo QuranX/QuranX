@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace QuranX.DocumentModel
+namespace QuranX.Shared.Models
 {
 	public class VerseReference :
 		IComparable,
@@ -11,10 +11,10 @@ namespace QuranX.DocumentModel
 
 		public VerseReference(int chapter, int verse)
 		{
-			this.Chapter = chapter;
-			this.Verse = verse;
+			Chapter = chapter;
+			Verse = verse;
 
-			QuranStructure.ValidateChapterAndVerse(
+			QuranStructure.EnsureChapterAndVerseAreValid(
 					chapter: chapter,
 					verse: verse
 				);
@@ -47,9 +47,7 @@ namespace QuranX.DocumentModel
 				return false;
 
 			var other = (VerseReference)obj;
-			return
-				this.Chapter == other.Chapter
-				&& this.Verse == other.Verse;
+			return Chapter == other.Chapter && Verse == other.Verse;
 		}
 
 		public static bool operator ==(VerseReference left, VerseReference right)
@@ -64,13 +62,13 @@ namespace QuranX.DocumentModel
 
 		public int CompareTo(VerseReference other)
 		{
-			if (this.Chapter < other.Chapter)
+			if (Chapter < other.Chapter)
 				return -1;
-			if (this.Chapter > other.Chapter)
+			if (Chapter > other.Chapter)
 				return 1;
-			if (this.Verse < other.Verse)
+			if (Verse < other.Verse)
 				return -1;
-			if (this.Verse > other.Verse)
+			if (Verse > other.Verse)
 				return 1;
 			return 0;
 		}
