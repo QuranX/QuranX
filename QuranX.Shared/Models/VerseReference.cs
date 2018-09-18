@@ -6,8 +6,10 @@ namespace QuranX.Shared.Models
 		IComparable,
 		IComparable<VerseReference>
 	{
-		public readonly int Chapter;
-		public readonly int Verse;
+		public int Chapter { get; set; }
+		public int Verse { get; set; }
+
+		public VerseReference() { }
 
 		public VerseReference(int chapter, int verse)
 		{
@@ -15,8 +17,8 @@ namespace QuranX.Shared.Models
 			Verse = verse;
 
 			QuranStructure.EnsureChapterAndVerseAreValid(
-					chapter: chapter,
-					verse: verse
+					chapterNumber: chapter,
+					verseNumber: verse
 				);
 		}
 

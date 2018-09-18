@@ -9,9 +9,11 @@ namespace QuranX.Shared.Models
 		IComparable<VerseRangeReference>,
 		IEnumerable<VerseReference>
 	{
-		public readonly int Chapter;
-		public readonly int FirstVerse;
-		public readonly int LastVerse;
+		public int Chapter { get; set; }
+		public int FirstVerse { get; set; }
+		public int LastVerse { get; set; }
+
+		public VerseRangeReference() { }
 
 		public VerseRangeReference(int chapter, int firstVerse, int lastVerse)
 		{

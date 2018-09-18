@@ -1,0 +1,19 @@
+﻿@using QuranX.Shared.Models
+@model IEnumerable<Chapter>
+
+@{
+    ViewBag.Title = "The Noble Qur'an";
+}
+
+<h1>@ViewBag.Title</h1>
+<ol class="quran__chapter-list">
+	@foreach (Chapter chapter in Model)
+	{
+		<li>
+			<a href="/@(chapter.ChapterNumber).1">
+				@chapter.EnglishName - @chapter.ArabicName
+			</a>
+		</li>
+	}
+</ol>
+

@@ -4,16 +4,17 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{CBFFA4CA-A4B9-422E-BF7F-C99AD25BADE2}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>QuranX.Shared</RootNamespace>
-    <AssemblyName>QuranX.Shared</AssemblyName>
+    <ProjectGuid>{00B81C9E-1DD8-415D-A429-AD5DF9407036}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <RootNamespace>QuranX.DataMigration</RootNamespace>
+    <AssemblyName>QuranX.DataMigration</AssemblyName>
     <TargetFrameworkVersion>v4.7.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -23,6 +24,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -41,11 +43,26 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Models\Chapter.cs" />
-    <Compile Include="Models\QuranStructure.cs" />
+    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Models\VerseRangeReference.cs" />
-    <Compile Include="Models\VerseReference.cs" />
+    <Compile Include="XmlData.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\QuranX.DocumentModel\QuranX.DocumentModel.csproj">
+      <Project>{32bd00b9-5689-45d5-ba1a-376ea8be22ec}</Project>
+      <Name>QuranX.DocumentModel</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\QuranX.Persistence\QuranX.Persistence.csproj">
+      <Project>{0b2f8e4b-1fbf-4639-9b18-9f441c9a5ccc}</Project>
+      <Name>QuranX.Persistence</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\QuranX.Shared\QuranX.Shared.csproj">
+      <Project>{cbffa4ca-a4b9-422e-bf7f-c99ad25bade2}</Project>
+      <Name>QuranX.Shared</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

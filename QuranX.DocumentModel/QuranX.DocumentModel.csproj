@@ -85,6 +85,7 @@
     <Compile Include="HadithDocumentVisitor.cs" />
     <Compile Include="QuranDocument.cs" />
     <Compile Include="QuranDocumentVisitor.cs" />
+    <Compile Include="XmlData.cs" />
     <Compile Include="StringHelper.cs" />
     <Compile Include="Word.cs" />
     <Compile Include="WordReference.cs" />
