@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using QuranX.Shared.Models;
 
-namespace QuranX.Persistence.Services
+namespace QuranX.Persistence.Services.Repositories
 {
 	public interface IChapterRepository
 	{

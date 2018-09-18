@@ -11,11 +11,11 @@ namespace QuranX.Persistence.Models
 		public int RootWordCount { get; set; }
 		public int HadithCount { get; set; }
 		public int CommentaryCount { get; set; }
-		public IReadOnlyList<string> VerseTexts { get; set; }
+		public IReadOnlyList<VerseText> VerseTexts { get; set; }
 
 		public Verse() { }
 
-		public Verse(int chapterNumber, int verseNumber, int rootWordCount, int hadithCount, int commentaryCount, IReadOnlyList<string> verseTexts)
+		public Verse(int chapterNumber, int verseNumber, int rootWordCount, int hadithCount, int commentaryCount, IReadOnlyList<VerseText> verseTexts)
 		{
 			QuranStructure.EnsureChapterAndVerseAreValid(chapterNumber, verseNumber);
 
