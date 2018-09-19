@@ -19,6 +19,7 @@ namespace QuranX.Persistence.Services
 			container.RegisterSingleton<ILuceneAnalyzerProvider, LuceneAnalyzerProvider>();
 			container.RegisterSingleton<ILuceneIndexWriterProvider, LuceneIndexWriterProvider>();
 			container.RegisterSingleton<ILuceneIndexReaderProvider, LuceneIndexReaderProvider>();
+			container.RegisterSingleton<ILuceneIndexSearcherProvider, LuceneIndexSearcherProvider>();
 		}
 	}
 }

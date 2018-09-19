@@ -23,7 +23,13 @@ namespace QuranX.Persistence.Extensions
 
 		public static Document AddIndexed(this Document document, string fieldName, int value)
 		{
-			return AddIndexed(document, fieldName, value.ToString());
+			var field = new NumericField(
+				name: fieldName,
+				precisionStep: 1,
+				store: Field.Store.NO,
+				index: true).SetIntValue(value);
+			document.Add(field);
+			return document;
 		}
 
 		public static Document AddFullText(this Document document, string text)
@@ -50,6 +56,13 @@ namespace QuranX.Persistence.Extensions
 			Add(document, Consts.SerializedObjectFieldName, json, IndexKind.Store);
 			Add(document, Consts.SerializedObjectTypeFieldName, typeof(T).Name, IndexKind.FullText);
 			return document;
+		}
+
+		public static T GetObject<T>(this Document document)
+		{
+			string json = document.Get(Consts.SerializedObjectFieldName);
+			T result = Newtonsoft.Json.JsonConvert.DeserializeObject<T>(json);
+			return result;
 		}
 
 		private static void Add(Document document, string fieldName, string value, IndexKind indexKind)

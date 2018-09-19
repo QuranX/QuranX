@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Collections.Generic;
 using System.Web.Mvc;
-using QuranX.Persistence.Services;
+using QuranX.Persistence.Services.Repositories;
 using QuranX.Shared.Models;
 
 namespace QuranX.Web.Controllers

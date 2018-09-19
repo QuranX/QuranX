@@ -97,6 +97,7 @@
     <Compile Include="Models\VerseText.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\LuceneIndexReaderProvider.cs" />
+    <Compile Include="Services\LuceneIndexSearcherProvider.cs" />
     <Compile Include="Services\Repositories\ChapterRepository.cs" />
     <Compile Include="Services\LuceneAnalyzerProvider.cs" />
     <Compile Include="Services\LuceneDirectoryProvider.cs" />
