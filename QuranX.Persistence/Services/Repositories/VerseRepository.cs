@@ -24,7 +24,7 @@ namespace QuranX.Persistence.Services.Repositories
 		public Verse[] GetVerses(IEnumerable<VerseRangeReference> verseRangeReferences)
 		{
 			IndexSearcher searcher = _indexSearcherProvider.GetIndexSearcher();
-			int[] documentIds = verseRangeReferences.SelectMany(x => GetVerses(x)).Distinct().ToArray();
+			IEnumerable<int> documentIds = verseRangeReferences.SelectMany(x => GetVerses(x)).Distinct();
 			Verse[] verses = documentIds.Select(x => searcher.Doc(x).GetObject<Verse>()).ToArray();
 			return verses;
 		}
