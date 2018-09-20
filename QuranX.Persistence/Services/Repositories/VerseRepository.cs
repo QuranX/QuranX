@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using Lucene.Net.Search;
 using QuranX.Persistence.Extensions;
 using QuranX.Persistence.Models;
@@ -10,7 +9,7 @@ namespace QuranX.Persistence.Services.Repositories
 {
 	public interface IVerseRepository
 	{
-		Task<Verse[]> GetVerses(IEnumerable<VerseRangeReference> verseRangeReferences);
+		Verse[] GetVerses(IEnumerable<VerseRangeReference> verseRangeReferences);
 	}
 
 	public class VerseRepository : IVerseRepository
@@ -22,31 +21,29 @@ namespace QuranX.Persistence.Services.Repositories
 			_indexSearcherProvider = indexSearcherProvider;
 		}
 
-		public async Task<Verse[]> GetVerses(IEnumerable<VerseRangeReference> verseRangeReferences)
+		public Verse[] GetVerses(IEnumerable<VerseRangeReference> verseRangeReferences)
 		{
-			Task<Verse[]>[] tasks = verseRangeReferences.Select(x => GetVerses(x)).ToArray();
-			await Task.WhenAll(tasks);
-			return tasks.SelectMany(x => x.Result).Distinct().ToArray();
+			IndexSearcher searcher = _indexSearcherProvider.GetIndexSearcher();
+			int[] documentIds = verseRangeReferences.SelectMany(x => GetVerses(x)).Distinct().ToArray();
+			Verse[] verses = documentIds.Select(x => searcher.Doc(x).GetObject<Verse>()).ToArray();
+			return verses;
 		}
 
-		private Task<Verse[]> GetVerses(VerseRangeReference verseRangeReference)
+		private int[] GetVerses(VerseRangeReference verseRangeReference)
 		{
-			return Task.Run(() =>
-			{
-				var query = new BooleanQuery();
+			var query = new BooleanQuery();
 
-				var chapterQuery = NumericRangeQuery.NewIntRange(nameof(Verse.ChapterNumber), verseRangeReference.Chapter, verseRangeReference.Chapter, true, true);
-				query.Add(chapterQuery, Occur.MUST);
+			var chapterQuery = NumericRangeQuery.NewIntRange(nameof(Verse.ChapterNumber), verseRangeReference.Chapter, verseRangeReference.Chapter, true, true);
+			query.Add(chapterQuery, Occur.MUST);
 
-				var verseQuery = NumericRangeQuery.NewIntRange(nameof(Verse.VerseNumber), verseRangeReference.FirstVerse, verseRangeReference.LastVerse, true, true);
-				query.Add(verseQuery, Occur.MUST);
+			var verseQuery = NumericRangeQuery.NewIntRange(nameof(Verse.VerseNumber), verseRangeReference.FirstVerse, verseRangeReference.LastVerse, true, true);
+			query.Add(verseQuery, Occur.MUST);
 
-				IndexSearcher searcher = _indexSearcherProvider.GetIndexSearcher();
-				TopDocs docs = searcher.Search(query, 7000);
-				Verse[] verses = docs.ScoreDocs.Select(x => searcher.Doc(x.Doc).GetObject<Verse>()).ToArray();
+			IndexSearcher searcher = _indexSearcherProvider.GetIndexSearcher();
+			TopDocs docs = searcher.Search(query, 7000);
+			int[] verses = docs.ScoreDocs.Select(x => x.Doc).ToArray();
 
-				return verses;
-			});
+			return verses;
 		}
 	}
 }
