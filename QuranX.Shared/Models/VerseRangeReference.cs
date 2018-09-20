@@ -4,10 +4,7 @@ using System.Collections.Generic;
 
 namespace QuranX.Shared.Models
 {
-	public class VerseRangeReference :
-		IComparable,
-		IComparable<VerseRangeReference>,
-		IEnumerable<VerseReference>
+	public class VerseRangeReference : IComparable, IComparable<VerseRangeReference>, IEnumerable<VerseReference>
 	{
 		public int Chapter { get; set; }
 		public int FirstVerse { get; set; }

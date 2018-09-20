@@ -26,7 +26,7 @@ namespace QuranX.Persistence.Services.Repositories
 		{
 			Task<Verse[]>[] tasks = verseRangeReferences.Select(x => GetVerses(x)).ToArray();
 			await Task.WhenAll(tasks);
-			return tasks.SelectMany(x => x.Result).ToArray();
+			return tasks.SelectMany(x => x.Result).Distinct().ToArray();
 		}
 
 		private Task<Verse[]> GetVerses(VerseRangeReference verseRangeReference)

@@ -12,11 +12,11 @@ namespace QuranX.Web
 
 			routes.MapRoute(
 				name: "QuranVerses",
-				url: "x",///{*verses}",
-				defaults: new { Controller = "QuranVerses", Action = "Index", Verses="1.1-2,2.1-200,3.1.200,4.1-100,5.1-100" },
+				url: "{*verses}",
+				defaults: new { controller = "QuranVerses", action = "Index" },
 				constraints: new
 				{
-					//verses = @"^(\d+\.\d+(-\d+)?)(,(\d+\.\d+(-\d+)?))*$"
+					verses = @"^(\d+\.\d+(-\d+)?)(,(\d+\.\d+(-\d+)?))*$"
 				}
 			);
 			routes.MapRoute(
