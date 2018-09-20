@@ -19,7 +19,6 @@ namespace QuranX.Web.Controllers
 
 		public async Task<ActionResult> Index(string verses)
 		{
-			var sw = System.Diagnostics.Stopwatch.StartNew();
 			IEnumerable<VerseRangeReference> verseRangeReferences = verses.Split(',')
 				.ToList()
 				.ConvertAll(x => VerseRangeReference.Parse(x));
@@ -33,8 +32,6 @@ namespace QuranX.Web.Controllers
 			{
 				viewModel.AddRange(retrievedVerses.Where(x => verseRangeReference.Includes(x.ChapterNumber, x.VerseNumber)));
 			}
-			sw.Stop();
-			System.Diagnostics.Trace.WriteLine("===========" + sw.ElapsedMilliseconds);
 			return View(viewModel);
 		}
 	}
