@@ -54,8 +54,7 @@ namespace QuranX.DocumentModel
 		{
 			get
 			{
-				return _Comments
-					.OrderBy(x => x.VerseReference);
+				return _Comments.OrderBy(x => x.VerseReference);
 			}
 		}
 

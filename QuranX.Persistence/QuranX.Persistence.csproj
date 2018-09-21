@@ -105,7 +105,7 @@
     <Compile Include="Services\Registration.cs" />
     <Compile Include="Services\Repositories\Consts.cs" />
     <Compile Include="Services\Repositories\VerseRepository.cs" />
-    <Compile Include="Services\Repositories\VerseWriteRepository.cs" />
+    <Compile Include="Services\Repositories\VerseWriterRepository.cs" />
     <Compile Include="Services\Settings.cs" />
   </ItemGroup>
   <ItemGroup>

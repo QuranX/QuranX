@@ -10,7 +10,7 @@ namespace QuranX.Persistence.Services
 			RegisterLucene(container);
 			container.RegisterSingleton<IChapterRepository, ChapterRepository>();
 			container.RegisterSingleton<IVerseRepository, VerseRepository>();
-			container.RegisterSingleton<IVerseWriteRepository, VerseWriteRepository>();
+			container.RegisterSingleton<IVerseWriterRepository, VerseWriterRepository>();
 		}
 
 		private static void RegisterLucene(IUnityContainer container)

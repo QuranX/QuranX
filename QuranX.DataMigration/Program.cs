@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using QuranX.DataMigration.Migrators;
+using Unity;
 
 namespace QuranX.DataMigration
 {
@@ -10,7 +8,12 @@ namespace QuranX.DataMigration
 	{
 		static void Main(string[] args)
 		{
-			Console.WriteLine(AppDomain.CurrentDomain.BaseDirectory);
+			var container = new UnityContainer();
+			Services.Registration.Register(container);
+			Persistence.Services.Registration.Register(container);
+			var dataMigrator = container.Resolve<IDataMigrator>();
+			dataMigrator.Migrate();
+			Console.WriteLine("Done");
 			Console.ReadLine();
 		}
 	}

@@ -2,24 +2,31 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using NLog;
 using QuranX.DocumentModel;
 
 namespace QuranX.DocumentModel.Factories
 {
 	public class DocumentFactory
 	{
+		private readonly ILogger Logger;
 		QuranDocument Quran;
 		HadithDocument Hadith;
 		TafsirDocument Tafsir;
 		WordsDocument RootWords;
 		CorpusDocument Corpus;
-        LexiconDocument Lexicons;
+		LexiconDocument Lexicons;
 		string GeneratedTranslationsDirectory;
 		string GeneratedHadithsDirectory;
 		string AdditionalHadithXRefsDirectory;
 		string GeneratedTafsirsDirectory;
 		string GeneratedCorpusXmlFilePath;
 		string GeneratedLexiconsXmlDirectory;
+
+		public DocumentFactory(ILogger logger)
+		{
+			Logger = logger;
+		}
 
 		public Document Create(
 			string generatedTranslationsDirectory,
@@ -30,39 +37,39 @@ namespace QuranX.DocumentModel.Factories
 			string generatedLexiconsXmlDirectory
 			)
 		{
-			this.GeneratedTranslationsDirectory = generatedTranslationsDirectory;
-			this.GeneratedHadithsDirectory = generatedHadithsDirectory;
-			this.AdditionalHadithXRefsDirectory = additionalHadithXRefsDirectory;
-			this.GeneratedTafsirsDirectory = generatedTafsirsDirectory;
-			this.GeneratedCorpusXmlFilePath = generatedCorpusXmlFilePath;
-			this.GeneratedLexiconsXmlDirectory = generatedLexiconsXmlDirectory;
+			GeneratedTranslationsDirectory = generatedTranslationsDirectory;
+			GeneratedHadithsDirectory = generatedHadithsDirectory;
+			AdditionalHadithXRefsDirectory = additionalHadithXRefsDirectory;
+			GeneratedTafsirsDirectory = generatedTafsirsDirectory;
+			GeneratedCorpusXmlFilePath = generatedCorpusXmlFilePath;
+			GeneratedLexiconsXmlDirectory = generatedLexiconsXmlDirectory;
 
 			CreateQuran();
 			CreateHadith();
 			CreateTafsir();
 			CreateRootWords();
 			CreateCorpus();
-            CreateLexicons();
+			CreateLexicons();
 			return new Document(
 					quranDocument: Quran,
 					hadithDocument: Hadith,
 					tafsirDocument: Tafsir,
 					rootWordsDocument: RootWords,
 					corpusDocument: Corpus,
-                    lexiconDocument: null
+					lexiconDocument: null
 				);
 		}
 
 		void CreateQuran()
 		{
-			Console.WriteLine("Loading Quran");
+			Logger.Debug("Loading Quran");
 			var factory = new QuranDocumentFactory();
 			Quran = factory.Create(GeneratedTranslationsDirectory);
 		}
 
 		void CreateHadith()
 		{
-			Console.WriteLine("Loading Hadiths");
+			Logger.Debug("Loading Hadiths");
 			var factory = new HadithDocumentFactory();
 			Hadith = factory.Create(
 					generatedHadithsDirectory: GeneratedHadithsDirectory,
@@ -72,31 +79,31 @@ namespace QuranX.DocumentModel.Factories
 
 		void CreateTafsir()
 		{
-			Console.WriteLine("Loading Tafsirs");
+			Logger.Debug("Loading Tafsirs");
 			var factory = new TafsirDocumentFactory();
 			Tafsir = factory.Create(GeneratedTafsirsDirectory);
 		}
 
 		void CreateRootWords()
 		{
-			Console.WriteLine("Loading root words");
+			Logger.Debug("Loading Roots");
 			var factory = new RootWordsDocumentFactory();
 			RootWords = factory.Create(GeneratedCorpusXmlFilePath);
 		}
 
 		void CreateCorpus()
 		{
-			Console.WriteLine("Loading words by verse");
+			Logger.Debug("Loading Corpus");
 			var factory = new CorpusDocumentFactory();
 			Corpus = factory.Create(GeneratedCorpusXmlFilePath);
 		}
 
-        void CreateLexicons()
-        {
-            Console.WriteLine("Creating lexicons");
-            var factory = new LexiconDocumentFactory();
-            Lexicons = factory.Create(GeneratedLexiconsXmlDirectory);
-        }
+		void CreateLexicons()
+		{
+			Logger.Debug("Loading Lexicons");
+			var factory = new LexiconDocumentFactory();
+			Lexicons = factory.Create(GeneratedLexiconsXmlDirectory);
+		}
 
 	}
 }
