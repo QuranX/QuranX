@@ -9,17 +9,17 @@ namespace QuranX.Persistence.Services
 
 	public class LuceneDirectoryProvider : ILuceneDirectoryProvider
 	{
-		private readonly Directory _directory;
+		private readonly Directory Directory;
 
 		public LuceneDirectoryProvider(ISettings settings)
 		{
 			System.IO.Directory.CreateDirectory(settings.DataPath);
-			_directory = FSDirectory.Open(settings.DataPath);
+			Directory = FSDirectory.Open(settings.DataPath);
 		}
 
 		public Directory GetDirectory()
 		{
-			return _directory;
+			return Directory;
 		}
 	}
 }

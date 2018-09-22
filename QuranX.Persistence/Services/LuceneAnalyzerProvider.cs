@@ -10,16 +10,16 @@ namespace QuranX.Persistence.Services
 
 	public class LuceneAnalyzerProvider : ILuceneAnalyzerProvider
 	{
-		public readonly Analyzer _analyzer;
+		public readonly Analyzer Analyzer;
 
 		public LuceneAnalyzerProvider()
 		{
-			_analyzer = new StandardAnalyzer(Lucene.Net.Util.Version.LUCENE_30);
+			Analyzer = new StandardAnalyzer(Lucene.Net.Util.Version.LUCENE_30);
 		}
 
 		public Analyzer GetAnalyzer()
 		{
-			return _analyzer;
+			return Analyzer;
 		}
 	}
 }

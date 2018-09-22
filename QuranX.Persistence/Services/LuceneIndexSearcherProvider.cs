@@ -10,16 +10,16 @@ namespace QuranX.Persistence.Services
 
 	public class LuceneIndexSearcherProvider : ILuceneIndexSearcherProvider
 	{
-		private readonly Lazy<IndexSearcher> _indexSearcher;
+		private readonly Lazy<IndexSearcher> IndexSearcher;
 
 		public LuceneIndexSearcherProvider(ILuceneIndexReaderProvider indexReaderProvider)
 		{
-			_indexSearcher = new Lazy<IndexSearcher>(() => new IndexSearcher(indexReaderProvider.GetReader()));
+			IndexSearcher = new Lazy<IndexSearcher>(() => new IndexSearcher(indexReaderProvider.GetReader()));
 		}
 
 		public IndexSearcher GetIndexSearcher()
 		{
-			return _indexSearcher.Value;
+			return IndexSearcher.Value;
 		}
 	}
 }

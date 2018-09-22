@@ -93,6 +93,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Extensions\DocumentExtensions.cs" />
+    <Compile Include="Models\Commentary.cs" />
+    <Compile Include="Models\Commentator.cs" />
     <Compile Include="Models\Verse.cs" />
     <Compile Include="Models\VerseText.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -103,6 +105,8 @@
     <Compile Include="Services\LuceneDirectoryProvider.cs" />
     <Compile Include="Services\LuceneIndexWriterProvider.cs" />
     <Compile Include="Services\Registration.cs" />
+    <Compile Include="Services\Repositories\CommentatorRepository.cs" />
+    <Compile Include="Services\Repositories\CommentatorWriteRepository.cs" />
     <Compile Include="Services\Repositories\Consts.cs" />
     <Compile Include="Services\Repositories\VerseRepository.cs" />
     <Compile Include="Services\Repositories\VerseWriterRepository.cs" />

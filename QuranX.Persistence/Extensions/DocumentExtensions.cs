@@ -15,7 +15,7 @@ namespace QuranX.Persistence.Extensions
 			FullText = Store | Index
 		}
 
-		public static Document AddIndexed(Document document, string fieldName, string value)
+		public static Document AddIndexed(this Document document, string fieldName, string value)
 		{
 			Add(document, fieldName, value, IndexKind.Index);
 			return document;

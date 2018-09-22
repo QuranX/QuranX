@@ -10,16 +10,16 @@ namespace QuranX.Persistence.Services
 
 	public class LuceneIndexReaderProvider : ILuceneIndexReaderProvider
 	{
-		private readonly Lazy<IndexReader> _indexReader;
+		private readonly Lazy<IndexReader> IndexReader;
 
 		public LuceneIndexReaderProvider(ILuceneDirectoryProvider directoryProvider)
 		{
-			_indexReader = new Lazy<IndexReader>(() => IndexReader.Open(directoryProvider.GetDirectory(), true));
+			IndexReader = new Lazy<IndexReader>(() => Lucene.Net.Index.IndexReader.Open(directoryProvider.GetDirectory(), true));
 		}
 
 		public IndexReader GetReader()
 		{
-			return _indexReader.Value;
+			return IndexReader.Value;
 		}
 	}
 }

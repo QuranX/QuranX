@@ -14,24 +14,25 @@ namespace QuranX.Persistence.Services.Repositories
 
 	public class VerseRepository : IVerseRepository
 	{
-		private readonly ILuceneIndexSearcherProvider _indexSearcherProvider;
+		private readonly ILuceneIndexSearcherProvider IndexSearcherProvider;
 
 		public VerseRepository(ILuceneIndexSearcherProvider indexSearcherProvider)
 		{
-			_indexSearcherProvider = indexSearcherProvider;
+			IndexSearcherProvider = indexSearcherProvider;
 		}
 
 		public Verse[] GetVerses(IEnumerable<VerseRangeReference> verseRangeReferences)
 		{
-			IndexSearcher searcher = _indexSearcherProvider.GetIndexSearcher();
 			IEnumerable<int> documentIds = verseRangeReferences.SelectMany(x => GetVerses(x)).Distinct();
+
+			IndexSearcher searcher = IndexSearcherProvider.GetIndexSearcher();
 			Verse[] verses = documentIds.Select(x => searcher.Doc(x).GetObject<Verse>()).ToArray();
 			return verses;
 		}
 
 		private int[] GetVerses(VerseRangeReference verseRangeReference)
 		{
-			var query = new BooleanQuery();
+			var query = new BooleanQuery(disableCoord: true);
 
 			var chapterQuery = NumericRangeQuery.NewIntRange(nameof(Verse.ChapterNumber), verseRangeReference.Chapter, verseRangeReference.Chapter, true, true);
 			query.Add(chapterQuery, Occur.MUST);
@@ -39,7 +40,7 @@ namespace QuranX.Persistence.Services.Repositories
 			var verseQuery = NumericRangeQuery.NewIntRange(nameof(Verse.VerseNumber), verseRangeReference.FirstVerse, verseRangeReference.LastVerse, true, true);
 			query.Add(verseQuery, Occur.MUST);
 
-			IndexSearcher searcher = _indexSearcherProvider.GetIndexSearcher();
+			IndexSearcher searcher = IndexSearcherProvider.GetIndexSearcher();
 			TopDocs docs = searcher.Search(query, 7000);
 			int[] verses = docs.ScoreDocs.Select(x => x.Doc).ToArray();
 

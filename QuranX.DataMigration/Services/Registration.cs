@@ -1,5 +1,4 @@
-﻿using System;
-using System.IO;
+﻿using System.IO;
 using System.Reflection;
 using NLog;
 using QuranX.DataMigration.Migrators;
@@ -18,6 +17,7 @@ namespace QuranX.DataMigration.Services
 			container.RegisterSingleton<IXmlDocumentProvider, XmlDocumentProvider>();
 			container.RegisterSingleton<IDataMigrator, DataMigrator>();
 			container.RegisterSingleton<IQuranMigrator, QuranMigrator>();
+			container.RegisterSingleton<ICommentaryMigrator, CommentaryMigrator>();
 		}
 
 		private static void RegisterXmlSettings(IUnityContainer container)

@@ -10,18 +10,24 @@ namespace QuranX.Persistence.Services
 
 	public class LuceneIndexWriterProvider : ILuceneIndexWriterProvider
 	{
-		private readonly Lazy<IndexWriter> _indexWriter;
+		private readonly Lazy<IndexWriter> IndexWriter;
 
 		public LuceneIndexWriterProvider(
 			ILuceneDirectoryProvider directoryProvider, 
 			ILuceneAnalyzerProvider analyzerProvider)
 		{
-			_indexWriter = new Lazy<IndexWriter>(() => new IndexWriter(directoryProvider.GetDirectory(), analyzerProvider.GetAnalyzer(), IndexWriter.MaxFieldLength.UNLIMITED));
+			IndexWriter = new Lazy<IndexWriter>(() =>
+			{
+				return new IndexWriter(
+					directoryProvider.GetDirectory(), 
+					analyzerProvider.GetAnalyzer(), 
+					Lucene.Net.Index.IndexWriter.MaxFieldLength.UNLIMITED);
+			});
 		}
 
 		public IndexWriter GetIndexWriter()
 		{
-			return _indexWriter.Value;
+			return IndexWriter.Value;
 		}
 	}
 }

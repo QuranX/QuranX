@@ -1,7 +1,5 @@
 ﻿using QuranX.DocumentModel;
-using QuranX.Persistence.Services;
 using QuranX.Persistence.Services.Repositories;
-using System.IO;
 using System.Collections.Generic;
 using System.Linq;
 using QuranX.DataMigration.Services;
@@ -20,32 +18,22 @@ namespace QuranX.DataMigration.Migrators
 	public class QuranMigrator : IQuranMigrator
 	{
 		private readonly XmlDocument XmlDocument;
-		private readonly ISettings Settings;
 		private readonly ILogger Logger;
 		private readonly IVerseWriterRepository VerseWriterRepository;
-		private readonly ILuceneIndexWriterProvider WriterProvider;
 
 		public QuranMigrator(
-			ISettings settings,
 			ILogger logger,
 			IXmlDocumentProvider xmlDocumentProvider,
-			IVerseWriterRepository verseWriterRepository,
-			ILuceneIndexWriterProvider luceneIndexWriterProvider)
+			IVerseWriterRepository verseWriterRepository)
 		{
-			Settings = settings;
 			Logger = logger;
 			XmlDocument = xmlDocumentProvider.Document;
 			VerseWriterRepository = verseWriterRepository;
-			WriterProvider = luceneIndexWriterProvider;
 		}
 
 		public void Migrate()
 		{
-			Directory.Delete(Settings.DataPath, true);
-			Directory.CreateDirectory(Settings.DataPath);
 			WriteVerses();
-			WriterProvider.GetIndexWriter().Commit();
-			WriterProvider.GetIndexWriter().Optimize(true);
 		}
 
 		private void WriteVerses()
