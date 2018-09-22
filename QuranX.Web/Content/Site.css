@@ -1,22 +1,49 @@
 ﻿.quran__chapter-list {
+	margin: 0;
 	padding: 0;
+	list-style: none;
+	counter-reset: li;
 }
 
-	.quran__chapter-list li {
+	.quran__chapter-list > li {
+		border: 1px solid #aaa;
+		border-radius: 8px;
+		margin: 0 0 0.5em 0;
+		padding: 0.5em;
+		text-align: center;
+		counter-increment: li;
+	}
+
+	.quran__chapter-list > li > a:before {
+		content: counter(li);
+		display: inline-block;
+		position: absolute;
+		left: 3em;
+		vertical-align: middle;
+		font-size: 2rem;
+	}
+
+		.quran__chapter-list > li > a {
+			display: block;
+			font-size: 2rem;
+			text-decoration: none;
+		}
+
+.quran__verse-list {
+	padding: 0;
+	list-style: none;
+}
+
+	.quran__verse-list.collapsing {
+		transition-duration: 0s;
+	}
+
+	.quran__verse-list li {
 		margin: 0 2rem;
 	}
 
-@media (max-width: 767px) {
-	.quran__chapter-list {
-		-webkit-column-count: 1;
-		-moz-column-count: 1;
-		-ms-column-count: 1;
-		column-count: 1;
-	}
-}
-
-@media (min-width: 768px) {
-	.quran__chapter-list {
+@media (max-width: 349px) {
+	.quran__verse-list {
 		-webkit-column-count: 2;
 		-moz-column-count: 2;
 		-ms-column-count: 2;
@@ -24,8 +51,8 @@
 	}
 }
 
-@media (min-width: 1100px) {
-	.quran__chapter-list {
+@media (min-width: 350px) {
+	.quran__verse-list {
 		-webkit-column-count: 3;
 		-moz-column-count: 3;
 		-ms-column-count: 3;
@@ -33,8 +60,8 @@
 	}
 }
 
-@media (min-width: 1500px) {
-	.quran__chapter-list {
+@media (min-width: 450px) {
+	.quran__verse-list {
 		-webkit-column-count: 4;
 		-moz-column-count: 4;
 		-ms-column-count: 4;
@@ -42,14 +69,105 @@
 	}
 }
 
-@media (min-width: 1800px) {
-	.quran__chapter-list {
+@media (min-width: 550px) {
+	.quran__verse-list {
 		-webkit-column-count: 5;
 		-moz-column-count: 5;
 		-ms-column-count: 5;
 		column-count: 5;
 	}
 }
+
+@media (min-width: 650px) {
+	.quran__verse-list {
+		-webkit-column-count: 6;
+		-moz-column-count: 6;
+		-ms-column-count: 6;
+		column-count: 6;
+	}
+}
+
+@media (min-width: 750px) {
+	.quran__verse-list {
+		-webkit-column-count: 7;
+		-moz-column-count: 7;
+		-ms-column-count: 7;
+		column-count: 7;
+	}
+}
+
+@media (min-width: 850px) {
+	.quran__verse-list {
+		-webkit-column-count: 8;
+		-moz-column-count: 8;
+		-ms-column-count: 8;
+		column-count: 8;
+	}
+}
+
+@media (min-width: 950px) {
+	.quran__verse-list {
+		-webkit-column-count: 9;
+		-moz-column-count: 9;
+		-ms-column-count: 9;
+		column-count: 9;
+	}
+}
+
+@media (min-width: 1050px) {
+	.quran__verse-list {
+		-webkit-column-count: 10;
+		-moz-column-count: 10;
+		-ms-column-count: 10;
+		column-count: 10;
+	}
+}
+
+@media (min-width: 1150px) {
+	.quran1111verse-list {
+		-webkit-column-count: 11;
+		-moz-column-count: 11;
+		-ms-column-count: 11;
+		column-count: 11;
+	}
+}
+
+@media (min-width: 1250px) {
+	.quran1212verse-list {
+		-webkit-column-count: 12;
+		-moz-column-count: 12;
+		-ms-column-count: 12;
+		column-count: 12;
+	}
+}
+
+@media (min-width: 1350px) {
+	.quran1313verse-list {
+		-webkit-column-count: 13;
+		-moz-column-count: 13;
+		-ms-column-count: 13;
+		column-count: 13;
+	}
+}
+
+@media (min-width: 1450px) {
+	.quran1414verse-list {
+		-webkit-column-count: 14;
+		-moz-column-count: 14;
+		-ms-column-count: 14;
+		column-count: 14;
+	}
+}
+
+@media (min-width: 1550px) {
+	.quran1515verse-list {
+		-webkit-column-count: 15;
+		-moz-column-count: 15;
+		-ms-column-count: 15;
+		column-count: 15;
+	}
+}
+
 
 
 body {

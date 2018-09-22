@@ -192,6 +192,8 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\ChapterAndVerseRangeReferenceSelection.cs" />
+    <Compile Include="Models\ChapterAndVerseReferenceSelection.cs" />
     <Compile Include="Models\ChapterAndVerseSelection.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -246,10 +248,9 @@
     <Content Include="Views\QuranChapters\Index.cshtml" />
     <Content Include="Views\QuranVerses\Index.cshtml" />
     <Content Include="Views\Commentators\Index.cshtml" />
+    <Content Include="Views\Commentary\Index.cshtml" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Views\Commentary\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

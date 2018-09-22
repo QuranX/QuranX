@@ -13,7 +13,7 @@ namespace QuranX.Persistence.Services.Repositories
 	{
 		Commentary[] GetForVerse(int chapterNumber, int verseNumber);
 		Commentary GetForVerse(string commentatorCode, int chapterNumber, int verseNumber);
-		VerseRangeReference[] GetVerseRangeReferencesForChapter(string commentatorCode, int chapterNumber);
+		VerseRangeReference[] GetVerseRangeReferences(string commentatorCode);
 	}
 
 	public class CommentaryRepository : ICommentaryRepository
@@ -29,9 +29,9 @@ namespace QuranX.Persistence.Services.Repositories
 		{
 			IEnumerable<int> docIds =
 				GetCommentaryIds(
+					commentatorCode: null,
 					chapterNumber: chapterNumber,
-					verseNumber: verseNumber,
-					commentatorCode: null)
+					verseNumber: verseNumber)
 				.Distinct();
 
 			IndexSearcher indexSearcher = IndexSearcherProvider.GetIndexSearcher();
@@ -64,7 +64,7 @@ namespace QuranX.Persistence.Services.Repositories
 				.Single();
 		}
 
-		public VerseRangeReference[] GetVerseRangeReferencesForChapter(string commentatorCode, int chapterNumber)
+		public VerseRangeReference[] GetVerseRangeReferences(string commentatorCode)
 		{
 			if (commentatorCode == null)
 				throw new ArgumentNullException(nameof(commentatorCode));
@@ -72,9 +72,9 @@ namespace QuranX.Persistence.Services.Repositories
 			IndexSearcher indexSearcher = IndexSearcherProvider.GetIndexSearcher();
 			IEnumerable<int> docIds =
 				GetCommentaryIds(
-					chapterNumber: chapterNumber,
-					verseNumber: null,
-					commentatorCode: commentatorCode);
+					commentatorCode: commentatorCode,
+					chapterNumber: null,
+					verseNumber: null);
 			return
 				docIds
 				.Select(x => indexSearcher.Doc(x))
@@ -86,7 +86,7 @@ namespace QuranX.Persistence.Services.Repositories
 				.ToArray();
 		}
 
-		private int[] GetCommentaryIds(int chapterNumber, int? verseNumber = null, string commentatorCode = null)
+		private int[] GetCommentaryIds(string commentatorCode, int? chapterNumber, int? verseNumber = null)
 		{
 			var query = new BooleanQuery(disableCoord: true);
 
@@ -97,31 +97,34 @@ namespace QuranX.Persistence.Services.Repositories
 				query.Add(codeQuery, Occur.MUST);
 			}
 
-			var chapterQuery = NumericRangeQuery.NewIntRange(
-				nameof(Verse.ChapterNumber),
-				chapterNumber,
-				chapterNumber,
-				minInclusive: true,
-				maxInclusive: true);
-			query.Add(chapterQuery, Occur.MUST);
-
-			if (verseNumber != null)
+			if (chapterNumber != null)
 			{
-				var excludeCommentariesFinishingBeforeRequiredVerseQuery = NumericRangeQuery.NewIntRange(
-					nameof(Commentary.LastVerseNumber),
-					0,
-					verseNumber - 1,
+				var chapterQuery = NumericRangeQuery.NewIntRange(
+					nameof(Verse.ChapterNumber),
+					chapterNumber,
+					chapterNumber,
 					minInclusive: true,
 					maxInclusive: true);
-				query.Add(excludeCommentariesFinishingBeforeRequiredVerseQuery, Occur.MUST_NOT);
+				query.Add(chapterQuery, Occur.MUST);
 
-				var excludeCommentariesStartingAfterRequiredVerseQuery = NumericRangeQuery.NewIntRange(
-					nameof(Commentary.FirstVerseNumber),
-					verseNumber + 1,
-					999,
-					minInclusive: true,
-					maxInclusive: true);
-				query.Add(excludeCommentariesStartingAfterRequiredVerseQuery, Occur.MUST_NOT);
+				if (verseNumber != null)
+				{
+					var excludeCommentariesFinishingBeforeRequiredVerseQuery = NumericRangeQuery.NewIntRange(
+						nameof(Commentary.LastVerseNumber),
+						0,
+						verseNumber - 1,
+						minInclusive: true,
+						maxInclusive: true);
+					query.Add(excludeCommentariesFinishingBeforeRequiredVerseQuery, Occur.MUST_NOT);
+
+					var excludeCommentariesStartingAfterRequiredVerseQuery = NumericRangeQuery.NewIntRange(
+						nameof(Commentary.FirstVerseNumber),
+						verseNumber + 1,
+						999,
+						minInclusive: true,
+						maxInclusive: true);
+					query.Add(excludeCommentariesStartingAfterRequiredVerseQuery, Occur.MUST_NOT);
+				}
 			}
 
 			IndexSearcher searcher = IndexSearcherProvider.GetIndexSearcher();
