@@ -107,29 +107,27 @@ namespace QuranX.Persistence.Services.Repositories
 
 			if (verseNumber != null)
 			{
+				var excludeCommentariesFinishingBeforeRequiredVerseQuery = NumericRangeQuery.NewIntRange(
+					nameof(Commentary.LastVerseNumber),
+					0,
+					verseNumber - 1,
+					minInclusive: true,
+					maxInclusive: true);
+				query.Add(excludeCommentariesFinishingBeforeRequiredVerseQuery, Occur.MUST_NOT);
+
 				var excludeCommentariesStartingAfterRequiredVerseQuery = NumericRangeQuery.NewIntRange(
-					nameof(Verse.VerseNumber),
-					verseNumber,
+					nameof(Commentary.FirstVerseNumber),
+					verseNumber + 1,
 					999,
-					minInclusive: false,
+					minInclusive: true,
 					maxInclusive: true);
 				query.Add(excludeCommentariesStartingAfterRequiredVerseQuery, Occur.MUST_NOT);
-
-				var excludeCommentariesEndingBeforeRequiredVerseQuery = NumericRangeQuery.NewIntRange(
-					nameof(Verse.VerseNumber),
-					1,
-					verseNumber,
-					minInclusive: true,
-					maxInclusive: false);
-				query.Add(excludeCommentariesEndingBeforeRequiredVerseQuery, Occur.MUST_NOT);
 			}
 
 			IndexSearcher searcher = IndexSearcherProvider.GetIndexSearcher();
 			TopDocs docs = searcher.Search(query, 7000);
 			int[] verses = docs.ScoreDocs.Select(x => x.Doc).ToArray();
-
 			return verses;
 		}
-
 	}
 }
