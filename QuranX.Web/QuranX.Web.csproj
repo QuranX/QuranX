@@ -185,6 +185,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\UnityConfig.cs" />
+    <Compile Include="Controllers\CommentaryController.cs" />
     <Compile Include="Controllers\CommentatorsController.cs" />
     <Compile Include="Controllers\QuranChaptersController.cs" />
     <Compile Include="Controllers\QuranVersesController.cs" />

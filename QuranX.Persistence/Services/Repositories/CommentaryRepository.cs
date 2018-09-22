@@ -107,21 +107,21 @@ namespace QuranX.Persistence.Services.Repositories
 
 			if (verseNumber != null)
 			{
-				var excludeLowerVersesQuery = NumericRangeQuery.NewIntRange(
-					nameof(Verse.VerseNumber),
-					0,
-					verseNumber,
-					minInclusive: true,
-					maxInclusive: false);
-				query.Add(excludeLowerVersesQuery, Occur.MUST_NOT);
-
-				var excludeHigherVersesQuery = NumericRangeQuery.NewIntRange(
+				var excludeCommentariesStartingAfterRequiredVerseQuery = NumericRangeQuery.NewIntRange(
 					nameof(Verse.VerseNumber),
 					verseNumber,
 					999,
 					minInclusive: false,
 					maxInclusive: true);
-				query.Add(excludeHigherVersesQuery, Occur.MUST_NOT);
+				query.Add(excludeCommentariesStartingAfterRequiredVerseQuery, Occur.MUST_NOT);
+
+				var excludeCommentariesEndingBeforeRequiredVerseQuery = NumericRangeQuery.NewIntRange(
+					nameof(Verse.VerseNumber),
+					1,
+					verseNumber,
+					minInclusive: true,
+					maxInclusive: false);
+				query.Add(excludeCommentariesEndingBeforeRequiredVerseQuery, Occur.MUST_NOT);
 			}
 
 			IndexSearcher searcher = IndexSearcherProvider.GetIndexSearcher();
