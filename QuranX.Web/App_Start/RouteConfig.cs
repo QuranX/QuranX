@@ -11,19 +11,23 @@ namespace QuranX.Web
 			routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
 			routes.MapRoute(
+				name: "Commentators",
+				url: "Tafsirs",
+				defaults: new { Controller = "Commentators", Action = "Index" });
+
+			routes.MapRoute(
 				name: "QuranVerses",
-				url: "{*verses}",
-				defaults: new { controller = "QuranVerses", action = "Index" },
+				url: "{*Verses}",
+				defaults: new { Controller = "QuranVerses", Action = "Index" },
 				constraints: new
 				{
-					verses = @"^(\d+\.\d+(-\d+)?)(,(\d+\.\d+(-\d+)?))*$"
-				}
-			);
+					Verses = @"^(\d+\.\d+(-\d+)?)(,(\d+\.\d+(-\d+)?))*$"
+				});
+
 			routes.MapRoute(
 				name: "QuranChapters",
 				url: "",
-				defaults: new { Controller = "QuranChapters", Action = nameof(QuranChaptersController.Index) }
-			);
+				defaults: new { Controller = "QuranChapters", Action = nameof(QuranChaptersController.Index) });
 		}
 	}
 }

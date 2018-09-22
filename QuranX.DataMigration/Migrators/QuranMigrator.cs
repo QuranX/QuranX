@@ -40,6 +40,7 @@ namespace QuranX.DataMigration.Migrators
 		{
 			foreach (Chapter chapter in XmlDocument.QuranDocument.Chapters)
 			{
+				Logger.Debug($"Writing chapter {chapter.Index}");
 				foreach (Verse verse in chapter.Verses)
 				{
 					WriteVerse(chapter, verse);
@@ -49,7 +50,6 @@ namespace QuranX.DataMigration.Migrators
 
 		private void WriteVerse(Chapter chapter, Verse verse)
 		{
-			Logger.Debug($"Writing verse {chapter.Index}.{verse.Index}");
 			var verseTexts = new List<VerseTextViewModel>();
 			verseTexts.Add(new VerseTextViewModel("AR", "Arabic", verse.ArabicText));
 			foreach (VerseTranslation translation in verse.Translations.OrderBy(x => x.TranslatorName))

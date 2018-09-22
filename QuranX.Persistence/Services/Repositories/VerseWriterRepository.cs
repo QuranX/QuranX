@@ -28,7 +28,7 @@ namespace QuranX.Persistence.Services.Repositories
 
 			var document = new Document();
 			document
-				.AddIndexed(nameof(Verse.ID), verse.ID)
+				.AddIndexed(nameof(Verse.Id), verse.Id)
 				.AddIndexed(nameof(Verse.ChapterNumber), verse.ChapterNumber)
 				.AddIndexed(nameof(Verse.VerseNumber), verse.VerseNumber)
 				.AddFullText(verse.VerseTexts.Select(x => x.Text))

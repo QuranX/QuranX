@@ -33,6 +33,7 @@ namespace QuranX.Persistence.Services.Repositories
 		private int[] GetVerses(VerseRangeReference verseRangeReference)
 		{
 			var query = new BooleanQuery(disableCoord: true);
+			query.FilterByType<Verse>();
 
 			var chapterQuery = NumericRangeQuery.NewIntRange(nameof(Verse.ChapterNumber), verseRangeReference.Chapter, verseRangeReference.Chapter, true, true);
 			query.Add(chapterQuery, Occur.MUST);

@@ -1,0 +1,18 @@
+﻿@using QuranX.Persistence.Models
+@model IEnumerable<Commentator>
+
+@{
+	ViewBag.Title = "Qur'anic commentators";
+}
+
+<h1>@ViewBag.Title</h1>
+<ol class="commentary__commentator-list">
+	@foreach (Commentator commentator in Model)
+	{
+		<li>
+			<a href="/Tafsir/@commentator.Code">
+				@commentator.Description
+			</a>
+		</li>
+	}
+</ol>

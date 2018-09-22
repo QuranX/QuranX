@@ -10,13 +10,13 @@ namespace QuranX.Web.Controllers
 {
 	public class QuranVersesController : Controller
 	{
-		private readonly IChapterRepository _chapterRepository;
-		private readonly IVerseRepository _verseRepository;
+		private readonly IChapterRepository ChapterRepository;
+		private readonly IVerseRepository VerseRepository;
 
 		public QuranVersesController(IChapterRepository chapterRepository, IVerseRepository verseRepository)
 		{
-			_chapterRepository = chapterRepository;
-			_verseRepository = verseRepository;
+			ChapterRepository = chapterRepository;
+			VerseRepository = verseRepository;
 		}
 
 		public ActionResult Index(string verses)
@@ -24,7 +24,7 @@ namespace QuranX.Web.Controllers
 			IEnumerable<VerseRangeReference> verseRangeReferences = verses.Split(',')
 				.ToList()
 				.ConvertAll(x => VerseRangeReference.Parse(x));
-			Verse[] retrievedVerses = _verseRepository.GetVerses(verseRangeReferences)
+			Verse[] retrievedVerses = VerseRepository.GetVerses(verseRangeReferences)
 				.OrderBy(x => x.ChapterNumber)
 				.ThenBy(x => x.VerseNumber)
 				.ToArray();
@@ -33,7 +33,7 @@ namespace QuranX.Web.Controllers
 			foreach (VerseRangeReference verseRangeReference in verseRangeReferences)
 			{
 				Verse[] currentSelection = retrievedVerses.Where(x => verseRangeReference.Includes(x.ChapterNumber, x.VerseNumber)).ToArray();
-				var chapterAndSelection = new ChapterAndVerseSelection(_chapterRepository.Get(verseRangeReference.Chapter), currentSelection);
+				var chapterAndSelection = new ChapterAndVerseSelection(ChapterRepository.Get(verseRangeReference.Chapter), currentSelection);
 				viewModel.Add(chapterAndSelection);
 			}
 			return View(viewModel);

@@ -7,16 +7,16 @@ namespace QuranX.Web.Controllers
 {
 	public class QuranChaptersController : Controller
 	{
-		private readonly IChapterRepository _chapterRepository;
+		private readonly IChapterRepository ChapterRepository;
 
 		public QuranChaptersController(IChapterRepository chapterRepository)
 		{
-			_chapterRepository = chapterRepository;
+			ChapterRepository = chapterRepository;
 		}
 
 		public ActionResult Index()
 		{
-			IEnumerable<Chapter> viewModel = _chapterRepository.GetAll();
+			IEnumerable<Chapter> viewModel = ChapterRepository.GetAll();
 			return View(viewModel);
 		}
 	}

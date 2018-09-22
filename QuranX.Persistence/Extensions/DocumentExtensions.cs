@@ -54,7 +54,7 @@ namespace QuranX.Persistence.Extensions
 		{
 			string json = Newtonsoft.Json.JsonConvert.SerializeObject(instance);
 			Add(document, Consts.SerializedObjectFieldName, json, IndexKind.Store);
-			Add(document, Consts.SerializedObjectTypeFieldName, typeof(T).Name, IndexKind.FullText);
+			Add(document, Consts.SerializedObjectTypeFieldName, typeof(T).Name, IndexKind.Index);
 			return document;
 		}
 

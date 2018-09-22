@@ -6,7 +6,7 @@ namespace QuranX.Persistence.Models
 {
 	public class Verse : IComparable, IComparable<Verse>
 	{
-		public int ID { get; set; }
+		public int Id { get; set; }
 		public int ChapterNumber { get; set; }
 		public int VerseNumber { get; set; }
 		public int RootWordCount { get; set; }
@@ -20,7 +20,7 @@ namespace QuranX.Persistence.Models
 		{
 			QuranStructure.EnsureChapterAndVerseAreValid(chapterNumber, verseNumber);
 
-			ID = VerseReference.GetIndexValue(chapterNumber, verseNumber);
+			Id = VerseReference.GetIndexValue(chapterNumber, verseNumber);
 			ChapterNumber = chapterNumber;
 			VerseNumber = verseNumber;
 			RootWordCount = rootWordCount;

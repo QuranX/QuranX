@@ -45,8 +45,7 @@ namespace QuranX.DataMigration.Migrators
 			Logger.Debug($"Commentary {commentator.Code}");
 			var commentatorViewModel = new CommentatorViewModel(
 				code: commentator.Code,
-				description: commentator.Mufassir,
-				isTafsir: commentator.IsTafsir);
+				description: commentator.Mufassir);
 			CommentatorWriteRepository.Write(commentatorViewModel);
 
 			foreach (TafsirComment commentary in commentator.Comments)

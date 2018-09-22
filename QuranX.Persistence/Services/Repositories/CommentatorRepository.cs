@@ -23,13 +23,15 @@ namespace QuranX.Persistence.Services.Repositories
 		public Commentator[] GetAll()
 		{
 			IndexSearcher searcher = IndexSearcherProvider.GetIndexSearcher();
-			var codeTerm = new Term(Consts.SerializedObjectTypeFieldName, nameof(Commentator.Code));
-			var query = new TermQuery(codeTerm);
+			var query = new BooleanQuery(disableCoord: true);
+			query.FilterByType<Commentator>();
 
 			IndexSearcher indexSeacher = IndexSearcherProvider.GetIndexSearcher();
 			TopDocs docs = indexSeacher.Search(query, 1000);
 			Commentator[] commentators = docs.ScoreDocs
-				.Select(x => indexSeacher.Doc(x.Doc).GetObject<Commentator>())
+				.Select(x => x.Doc)
+				.Distinct()
+				.Select(docId => indexSeacher.Doc(docId).GetObject<Commentator>())
 				.OrderBy(x => x.Description)
 				.ToArray();
 			return commentators;

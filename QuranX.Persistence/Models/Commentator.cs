@@ -4,15 +4,13 @@
 	{
 		public string Code { get; set; }
 		public string Description { get; set; }
-		public bool IsTafsir { get; set; }
 
 		public Commentator() { }
 
-		public Commentator(string code, string description, bool isTafsir)
+		public Commentator(string code, string description)
 		{
 			Code = code;
 			Description = description;
-			IsTafsir = isTafsir;
 		}
 	}
 }
