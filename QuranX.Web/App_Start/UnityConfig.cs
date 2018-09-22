@@ -3,6 +3,7 @@ using System.Web;
 using System.Web.Hosting;
 using System.Web.Mvc;
 using QuranX.Persistence.Services;
+using QuranX.Web.Builders;
 using Unity;
 using Unity.Mvc5;
 
@@ -14,6 +15,7 @@ namespace QuranX.Web
 		{
 			IUnityContainer container = new UnityContainer();
 			RegisterSettings(container);
+			RegisterServices(container);
 			Persistence.Services.Registration.Register(container);
 
 			// register all your components with the container here
@@ -29,6 +31,11 @@ namespace QuranX.Web
 			string dataPath = HostingEnvironment.MapPath("~/App_Data");
 			var settings = new Settings(dataPath);
 			container.RegisterInstance<ISettings>(settings);
+		}
+
+		private static void RegisterServices(IUnityContainer container)
+		{
+			container.RegisterSingleton<ICommentariesForVerseBuilder, CommentariesForVerseBuilder>();
 		}
 	}
 }

@@ -1,0 +1,17 @@
+﻿@using QuranX.Web.Models
+@using QuranX.Shared.Models
+@model CommentatorAndCommentary
+
+@{
+	var verse = new VerseRangeReference(Model.Commentary.ChapterNumber, Model.Commentary.FirstVerseNumber, Model.Commentary.LastVerseNumber);
+	string verseCaption = verse.IsMultipleVerses ? "verses" : "verse";
+}
+<div>
+	<h2>
+		@Model.Commentator.Description commentary for @verseCaption <a href="/@verse">@verse</a>
+	</h2>
+	@foreach (string text in Model.Commentary.Text)
+	{
+		<p>@text</p>
+	}
+</div>

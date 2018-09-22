@@ -9,6 +9,7 @@ namespace QuranX.Shared.Models
 		public int Chapter { get; set; }
 		public int FirstVerse { get; set; }
 		public int LastVerse { get; set; }
+		public bool IsMultipleVerses => FirstVerse != LastVerse;
 
 		public VerseRangeReference() { }
 

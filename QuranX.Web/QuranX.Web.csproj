@@ -185,16 +185,20 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\UnityConfig.cs" />
+    <Compile Include="Builders\CommentariesForVerseBuilder.cs" />
     <Compile Include="Controllers\CommentaryController.cs" />
     <Compile Include="Controllers\CommentatorsController.cs" />
     <Compile Include="Controllers\QuranChaptersController.cs" />
     <Compile Include="Controllers\QuranVersesController.cs" />
+    <Compile Include="Controllers\VerseCommentaryController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\ChapterAndVerseRangeReferenceSelection.cs" />
     <Compile Include="Models\ChapterAndVerseReferenceSelection.cs" />
     <Compile Include="Models\ChapterAndVerseSelection.cs" />
+    <Compile Include="Models\CommentariesForVerse.cs" />
+    <Compile Include="Models\CommentatorAndCommentary.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Views\Commentary\ViewModel.cs" />
   </ItemGroup>
@@ -250,6 +254,8 @@
     <Content Include="Views\QuranVerses\Index.cshtml" />
     <Content Include="Views\Commentators\Index.cshtml" />
     <Content Include="Views\Commentary\Index.cshtml" />
+    <Content Include="Views\VerseCommentary\Index.cshtml" />
+    <Content Include="Views\Shared\CommentaryView.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

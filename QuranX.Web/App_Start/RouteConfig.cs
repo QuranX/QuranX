@@ -21,6 +21,12 @@ namespace QuranX.Web
 				defaults: new { Controller = "Commentary", Action = "Index" });
 
 			routes.MapRoute(
+				name: "VerseCommentary",
+				url: "Tafsir/{CommentatorCode}/{ChapterNumber}.{VerseNumber}",
+				defaults: new { Controller = "VerseCommentary", Action = "Index" },
+				constraints: new { ChapterNumber = @"\d+", VerseNumber = @"\d+" });
+
+			routes.MapRoute(
 				name: "QuranVerses",
 				url: "{*Verses}",
 				defaults: new { Controller = "QuranVerses", Action = "Index" },
