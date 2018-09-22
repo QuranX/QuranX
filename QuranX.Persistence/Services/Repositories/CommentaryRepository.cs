@@ -89,11 +89,13 @@ namespace QuranX.Persistence.Services.Repositories
 		private int[] GetCommentaryIds(string commentatorCode, int? chapterNumber, int? verseNumber = null)
 		{
 			var query = new BooleanQuery(disableCoord: true);
+			query.FilterByType<Commentary>();
 
 			if (commentatorCode != null)
 			{
-				var codeTerm = new Term(nameof(Commentary.CommentatorCode), commentatorCode);
-				var codeQuery = new TermQuery(codeTerm);
+				var codeTerm = new Term(nameof(Commentary.CommentatorCode), commentatorCode.ToLowerInvariant());
+				var codeQuery = new PhraseQuery();
+				codeQuery.Add(codeTerm);
 				query.Add(codeQuery, Occur.MUST);
 			}
 
