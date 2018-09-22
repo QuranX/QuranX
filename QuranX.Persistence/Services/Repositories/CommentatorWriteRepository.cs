@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Lucene.Net.Documents;
 using Lucene.Net.Index;
 using QuranX.Persistence.Extensions;
@@ -32,6 +28,7 @@ namespace QuranX.Persistence.Services.Repositories
 			var document = new Document();
 			document.AddIndexed(nameof(Commentator.Code), commentator.Code);
 			document.AddObject(commentator);
+
 			IndexWriter indexWriter = IndexWriterProvider.GetIndexWriter();
 			indexWriter.AddDocument(document);
 		}

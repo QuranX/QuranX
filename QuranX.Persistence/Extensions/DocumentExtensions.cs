@@ -26,7 +26,7 @@ namespace QuranX.Persistence.Extensions
 			var field = new NumericField(
 				name: fieldName,
 				precisionStep: 1,
-				store: Field.Store.NO,
+				store: Field.Store.YES,
 				index: true).SetIntValue(value);
 			document.Add(field);
 			return document;

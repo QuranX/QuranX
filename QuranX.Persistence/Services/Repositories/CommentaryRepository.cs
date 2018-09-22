@@ -1,22 +1,135 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Lucene.Net.Index;
+using Lucene.Net.Search;
+using QuranX.Persistence.Extensions;
 using QuranX.Persistence.Models;
+using QuranX.Shared.Models;
 
 namespace QuranX.Persistence.Services.Repositories
 {
 	public interface ICommentaryRepository
 	{
 		Commentary[] GetForVerse(int chapterNumber, int verseNumber);
+		Commentary GetForVerse(string commentatorCode, int chapterNumber, int verseNumber);
+		VerseRangeReference[] GetVerseRangeReferencesForChapter(string commentatorCode, int chapterNumber);
 	}
 
 	public class CommentaryRepository : ICommentaryRepository
 	{
+		private readonly ILuceneIndexSearcherProvider IndexSearcherProvider;
+
+		public CommentaryRepository(ILuceneIndexSearcherProvider indexSearcherProvider)
+		{
+			IndexSearcherProvider = indexSearcherProvider;
+		}
+
 		public Commentary[] GetForVerse(int chapterNumber, int verseNumber)
 		{
-			throw new NotImplementedException();
+			IEnumerable<int> docIds =
+				GetCommentaryIds(
+					chapterNumber: chapterNumber,
+					verseNumber: verseNumber,
+					commentatorCode: null)
+				.Distinct();
+
+			IndexSearcher indexSearcher = IndexSearcherProvider.GetIndexSearcher();
+			return docIds
+				.Select(x => indexSearcher.Doc(x).GetObject<Commentary>())
+				.OrderBy(x => x.CommentatorCode)
+				.ThenBy(x => x.ChapterNumber)
+				.ThenBy(x => x.FirstVerseNumber)
+				.ToArray();
 		}
+
+		public Commentary GetForVerse(string commentatorCode, int chapterNumber, int verseNumber)
+		{
+			if (commentatorCode == null)
+				throw new ArgumentNullException(nameof(commentatorCode));
+
+			IEnumerable<int> docIds =
+				GetCommentaryIds(
+					chapterNumber: chapterNumber,
+					verseNumber: verseNumber,
+					commentatorCode: commentatorCode)
+				.Distinct();
+
+			IndexSearcher indexSearcher = IndexSearcherProvider.GetIndexSearcher();
+			return docIds
+				.Select(x => indexSearcher.Doc(x).GetObject<Commentary>())
+				.OrderBy(x => x.CommentatorCode)
+				.ThenBy(x => x.ChapterNumber)
+				.ThenBy(x => x.FirstVerseNumber)
+				.Single();
+		}
+
+		public VerseRangeReference[] GetVerseRangeReferencesForChapter(string commentatorCode, int chapterNumber)
+		{
+			if (commentatorCode == null)
+				throw new ArgumentNullException(nameof(commentatorCode));
+
+			IndexSearcher indexSearcher = IndexSearcherProvider.GetIndexSearcher();
+			IEnumerable<int> docIds =
+				GetCommentaryIds(
+					chapterNumber: chapterNumber,
+					verseNumber: null,
+					commentatorCode: commentatorCode);
+			return
+				docIds
+				.Select(x => indexSearcher.Doc(x))
+				.Select(x => new VerseRangeReference(
+					chapter: int.Parse(x.GetField(nameof(Commentary.ChapterNumber)).StringValue),
+					firstVerse: int.Parse(x.GetField(nameof(Commentary.FirstVerseNumber)).StringValue),
+					lastVerse: int.Parse(x.GetField(nameof(Commentary.LastVerseNumber)).StringValue)))
+				.OrderBy(x => x)
+				.ToArray();
+		}
+
+		private int[] GetCommentaryIds(int chapterNumber, int? verseNumber = null, string commentatorCode = null)
+		{
+			var query = new BooleanQuery(disableCoord: true);
+
+			if (commentatorCode != null)
+			{
+				var codeTerm = new Term(nameof(Commentary.CommentatorCode), commentatorCode);
+				var codeQuery = new TermQuery(codeTerm);
+				query.Add(codeQuery, Occur.MUST);
+			}
+
+			var chapterQuery = NumericRangeQuery.NewIntRange(
+				nameof(Verse.ChapterNumber),
+				chapterNumber,
+				chapterNumber,
+				minInclusive: true,
+				maxInclusive: true);
+			query.Add(chapterQuery, Occur.MUST);
+
+			if (verseNumber != null)
+			{
+				var excludeLowerVersesQuery = NumericRangeQuery.NewIntRange(
+					nameof(Verse.VerseNumber),
+					0,
+					verseNumber,
+					minInclusive: true,
+					maxInclusive: false);
+				query.Add(excludeLowerVersesQuery, Occur.MUST_NOT);
+
+				var excludeHigherVersesQuery = NumericRangeQuery.NewIntRange(
+					nameof(Verse.VerseNumber),
+					verseNumber,
+					999,
+					minInclusive: false,
+					maxInclusive: true);
+				query.Add(excludeHigherVersesQuery, Occur.MUST_NOT);
+			}
+
+			IndexSearcher searcher = IndexSearcherProvider.GetIndexSearcher();
+			TopDocs docs = searcher.Search(query, 7000);
+			int[] verses = docs.ScoreDocs.Select(x => x.Doc).ToArray();
+
+			return verses;
+		}
+
 	}
 }

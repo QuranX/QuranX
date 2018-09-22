@@ -105,6 +105,8 @@
     <Compile Include="Services\LuceneDirectoryProvider.cs" />
     <Compile Include="Services\LuceneIndexWriterProvider.cs" />
     <Compile Include="Services\Registration.cs" />
+    <Compile Include="Services\Repositories\CommentaryRepository.cs" />
+    <Compile Include="Services\Repositories\CommentaryWriteRepository.cs" />
     <Compile Include="Services\Repositories\CommentatorRepository.cs" />
     <Compile Include="Services\Repositories\CommentatorWriteRepository.cs" />
     <Compile Include="Services\Repositories\Consts.cs" />

@@ -33,6 +33,7 @@ namespace QuranX.Persistence.Services.Repositories
 				.AddIndexed(nameof(Verse.VerseNumber), verse.VerseNumber)
 				.AddFullText(verse.VerseTexts.Select(x => x.Text))
 				.AddObject(verse);
+
 			IndexWriter indexWriter = IndexWriterProvider.GetIndexWriter();
 			indexWriter.AddDocument(document);
 		}
