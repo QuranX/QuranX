@@ -68,7 +68,5 @@ namespace QuranX.Persistence.Services.Repositories
 				.ToArray();
 			return commentators;
 		}
-
-
 	}
 }

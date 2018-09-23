@@ -126,6 +126,10 @@
     <Compile Include="Extensions\DocumentExtensions.cs" />
     <Compile Include="Models\Commentary.cs" />
     <Compile Include="Models\Commentator.cs" />
+    <Compile Include="Models\Hadith.cs" />
+    <Compile Include="Models\HadithCollection.cs" />
+    <Compile Include="Models\HadithIndexEntry.cs" />
+    <Compile Include="Models\HadithIndexDefinition.cs" />
     <Compile Include="Models\Verse.cs" />
     <Compile Include="Models\VerseText.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -141,6 +145,8 @@
     <Compile Include="Services\Repositories\CommentatorRepository.cs" />
     <Compile Include="Services\Repositories\CommentatorWriteRepository.cs" />
     <Compile Include="Services\Repositories\Consts.cs" />
+    <Compile Include="Services\Repositories\HadithCollectionRepository.cs" />
+    <Compile Include="Services\Repositories\HadithCollectionWriteRepository.cs" />
     <Compile Include="Services\Repositories\VerseRepository.cs" />
     <Compile Include="Services\Repositories\VerseWriterRepository.cs" />
     <Compile Include="Services\Settings.cs" />

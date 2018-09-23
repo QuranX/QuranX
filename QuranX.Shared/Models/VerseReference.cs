@@ -23,6 +23,7 @@ namespace QuranX.Shared.Models
 		}
 
 		public static int GetIndexValue(int chapterNumber, int verseNumber) => chapterNumber * 1000 + verseNumber;
+		public int ToIndexValue() => GetIndexValue(Chapter, Verse);
 
 		public static VerseReference Parse(string source)
 		{

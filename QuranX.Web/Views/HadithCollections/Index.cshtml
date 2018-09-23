@@ -1,0 +1,21 @@
+﻿@using QuranX.Persistence.Models
+@model IEnumerable<HadithCollection>
+
+@{
+	ViewBag.Title = "Hadith collections";
+}
+
+<h1>@ViewBag.Title</h1>
+<ol class="hadithcollection__collection-list">
+	@foreach (HadithCollection collection in Model)
+	{
+		<li>
+			<a href="/Hadith/@collection.Code/@collection.PrimaryIndexCode">
+				<div class="row">
+					<span class="col-xs-4 col-sm-3 col-md-2">@collection.Code</span>
+					<span class="col-xs-8 col-sm-9 col-md-10">@collection.Name</span>
+				</div>
+			</a>
+		</li>
+	}
+</ol>

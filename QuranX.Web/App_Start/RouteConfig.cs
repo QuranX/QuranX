@@ -27,6 +27,11 @@ namespace QuranX.Web
 				constraints: new { ChapterNumber = @"\d+", VerseNumber = @"\d+" });
 
 			routes.MapRoute(
+				name: "HadithCollections",
+				url: "Hadiths",
+				defaults: new { Controller = "HadithCollections", Action = "Index" });
+
+			routes.MapRoute(
 				name: "QuranVerses",
 				url: "{*Verses}",
 				defaults: new { Controller = "QuranVerses", Action = "Index" },

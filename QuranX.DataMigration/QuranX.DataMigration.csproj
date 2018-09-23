@@ -129,6 +129,7 @@
   <ItemGroup>
     <Compile Include="Migrators\CommentaryMigrator.cs" />
     <Compile Include="Migrators\DataMigrator.cs" />
+    <Compile Include="Migrators\HadithMigrator.cs" />
     <Compile Include="Migrators\QuranMigrator.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

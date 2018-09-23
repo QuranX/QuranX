@@ -13,17 +13,20 @@ namespace QuranX.DataMigration.Migrators
 	{
 		private readonly IQuranMigrator QuranMigrator;
 		private readonly ICommentaryMigrator CommentaryMigrator;
+		private readonly IHadithMigrator HadithMigrator;
 		private readonly ILuceneIndexWriterProvider IndexWriterProvider;
 		private readonly ISettings Settings;
 
 		public DataMigrator(
 			IQuranMigrator quranMigrator, 
 			ICommentaryMigrator commentaryMigrator, 
+			IHadithMigrator hadithMigrator,
 			ILuceneIndexWriterProvider indexWriterProvider,
 			ISettings settings)
 		{
 			QuranMigrator = quranMigrator;
 			CommentaryMigrator = commentaryMigrator;
+			HadithMigrator = hadithMigrator;
 			IndexWriterProvider = indexWriterProvider;
 			Settings = settings;
 		}
@@ -35,6 +38,7 @@ namespace QuranX.DataMigration.Migrators
 
 			QuranMigrator.Migrate();
 			CommentaryMigrator.Migrate();
+			HadithMigrator.Migrate();
 
 			IndexWriter indexWriter = IndexWriterProvider.GetIndexWriter();
 			indexWriter.Commit();

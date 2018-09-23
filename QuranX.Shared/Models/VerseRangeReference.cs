@@ -23,6 +23,10 @@ namespace QuranX.Shared.Models
 			LastVerse = lastVerse;
 		}
 
+		public static int GetIndexValue(int chapterNumber, int firstVerseNumber, int lastVerseNumber)
+			=> (chapterNumber * 1000000) + (firstVerseNumber * 1000) + lastVerseNumber;
+		public int ToIndexValue() => GetIndexValue(Chapter, FirstVerse, LastVerse);
+
 		public IEnumerable<VerseReference> ToVerseReferences()
 		{
 			var result = new List<VerseReference>();
