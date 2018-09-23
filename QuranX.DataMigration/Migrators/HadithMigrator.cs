@@ -49,7 +49,8 @@ namespace QuranX.DataMigration.Migrators
 				var collectionViewModel = new HadithCollectionViewModel(
 					code: collection.Code,
 					name: collection.Name,
-					indexDefinitions: indexDefinitions);
+					indexDefinitions: indexDefinitions,
+					hadithCount: collection.Hadiths.Count());
 				HadithCollectionWriterRepository.Write(collectionViewModel);
 			}
 		}

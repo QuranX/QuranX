@@ -7,14 +7,19 @@ namespace QuranX.Persistence.Models
 		public string Code { get; set; }
 		public string Name { get; set; }
 		public HadithIndexDefinition[] IndexDefinitions { get; set; }
-		public string PrimaryIndexCode { get; private set; }
+		public int HadithCount { get; }
+		public string PrimaryIndexCode => IndexDefinitions.Single(x => x.IsPrimary).Code;
 
-		public HadithCollection(string code, string name, HadithIndexDefinition[] indexDefinitions)
+		public HadithCollection(
+			string code,
+			string name,
+			HadithIndexDefinition[] indexDefinitions,
+			int hadithCount)
 		{
 			Code = code;
 			Name = name;
 			IndexDefinitions = indexDefinitions;
-			PrimaryIndexCode = indexDefinitions.Single(x => x.IsPrimary).Code;
+			HadithCount = hadithCount;
 		}
 	}
 }
