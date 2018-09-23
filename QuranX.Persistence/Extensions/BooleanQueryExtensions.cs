@@ -8,7 +8,7 @@ namespace QuranX.Persistence.Extensions
 	{
 		public static void FilterByType<T>(this BooleanQuery instance)
 		{
-			var term = new Term(Consts.SerializedObjectTypeFieldName, typeof(T).Name.ToLower());
+			var term = new Term(Consts.SerializedObjectTypeFieldName, typeof(T).Name.ToLowerInvariant());
 			var query = new PhraseQuery();
 			query.Add(term);
 			instance.Add(query, Occur.MUST);
