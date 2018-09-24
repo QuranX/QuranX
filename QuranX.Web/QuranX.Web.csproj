@@ -204,6 +204,11 @@
     <Compile Include="Views\Commentary\ViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Data\segments.gen" />
+    <Content Include="App_Data\segments_2" />
+    <Content Include="App_Data\_0.cfs" />
+    <Content Include="App_Data\_0.cfx" />
+    <Content Include="App_Data\_1.cfs" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
@@ -217,17 +222,14 @@
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="App_Data\segments.gen" />
-    <Content Include="App_Data\segments_2" />
-    <Content Include="App_Data\_0.cfs" />
-    <Content Include="App_Data\_0.cfx" />
-    <Content Include="App_Data\_1.cfs" />
-    <Content Include="App_Data\_2.fnm" />
-    <Content Include="App_Data\_2.frq" />
-    <Content Include="App_Data\_2.nrm" />
-    <Content Include="App_Data\_2.prx" />
-    <Content Include="App_Data\_2.tii" />
-    <Content Include="App_Data\_2.tis" />
+    <Content Include="App_Data\_2.cfs" />
+    <Content Include="App_Data\_3.cfs" />
+    <Content Include="App_Data\_4.fnm" />
+    <Content Include="App_Data\_4.frq" />
+    <Content Include="App_Data\_4.nrm" />
+    <Content Include="App_Data\_4.prx" />
+    <Content Include="App_Data\_4.tii" />
+    <Content Include="App_Data\_4.tis" />
     <None Include="Properties\PublishProfiles\PetePlayground - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />

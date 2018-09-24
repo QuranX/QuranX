@@ -10,6 +10,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{F4806323-6C77-41D8-B2D4-C0D60DD31F17}"
 	ProjectSection(SolutionItems) = preProject
 		.editorconfig = .editorconfig
+		Local.testsettings = Local.testsettings
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuranX.Shared", "QuranX.Shared\QuranX.Shared.csproj", "{CBFFA4CA-A4B9-422E-BF7F-C99AD25BADE2}"
@@ -19,6 +20,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuranX.DataMigration", "QuranX.DataMigration\QuranX.DataMigration.csproj", "{00B81C9E-1DD8-415D-A429-AD5DF9407036}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuranX.Web", "QuranX.Web\QuranX.Web.csproj", "{457F70E6-CB45-46EF-8FF7-2847D4B17825}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuranX.Web.LoadTest", "QuranX.Web.LoadTest\QuranX.Web.LoadTest.csproj", "{D6B42A38-9F67-4001-B89E-B03448695B90}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -100,6 +103,18 @@ Global
 		{457F70E6-CB45-46EF-8FF7-2847D4B17825}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{457F70E6-CB45-46EF-8FF7-2847D4B17825}.Release|x86.ActiveCfg = Release|Any CPU
 		{457F70E6-CB45-46EF-8FF7-2847D4B17825}.Release|x86.Build.0 = Release|Any CPU
+		{D6B42A38-9F67-4001-B89E-B03448695B90}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D6B42A38-9F67-4001-B89E-B03448695B90}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D6B42A38-9F67-4001-B89E-B03448695B90}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{D6B42A38-9F67-4001-B89E-B03448695B90}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{D6B42A38-9F67-4001-B89E-B03448695B90}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{D6B42A38-9F67-4001-B89E-B03448695B90}.Debug|x86.Build.0 = Debug|Any CPU
+		{D6B42A38-9F67-4001-B89E-B03448695B90}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D6B42A38-9F67-4001-B89E-B03448695B90}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D6B42A38-9F67-4001-B89E-B03448695B90}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{D6B42A38-9F67-4001-B89E-B03448695B90}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{D6B42A38-9F67-4001-B89E-B03448695B90}.Release|x86.ActiveCfg = Release|Any CPU
+		{D6B42A38-9F67-4001-B89E-B03448695B90}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

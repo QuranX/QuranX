@@ -2,11 +2,9 @@
 {
 	public class VerseText
 	{
-		public string TranslatorCode { get; set; }
-		public string TranslatorName { get; set; }
-		public string Text { get; set; }
-
-		public VerseText() { }
+		public string TranslatorCode { get; }
+		public string TranslatorName { get; }
+		public string Text { get; }
 
 		public VerseText(string translatorCode, string translatorName, string text)
 		{

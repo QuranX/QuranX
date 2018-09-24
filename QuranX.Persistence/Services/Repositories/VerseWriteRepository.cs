@@ -7,16 +7,16 @@ using System.Linq;
 
 namespace QuranX.Persistence.Services.Repositories
 {
-	public interface IVerseWriterRepository
+	public interface IVerseWriteRepository
 	{
 		void Write(Verse verse);
 	}
 
-	public class VerseWriterRepository : IVerseWriterRepository
+	public class VerseWriteRepository : IVerseWriteRepository
 	{
 		private readonly ILuceneIndexWriterProvider IndexWriterProvider;
 
-		public VerseWriterRepository(ILuceneIndexWriterProvider indexWriterProvider)
+		public VerseWriteRepository(ILuceneIndexWriterProvider indexWriterProvider)
 		{
 			IndexWriterProvider = indexWriterProvider;
 		}
@@ -28,10 +28,10 @@ namespace QuranX.Persistence.Services.Repositories
 
 			var document = new Document();
 			document
-				.AddIndexed(nameof(Verse.Id), verse.Id)
-				.AddIndexed(nameof(Verse.ChapterNumber), verse.ChapterNumber)
-				.AddIndexed(nameof(Verse.VerseNumber), verse.VerseNumber)
-				.AddFullText(verse.VerseTexts.Select(x => x.Text))
+				.StoreAndIndex(verse, x => x.Id)
+				.StoreAndIndex(verse, x => x.ChapterNumber)
+				.StoreAndIndex(verse, x => x.VerseNumber)
+				.AddSearchableText(verse.VerseTexts.Select(x => x.Text))
 				.AddObject(verse);
 
 			IndexWriter indexWriter = IndexWriterProvider.GetIndexWriter();

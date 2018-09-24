@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 using Lucene.Net.Documents;
 using QuranX.Persistence.Services.Repositories;
 
@@ -12,39 +13,106 @@ namespace QuranX.Persistence.Extensions
 		{
 			Store = 1,
 			Index = 2,
-			FullText = Store | Index
+			StoreAndIndex = 3,
+			FullText = 4
 		}
 
-		public static Document AddIndexed(this Document document, string fieldName, string value)
+		public static string GetIndexName<TObj, TVal>(Expression<Func<TObj, TVal>> expression)
 		{
-			Add(document, fieldName, value, IndexKind.Index);
+			return typeof(TObj).Name + "_" + expression.GetName();
+		}
+
+		public static int GetStoredValue<TObj>(
+			this Document document,
+			Expression<Func<TObj, object>> expression)
+		{
+			string name = GetIndexName(expression);
+			string value = document.GetField(name)?.StringValue;
+			return int.Parse(value);
+		}
+
+		public static string GetStoredValue<TObj>(
+			this Document document,
+			Expression<Func<TObj, int>> expression)
+		{
+			string name = GetIndexName(expression);
+			string value = document.GetField(name)?.StringValue ?? "0";
+			return value;
+		}
+		
+		public static Document Index<TObj>(
+			this Document document,
+			TObj instance,
+			Expression<Func<TObj, string>> expression)
+		{
+			expression.GetIndexNameAndPropertyValue(instance, out string name, out string value);
+			Add(document, name, value, IndexKind.Index);
 			return document;
 		}
 
-		public static Document AddIndexed(this Document document, string fieldName, int value)
+		public static Document StoreAndIndex<TObj>(
+			this Document document,
+			TObj instance,
+			Expression<Func<TObj, string>> expression)
 		{
-			var field = new NumericField(
-				name: fieldName,
-				precisionStep: 1,
-				store: Field.Store.YES,
-				index: true).SetIntValue(value);
+			expression.GetIndexNameAndPropertyValue(instance, out string name, out string value);
+			if (value != null)
+				Add(document, name, value, IndexKind.StoreAndIndex);
+			return document;
+		}
+
+		public static Document StoreAndIndex<TObj>(
+			this Document document,
+			TObj instance,
+			Expression<Func<TObj, int>> expression)
+		{
+			expression.GetIndexNameAndPropertyValue(instance, out string name, out int value);
+			document.StoreAndIndex(name, value);
+			return document;
+		}
+
+		public static Document StoreAndIndex(
+			this Document document,
+			string indexName,
+			int value)
+		{
+			var field =
+				new NumericField(
+					name: indexName,
+					precisionStep: 1,
+					store: Field.Store.YES,
+					index: true)
+				.SetIntValue(value);
 			document.Add(field);
 			return document;
 		}
 
-		public static Document AddFullText(this Document document, string text)
+		public static Document StoreAndIndex(
+			this Document document,
+			string indexName,
+			string value)
 		{
-			return AddFullText(document, new string[] { text });
+			Add(document, indexName, value, IndexKind.StoreAndIndex);
+			return document;
 		}
 
-		public static Document AddFullText(this Document document, IEnumerable<string> texts)
+		public static Document AddSearchableText(this Document document, string text)
+		{
+			if (text == null)
+				throw new ArgumentNullException(nameof(text));
+
+			Add(document, Consts.FullTextFieldName, text, IndexKind.FullText);
+			return document;
+		}
+
+		public static Document AddSearchableText(this Document document, IEnumerable<string> texts)
 		{
 			if (texts == null)
 				throw new ArgumentNullException(nameof(texts));
 
 			foreach (string text in texts)
 			{
-				Add(document, Consts.FullTextFieldName, text, IndexKind.FullText);
+				AddSearchableText(document, text);
 			}
 
 			return document;
@@ -54,7 +122,7 @@ namespace QuranX.Persistence.Extensions
 		{
 			string json = Newtonsoft.Json.JsonConvert.SerializeObject(instance);
 			Add(document, Consts.SerializedObjectFieldName, json, IndexKind.Store);
-			Add(document, Consts.SerializedObjectTypeFieldName, typeof(T).Name, IndexKind.Index);
+			Add(document, Consts.SerializedObjectTypeFieldName, typeof(T).Name, IndexKind.StoreAndIndex);
 			return document;
 		}
 
@@ -67,12 +135,15 @@ namespace QuranX.Persistence.Extensions
 
 		private static void Add(Document document, string fieldName, string value, IndexKind indexKind)
 		{
+			bool fullText = indexKind.HasFlag(IndexKind.FullText);
+			bool store = fullText || indexKind.HasFlag(IndexKind.Store);
+			bool index = fullText || indexKind.HasFlag(IndexKind.Index);
 			var field = new Field(
 				name: fieldName,
 				value: value,
-				store: indexKind.HasFlag(IndexKind.Store) ? Field.Store.YES : Field.Store.NO,
-				index: indexKind.HasFlag(IndexKind.Index) ? Field.Index.ANALYZED : Field.Index.NO,
-				termVector: indexKind.HasFlag(IndexKind.FullText) ? Field.TermVector.WITH_POSITIONS_OFFSETS : Field.TermVector.NO);
+				store: store ? Field.Store.YES : Field.Store.NO,
+				index: index ? Field.Index.ANALYZED : Field.Index.NO,
+				termVector: fullText ? Field.TermVector.WITH_POSITIONS_OFFSETS : Field.TermVector.NO);
 			document.Add(field);
 		}
 	}

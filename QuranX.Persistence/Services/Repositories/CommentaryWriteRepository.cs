@@ -26,11 +26,11 @@ namespace QuranX.Persistence.Services.Repositories
 				throw new ArgumentNullException(nameof(commentary));
 
 			var document = new Document();
-			document.AddIndexed(nameof(Commentary.CommentatorCode), commentary.CommentatorCode);
-			document.AddIndexed(nameof(Commentary.ChapterNumber), commentary.ChapterNumber);
-			document.AddIndexed(nameof(Commentary.FirstVerseNumber), commentary.FirstVerseNumber);
-			document.AddIndexed(nameof(Commentary.LastVerseNumber), commentary.LastVerseNumber);
-			document.AddFullText(commentary.Text);
+			document.Index(commentary, x => x.CommentatorCode);
+			document.StoreAndIndex(commentary, x => x.ChapterNumber);
+			document.StoreAndIndex(commentary, x => x.FirstVerseNumber);
+			document.StoreAndIndex(commentary, x => x.LastVerseNumber);
+			document.AddSearchableText(commentary.Text);
 			document.AddObject(commentary);
 
 			IndexWriter indexWriter = IndexWriterProvider.GetIndexWriter();
@@ -38,3 +38,4 @@ namespace QuranX.Persistence.Services.Repositories
 		}
 	}
 }
+

@@ -1,5 +1,7 @@
-﻿using Lucene.Net.Analysis;
+﻿using System.Collections.Generic;
+using Lucene.Net.Analysis;
 using Lucene.Net.Analysis.AR;
+using QuranX.Persistence.LuceneSupport;
 
 namespace QuranX.Persistence.Services
 {
@@ -14,9 +16,7 @@ namespace QuranX.Persistence.Services
 
 		public LuceneAnalyzerProvider()
 		{
-			// Do not use stop-words. We use numeric values in indexes which
-			// might look like a stop word such as "A" or "a".
-			Analyzer = new ArabicAnalyzer(Lucene.Net.Util.Version.LUCENE_30);
+			Analyzer = new QuranXAnalyzer();
 		}
 
 		public Analyzer GetAnalyzer()

@@ -1,25 +1,28 @@
-﻿namespace QuranX.Persistence.Models
+﻿using System.Collections.Generic;
+using System.Linq;
+
+namespace QuranX.Persistence.Models
 {
 	public class Commentary
 	{
-		public string CommentatorCode { get; set; }
-		public int ChapterNumber { get; set; }
-		public int FirstVerseNumber { get; set; }
-		public int LastVerseNumber { get; set; }
-		public string[] Text { get; }
+		public string CommentatorCode { get; }
+		public int ChapterNumber { get; }
+		public int FirstVerseNumber { get; }
+		public int LastVerseNumber { get; }
+		public IReadOnlyList<string> Text { get; }
 
 		public Commentary(
 			string commentatorCode,
 			int chapterNumber,
 			int firstVerseNumber,
 			int lastVerseNumber,
-			string[] text)
+			IEnumerable<string> text)
 		{
 			CommentatorCode = commentatorCode;
 			ChapterNumber = chapterNumber;
 			FirstVerseNumber = firstVerseNumber;
 			LastVerseNumber = lastVerseNumber;
-			Text = text;
+			Text = text.ToList().AsReadOnly();
 		}
 	}
 }

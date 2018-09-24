@@ -19,16 +19,16 @@ namespace QuranX.DataMigration.Migrators
 	{
 		private readonly XmlDocument XmlDocument;
 		private readonly ILogger Logger;
-		private readonly IVerseWriterRepository VerseWriterRepository;
+		private readonly IVerseWriteRepository VerseWriteRepository;
 
 		public QuranMigrator(
 			ILogger logger,
 			IXmlDocumentProvider xmlDocumentProvider,
-			IVerseWriterRepository verseWriterRepository)
+			IVerseWriteRepository verseWriteRepository)
 		{
 			Logger = logger;
 			XmlDocument = xmlDocumentProvider.Document;
-			VerseWriterRepository = verseWriterRepository;
+			VerseWriteRepository = verseWriteRepository;
 		}
 
 		public void Migrate()
@@ -64,7 +64,7 @@ namespace QuranX.DataMigration.Migrators
 				hadithCount: XmlDocument.HadithDocument.GetHadithsForVerse(chapter.Index, verse.Index).Count(),
 				commentaryCount: XmlDocument.TafsirDocument.GetCommentaries(chapter.Index, verse.Index).Count(),
 				verseTexts: verseTexts);
-			VerseWriterRepository.Write(verseViewModel);
+			VerseWriteRepository.Write(verseViewModel);
 		}
 	}
 }

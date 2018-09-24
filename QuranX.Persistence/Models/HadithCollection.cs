@@ -1,24 +1,25 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 
 namespace QuranX.Persistence.Models
 {
 	public class HadithCollection
 	{
-		public string Code { get; set; }
-		public string Name { get; set; }
-		public HadithIndexDefinition[] IndexDefinitions { get; set; }
+		public string Code { get; }
+		public string Name { get; }
+		public IReadOnlyList<HadithReferenceDefinition> ReferenceDefinitions { get; }
 		public int HadithCount { get; }
-		public string PrimaryIndexCode => IndexDefinitions.Single(x => x.IsPrimary).Code;
+		public string PrimaryReferenceCode => ReferenceDefinitions.Single(x => x.IsPrimary).Code;
 
 		public HadithCollection(
 			string code,
 			string name,
-			HadithIndexDefinition[] indexDefinitions,
+			IEnumerable<HadithReferenceDefinition> referenceDefinitions,
 			int hadithCount)
 		{
 			Code = code;
 			Name = name;
-			IndexDefinitions = indexDefinitions;
+			ReferenceDefinitions = referenceDefinitions.ToList().AsReadOnly();
 			HadithCount = hadithCount;
 		}
 	}

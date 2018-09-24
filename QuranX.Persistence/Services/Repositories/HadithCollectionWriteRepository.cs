@@ -22,7 +22,7 @@ namespace QuranX.Persistence.Services.Repositories
 		public void Write(HadithCollection collection)
 		{
 			var document = new Document();
-			document.AddIndexed(nameof(HadithCollection.Code), collection.Code);
+			document.Index(collection, x => x.Code);
 			document.AddObject(collection);
 
 			IndexWriter indexWriter = IndexWriterProvider.GetIndexWriter();
