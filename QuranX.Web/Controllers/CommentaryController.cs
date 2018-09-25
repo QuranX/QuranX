@@ -9,6 +9,7 @@ using QuranX.Web.Views.Commentary;
 
 namespace QuranX.Web.Controllers
 {
+	[OutputCache(Duration = Consts.CacheTimeInSeconds)]
 	public class CommentaryController : Controller
 	{
 		private readonly ICommentatorRepository CommentatorRepository;

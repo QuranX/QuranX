@@ -1,6 +1,6 @@
 # Project specific
 Web/App_Data/lucene/*
-QuranX.Web/App_Data/
+QuranX.Web/App_Data/*
 
 
 ## Ignore Visual Studio temporary files, build results, and

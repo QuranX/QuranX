@@ -26,7 +26,6 @@ namespace QuranX.Persistence.Services.Repositories
 				throw new ArgumentNullException(nameof(commentator));
 
 			var document = new Document();
-			document.Index(commentator, x => x.Code);
 			document.AddObject(commentator);
 
 			IndexWriter indexWriter = IndexWriterProvider.GetIndexWriter();

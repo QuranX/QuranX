@@ -1,14 +1,17 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Linq.Expressions;
 
 namespace QuranX.Persistence.Extensions
 {
 	public static class ExpressionExtensions
 	{
-		public static string GetName<TObj, TVal>(this Expression<Func<TObj, TVal>> expression)
+		private static readonly ConcurrentDictionary<string, object> CompiledExpressions = new ConcurrentDictionary<string, object>();
+
+		public static string GetIndexName<TObj, TVal>(this Expression<Func<TObj, TVal>> expression)
 		{
 			MemberExpression memberExpression = GetMemberInfo(expression);
-			return memberExpression.Member.Name;
+			return typeof(TObj).Name + "_" + memberExpression.Member.Name;
 		}
 
 		public static void GetIndexNameAndPropertyValue<TObj, TVal>(
@@ -19,7 +22,7 @@ namespace QuranX.Persistence.Extensions
 		{
 			MemberExpression memberExpression = GetMemberInfo(expression);
 			name = typeof(TObj).Name + "_" + memberExpression.Member.Name;
-			value = expression.Compile().Invoke(instance);
+			value = GetValue(instance, name, expression);
 		}
 
 		private static MemberExpression GetMemberInfo(Expression method)
@@ -44,6 +47,20 @@ namespace QuranX.Persistence.Extensions
 				throw new ArgumentException(nameof(method));
 
 			return memberExpr;
+		}
+
+		private static TVal GetValue<TObj, TVal>(TObj instance, string id, Expression<Func<TObj, TVal>> expression)
+		{
+
+			object getValueFunc;
+			if (!CompiledExpressions.TryGetValue(id, out getValueFunc))
+			{
+				getValueFunc = expression.Compile();
+				CompiledExpressions[id] = getValueFunc;
+			}
+
+			var accessor = (Func<TObj, TVal>)getValueFunc;
+			return accessor(instance);
 		}
 	}
 }

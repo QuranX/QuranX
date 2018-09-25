@@ -4,6 +4,7 @@ using QuranX.Persistence.Services.Repositories;
 
 namespace QuranX.Web.Controllers
 {
+	[OutputCache(Duration = Consts.CacheTimeInSeconds)]
 	public class HadithCollectionsController : Controller
 	{
 		private readonly IHadithCollectionRepository HadithCollectionRepository;

@@ -16,7 +16,7 @@
     <AssemblyName>QuranX.Web</AssemblyName>
     <TargetFrameworkVersion>v4.7.1</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
-    <UseIISExpress>true</UseIISExpress>
+    <UseIISExpress>false</UseIISExpress>
     <Use64BitIISExpress />
     <IISExpressSSLPort />
     <IISExpressAnonymousAuthentication />
@@ -186,6 +186,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\UnityConfig.cs" />
     <Compile Include="Builders\CommentariesForVerseBuilder.cs" />
+    <Compile Include="Consts.cs" />
     <Compile Include="Controllers\CommentaryController.cs" />
     <Compile Include="Controllers\CommentatorsController.cs" />
     <Compile Include="Controllers\HadithCollectionsController.cs" />
@@ -204,11 +205,6 @@
     <Compile Include="Views\Commentary\ViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Data\segments.gen" />
-    <Content Include="App_Data\segments_2" />
-    <Content Include="App_Data\_0.cfs" />
-    <Content Include="App_Data\_0.cfx" />
-    <Content Include="App_Data\_1.cfs" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
@@ -222,6 +218,11 @@
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="App_Data\segments.gen" />
+    <Content Include="App_Data\segments_2" />
+    <Content Include="App_Data\_0.cfs" />
+    <Content Include="App_Data\_0.cfx" />
+    <Content Include="App_Data\_1.cfs" />
     <Content Include="App_Data\_2.cfs" />
     <Content Include="App_Data\_3.cfs" />
     <Content Include="App_Data\_4.fnm" />
@@ -299,16 +300,7 @@
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
-          <UseIIS>True</UseIIS>
-          <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>1717</DevelopmentServerPort>
-          <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:3803/</IISUrl>
-          <NTLMAuthentication>False</NTLMAuthentication>
-          <UseCustomServer>False</UseCustomServer>
-          <CustomServerUrl>
-          </CustomServerUrl>
-          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+          <SaveServerSettingsInUserFile>True</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>
     </VisualStudio>

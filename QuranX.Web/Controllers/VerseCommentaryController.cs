@@ -4,6 +4,7 @@ using QuranX.Web.Models;
 
 namespace QuranX.Web.Controllers
 {
+	[OutputCache(Duration = Consts.CacheTimeInSeconds)]
 	public class VerseCommentaryController : Controller
 	{
 		private readonly ICommentariesForVerseBuilder CommentariesForVerseBuilder;

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Lucene.Net.Index;
 using Lucene.Net.Search;
 using QuranX.Persistence.Extensions;
 using QuranX.Persistence.Models;
@@ -79,9 +78,9 @@ namespace QuranX.Persistence.Services.Repositories
 				docIds
 				.Select(x => indexSearcher.Doc(x))
 				.Select(x => new VerseRangeReference(
-					chapter: int.Parse(x.GetField(nameof(Commentary.ChapterNumber)).StringValue),
-					firstVerse: int.Parse(x.GetField(nameof(Commentary.FirstVerseNumber)).StringValue),
-					lastVerse: int.Parse(x.GetField(nameof(Commentary.LastVerseNumber)).StringValue)))
+					chapter: x.GetStoredValue<Commentary>(i => i.ChapterNumber),
+					firstVerse: x.GetStoredValue<Commentary>(i => i.FirstVerseNumber),
+					lastVerse: x.GetStoredValue<Commentary>(i => i.LastVerseNumber)))
 				.OrderBy(x => x)
 				.ToArray();
 		}
@@ -92,40 +91,29 @@ namespace QuranX.Persistence.Services.Repositories
 			query.FilterByType<Commentary>();
 
 			if (commentatorCode != null)
-			{
-				var codeTerm = new Term(nameof(Commentary.CommentatorCode), commentatorCode.ToLowerInvariant());
-				var codeQuery = new PhraseQuery();
-				codeQuery.Add(codeTerm);
-				query.Add(codeQuery, Occur.MUST);
-			}
+				query.AddPhraseQuery<Commentary>(x => x.CommentatorCode, commentatorCode, Occur.MUST);
 
 			if (chapterNumber != null)
 			{
-				var chapterQuery = NumericRangeQuery.NewIntRange(
-					nameof(Verse.ChapterNumber),
-					chapterNumber,
-					chapterNumber,
-					minInclusive: true,
-					maxInclusive: true);
-				query.Add(chapterQuery, Occur.MUST);
+				query.AddNumericRangeQuery<Commentary>(
+					x => x.ChapterNumber,
+					lowerInclusive: chapterNumber.Value,
+					upperInclusive: chapterNumber.Value,
+					occur: Occur.MUST);
 
 				if (verseNumber != null)
 				{
-					var excludeCommentariesFinishingBeforeRequiredVerseQuery = NumericRangeQuery.NewIntRange(
-						nameof(Commentary.LastVerseNumber),
-						0,
-						verseNumber - 1,
-						minInclusive: true,
-						maxInclusive: true);
-					query.Add(excludeCommentariesFinishingBeforeRequiredVerseQuery, Occur.MUST_NOT);
-
-					var excludeCommentariesStartingAfterRequiredVerseQuery = NumericRangeQuery.NewIntRange(
-						nameof(Commentary.FirstVerseNumber),
-						verseNumber + 1,
-						999,
-						minInclusive: true,
-						maxInclusive: true);
-					query.Add(excludeCommentariesStartingAfterRequiredVerseQuery, Occur.MUST_NOT);
+					query
+						.AddNumericRangeQuery<Commentary>(
+							x => x.LastVerseNumber,
+							lowerInclusive: 0,
+							upperInclusive: verseNumber.Value - 1,
+							occur: Occur.MUST_NOT)
+						.AddNumericRangeQuery<Commentary>(
+							x => x.FirstVerseNumber,
+							lowerInclusive: verseNumber.Value + 1,
+							upperInclusive: 999,
+							occur: Occur.MUST_NOT);
 				}
 			}
 

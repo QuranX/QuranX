@@ -26,7 +26,7 @@ namespace QuranX.Persistence.Services.Repositories
 				throw new ArgumentNullException(nameof(commentary));
 
 			var document = new Document();
-			document.Index(commentary, x => x.CommentatorCode);
+			document.StoreAndIndex(commentary, x => x.CommentatorCode);
 			document.StoreAndIndex(commentary, x => x.ChapterNumber);
 			document.StoreAndIndex(commentary, x => x.FirstVerseNumber);
 			document.StoreAndIndex(commentary, x => x.LastVerseNumber);

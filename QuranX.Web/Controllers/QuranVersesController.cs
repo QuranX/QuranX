@@ -8,6 +8,7 @@ using QuranX.Web.Models;
 
 namespace QuranX.Web.Controllers
 {
+	[OutputCache(Duration = Consts.CacheTimeInSeconds)]
 	public class QuranVersesController : Controller
 	{
 		private readonly IChapterRepository ChapterRepository;

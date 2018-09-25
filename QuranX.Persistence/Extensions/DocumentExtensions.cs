@@ -17,29 +17,24 @@ namespace QuranX.Persistence.Extensions
 			FullText = 4
 		}
 
-		public static string GetIndexName<TObj, TVal>(Expression<Func<TObj, TVal>> expression)
+		public static string GetStoredValue<TObj>(
+			this Document document,
+			Expression<Func<TObj, string>> expression)
 		{
-			return typeof(TObj).Name + "_" + expression.GetName();
+			string name = ExpressionExtensions.GetIndexName(expression);
+			string value = document.GetField(name)?.StringValue;
+			return value;
 		}
 
 		public static int GetStoredValue<TObj>(
 			this Document document,
-			Expression<Func<TObj, object>> expression)
+			Expression<Func<TObj, int>> expression)
 		{
-			string name = GetIndexName(expression);
-			string value = document.GetField(name)?.StringValue;
+			string name = ExpressionExtensions.GetIndexName(expression);
+			string value = document.GetField(name)?.StringValue ?? "0";
 			return int.Parse(value);
 		}
 
-		public static string GetStoredValue<TObj>(
-			this Document document,
-			Expression<Func<TObj, int>> expression)
-		{
-			string name = GetIndexName(expression);
-			string value = document.GetField(name)?.StringValue ?? "0";
-			return value;
-		}
-		
 		public static Document Index<TObj>(
 			this Document document,
 			TObj instance,

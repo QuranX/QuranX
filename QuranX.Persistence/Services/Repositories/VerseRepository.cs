@@ -23,7 +23,7 @@ namespace QuranX.Persistence.Services.Repositories
 
 		public Verse[] GetVerses(IEnumerable<VerseRangeReference> verseRangeReferences)
 		{
-			IEnumerable<int> documentIds = verseRangeReferences.SelectMany(x => GetVerses(x)).Distinct();
+			IEnumerable<int> documentIds = verseRangeReferences.SelectMany(GetVerses).Distinct();
 
 			IndexSearcher searcher = IndexSearcherProvider.GetIndexSearcher();
 			Verse[] verses = documentIds.Select(x => searcher.Doc(x).GetObject<Verse>()).ToArray();
@@ -33,13 +33,18 @@ namespace QuranX.Persistence.Services.Repositories
 		private int[] GetVerses(VerseRangeReference verseRangeReference)
 		{
 			var query = new BooleanQuery(disableCoord: true);
-			query.FilterByType<Verse>();
-
-			var chapterQuery = NumericRangeQuery.NewIntRange(nameof(Verse.ChapterNumber), verseRangeReference.Chapter, verseRangeReference.Chapter, true, true);
-			query.Add(chapterQuery, Occur.MUST);
-
-			var verseQuery = NumericRangeQuery.NewIntRange(nameof(Verse.VerseNumber), verseRangeReference.FirstVerse, verseRangeReference.LastVerse, true, true);
-			query.Add(verseQuery, Occur.MUST);
+			query
+				.FilterByType<Verse>()
+				.AddNumericRangeQuery<Verse>(
+					x => x.ChapterNumber,
+					lowerInclusive: verseRangeReference.Chapter,
+					upperInclusive: verseRangeReference.Chapter,
+					occur: Occur.MUST)
+				.AddNumericRangeQuery<Verse>(
+					x => x.VerseNumber,
+					lowerInclusive: verseRangeReference.FirstVerse,
+					upperInclusive: verseRangeReference.LastVerse,
+					occur: Occur.MUST);
 
 			IndexSearcher searcher = IndexSearcherProvider.GetIndexSearcher();
 			TopDocs docs = searcher.Search(query, 7000);
