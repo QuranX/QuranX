@@ -9,7 +9,7 @@ using QuranX.Web.Views.Commentary;
 
 namespace QuranX.Web.Controllers
 {
-	[OutputCache(Duration = Consts.CacheTimeInSeconds)]
+	[OutputCache(Duration = Consts.CacheTimeInSeconds, NoStore = Consts.CacheTimeInSeconds == 0)]
 	public class CommentaryController : Controller
 	{
 		private readonly ICommentatorRepository CommentatorRepository;
@@ -30,16 +30,15 @@ namespace QuranX.Web.Controllers
 		{
 			Dictionary<int, Chapter> chapterByIndex =
 				ChapterRepository.GetAll().ToDictionary(x => x.ChapterNumber);
-			VerseRangeReference[] verseRangeReferences = CommentaryRepository.GetVerseRangeReferences(commentatorCode);
-			ChapterAndVerseRangeReferenceSelection[] chaptersAndVerseRanges = verseRangeReferences
+			IEnumerable<VerseRangeReference> verseRangeReferences = CommentaryRepository.GetVerseRangeReferences(commentatorCode);
+			IEnumerable<ChapterAndVerseRangeReferenceSelection> chaptersAndVerseRanges = verseRangeReferences
 				.GroupBy(x => x.Chapter)
 				.Select(x => new ChapterAndVerseRangeReferenceSelection(
 					chapter: chapterByIndex[x.Key],
 					verseRangeReferences: x.OrderBy(v => v.FirstVerse)))
-				.OrderBy(x => x.Chapter.ChapterNumber)
-				.ToArray();
+				.OrderBy(x => x.Chapter.ChapterNumber);
 			Commentator commentator = CommentatorRepository.Get(commentatorCode);
-			ViewModel viewModel = new ViewModel(
+			var viewModel = new ViewModel(
 				commentator: commentator,
 				chapters: chaptersAndVerseRanges);
 			return View(viewModel);

@@ -11,7 +11,7 @@ namespace QuranX.Controllers
 {
 	public class QuranController : Controller
 	{
-		[OutputCache(Duration = Consts.CacheTimeInSeconds)]
+		[OutputCache(Duration = Consts.CacheTimeInSeconds, NoStore = Consts.CacheTimeInSeconds == 0)]
 		public ActionResult Chapters()
 		{
 			return View(SharedData.Document.QuranDocument.Chapters);
@@ -28,7 +28,7 @@ namespace QuranX.Controllers
 			});
 		}
 
-		[OutputCache(Duration = Consts.CacheTimeInSeconds, VaryByCustom = "translations")]
+		[OutputCache(Duration = Consts.CacheTimeInSeconds, VaryByCustom = "translations", NoStore = Consts.CacheTimeInSeconds == 0)]
 		public ActionResult Verse(
 			int chapter,
 			int verse,

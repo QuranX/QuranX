@@ -1,4 +1,5 @@
-﻿using QuranX.Shared.Models;
+﻿using System.Collections.Generic;
+using QuranX.Shared.Models;
 
 namespace QuranX.Web.Models
 {
@@ -6,12 +7,12 @@ namespace QuranX.Web.Models
 	{
 		public readonly Chapter Chapter;
 		public readonly int VerseNumber;
-		public readonly CommentatorAndCommentary[] Commentaries;
+		public readonly IEnumerable<CommentatorAndCommentary> Commentaries;
 
 		public CommentariesForVerse(
 			Chapter chapter,
 			int verseNumber,
-			CommentatorAndCommentary[] commentaries)
+			IEnumerable<CommentatorAndCommentary> commentaries)
 		{
 			Chapter = chapter;
 			VerseNumber = verseNumber;

@@ -3,7 +3,7 @@ using System.Web.Mvc;
 
 namespace QuranX.Controllers
 {
-	[OutputCache(Duration = Consts.CacheTimeInSeconds)]
+	[OutputCache(Duration = Consts.CacheTimeInSeconds, NoStore = Consts.CacheTimeInSeconds == 0)]
 	public class TafsirsByVerseController : Controller
 	{
 		public ActionResult Verse(int chapter, int verse)

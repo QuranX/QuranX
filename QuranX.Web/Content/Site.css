@@ -168,7 +168,23 @@
 	}
 }
 
+.chapter-and-verse-selector {
+	align-content: center;
+	margin-left: auto;
+	margin-right: auto;
+}
 
+@media (max-width: 549px) {
+	.chapter-and-verse-selector {
+		width: 100%;
+	}
+}
+
+@media (min-width: 550px) {
+	.chapter-and-verse-selector {
+		width: 50rem;
+	}
+}
 
 body {
 	padding-top: 50px;

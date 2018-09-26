@@ -9,7 +9,7 @@ namespace QuranX.Persistence.Services.Repositories
 {
 	public interface IHadithCollectionRepository
 	{
-		HadithCollection[] GetAll();
+		IEnumerable<HadithCollection> GetAll();
 		HadithCollection Get(string collectionCode);
 	}
 
@@ -31,7 +31,7 @@ namespace QuranX.Persistence.Services.Repositories
 			return HadithCollectionByCode[collectionCode];
 		}
 
-		public HadithCollection[] GetAll()
+		public IEnumerable<HadithCollection> GetAll()
 		{
 			EnsureData();
 			return HadithCollections;

@@ -42,20 +42,19 @@ namespace QuranX.Web.Builders
 				.ToDictionary(x => x.Code, StringComparer.InvariantCultureIgnoreCase);
 
 			Chapter chapter = ChapterRepository.Get(chapterNumber);
-			Commentary[] commentaries =
+			IEnumerable<Commentary> commentaries =
 				string.IsNullOrEmpty(commentatorCode)
 				? CommentaryRepository.GetForVerse(chapterNumber, verseNumber)
 				: new Commentary[] { CommentaryRepository.GetForVerse(commentatorCode, chapterNumber, verseNumber) };
 
-			CommentatorAndCommentary[] commentatorsAndCommentaries =
+			IEnumerable<CommentatorAndCommentary> commentatorsAndCommentaries =
 				commentaries
 				.OrderBy(x => x.CommentatorCode)
 				.Select(
 					x => new CommentatorAndCommentary(
 						commentator: commentatorByCode[x.CommentatorCode],
 						commentary: x)
-					)
-				.ToArray();
+					);
 			var viewModel = new CommentariesForVerse(
 				chapter: chapter,
 				verseNumber: verseNumber,

@@ -5,10 +5,11 @@ using QuranX.Persistence.Models;
 using QuranX.Persistence.Services.Repositories;
 using QuranX.Shared.Models;
 using QuranX.Web.Models;
+using QuranX.Web.Views.QuranVerses;
 
 namespace QuranX.Web.Controllers
 {
-	[OutputCache(Duration = Consts.CacheTimeInSeconds)]
+	[OutputCache(Duration = Consts.CacheTimeInSeconds, NoStore = Consts.CacheTimeInSeconds == 0)]
 	public class QuranVersesController : Controller
 	{
 		private readonly IChapterRepository ChapterRepository;
@@ -25,18 +26,29 @@ namespace QuranX.Web.Controllers
 			IEnumerable<VerseRangeReference> verseRangeReferences = verses.Split(',')
 				.ToList()
 				.ConvertAll(x => VerseRangeReference.Parse(x));
-			Verse[] retrievedVerses = VerseRepository.GetVerses(verseRangeReferences)
+			IEnumerable<Verse> retrievedVerses = VerseRepository.GetVerses(verseRangeReferences)
 				.OrderBy(x => x.ChapterNumber)
-				.ThenBy(x => x.VerseNumber)
-				.ToArray();
+				.ThenBy(x => x.VerseNumber);
 
-			var viewModel = new List<ChapterAndVerseSelection>();
+			var displayVerses = new List<ChapterAndVerseSelection>();
 			foreach (VerseRangeReference verseRangeReference in verseRangeReferences)
 			{
-				Verse[] currentSelection = retrievedVerses.Where(x => verseRangeReference.Includes(x.ChapterNumber, x.VerseNumber)).ToArray();
+				IEnumerable<Verse> currentSelection =
+					retrievedVerses
+					.Where(x => verseRangeReference.Includes(x.ChapterNumber, x.VerseNumber));
 				var chapterAndSelection = new ChapterAndVerseSelection(ChapterRepository.Get(verseRangeReference.Chapter), currentSelection);
-				viewModel.Add(chapterAndSelection);
+				displayVerses.Add(chapterAndSelection);
 			}
+
+			IEnumerable<ChapterAndVerseReferenceSelection> allVerses = VerseRepository.GetVerseReferences()
+				.GroupBy(x => x.Chapter)
+				.Select(x => new ChapterAndVerseReferenceSelection(
+					chapter: ChapterRepository.Get(x.Key),
+					verseReferences: x));
+
+			var viewModel = new ViewModel(
+				displayVerses: displayVerses,
+				allVerses: allVerses);
 			return View(viewModel);
 		}
 	}

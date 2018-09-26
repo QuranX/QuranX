@@ -1,0 +1,26 @@
+﻿@using QuranX.Web.Models
+@model IEnumerable<ChapterAndVerseReferenceSelection>
+
+<div class="chapter-and-verse-selector">
+	<div class="row">
+		<div class="col-xs-8">
+			<label for="ChapterNumber" class="control-label">Chapter</label>
+		</div>
+		<div class="col-xs-4">
+			<label for="VerseNumber" class="control-label">Verse</label>
+		</div>
+		<div class="col-xs-8">
+			<select id="ChapterNumber" name="ChapterNumber" class="form-control">
+				@foreach (var item in Model)
+				{
+					<option value="@item.Chapter.ChapterNumber">
+						@item.Chapter.ChapterNumber - @item.Chapter.EnglishName
+					</option>
+				}
+			</select>
+		</div>
+		<div class="col-xs-4">
+			<select id="VerseNumber" name="VerseNumber" class="form-control"></select>
+		</div>
+	</div>
+</div>

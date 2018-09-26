@@ -9,28 +9,41 @@ namespace QuranX.Persistence.Services.Repositories
 {
 	public interface IVerseRepository
 	{
-		Verse[] GetVerses(IEnumerable<VerseRangeReference> verseRangeReferences);
+		IEnumerable<VerseReference> GetVerseReferences();
+		IEnumerable<Verse> GetVerses(IEnumerable<VerseRangeReference> verseRangeReferences);
 	}
 
 	public class VerseRepository : IVerseRepository
 	{
 		private readonly ILuceneIndexSearcherProvider IndexSearcherProvider;
+		private IEnumerable<VerseReference> AllReferences;
 
 		public VerseRepository(ILuceneIndexSearcherProvider indexSearcherProvider)
 		{
 			IndexSearcherProvider = indexSearcherProvider;
 		}
 
-		public Verse[] GetVerses(IEnumerable<VerseRangeReference> verseRangeReferences)
+		public IEnumerable<VerseReference> GetVerseReferences()
+		{
+			if (AllReferences == null)
+				AllReferences = QuranStructure.Chapters.Select(x => new VerseRangeReference(
+					chapter: x.ChapterNumber,
+					firstVerse: 1,
+					lastVerse: x.NumberOfVerses))
+					.SelectMany(x => x.ToVerseReferences());
+			return AllReferences;
+		}
+
+		public IEnumerable<Verse> GetVerses(IEnumerable<VerseRangeReference> verseRangeReferences)
 		{
 			IEnumerable<int> documentIds = verseRangeReferences.SelectMany(GetVerses).Distinct();
 
 			IndexSearcher searcher = IndexSearcherProvider.GetIndexSearcher();
-			Verse[] verses = documentIds.Select(x => searcher.Doc(x).GetObject<Verse>()).ToArray();
+			IEnumerable<Verse> verses = documentIds.Select(x => searcher.Doc(x).GetObject<Verse>());
 			return verses;
 		}
 
-		private int[] GetVerses(VerseRangeReference verseRangeReference)
+		private IEnumerable<int> GetVerses(VerseRangeReference verseRangeReference)
 		{
 			var query = new BooleanQuery(disableCoord: true);
 			query
@@ -48,8 +61,7 @@ namespace QuranX.Persistence.Services.Repositories
 
 			IndexSearcher searcher = IndexSearcherProvider.GetIndexSearcher();
 			TopDocs docs = searcher.Search(query, 7000);
-			int[] verses = docs.ScoreDocs.Select(x => x.Doc).ToArray();
-
+			IEnumerable<int> verses = docs.ScoreDocs.Select(x => x.Doc).ToArray();
 			return verses;
 		}
 	}

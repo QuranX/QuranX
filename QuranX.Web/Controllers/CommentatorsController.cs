@@ -3,7 +3,7 @@ using QuranX.Persistence.Services.Repositories;
 
 namespace QuranX.Web.Controllers
 {
-	[OutputCache(Duration = Consts.CacheTimeInSeconds)]
+	[OutputCache(Duration = Consts.CacheTimeInSeconds, NoStore = Consts.CacheTimeInSeconds == 0)]
 	public class CommentatorsController : Controller
 	{
 		private readonly ICommentatorRepository CommentatorRepository;

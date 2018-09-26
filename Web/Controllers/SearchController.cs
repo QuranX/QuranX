@@ -27,7 +27,7 @@ namespace QuranX.Controllers
 			return View(model);
 		}
 
-		[OutputCache(Duration = Consts.CacheTimeInSeconds)]
+		[OutputCache(Duration = Consts.CacheTimeInSeconds, NoStore = Consts.CacheTimeInSeconds == 0)]
 		public ActionResult Help()
 		{
 			ViewBag.HideChapterVerseQuickJump = true;

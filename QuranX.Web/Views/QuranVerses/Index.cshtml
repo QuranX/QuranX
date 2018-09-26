@@ -1,19 +1,21 @@
 ﻿@using QuranX.Web.Models
 @using QuranX.Persistence.Models
-@model IEnumerable<ChapterAndVerseSelection>
+@using QuranX.Web.Views.QuranVerses
+@model ViewModel
 
 @{
 	ViewBag.Title = "The Noble Qur'an";
 }
 
 <h1>@ViewBag.Title</h1>
-@foreach(ChapterAndVerseSelection group in Model)
+@{ Html.RenderPartial("SelectChapterAndVerse", Model.AllVerses); }
+@foreach (ChapterAndVerseSelection group in Model.DisplayVerses)
 {
 	<h2>@group.Chapter.EnglishName - @group.Chapter.ArabicName</h2>
 	foreach (Verse verse in group.Verses)
-	{ 
+	{
 		<p>@(verse.ChapterNumber).@(verse.VerseNumber)</p>
-		foreach(VerseText translation in verse.VerseTexts)
+		foreach (VerseText translation in verse.VerseTexts)
 		{
 			<p>@translation.TranslatorName</p>
 			<p>@translation.Text</p>

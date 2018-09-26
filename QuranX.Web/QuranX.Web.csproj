@@ -190,8 +190,8 @@
     <Compile Include="Controllers\CommentaryController.cs" />
     <Compile Include="Controllers\CommentatorsController.cs" />
     <Compile Include="Controllers\HadithCollectionsController.cs" />
-    <Compile Include="Controllers\QuranChaptersController.cs" />
     <Compile Include="Controllers\QuranVersesController.cs" />
+    <Compile Include="Controllers\RedirectController.cs" />
     <Compile Include="Controllers\VerseCommentaryController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -203,6 +203,7 @@
     <Compile Include="Models\CommentatorAndCommentary.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Views\Commentary\ViewModel.cs" />
+    <Compile Include="Views\QuranVerses\ViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-theme.css" />
@@ -254,15 +255,17 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\QuranChapters\Index.cshtml" />
     <Content Include="Views\QuranVerses\Index.cshtml" />
     <Content Include="Views\Commentators\Index.cshtml" />
     <Content Include="Views\Commentary\Index.cshtml" />
     <Content Include="Views\VerseCommentary\Index.cshtml" />
     <Content Include="Views\Shared\CommentaryView.cshtml" />
     <Content Include="Views\HadithCollections\Index.cshtml" />
+    <Content Include="Views\Shared\SelectChapterAndVerse.cshtml" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Views\Redirect\" />
+  </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

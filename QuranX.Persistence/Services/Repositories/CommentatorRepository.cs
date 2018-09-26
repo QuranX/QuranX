@@ -9,7 +9,7 @@ namespace QuranX.Persistence.Services.Repositories
 {
 	public interface ICommentatorRepository
 	{
-		Commentator[] GetAll();
+		IEnumerable<Commentator> GetAll();
 		Commentator Get(string commentatorCode);
 	}
 
@@ -31,7 +31,7 @@ namespace QuranX.Persistence.Services.Repositories
 			return CommentatorByCode[commentatorCode];
 		}
 
-		public Commentator[] GetAll()
+		public IEnumerable<Commentator> GetAll()
 		{
 			EnsureData();
 			return Commentators;

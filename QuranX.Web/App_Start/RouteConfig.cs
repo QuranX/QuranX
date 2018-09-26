@@ -41,9 +41,14 @@ namespace QuranX.Web
 				});
 
 			routes.MapRoute(
-				name: "QuranChapters",
+				name: "Home",
 				url: "",
-				defaults: new { Controller = "QuranChapters", Action = nameof(QuranChaptersController.Index) });
+				defaults: new
+				{
+					Controller = "Redirect",
+					Action = nameof(RedirectController.Index),
+					Url = "/1.1"
+				});
 		}
 	}
 }

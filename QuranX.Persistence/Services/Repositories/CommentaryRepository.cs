@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using Lucene.Net.Search;
@@ -10,21 +11,24 @@ namespace QuranX.Persistence.Services.Repositories
 {
 	public interface ICommentaryRepository
 	{
-		Commentary[] GetForVerse(int chapterNumber, int verseNumber);
+		IEnumerable<Commentary> GetForVerse(int chapterNumber, int verseNumber);
 		Commentary GetForVerse(string commentatorCode, int chapterNumber, int verseNumber);
-		VerseRangeReference[] GetVerseRangeReferences(string commentatorCode);
+		IEnumerable<VerseRangeReference> GetVerseRangeReferences(string commentatorCode);
 	}
 
 	public class CommentaryRepository : ICommentaryRepository
 	{
 		private readonly ILuceneIndexSearcherProvider IndexSearcherProvider;
+		private readonly ConcurrentDictionary<string, VerseRangeReference[]> VerseReferencesByCommentatorCode;
 
 		public CommentaryRepository(ILuceneIndexSearcherProvider indexSearcherProvider)
 		{
 			IndexSearcherProvider = indexSearcherProvider;
+			VerseReferencesByCommentatorCode = 
+				new ConcurrentDictionary<string, VerseRangeReference[]>(StringComparer.InvariantCultureIgnoreCase);
 		}
 
-		public Commentary[] GetForVerse(int chapterNumber, int verseNumber)
+		public IEnumerable<Commentary> GetForVerse(int chapterNumber, int verseNumber)
 		{
 			IEnumerable<int> docIds =
 				GetCommentaryIds(
@@ -38,8 +42,7 @@ namespace QuranX.Persistence.Services.Repositories
 				.Select(x => indexSearcher.Doc(x).GetObject<Commentary>())
 				.OrderBy(x => x.CommentatorCode)
 				.ThenBy(x => x.ChapterNumber)
-				.ThenBy(x => x.FirstVerseNumber)
-				.ToArray();
+				.ThenBy(x => x.FirstVerseNumber);
 		}
 
 		public Commentary GetForVerse(string commentatorCode, int chapterNumber, int verseNumber)
@@ -63,10 +66,14 @@ namespace QuranX.Persistence.Services.Repositories
 				.Single();
 		}
 
-		public VerseRangeReference[] GetVerseRangeReferences(string commentatorCode)
+		public IEnumerable<VerseRangeReference> GetVerseRangeReferences(string commentatorCode)
 		{
 			if (commentatorCode == null)
 				throw new ArgumentNullException(nameof(commentatorCode));
+
+			VerseRangeReference[] result;
+			if (VerseReferencesByCommentatorCode.TryGetValue(commentatorCode, out result))
+				return result;
 
 			IndexSearcher indexSearcher = IndexSearcherProvider.GetIndexSearcher();
 			IEnumerable<int> docIds =
@@ -74,7 +81,7 @@ namespace QuranX.Persistence.Services.Repositories
 					commentatorCode: commentatorCode,
 					chapterNumber: null,
 					verseNumber: null);
-			return
+			result =
 				docIds
 				.Select(x => indexSearcher.Doc(x))
 				.Select(x => new VerseRangeReference(
@@ -83,9 +90,12 @@ namespace QuranX.Persistence.Services.Repositories
 					lastVerse: x.GetStoredValue<Commentary>(i => i.LastVerseNumber)))
 				.OrderBy(x => x)
 				.ToArray();
+
+			VerseReferencesByCommentatorCode[commentatorCode] = result;
+			return result;
 		}
 
-		private int[] GetCommentaryIds(string commentatorCode, int? chapterNumber, int? verseNumber = null)
+		private IEnumerable<int> GetCommentaryIds(string commentatorCode, int? chapterNumber, int? verseNumber = null)
 		{
 			var query = new BooleanQuery(disableCoord: true);
 			query.FilterByType<Commentary>();
@@ -119,7 +129,7 @@ namespace QuranX.Persistence.Services.Repositories
 
 			IndexSearcher searcher = IndexSearcherProvider.GetIndexSearcher();
 			TopDocs docs = searcher.Search(query, 7000);
-			int[] verses = docs.ScoreDocs.Select(x => x.Doc).ToArray();
+			IEnumerable<int> verses = docs.ScoreDocs.Select(x => x.Doc);
 			return verses;
 		}
 	}

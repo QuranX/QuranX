@@ -22,4 +22,11 @@
     <Request Method="GET" Guid="776ac472-421e-4b70-875e-4eab1ce36e24" Version="1.1" Url="http://localhost/" ThinkTime="17" Timeout="60" ParseDependentRequests="True" FollowRedirects="True" RecordResult="True" Cache="False" ResponseTimeGoal="0" Encoding="utf-8" ExpectedHttpStatusCode="0" ExpectedResponseUrl="" ReportingName="" IgnoreHttpStatusCode="False" />
     <Request Method="GET" Guid="ae264606-a810-4ca1-81d5-e495238fc114" Version="1.1" Url="http://localhost/2.228,33.49,65.4" ThinkTime="0" Timeout="60" ParseDependentRequests="True" FollowRedirects="True" RecordResult="True" Cache="False" ResponseTimeGoal="0" Encoding="utf-8" ExpectedHttpStatusCode="0" ExpectedResponseUrl="" ReportingName="" IgnoreHttpStatusCode="False" />
   </Items>
+  <WebTestPlugins>
+    <WebTestPlugin Classname="QuranX.Web.LoadTest.WebTestPlugins.EnableBrowserCachingPlugin, QuranX.Web.LoadTest, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" DisplayName="Enable browser caching" Description="">
+      <RuleParameters>
+        <RuleParameter Name="AllowCaching" Value="False" />
+      </RuleParameters>
+    </WebTestPlugin>
+  </WebTestPlugins>
 </WebTest>

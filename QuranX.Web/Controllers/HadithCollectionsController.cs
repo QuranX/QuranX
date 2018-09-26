@@ -1,10 +1,11 @@
-﻿using System.Web.Mvc;
+﻿using System.Collections.Generic;
+using System.Web.Mvc;
 using QuranX.Persistence.Models;
 using QuranX.Persistence.Services.Repositories;
 
 namespace QuranX.Web.Controllers
 {
-	[OutputCache(Duration = Consts.CacheTimeInSeconds)]
+	[OutputCache(Duration = Consts.CacheTimeInSeconds, NoStore = Consts.CacheTimeInSeconds == 0)]
 	public class HadithCollectionsController : Controller
 	{
 		private readonly IHadithCollectionRepository HadithCollectionRepository;
@@ -16,7 +17,7 @@ namespace QuranX.Web.Controllers
 
 		public ActionResult Index()
 		{
-			HadithCollection[] viewModel = HadithCollectionRepository.GetAll();
+			IEnumerable<HadithCollection> viewModel = HadithCollectionRepository.GetAll();
 			return View(viewModel);
 		}
 	}
