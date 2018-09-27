@@ -24,3 +24,15 @@
 		</div>
 	</div>
 </div>
+
+<script>
+	var versesForChapter = {};
+	for (var chapterNumber = 1; chapterNumber <= 114; chapterNumber++) {
+		versesForChapter[chapterNumber] = [];
+	}
+	@foreach(ChapterAndVerseReferenceSelection item in Model)
+	{
+		string verseNumbers = string.Join(",", item.VerseReferences.Select(x => x.Verse));
+		@Html.Raw($"versesForChapter[{item.Chapter.ChapterNumber}] = [{verseNumbers}];");
+	}
+</script>
