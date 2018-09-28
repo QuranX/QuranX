@@ -26,6 +26,9 @@ namespace QuranX.Web.Controllers
 			IEnumerable<VerseRangeReference> verseRangeReferences = verses.Split(',')
 				.ToList()
 				.ConvertAll(x => VerseRangeReference.Parse(x));
+			if (!verseRangeReferences.Any())
+				verseRangeReferences = new VerseRangeReference[] { new VerseRangeReference(1, 1, 1) };
+
 			IEnumerable<Verse> retrievedVerses = VerseRepository.GetVerses(verseRangeReferences)
 				.OrderBy(x => x.ChapterNumber)
 				.ThenBy(x => x.VerseNumber);
@@ -46,9 +49,14 @@ namespace QuranX.Web.Controllers
 					chapter: ChapterRepository.Get(x.Key),
 					verseReferences: x));
 
+			VerseRangeReference firstReference = verseRangeReferences.First();
 			var viewModel = new ViewModel(
 				displayVerses: displayVerses,
-				allVerses: allVerses);
+				selectChapterAndVerse: new SelectChapterAndVerse(
+					firstReference.Chapter,
+					firstReference.FirstVerse,
+					allVerses)
+				); 
 			return View(viewModel);
 		}
 	}

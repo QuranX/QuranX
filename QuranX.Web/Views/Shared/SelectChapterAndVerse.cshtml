@@ -1,5 +1,5 @@
 ﻿@using QuranX.Web.Models
-@model IEnumerable<ChapterAndVerseReferenceSelection>
+@model SelectChapterAndVerse
 
 <div class="chapter-and-verse-selector">
 	<div class="row">
@@ -11,7 +11,7 @@
 		</div>
 		<div class="col-xs-8">
 			<select id="ChapterNumber" name="ChapterNumber" class="form-control">
-				@foreach (var item in Model)
+				@foreach (var item in Model.AvailableChapters)
 				{
 					<option value="@item.Chapter.ChapterNumber">
 						@item.Chapter.ChapterNumber - @item.Chapter.EnglishName
@@ -26,13 +26,46 @@
 </div>
 
 <script>
+	var selectedChapterNumber = @Model.SelectedChapterNumber;
+	var selectedVerseNumber = @Model.SelectedVerseNumber;
 	var versesForChapter = {};
 	for (var chapterNumber = 1; chapterNumber <= 114; chapterNumber++) {
 		versesForChapter[chapterNumber] = [];
 	}
-	@foreach(ChapterAndVerseReferenceSelection item in Model)
+	@foreach(ChapterAndVerseReferenceSelection item in Model.AvailableChapters)
 	{
 		string verseNumbers = string.Join(",", item.VerseReferences.Select(x => x.Verse));
 		@Html.Raw($"versesForChapter[{item.Chapter.ChapterNumber}] = [{verseNumbers}];");
+	}
+	var chapterNumberElement = $("#ChapterNumber");
+	var verseNumberElement = $("#VerseNumber");
+
+	var verseNumberChanged = debounce(function () {
+		if (verseNumberElement.val()) {
+			var verseReference = chapterNumberElement.val() + '.' + verseNumberElement.val();
+			window.location.replace(verseReference);
+		}
+	}, 500);
+
+	chapterNumberElement.change(chapterNumberChanged);
+	chapterNumberElement.val(selectedChapterNumber);
+	chapterNumberChanged();
+
+	verseNumberElement.change(verseNumberChanged);
+
+	function chapterNumberChanged() {
+		selectedChapterNumber = $('#ChapterNumber').val();
+		var quranVerseElement = $('#VerseNumber');
+		verseNumberElement
+			.find('option')
+			.remove()
+			.end();
+		var versesToInclude = versesForChapter[selectedChapterNumber];
+		for (var index = 0; index < versesToInclude.length; index++) {
+			verseNumberElement.append('<option>' + versesToInclude[index] + '</option>');
+		}
+		verseNumberElement.val(selectedVerseNumber);
+		selectedVerseNumber = null;
+		verseNumberElement.focus();
 	}
 </script>

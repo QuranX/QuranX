@@ -6,12 +6,12 @@ namespace QuranX.Web.Views.QuranVerses
 	public class ViewModel
 	{
 		public readonly IEnumerable<ChapterAndVerseSelection> DisplayVerses;
-		public readonly IEnumerable<ChapterAndVerseReferenceSelection> AllVerses;
+		public readonly SelectChapterAndVerse SelectChapterAndVerse;
 
-		public ViewModel(IEnumerable<ChapterAndVerseSelection> displayVerses, IEnumerable<ChapterAndVerseReferenceSelection> allVerses)
+		public ViewModel(IEnumerable<ChapterAndVerseSelection> displayVerses, SelectChapterAndVerse selectChapterAndVerse)
 		{
 			DisplayVerses = displayVerses;
-			AllVerses = allVerses;
+			SelectChapterAndVerse = selectChapterAndVerse;
 		}
 	}
 }
