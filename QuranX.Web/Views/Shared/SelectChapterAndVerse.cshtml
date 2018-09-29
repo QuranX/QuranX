@@ -26,46 +26,46 @@
 </div>
 
 <script>
-	var selectedChapterNumber = @Model.SelectedChapterNumber;
-	var selectedVerseNumber = @Model.SelectedVerseNumber;
-	var versesForChapter = {};
-	for (var chapterNumber = 1; chapterNumber <= 114; chapterNumber++) {
-		versesForChapter[chapterNumber] = [];
-	}
+	(function () {
+		var selectedChapterNumber = @Model.SelectedChapterNumber;
+		var selectedVerseNumber = @Model.SelectedVerseNumber;
+		var versesForChapter = {};
+		for (var chapterNumber = 1; chapterNumber <= 114; chapterNumber++) {
+			versesForChapter[chapterNumber] = [];
+		}
 	@foreach(ChapterAndVerseReferenceSelection item in Model.AvailableChapters)
 	{
 		string verseNumbers = string.Join(",", item.VerseReferences.Select(x => x.Verse));
 		@Html.Raw($"versesForChapter[{item.Chapter.ChapterNumber}] = [{verseNumbers}];");
 	}
-	var chapterNumberElement = $("#ChapterNumber");
-	var verseNumberElement = $("#VerseNumber");
+		var chapterNumberElement = $("#ChapterNumber");
+		var verseNumberElement = $("#VerseNumber");
 
-	var verseNumberChanged = debounce(function () {
-		if (verseNumberElement.val()) {
-			var verseReference = chapterNumberElement.val() + '.' + verseNumberElement.val();
-			window.location.replace(verseReference);
-		}
-	}, 500);
+		var chapterNumberChanged = function () {
+			selectedChapterNumber = $('#ChapterNumber').val();
+			verseNumberElement
+				.find('option')
+				.remove()
+				.end();
+			var versesToInclude = versesForChapter[selectedChapterNumber];
+			for (var index = 0; index < versesToInclude.length; index++) {
+				verseNumberElement.append('<option>' + versesToInclude[index] + '</option>');
+			}
+			verseNumberElement.val(selectedVerseNumber);
+			selectedVerseNumber = null;
+		};
 
-	chapterNumberElement.change(chapterNumberChanged);
-	chapterNumberElement.val(selectedChapterNumber);
-	chapterNumberChanged();
+		var verseNumberChanged = debounce(function () {
+			if (verseNumberElement.val()) {
+				var verseReference = chapterNumberElement.val() + '.' + verseNumberElement.val();
+				window.location.replace(verseReference);
+			}
+		}, 1000);
 
-	verseNumberElement.change(verseNumberChanged);
-
-	function chapterNumberChanged() {
-		selectedChapterNumber = $('#ChapterNumber').val();
-		var quranVerseElement = $('#VerseNumber');
-		verseNumberElement
-			.find('option')
-			.remove()
-			.end();
-		var versesToInclude = versesForChapter[selectedChapterNumber];
-		for (var index = 0; index < versesToInclude.length; index++) {
-			verseNumberElement.append('<option>' + versesToInclude[index] + '</option>');
-		}
-		verseNumberElement.val(selectedVerseNumber);
-		selectedVerseNumber = null;
+		chapterNumberElement.change(chapterNumberChanged);
+		chapterNumberElement.val(selectedChapterNumber);
+		chapterNumberChanged();
+		verseNumberElement.change(verseNumberChanged);
 		verseNumberElement.focus();
-	}
+	})();
 </script>
