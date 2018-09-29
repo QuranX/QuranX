@@ -220,6 +220,38 @@
 	}
 }
 
+@media(max-width: 450px) {
+	h1 {
+		font-size: 1.75rem;
+		font-weight: bold;
+	}
+	h2 {
+		font-size: 1.5rem;
+		font-weight: bold;
+	}
+	h3 {
+		font-size: 1.25rem;
+		font-weight: bold;
+	}
+}
+
+@media(max-width: 550px) {
+	h1 {
+		font-size: 2rem;
+		font-weight: bold;
+	}
+
+	h2 {
+		font-size: 1.75rem;
+		font-weight: bold;
+	}
+
+	h3 {
+		font-size: 1.5rem;
+		font-weight: bold;
+	}
+}
+
 
 body {
 	padding-top: 50px;

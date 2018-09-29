@@ -17,12 +17,13 @@
 					<span class="icon-bar"></span>
 					<span class="icon-bar"></span>
 				</button>
-				<a href="/1.1" class="navbar-brand">QuranX.com</a>
+				<a href="/1.1" class="navbar-brand">QuranX</a>
 			</div>
 			<div class="navbar-collapse collapse">
 				<ul class="nav navbar-nav">
-					<li>@Html.ActionLink("Commentaries", "Index", "Commentators")</li>
-					<li>@Html.ActionLink("Hadiths", "Index", "HadithCollections")</li>
+					<li>@Html.RouteLink("Quran", "QuranVerses")</li>
+					<li>@Html.RouteLink("Commentaries", "Commentators")</li>
+					<li>@Html.RouteLink("Hadiths", "HadithCollections")</li>
 				</ul>
 			</div>
 		</div>
