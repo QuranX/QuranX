@@ -14,14 +14,14 @@
 		counter-increment: li;
 	}
 
-	.quran__chapter-list > li > a:before {
-		content: counter(li);
-		display: inline-block;
-		position: absolute;
-		left: 3em;
-		vertical-align: middle;
-		font-size: 2rem;
-	}
+		.quran__chapter-list > li > a:before {
+			content: counter(li);
+			display: inline-block;
+			position: absolute;
+			left: 3em;
+			vertical-align: middle;
+			font-size: 2rem;
+		}
 
 		.quran__chapter-list > li > a {
 			display: block;
@@ -124,7 +124,7 @@
 }
 
 @media (min-width: 1150px) {
-	.quran1111verse-list {
+	.quran__verse-list {
 		-webkit-column-count: 11;
 		-moz-column-count: 11;
 		-ms-column-count: 11;
@@ -133,7 +133,7 @@
 }
 
 @media (min-width: 1250px) {
-	.quran1212verse-list {
+	.quran__verse-list {
 		-webkit-column-count: 12;
 		-moz-column-count: 12;
 		-ms-column-count: 12;
@@ -142,7 +142,7 @@
 }
 
 @media (min-width: 1350px) {
-	.quran1313verse-list {
+	.quran__verse-list {
 		-webkit-column-count: 13;
 		-moz-column-count: 13;
 		-ms-column-count: 13;
@@ -151,7 +151,7 @@
 }
 
 @media (min-width: 1450px) {
-	.quran1414verse-list {
+	.quran__verse-list {
 		-webkit-column-count: 14;
 		-moz-column-count: 14;
 		-ms-column-count: 14;
@@ -160,7 +160,7 @@
 }
 
 @media (min-width: 1550px) {
-	.quran1515verse-list {
+	.quran__verse-list {
 		-webkit-column-count: 15;
 		-moz-column-count: 15;
 		-ms-column-count: 15;
@@ -185,6 +185,41 @@
 		width: 50rem;
 	}
 }
+
+.hadithcollection__collection-list {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+}
+
+	.hadithcollection__collection-list > li {
+		padding: 0.25em;
+	}
+
+	.hadithcollection__collection-list > li:nth-child(2n) {
+		background-color: #eee;
+	}
+
+.commentary__commentator-list {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+}
+
+	.commentary__commentator-list > li {
+		padding: 0.25em;	
+	}
+
+	.commentary__commentator-list > li:nth-child(2n) {
+		background-color: #eee;
+	}
+
+@media(max-width: 480px) {
+	.commentary__commentator-list > li {
+		margin-bottom: .25em;
+	}
+}
+
 
 body {
 	padding-top: 50px;
