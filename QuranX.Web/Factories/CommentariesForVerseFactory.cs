@@ -6,21 +6,21 @@ using QuranX.Persistence.Services.Repositories;
 using QuranX.Shared.Models;
 using QuranX.Web.Models;
 
-namespace QuranX.Web.Builders
+namespace QuranX.Web.Factories
 {
-	public interface ICommentariesForVerseBuilder
+	public interface ICommentariesForVerseFactory
 	{
-		CommentariesForVerse Build(int chapterNumber, int verseNumber);
-		CommentariesForVerse Build(string commentatorCode, int chapterNumber, int verseNumber);
+		CommentariesForVerse Create(int chapterNumber, int verseNumber);
+		CommentariesForVerse Create(string commentatorCode, int chapterNumber, int verseNumber);
 	}
 
-	public class CommentariesForVerseBuilder : ICommentariesForVerseBuilder
+	public class CommentariesForVerseFactory : ICommentariesForVerseFactory
 	{
 		private readonly IChapterRepository ChapterRepository;
 		private readonly ICommentatorRepository CommentatorRepository;
 		private readonly ICommentaryRepository CommentaryRepository;
 
-		public CommentariesForVerseBuilder(
+		public CommentariesForVerseFactory(
 			IChapterRepository chapterRepository,
 			ICommentatorRepository commentatorRepository,
 			ICommentaryRepository commentaryRepository)
@@ -30,10 +30,10 @@ namespace QuranX.Web.Builders
 			CommentaryRepository = commentaryRepository;
 		}
 
-		public CommentariesForVerse Build(int chapterNumber, int verseNumber)
-			=> Build(commentatorCode: null, chapterNumber: chapterNumber, verseNumber: verseNumber);
+		public CommentariesForVerse Create(int chapterNumber, int verseNumber)
+			=> Create(commentatorCode: null, chapterNumber: chapterNumber, verseNumber: verseNumber);
 
-		public CommentariesForVerse Build(string commentatorCode, int chapterNumber, int verseNumber)
+		public CommentariesForVerse Create(string commentatorCode, int chapterNumber, int verseNumber)
 		{
 			QuranStructure.EnsureChapterAndVerseAreValid(chapterNumber, verseNumber);
 

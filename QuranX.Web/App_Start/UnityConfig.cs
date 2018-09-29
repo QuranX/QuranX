@@ -1,9 +1,7 @@
-using System;
-using System.Web;
 using System.Web.Hosting;
 using System.Web.Mvc;
 using QuranX.Persistence.Services;
-using QuranX.Web.Builders;
+using QuranX.Web.Factories;
 using Unity;
 using Unity.Mvc5;
 
@@ -35,7 +33,8 @@ namespace QuranX.Web
 
 		private static void RegisterServices(IUnityContainer container)
 		{
-			container.RegisterSingleton<ICommentariesForVerseBuilder, CommentariesForVerseBuilder>();
+			container.RegisterSingleton<ICommentariesForVerseFactory, CommentariesForVerseFactory>();
+			container.RegisterSingleton<ISelectChapterAndVerseFactory, SelectChapterAndVerseFactory>();
 		}
 	}
 }

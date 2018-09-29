@@ -55,7 +55,8 @@ namespace QuranX.Web.Controllers
 				selectChapterAndVerse: new SelectChapterAndVerse(
 					firstReference.Chapter,
 					firstReference.FirstVerse,
-					allVerses)
+					allVerses,
+					url: "")
 				); 
 			return View(viewModel);
 		}

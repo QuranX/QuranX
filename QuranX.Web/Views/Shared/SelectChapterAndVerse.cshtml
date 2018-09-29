@@ -58,7 +58,7 @@
 		var verseNumberChanged = debounce(function () {
 			if (verseNumberElement.val()) {
 				var verseReference = chapterNumberElement.val() + '.' + verseNumberElement.val();
-				window.location.replace(verseReference);
+				window.location.replace('@Model.Url' + verseReference);
 			}
 		}, 1000);
 

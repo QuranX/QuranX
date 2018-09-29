@@ -1,14 +1,12 @@
-﻿@using QuranX.Web.Models
+﻿@using QuranX.Web.Views.VerseCommentary
 @using QuranX.Shared.Models
-@model CommentariesForVerse
+@model ViewModel
 
 @{
-	CommentatorAndCommentary commentary = Model.Commentaries.Single();
-	var verse = new VerseRangeReference(commentary.Commentary.ChapterNumber, commentary.Commentary.FirstVerseNumber, commentary.Commentary.LastVerseNumber);
+	var verse = new VerseRangeReference(Model.CommentatorAndCommentary.Commentary.ChapterNumber, Model.CommentatorAndCommentary.Commentary.FirstVerseNumber, Model.CommentatorAndCommentary.Commentary.LastVerseNumber);
 	string verseCaption = verse.IsMultipleVerses ? "verses" : "verse";
-	ViewBag.Title = commentary.Commentator.Description + $" commentary for {verseCaption} {verse}";
+	ViewBag.Title = Model.CommentatorAndCommentary.Commentator.Description + $" commentary for {verseCaption} {verse}";
 }
-
-<h1>@Model.Chapter.EnglishName</h1>
-
-@Html.Partial("CommentaryView", commentary)
+<h1>Verse commentary</h1>
+@Html.Partial("SelectChapterAndVerse", Model.SelectChapterAndVerse)
+@Html.Partial("CommentaryView", Model.CommentatorAndCommentary)
