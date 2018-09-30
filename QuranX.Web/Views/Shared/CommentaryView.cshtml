@@ -7,11 +7,15 @@
 	string verseCaption = verse.IsMultipleVerses ? "verses" : "verse";
 }
 <div>
-	<h2>
-		@Model.Commentator.Code - @Model.Commentator.Description commentary for @verseCaption <a href="/@verse">@verse</a>
-	</h2>
-	@foreach (string text in Model.Commentary.Text)
-	{
-		<p>@text</p>
-	}
+	<dl class="boxed">
+		<dt>
+			<a href="/@verse"><span class="verse-reference">@verse</span></a>
+			@Model.Commentator.Code - @Model.Commentator.Description
+		</dt>
+		@foreach (string text in Model.Commentary.Text)
+		{
+			<dd>@text</dd>
+		}
+	</dl>
 </div>
+

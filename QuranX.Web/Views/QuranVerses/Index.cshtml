@@ -14,11 +14,39 @@
 	<h2>@group.Chapter.EnglishName - @group.Chapter.ArabicName</h2>
 	foreach (Verse verse in group.Verses)
 	{
-		<p>@(verse.ChapterNumber).@(verse.VerseNumber)</p>
+		<div class="row">
+			<span class="verse-reference">@(verse.ChapterNumber).@(verse.VerseNumber)</span>
+			<a href="analysis/@(verse.ChapterNumber).@(verse.VerseNumber)">
+				<dl class="count-and-label">
+					<dd>@verse.RootWordCount</dd>
+					<dt>Roots</dt>
+				</dl>
+			</a>
+			@if (verse.CommentaryCount > 0)
+			{
+				<a href="tafsirs/@(verse.ChapterNumber).@(verse.VerseNumber)">
+					<dl class="count-and-label">
+						<dd>@verse.CommentaryCount</dd>
+						<dt>Tafirs</dt>
+					</dl>
+				</a>
+			}
+			@if (verse.HadithCount > 0)
+			{
+				<a href="hadiths/@(verse.ChapterNumber).@(verse.VerseNumber)">
+					<dl class="count-and-label">
+						<dd>@verse.HadithCount</dd>
+						<dt>Hadiths</dt>
+					</dl>
+				</a>
+			}
+		</div>
 		foreach (VerseText translation in verse.VerseTexts)
 		{
-			<p>@translation.TranslatorName</p>
-			<p>@translation.Text</p>
+		<dl class="boxed">
+			<dt>@translation.TranslatorName</dt>
+			<dd>@translation.Text</dd>
+		</dl>
 		}
 	}
 }

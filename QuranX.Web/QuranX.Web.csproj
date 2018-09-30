@@ -203,7 +203,52 @@
     <Compile Include="Models\CommentatorAndCommentary.cs" />
     <Compile Include="Models\SelectChapterAndVerse.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Views\CommentariesForVerse\Index.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Index.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Commentators\Index.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Index.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\HadithCollections\Index.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Index.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\QuranVerses\Index.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Index.cshtml</DependentUpon>
+    </Compile>
     <Compile Include="Views\QuranVerses\ViewModel.cs" />
+    <Compile Include="Views\Shared\CommentaryView.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CommentaryView.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Shared\Error.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Error.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Shared\SelectChapterAndVerse.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SelectChapterAndVerse.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Shared\_Layout.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>_Layout.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\VerseCommentary\Index.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Index.cshtml</DependentUpon>
+    </Compile>
     <Compile Include="Views\VerseCommentary\ViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -256,15 +301,49 @@
     </Content>
     <Content Include="Views\Web.config" />
     <Content Include="Views\_ViewStart.cshtml" />
-    <Content Include="Views\Shared\Error.cshtml" />
-    <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\QuranVerses\Index.cshtml" />
-    <Content Include="Views\Commentators\Index.cshtml" />
-    <Content Include="Views\CommentariesForVerse\Index.cshtml" />
-    <Content Include="Views\Shared\CommentaryView.cshtml" />
-    <Content Include="Views\HadithCollections\Index.cshtml" />
-    <Content Include="Views\Shared\SelectChapterAndVerse.cshtml" />
-    <Content Include="Views\VerseCommentary\Index.cshtml" />
+    <None Include="Views\Shared\Error.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>Error.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\Shared\_Layout.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>_Layout.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\QuranVerses\Index.cshtml">
+      <BrowseToURL>~/1/1</BrowseToURL>
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>Index.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\Commentators\Index.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>Index.generated.cs</LastGenOutput>
+      <BrowseToURL>~/tafsirs</BrowseToURL>
+    </None>
+    <None Include="Views\CommentariesForVerse\Index.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>Index.generated.cs</LastGenOutput>
+      <BrowseToURL>~/tafsirs/1.1</BrowseToURL>
+    </None>
+    <None Include="Views\Shared\CommentaryView.cshtml">
+      <BrowseToURL>~/Shared/Abbas/1.1</BrowseToURL>
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>CommentaryView.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\HadithCollections\Index.cshtml">
+      <BrowseToURL>~/hadiths</BrowseToURL>
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>Index.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\Shared\SelectChapterAndVerse.cshtml">
+      <BrowseToURL>~/1.1</BrowseToURL>
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>SelectChapterAndVerse.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\VerseCommentary\Index.cshtml">
+      <BrowseToURL>~/Tafsir/Abbas/1.1</BrowseToURL>
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>Index.generated.cs</LastGenOutput>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\Redirect\" />
