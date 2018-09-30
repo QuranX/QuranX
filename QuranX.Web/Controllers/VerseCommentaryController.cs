@@ -7,6 +7,7 @@ using QuranX.Web.Views.VerseCommentary;
 
 namespace QuranX.Web.Controllers
 {
+	[OutputCache(Duration = Consts.CacheTimeInSeconds, NoStore = Consts.CacheTimeInSeconds == 0)]
 	public class VerseCommentaryController : Controller
 	{
 		private readonly ICommentatorRepository CommentatorRepository;

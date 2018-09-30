@@ -192,7 +192,7 @@
     <Compile Include="Controllers\HadithCollectionsController.cs" />
     <Compile Include="Controllers\QuranVersesController.cs" />
     <Compile Include="Controllers\RedirectController.cs" />
-    <Compile Include="Controllers\VerseCommentariesController.cs" />
+    <Compile Include="Controllers\CommentariesForVerseController.cs" />
     <Compile Include="Factories\SelectChapterAndVerseFactory.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -260,7 +260,7 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\QuranVerses\Index.cshtml" />
     <Content Include="Views\Commentators\Index.cshtml" />
-    <Content Include="Views\VerseCommentaries\Index.cshtml" />
+    <Content Include="Views\CommentariesForVerse\Index.cshtml" />
     <Content Include="Views\Shared\CommentaryView.cshtml" />
     <Content Include="Views\HadithCollections\Index.cshtml" />
     <Content Include="Views\Shared\SelectChapterAndVerse.cshtml" />
