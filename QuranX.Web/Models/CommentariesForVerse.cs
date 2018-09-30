@@ -8,15 +8,18 @@ namespace QuranX.Web.Models
 		public readonly Chapter Chapter;
 		public readonly int VerseNumber;
 		public readonly IEnumerable<CommentatorAndCommentary> Commentaries;
+		private readonly SelectChapterAndVerse SelectChapterAndVerse;
 
 		public CommentariesForVerse(
 			Chapter chapter,
 			int verseNumber,
-			IEnumerable<CommentatorAndCommentary> commentaries)
+			IEnumerable<CommentatorAndCommentary> commentaries,
+			SelectChapterAndVerse selectChapterAndVerse)
 		{
 			Chapter = chapter;
 			VerseNumber = verseNumber;
 			Commentaries = commentaries;
+			SelectChapterAndVerse = selectChapterAndVerse;
 		}
 	}
 }

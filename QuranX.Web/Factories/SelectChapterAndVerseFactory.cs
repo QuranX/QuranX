@@ -57,14 +57,11 @@ namespace QuranX.Web.Factories
 				ResultForAllChapters = new SelectChapterAndVerse(
 					selectedChapterNumber: 1,
 					selectedVerseNumber: 1,
-					allVerses: true,
-					url: url,
-					availableChapters: availableChapters);
+					url: url);
 			}
 			return ResultForAllChapters.WithValues(
 				selectedChapterNumber: selectedChapterNumber,
 				selectedVerseNumber: selectedVerseNumber,
-				allVerses: true,
 				url: url);
 		}
 
@@ -92,7 +89,6 @@ namespace QuranX.Web.Factories
 				result = new SelectChapterAndVerse(
 					selectedChapterNumber: 1,
 					selectedVerseNumber: 1,
-					allVerses: false,
 					url: url,
 					availableChapters: availableChaptersAndVerses);
 
@@ -102,7 +98,6 @@ namespace QuranX.Web.Factories
 			return result.WithValues(
 				selectedChapterNumber: selectedChapterNumber,
 				selectedVerseNumber: selectedVerseNumber,
-				allVerses: false,
 				url: url);
 		}
 	}

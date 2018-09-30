@@ -49,8 +49,6 @@ namespace QuranX.Web.Controllers
 				selectChapterAndVerse: new SelectChapterAndVerse(
 					firstReference.Chapter,
 					firstReference.FirstVerse,
-					allVerses: true,
-					availableChapters: null,
 					url: "")
 				); 
 			return View(viewModel);

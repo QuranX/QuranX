@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace QuranX.Web.Models
 {
@@ -11,6 +12,33 @@ namespace QuranX.Web.Models
 		public readonly string Url;
 
 		public SelectChapterAndVerse(
+			int selectedChapterNumber,
+			int selectedVerseNumber,
+			string url) : this(
+				selectedChapterNumber: selectedChapterNumber,
+				selectedVerseNumber: selectedVerseNumber,
+				allVerses: true,
+				availableChapters: null,
+				url: url)
+		{
+		}
+
+		public SelectChapterAndVerse(
+			int selectedChapterNumber,
+			int selectedVerseNumber,
+			string url,
+			IEnumerable<ChapterAndVerseReferenceSelection> availableChapters) : this(
+				selectedChapterNumber: selectedChapterNumber,
+				selectedVerseNumber: selectedVerseNumber,
+				allVerses: false,
+				availableChapters: availableChapters,
+				url: url)
+		{
+			if (availableChapters == null)
+				throw new ArgumentNullException(nameof(availableChapters));
+		}
+
+		private SelectChapterAndVerse(
 			int selectedChapterNumber,
 			int selectedVerseNumber,
 			bool allVerses,
@@ -29,13 +57,12 @@ namespace QuranX.Web.Models
 		public SelectChapterAndVerse WithValues(
 			int selectedChapterNumber, 
 			int selectedVerseNumber,
-			bool allVerses,
 			string url)
 		{
 			return new SelectChapterAndVerse(
 				selectedChapterNumber: selectedChapterNumber,
 				selectedVerseNumber: selectedVerseNumber,
-				allVerses: allVerses,
+				allVerses: AllVerses,
 				availableChapters: AvailableChapters,
 				url: url);
 		}

@@ -55,9 +55,15 @@ namespace QuranX.Web.Factories
 						commentator: commentatorByCode[x.CommentatorCode],
 						commentary: x)
 					);
+
+			var selectChapterAndVerse = new SelectChapterAndVerse(
+				selectedChapterNumber: chapterNumber,
+				selectedVerseNumber: verseNumber,
+				url: "/Tafsirs");
 			var viewModel = new CommentariesForVerse(
 				chapter: chapter,
 				verseNumber: verseNumber,
+				selectChapterAndVerse: selectChapterAndVerse,
 				commentaries: commentatorsAndCommentaries);
 			return viewModel;
 		}
