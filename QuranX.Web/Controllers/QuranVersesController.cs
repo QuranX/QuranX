@@ -43,19 +43,14 @@ namespace QuranX.Web.Controllers
 				displayVerses.Add(chapterAndSelection);
 			}
 
-			IEnumerable<ChapterAndVerseReferenceSelection> allVerses = VerseRepository.GetVerseReferences()
-				.GroupBy(x => x.Chapter)
-				.Select(x => new ChapterAndVerseReferenceSelection(
-					chapter: ChapterRepository.Get(x.Key),
-					verseReferences: x));
-
 			VerseRangeReference firstReference = verseRangeReferences.First();
 			var viewModel = new ViewModel(
 				displayVerses: displayVerses,
 				selectChapterAndVerse: new SelectChapterAndVerse(
 					firstReference.Chapter,
 					firstReference.FirstVerse,
-					allVerses,
+					allVerses: true,
+					availableChapters: null,
 					url: "")
 				); 
 			return View(viewModel);

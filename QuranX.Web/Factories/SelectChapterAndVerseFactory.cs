@@ -41,7 +41,10 @@ namespace QuranX.Web.Factories
 				new ConcurrentDictionary<string, SelectChapterAndVerse>(StringComparer.InvariantCultureIgnoreCase);
 		}
 
-		public SelectChapterAndVerse CreateForAllChaptersAndVerses(int selectedChapterNumber, int selectedVerseNumber, string url)
+		public SelectChapterAndVerse CreateForAllChaptersAndVerses(
+			int selectedChapterNumber, 
+			int selectedVerseNumber, 
+			string url)
 		{
 			if (ResultForAllChapters == null)
 			{
@@ -54,16 +57,22 @@ namespace QuranX.Web.Factories
 				ResultForAllChapters = new SelectChapterAndVerse(
 					selectedChapterNumber: 1,
 					selectedVerseNumber: 1,
+					allVerses: true,
 					url: url,
 					availableChapters: availableChapters);
 			}
 			return ResultForAllChapters.WithValues(
 				selectedChapterNumber: selectedChapterNumber,
 				selectedVerseNumber: selectedVerseNumber,
+				allVerses: true,
 				url: url);
 		}
 
-		public SelectChapterAndVerse CreateForCommentary(string commentatorCode, int selectedChapterNumber, int selectedVerseNumber, string url)
+		public SelectChapterAndVerse CreateForCommentary(
+			string commentatorCode,
+			int selectedChapterNumber,
+			int selectedVerseNumber,
+			string url)
 		{
 			if (!ResultByCommentatorCode.TryGetValue(commentatorCode, out SelectChapterAndVerse result))
 			{
@@ -83,6 +92,7 @@ namespace QuranX.Web.Factories
 				result = new SelectChapterAndVerse(
 					selectedChapterNumber: 1,
 					selectedVerseNumber: 1,
+					allVerses: false,
 					url: url,
 					availableChapters: availableChaptersAndVerses);
 
@@ -92,6 +102,7 @@ namespace QuranX.Web.Factories
 			return result.WithValues(
 				selectedChapterNumber: selectedChapterNumber,
 				selectedVerseNumber: selectedVerseNumber,
+				allVerses: false,
 				url: url);
 		}
 	}
