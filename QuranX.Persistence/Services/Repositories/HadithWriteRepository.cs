@@ -53,8 +53,11 @@ namespace QuranX.Persistence.Services.Repositories
 					.StoreAndIndex(reference, x => x.CollectionCode)
 					.StoreAndIndex(reference, x => x.IndexCode)
 					.StoreAndIndex(reference, x => x.IndexPart1)
+					.StoreAndIndex(reference, x => x.IndexPart1Suffix)
 					.StoreAndIndex(reference, x => x.IndexPart2)
-					.StoreAndIndex(reference, x => x.IndexPart3);
+					.StoreAndIndex(reference, x => x.IndexPart2Suffix)
+					.StoreAndIndex(reference, x => x.IndexPart3)
+					.StoreAndIndex(reference, x => x.IndexPart3Suffix);
 				indexWriter.AddDocument(doc);
 			}
 		}

@@ -9,6 +9,8 @@ using HadithViewModel = QuranX.Persistence.Models.Hadith;
 using HadithReferenceViewModel = QuranX.Persistence.Models.HadithReference;
 using System.Linq;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
+using System;
 
 namespace QuranX.DataMigration.Migrators
 {
@@ -71,15 +73,27 @@ namespace QuranX.DataMigration.Migrators
 		private void MigrateHadith(Hadith hadith)
 		{
 			int hadithId = NextHadithId++;
-			IEnumerable<HadithReferenceViewModel> references = hadith.References
-				.Select(x => new HadithReferenceViewModel(
+			var references = new List<HadithReferenceViewModel>();
+			foreach(HadithReference hadithReference in hadith.References)
+			{
+				(int index, string suffix)[] indexValues =
+					hadithReference.Values
+					.Select(x => SplitValue(x))
+					.ToArray();
+				if (!string.IsNullOrWhiteSpace(hadithReference.Suffix))
+					indexValues[indexValues.Length - 1].suffix = hadithReference.Suffix;
+				var reference = new HadithReferenceViewModel(
 					collectionCode: hadith.Collection.Code,
-					indexCode: x.Code,
-					indexPart1: x.Values.Length > 0 ? x.Values[0] : null,
-					indexPart2: x.Values.Length > 1 ? x.Values[1] : null,
-					indexPart3: x.Values.Length > 2 ? x.Values[2] : null,
-					suffix: x.Suffix,
-					hadithId: hadithId));
+					indexCode: hadithReference.Code,
+					indexPart1: indexValues[0].index,
+					indexPart1Suffix: indexValues[0].suffix,
+					indexPart2: indexValues.Length > 1 ? indexValues[1].index : (int?)null,
+					indexPart2Suffix: indexValues.Length > 1 ? indexValues[1].suffix : (string)null,
+					indexPart3: indexValues.Length > 2 ? indexValues[2].index : (int?)null,
+					indexPart3Suffix: indexValues.Length > 2 ? indexValues[2].suffix : (string)null,
+					hadithId: hadithId);
+				references.Add(reference);
+			}
 			var hadithViewModel = new HadithViewModel(
 				id: hadithId,
 				arabicText: hadith.ArabicText,
@@ -87,6 +101,17 @@ namespace QuranX.DataMigration.Migrators
 				verseRangeReferences: hadith.VerseReferences,
 				references: references);
 			HadithWriteRepository.Write(hadithViewModel);
+		}
+
+		private (int index, string suffix) SplitValue(string value)
+		{
+			var regex = new Regex(@"(\d+)(\w+)?");
+			Match match = regex.Match(value);
+			if (!match.Success)
+				throw new ArgumentException("Must be digits alone or digits + letters", nameof(value));
+			int index = int.Parse(match.Groups[1].Value);
+			string suffix = match.Groups[2].Value;
+			return (index, suffix);
 		}
 	}
 }

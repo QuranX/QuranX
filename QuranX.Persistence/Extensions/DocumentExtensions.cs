@@ -66,6 +66,17 @@ namespace QuranX.Persistence.Extensions
 			return document;
 		}
 
+		public static Document StoreAndIndex<TObj>(
+			this Document document,
+			TObj instance,
+			Expression<Func<TObj, int?>> expression)
+		{
+			expression.GetIndexNameAndPropertyValue(instance, out string name, out int? value);
+			if (value.HasValue)
+				document.StoreAndIndex(name, value.Value);
+			return document;
+		}
+
 		public static Document StoreAndIndex(
 			this Document document,
 			string indexName,
