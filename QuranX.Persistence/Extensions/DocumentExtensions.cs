@@ -48,11 +48,13 @@ namespace QuranX.Persistence.Extensions
 		public static Document StoreAndIndex<TObj>(
 			this Document document,
 			TObj instance,
-			Expression<Func<TObj, string>> expression)
+			Expression<Func<TObj, string>> expression,
+			Func<string, string> transform = null)
 		{
 			expression.GetIndexNameAndPropertyValue(instance, out string name, out string value);
+			transform = transform ?? new Func<string, string>(x => x);
 			if (value != null)
-				Add(document, name, value, IndexKind.StoreAndIndex);
+				Add(document, name, transform(value), IndexKind.StoreAndIndex);
 			return document;
 		}
 

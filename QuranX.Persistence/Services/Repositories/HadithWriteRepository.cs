@@ -51,7 +51,7 @@ namespace QuranX.Persistence.Services.Repositories
 				doc
 					.AddObject(reference)
 					.StoreAndIndex(reference, x => x.CollectionCode)
-					.StoreAndIndex(reference, x => x.IndexCode)
+					.StoreAndIndex(reference, x => x.IndexCode, x => x.Replace("-", ""))
 					.StoreAndIndex(reference, x => x.IndexPart1)
 					.StoreAndIndex(reference, x => x.IndexPart1Suffix)
 					.StoreAndIndex(reference, x => x.IndexPart2)

@@ -185,6 +185,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\UnityConfig.cs" />
+    <Compile Include="Controllers\HadithIndexController.cs" />
     <Compile Include="Controllers\VerseCommentaryController.cs" />
     <Compile Include="Factories\CommentariesForVerseFactory.cs" />
     <Compile Include="Consts.cs" />
@@ -346,6 +347,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Views\HadithReferences\" />
     <Folder Include="Views\Redirect\" />
   </ItemGroup>
   <ItemGroup>

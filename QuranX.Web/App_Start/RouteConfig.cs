@@ -33,6 +33,11 @@ namespace QuranX.Web
 				defaults: new { Controller = "HadithCollections", Action = "Index" });
 
 			routes.MapRoute(
+				name: "HadithIndex",
+				url: "Hadith/{CollectionCode}/{IndexCode}",
+				defaults: new { Controller = "HadithIndex", Action = "Index" });
+
+			routes.MapRoute(
 				name: "QuranVerses",
 				url: "{*Verses}",
 				defaults: new { Controller = "QuranVerses", Action = "Index" },

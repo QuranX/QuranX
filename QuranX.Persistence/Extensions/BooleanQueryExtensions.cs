@@ -28,8 +28,7 @@ namespace QuranX.Persistence.Extensions
 
 			string indexName = ExpressionExtensions.GetIndexName(expression);
 			var term = new Term(indexName, value);
-			var subQuery = new PhraseQuery();
-			subQuery.Add(term);
+			var subQuery = new TermQuery(term);
 			instance.Add(subQuery, occur);
 			return instance;
 		}

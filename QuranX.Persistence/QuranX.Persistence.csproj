@@ -150,6 +150,7 @@
     <Compile Include="Services\Repositories\Consts.cs" />
     <Compile Include="Services\Repositories\HadithCollectionRepository.cs" />
     <Compile Include="Services\Repositories\HadithCollectionWriteRepository.cs" />
+    <Compile Include="Services\Repositories\HadithRepository.cs" />
     <Compile Include="Services\Repositories\HadithWriteRepository.cs" />
     <Compile Include="Services\Repositories\VerseRepository.cs" />
     <Compile Include="Services\Repositories\VerseWriteRepository.cs" />

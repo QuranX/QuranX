@@ -17,6 +17,7 @@ namespace QuranX.Persistence.Services
 			container.RegisterSingleton<ICommentaryWriteRepository, CommentaryWriteRepository>();
 			container.RegisterSingleton<IHadithCollectionRepository, HadithCollectionRepository>();
 			container.RegisterSingleton<IHadithCollectionWriteRepository, HadithCollectionWriteRepository>();
+			container.RegisterSingleton<IHadithRepository, HadithRepository>();
 			container.RegisterSingleton<IHadithWriteRepository, HadithWriteRepository>();
 		}
 
