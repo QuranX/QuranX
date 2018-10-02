@@ -1,4 +1,7 @@
-﻿namespace QuranX.Persistence.Models
+﻿using System;
+using System.Text.RegularExpressions;
+
+namespace QuranX.Persistence.Models
 {
 	public class HadithReference
 	{
@@ -32,6 +35,29 @@
 			IndexPart3 = indexPart3;
 			IndexPart3Suffix = indexPart3Suffix;
 			HadithId = hadithId;
+		}
+
+		public static (int index, string suffix) SplitValue(string value)
+		{
+			var regex = new Regex(@"^(\d+)(\w+)?$");
+			Match match = regex.Match(value);
+			if (!match.Success)
+				throw new ArgumentException("Must be digits alone or digits + letters", nameof(value));
+			int index = int.Parse(match.Groups[1].Value);
+			string suffix = match.Groups[2].Value;
+			return (index, suffix);
+		}
+
+		public static (string indexPartName, int index, string suffix) SplitNameAndValue(string value)
+		{
+			var regex = new Regex(@"^([a-zA-Z]+)-(\d+)(\w+)?$");
+			Match match = regex.Match(value);
+			if (!match.Success)
+				throw new ArgumentException("Must be Name, a dash, and then digits alone or digits + letters", nameof(value));
+			string indexPartName = match.Groups[1].Value;
+			int index = int.Parse(match.Groups[2].Value);
+			string suffix = match.Groups[3].Value;
+			return (indexPartName, index, suffix);
 		}
 	}
 }

@@ -16,20 +16,23 @@ namespace QuranX.Web.Controllers
 		}
 
 		// GET: HadithReferences
-		public ActionResult Index(string collectionCode, string indexCode)
+		public ActionResult Index(string collectionCode, string indexCode,
+			string indexValue1, string indexValue2, string indexValue3)
 		{
-			IEnumerable<HadithReference> hadithReferences =
+			var indexNamesAndValues = new List<(string indexPartName, int index, string suffix)>();
+			if (!string.IsNullOrWhiteSpace(indexValue1))
+				indexNamesAndValues.Add(HadithReference.SplitNameAndValue(indexValue1));
+			if (!string.IsNullOrWhiteSpace(indexValue2))
+				indexNamesAndValues.Add(HadithReference.SplitNameAndValue(indexValue2));
+			if (!string.IsNullOrWhiteSpace(indexValue3))
+				indexNamesAndValues.Add(HadithReference.SplitNameAndValue(indexValue3));
+			IEnumerable<(int index, string suffix)> indexValues =
+				indexNamesAndValues.Select(x => (x.index, x.suffix));
+			List<HadithReference> hadithReferences =
 				HadithRepository.GetReferences(
 					collectionCode: collectionCode,
 					indexCode: indexCode,
-					values: null);
-			IEnumerable<string> values =
-				hadithReferences
-				.OrderBy(x => x.IndexPart1)
-				.ThenBy(x => x.IndexPart1Suffix.Length)
-				.ThenBy(x => x.IndexPart1Suffix)
-				.Select(x => x.IndexPart1 + x.IndexPart1Suffix)
-				.Distinct()
+					values: indexValues)
 				.ToList();
 			return View();
 		}

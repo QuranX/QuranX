@@ -33,6 +33,36 @@ namespace QuranX.Web
 				defaults: new { Controller = "HadithCollections", Action = "Index" });
 
 			routes.MapRoute(
+				name: "HadithIndex3",
+				url: "Hadith/{CollectionCode}/{IndexCode}/{IndexValue1}/{IndexValue2}/{IndexValue3}",
+				defaults: new { Controller = "HadithIndex", Action = "Index" },
+				constraints: new
+				{
+					IndexValue1 = @"([a-z]+)-(\d+)([a-z]*)",
+					IndexValue2 = @"([a-z]+)-(\d+)([a-z]*)",
+					IndexValue3 = @"([a-z]+)-(\d+)([a-z]*)"
+				});
+
+			routes.MapRoute(
+				name: "HadithIndex2",
+				url: "Hadith/{CollectionCode}/{IndexCode}/{IndexValue1}/{IndexValue2}",
+				defaults: new { Controller = "HadithIndex", Action = "Index" },
+				constraints: new
+				{
+					IndexValue1 = @"([a-z]+)-(\d+)([a-z]*)",
+					IndexValue2 = @"([a-z]+)-(\d+)([a-z]*)"
+				});
+
+			routes.MapRoute(
+				name: "HadithIndex1",
+				url: "Hadith/{CollectionCode}/{IndexCode}/{IndexValue1}",
+				defaults: new { Controller = "HadithIndex", Action = "Index" },
+				constraints: new
+				{
+					IndexValue1 = @"([a-z]+)-(\d+)([a-z]*)"
+				});
+
+			routes.MapRoute(
 				name: "HadithIndex",
 				url: "Hadith/{CollectionCode}/{IndexCode}",
 				defaults: new { Controller = "HadithIndex", Action = "Index" });

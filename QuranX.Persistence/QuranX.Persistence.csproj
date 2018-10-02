@@ -125,6 +125,7 @@
     <Compile Include="Extensions\BooleanQueryExtensions.cs" />
     <Compile Include="Extensions\DocumentExtensions.cs" />
     <Compile Include="Extensions\ExpressionExtensions.cs" />
+    <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="LuceneSupport\QuranXAnalyzer.cs" />
     <Compile Include="LuceneSupport\QuranXLetterTokenizer.cs" />
     <Compile Include="Models\Commentary.cs" />

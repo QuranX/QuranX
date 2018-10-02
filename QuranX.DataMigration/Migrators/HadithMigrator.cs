@@ -11,6 +11,7 @@ using System.Linq;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using System;
+using QuranX.Persistence.Extensions;
 
 namespace QuranX.DataMigration.Migrators
 {
@@ -78,7 +79,7 @@ namespace QuranX.DataMigration.Migrators
 			{
 				(int index, string suffix)[] indexValues =
 					hadithReference.Values
-					.Select(x => SplitValue(x))
+					.Select(x => HadithReferenceViewModel.SplitValue(x))
 					.ToArray();
 				if (!string.IsNullOrWhiteSpace(hadithReference.Suffix))
 					indexValues[indexValues.Length - 1].suffix = hadithReference.Suffix;
@@ -86,11 +87,11 @@ namespace QuranX.DataMigration.Migrators
 					collectionCode: hadith.Collection.Code,
 					indexCode: hadithReference.Code,
 					indexPart1: indexValues[0].index,
-					indexPart1Suffix: indexValues[0].suffix,
+					indexPart1Suffix: indexValues[0].suffix.AsNullIfWhiteSpace(),
 					indexPart2: indexValues.Length > 1 ? indexValues[1].index : (int?)null,
-					indexPart2Suffix: indexValues.Length > 1 ? indexValues[1].suffix : (string)null,
+					indexPart2Suffix: indexValues.Length > 1 ? indexValues[1].suffix.AsNullIfWhiteSpace() : null,
 					indexPart3: indexValues.Length > 2 ? indexValues[2].index : (int?)null,
-					indexPart3Suffix: indexValues.Length > 2 ? indexValues[2].suffix : (string)null,
+					indexPart3Suffix: indexValues.Length > 2 ? indexValues[2].suffix.AsNullIfWhiteSpace() : null,
 					hadithId: hadithId);
 				references.Add(reference);
 			}
@@ -103,15 +104,6 @@ namespace QuranX.DataMigration.Migrators
 			HadithWriteRepository.Write(hadithViewModel);
 		}
 
-		private (int index, string suffix) SplitValue(string value)
-		{
-			var regex = new Regex(@"(\d+)(\w+)?");
-			Match match = regex.Match(value);
-			if (!match.Success)
-				throw new ArgumentException("Must be digits alone or digits + letters", nameof(value));
-			int index = int.Parse(match.Groups[1].Value);
-			string suffix = match.Groups[2].Value;
-			return (index, suffix);
-		}
+
 	}
 }

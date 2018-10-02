@@ -61,31 +61,31 @@ namespace QuranX.Persistence.Services.Repositories
 					Occur.MUST);
 				query.AddPhraseQuery<HadithReference>(x =>
 					x.IndexPart1Suffix,
-					valuesArray[0].suffix,
+					valuesArray[0].suffix.AsNullIfWhiteSpace(),
 					Occur.MUST);
 			}
 			if (valuesArray.Length > 1)
 			{
 				query.AddNumericRangeQuery<HadithReference>(x =>
-					x.IndexPart1,
+					x.IndexPart2,
 					valuesArray[1].index,
 					valuesArray[1].index,
 					Occur.MUST);
 				query.AddPhraseQuery<HadithReference>(x =>
-					x.IndexPart1Suffix,
-					valuesArray[1].suffix,
+					x.IndexPart2Suffix,
+					valuesArray[1].suffix.AsNullIfWhiteSpace(),
 					Occur.MUST);
 			}
 			if (valuesArray.Length > 2)
 			{
 				query.AddNumericRangeQuery<HadithReference>(x =>
-					x.IndexPart1,
+					x.IndexPart3,
 					valuesArray[2].index,
 					valuesArray[2].index,
 					Occur.MUST);
 				query.AddPhraseQuery<HadithReference>(x =>
-					x.IndexPart1Suffix,
-					valuesArray[2].suffix,
+					x.IndexPart3Suffix,
+					valuesArray[2].suffix.AsNullIfWhiteSpace(),
 					Occur.MUST);
 			}
 			IndexSearcher searcher = IndexSearcherProvider.GetIndexSearcher();
