@@ -219,6 +219,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Index.cshtml</DependentUpon>
     </Compile>
+    <Compile Include="Views\HadithIndex\HadithIndexHeaderViewModel.cs" />
+    <Compile Include="Views\HadithIndex\HadithsViewModel.cs" />
+    <Compile Include="Views\HadithIndex\IndexPartsViewModel.cs" />
     <Compile Include="Views\QuranVerses\Index.generated.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -302,6 +305,8 @@
     </Content>
     <Content Include="Views\Web.config" />
     <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\HadithIndex\Hadiths.cshtml" />
+    <Content Include="Views\HadithIndex\HadithIndexHeader.cshtml" />
     <None Include="Views\Shared\Error.cshtml">
       <Generator>RazorGenerator</Generator>
       <LastGenOutput>Error.generated.cs</LastGenOutput>
@@ -347,7 +352,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Views\HadithReferences\" />
     <Folder Include="Views\Redirect\" />
   </ItemGroup>
   <ItemGroup>

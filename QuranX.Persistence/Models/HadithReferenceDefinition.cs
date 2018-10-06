@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace QuranX.Persistence.Models
@@ -26,6 +27,12 @@ namespace QuranX.Persistence.Models
 			ValuePrefix = valuePrefix;
 			PartNames = partNames.ToList().AsReadOnly();
 			IsPrimary = isPrimary;
+		}
+
+		public bool PatternMatch(IEnumerable<string> names)
+		{
+			IEnumerable<string> subsetOfDefinitionPartNames = PartNames.Take(names.Count());
+			return Enumerable.SequenceEqual(subsetOfDefinitionPartNames, names, StringComparer.InvariantCultureIgnoreCase);
 		}
 	}
 }

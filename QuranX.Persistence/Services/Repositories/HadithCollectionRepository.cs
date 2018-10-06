@@ -28,7 +28,8 @@ namespace QuranX.Persistence.Services.Repositories
 		public HadithCollection Get(string collectionCode)
 		{
 			EnsureData();
-			return HadithCollectionByCode[collectionCode];
+			HadithCollectionByCode.TryGetValue(collectionCode, out HadithCollection collection);
+			return collection;
 		}
 
 		public IEnumerable<HadithCollection> GetAll()

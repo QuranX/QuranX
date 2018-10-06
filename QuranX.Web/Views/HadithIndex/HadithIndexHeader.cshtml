@@ -1,0 +1,24 @@
+﻿@using QuranX.Web.Views.HadithIndex
+@model HadithIndexHeaderViewModel
+
+<h1>Hadith collection</h1>
+<h2>
+	<a href="/Hadith/@Model.Collection.Code/@Model.Collection.PrimaryReferenceCode">
+		@Model.Collection.Name
+	</a>
+</h2>
+<h3>
+	@{ 
+		string urlSoFar = $"/Hadith/{Model.Collection.Code}/{Model.Collection.PrimaryReferenceCode}";
+		int currentIndex = 0;
+		int urlPartsCount = Model.IndexPartsAndValues.Count();
+		foreach (string urlPart in Model.IndexPartsAndValues)
+		{
+			currentIndex++;
+			urlSoFar += "/" + urlPart;
+			string visibleSeparator = (currentIndex != urlPartsCount) ? " / " : null;
+			<a href="@urlSoFar">@urlPart</a>@visibleSeparator
+		}
+	}
+</h3>
+

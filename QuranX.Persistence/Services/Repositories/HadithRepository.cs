@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Lucene.Net.Documents;
 using Lucene.Net.Search;
 using QuranX.Persistence.Extensions;
 using QuranX.Persistence.Models;
@@ -13,6 +14,7 @@ namespace QuranX.Persistence.Services.Repositories
 			string collectionCode,
 			string indexCode,
 			IEnumerable<(int index, string suffix)> values);
+		IEnumerable<Hadith> GetHadiths(IEnumerable<int> ids);
 	}
 
 	public class HadithRepository : IHadithRepository
@@ -39,10 +41,36 @@ namespace QuranX.Persistence.Services.Repositories
 			return references;
 		}
 
-		public IEnumerable<int> GetReferencesIds(
-		string collectionCode,
-		string indexCode,
-		IEnumerable<(int index, string suffix)> values)
+		public IEnumerable<Hadith> GetHadiths(IEnumerable<int> ids)
+		{
+			if (ids == null || !ids.Any())
+				return Array.Empty<Hadith>();
+
+			var query = new BooleanQuery(disableCoord: true);
+			query.FilterByType<Hadith>();
+			foreach(int id in ids)
+			{
+				var subQuery = new BooleanQuery(disableCoord: true);
+				subQuery.AddNumericRangeQuery<Hadith>(x => x.Id, id, id, Occur.MUST);
+				query.Add(subQuery, Occur.MUST);
+			}
+			IndexSearcher searcher = IndexSearcherProvider.GetIndexSearcher();
+			TopDocs docs = searcher.Search(query, 99000);
+			IEnumerable<int> documentIds = docs.ScoreDocs.Select(x => x.Doc);
+			IEnumerable<Document> documents = documentIds.Select(x => searcher.Doc(x));
+			Dictionary<int, Hadith> hadithsById =
+				documents
+				.Select(x => x.GetObject<Hadith>())
+				.ToDictionary(x => x.Id);
+
+			// Return objects in ID order
+			return ids.Select(x => hadithsById[x]);
+		}
+
+		private IEnumerable<int> GetReferencesIds(
+			string collectionCode,
+			string indexCode,
+			IEnumerable<(int index, string suffix)> values)
 		{
 			values = values ?? Array.Empty<(int index, string suffix)>();
 

@@ -9,7 +9,6 @@ namespace QuranX.Persistence.Models
 		public string Name { get; }
 		public IReadOnlyList<HadithReferenceDefinition> ReferenceDefinitions { get; }
 		public int HadithCount { get; }
-		public string PrimaryReferenceCode => ReferenceDefinitions.Single(x => x.IsPrimary).Code;
 
 		public HadithCollection(
 			string code,
@@ -22,5 +21,9 @@ namespace QuranX.Persistence.Models
 			ReferenceDefinitions = referenceDefinitions.ToList().AsReadOnly();
 			HadithCount = hadithCount;
 		}
+
+		public string PrimaryReferenceCode => ReferenceDefinitions.Single(x => x.IsPrimary).Code;
+		public HadithReferenceDefinition GetReferenceDefinition(string indexCode) => ReferenceDefinitions
+			.SingleOrDefault(x => string.Compare(x.Code, indexCode, true) == 0);
 	}
 }

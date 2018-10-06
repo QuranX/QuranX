@@ -1,0 +1,9 @@
+﻿@using QuranX.Web.Views.HadithIndex
+@model HadithsViewModel
+
+@{
+	ViewBag.Title = $"{Model.HadithIndexHeaderViewModel.Collection.Name} Hadiths";
+}
+
+@Html.Partial("HadithIndexHeader", Model.HadithIndexHeaderViewModel)
+
