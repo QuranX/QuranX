@@ -52,12 +52,13 @@ namespace QuranX.Persistence.Services.Repositories
 
 			var query = new BooleanQuery(disableCoord: true);
 			query.FilterByType<Hadith>();
+			var idQuery = new BooleanQuery(disableCoord: true);
 			foreach (int id in ids)
 			{
-				var subQuery = new BooleanQuery(disableCoord: true);
-				subQuery.AddNumericRangeQuery<Hadith>(x => x.Id, id, id, Occur.MUST);
-				query.Add(subQuery, Occur.MUST);
+				idQuery.AddNumericRangeQuery<Hadith>(x => x.Id, id, id, Occur.SHOULD);
 			}
+			query.Add(new BooleanClause(idQuery, Occur.MUST));
+
 			IndexSearcher searcher = IndexSearcherProvider.GetIndexSearcher();
 			TopDocs docs = searcher.Search(query, 99000);
 			IEnumerable<int> documentIds = docs.ScoreDocs.Select(x => x.Doc);
