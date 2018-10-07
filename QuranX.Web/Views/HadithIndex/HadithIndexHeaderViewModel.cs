@@ -5,11 +5,16 @@ namespace QuranX.Web.Views.HadithIndex
 {
 	public class HadithIndexHeaderViewModel
 	{
+		public readonly string UrlSoFar;
 		public readonly HadithCollection Collection;
 		public readonly IEnumerable<string> IndexPartsAndValues;
 
-		public HadithIndexHeaderViewModel(HadithCollection collection, IEnumerable<string> indexPartsAndValues)
+		public HadithIndexHeaderViewModel(
+			string urlSoFar,
+			HadithCollection collection,
+			IEnumerable<string> indexPartsAndValues)
 		{
+			UrlSoFar = urlSoFar;
 			Collection = collection;
 			IndexPartsAndValues = indexPartsAndValues;
 		}

@@ -6,19 +6,13 @@
 	<a href="/Hadith/@Model.Collection.Code/@Model.Collection.PrimaryReferenceCode">
 		@Model.Collection.Name
 	</a>
-</h2>
-<h3>
-	@{ 
-		string urlSoFar = $"/Hadith/{Model.Collection.Code}/{Model.Collection.PrimaryReferenceCode}";
-		int currentIndex = 0;
-		int urlPartsCount = Model.IndexPartsAndValues.Count();
+	@{
+		string urlSoFar = $"/Hadith/{Model.Collection.Code}/{Model.Collection.PrimaryReferenceCode}/";
 		foreach (string urlPart in Model.IndexPartsAndValues)
 		{
-			currentIndex++;
-			urlSoFar += "/" + urlPart;
-			string visibleSeparator = (currentIndex != urlPartsCount) ? " / " : null;
-			<a href="@urlSoFar">@urlPart</a>@visibleSeparator
+			urlSoFar += urlPart + "/";
+			<span> / </span><a href="@urlSoFar">@urlPart</a>
 		}
 	}
-</h3>
+</h2>
 

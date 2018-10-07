@@ -47,18 +47,21 @@ namespace QuranX.Web.Controllers
 
 			IEnumerable<(int index, string suffix)> indexValues =
 				indexNamesAndValues.Select(x => (x.index, x.suffix));
-			List<HadithReference> hadithReferences =
+			IEnumerable<HadithReference> hadithReferences =
 				HadithRepository.GetReferences(
 					collectionCode: collectionCode,
 					indexCode: indexCode,
-					values: indexValues)
-				.ToList();
+					values: indexValues);
 
 			IEnumerable<string> urlIndexParts = indexNamesAndValues
 				.Select(x => x.index + x.suffix)
 				.Select((value, index) => indexDefinition.PartNames[index] + "-" + value);
-			var headerViewModel = new HadithIndexHeaderViewModel(collection, urlIndexParts);
-			if (indexPartNames.Count() == indexDefinition.PartNames.Count())
+			string partsAsUrl = string.Join("/", urlIndexParts);
+			var headerViewModel = new HadithIndexHeaderViewModel(
+				$"/hadith/{collectionCode}/{indexCode}/{partsAsUrl}",
+				collection,
+				urlIndexParts);
+			if (indexPartNames.Count() == indexDefinition.PartNames.Count)
 			{
 				IEnumerable<int> hadithIds = hadithReferences.Select(x => x.HadithId);
 				IEnumerable<Hadith> hadiths = HadithRepository.GetHadiths(hadithIds);
@@ -67,7 +70,37 @@ namespace QuranX.Web.Controllers
 			}
 			else
 			{
-				return HttpNotFound();
+				string nextIndexPartName = indexDefinition.PartNames[indexPartNames.Count()];
+				Func<HadithReference, string> getNextValue;
+				switch (indexPartNames.Count())
+				{
+					case 0:
+						getNextValue = x => x.IndexPart1 + x.IndexPart1Suffix;
+						break;
+					case 1:
+						getNextValue = x => x.IndexPart2 + x.IndexPart2Suffix;
+						break;
+					case 2:
+						getNextValue = x => x.IndexPart3 + x.IndexPart3Suffix;
+						break;
+					default:
+						throw new NotImplementedException();
+				}
+				// If the next level is the final level (the hadith itself) then remove the suffix
+				// from the final part so that all hadiths with the same index but different
+				// suffixes are shown on screen at once.
+				hadithReferences = hadithReferences
+					.Select(x => x.ExcludingFinalSuffix())
+					.Distinct();
+				// Get the next available values
+				IEnumerable<string> nextIndexPartValues =
+					hadithReferences.Select(getNextValue)
+					.Distinct();
+				var viewModel = new BrowseHadithIndexViewModel(
+					hadithIndexHeaderViewModel: headerViewModel,
+					nextIndexPartName: nextIndexPartName,
+					nextIndexPartValues: nextIndexPartValues);
+				return View("BrowseHadithIndex", viewModel);
 			}
 		}
 

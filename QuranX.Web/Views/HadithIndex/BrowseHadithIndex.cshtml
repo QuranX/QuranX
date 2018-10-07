@@ -1,0 +1,18 @@
+﻿@using QuranX.Web.Views.HadithIndex
+@model BrowseHadithIndexViewModel
+
+@{
+	ViewBag.Title = $"{Model.HadithIndexHeaderViewModel.Collection.Name} Hadiths";
+}
+
+@Html.Partial("HadithIndexHeader", Model.HadithIndexHeaderViewModel)
+<ul class="hadith-index__list">
+	@foreach (string nextValue in Model.NextIndexPartValues)
+	{
+		<li>
+			<a href="@Model.HadithIndexHeaderViewModel.UrlSoFar/@Model.NextIndexPartName-@nextValue/">
+				@Model.NextIndexPartName @nextValue
+			</a>
+	 </li>
+	}
+</ul>

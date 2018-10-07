@@ -19,10 +19,14 @@ namespace QuranX.Persistence.Services.Repositories
 
 	public class HadithRepository : IHadithRepository
 	{
+		private readonly IHadithCollectionRepository HadithCollectionRepository;
 		private readonly ILuceneIndexSearcherProvider IndexSearcherProvider;
 
-		public HadithRepository(ILuceneIndexSearcherProvider indexSearcherProvider)
+		public HadithRepository(
+			IHadithCollectionRepository hadithCollectionRepository,
+			ILuceneIndexSearcherProvider indexSearcherProvider)
 		{
+			HadithCollectionRepository = hadithCollectionRepository;
 			IndexSearcherProvider = indexSearcherProvider;
 		}
 
@@ -48,7 +52,7 @@ namespace QuranX.Persistence.Services.Repositories
 
 			var query = new BooleanQuery(disableCoord: true);
 			query.FilterByType<Hadith>();
-			foreach(int id in ids)
+			foreach (int id in ids)
 			{
 				var subQuery = new BooleanQuery(disableCoord: true);
 				subQuery.AddNumericRangeQuery<Hadith>(x => x.Id, id, id, Occur.MUST);
@@ -73,6 +77,8 @@ namespace QuranX.Persistence.Services.Repositories
 			IEnumerable<(int index, string suffix)> values)
 		{
 			values = values ?? Array.Empty<(int index, string suffix)>();
+			HadithCollection collection = HadithCollectionRepository.Get(collectionCode);
+			HadithReferenceDefinition indexDefinition = collection.GetReferenceDefinition(indexCode);
 
 			var query = new BooleanQuery(disableCoord: true);
 			query
@@ -80,6 +86,18 @@ namespace QuranX.Persistence.Services.Repositories
 				.AddPhraseQuery<HadithReference>(x => x.CollectionCode, collectionCode, Occur.MUST)
 				.AddPhraseQuery<HadithReference>(x => x.IndexCode, indexCode.Replace("-", ""), Occur.MUST);
 			(int index, string suffix)[] valuesArray = values.ToArray();
+
+			Func<int, bool> shouldFilterOnSuffix = indexPartNumber =>
+			{
+				// If not the last part of the index then we always filter
+				// on the suffix. This includes ensuring the suffix is null.
+				if (indexDefinition.PartNames.Count != indexPartNumber)
+					return true;
+				// If it is the last part of the index then we only filter
+				// on suffix if the value filtering by is not null.
+				return !string.IsNullOrEmpty(valuesArray[indexPartNumber - 1].suffix);
+			};
+
 			if (valuesArray.Length > 0)
 			{
 				query.AddNumericRangeQuery<HadithReference>(x =>
@@ -87,10 +105,13 @@ namespace QuranX.Persistence.Services.Repositories
 					valuesArray[0].index,
 					valuesArray[0].index,
 					Occur.MUST);
-				query.AddPhraseQuery<HadithReference>(x =>
-					x.IndexPart1Suffix,
-					valuesArray[0].suffix.AsNullIfWhiteSpace(),
-					Occur.MUST);
+				if (shouldFilterOnSuffix(1))
+				{
+					query.AddPhraseQuery<HadithReference>(x =>
+						x.IndexPart1Suffix,
+						valuesArray[0].suffix.AsNullIfWhiteSpace(),
+						Occur.MUST);
+				}
 			}
 			if (valuesArray.Length > 1)
 			{
@@ -99,10 +120,13 @@ namespace QuranX.Persistence.Services.Repositories
 					valuesArray[1].index,
 					valuesArray[1].index,
 					Occur.MUST);
-				query.AddPhraseQuery<HadithReference>(x =>
+				if (shouldFilterOnSuffix(2))
+				{
+					query.AddPhraseQuery<HadithReference>(x =>
 					x.IndexPart2Suffix,
 					valuesArray[1].suffix.AsNullIfWhiteSpace(),
 					Occur.MUST);
+				}
 			}
 			if (valuesArray.Length > 2)
 			{
@@ -111,10 +135,13 @@ namespace QuranX.Persistence.Services.Repositories
 					valuesArray[2].index,
 					valuesArray[2].index,
 					Occur.MUST);
-				query.AddPhraseQuery<HadithReference>(x =>
+				if (shouldFilterOnSuffix(3))
+				{
+					query.AddPhraseQuery<HadithReference>(x =>
 					x.IndexPart3Suffix,
 					valuesArray[2].suffix.AsNullIfWhiteSpace(),
 					Occur.MUST);
+				}
 			}
 			IndexSearcher searcher = IndexSearcherProvider.GetIndexSearcher();
 			TopDocs docs = searcher.Search(query, 99000);

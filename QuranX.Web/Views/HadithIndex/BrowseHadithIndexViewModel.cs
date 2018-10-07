@@ -2,13 +2,13 @@
 
 namespace QuranX.Web.Views.HadithIndex
 {
-	public class IndexPartsViewModel
+	public class BrowseHadithIndexViewModel
 	{
 		public readonly HadithIndexHeaderViewModel HadithIndexHeaderViewModel;
 		public readonly string NextIndexPartName;
 		public readonly IEnumerable<string> NextIndexPartValues;
 
-		public IndexPartsViewModel(
+		public BrowseHadithIndexViewModel(
 			HadithIndexHeaderViewModel hadithIndexHeaderViewModel,
 			string nextIndexPartName,
 			IEnumerable<string> nextIndexPartValues)

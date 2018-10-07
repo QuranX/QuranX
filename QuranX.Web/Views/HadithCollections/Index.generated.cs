@@ -83,7 +83,7 @@ WriteLiteral(">\r\n");
             #line hidden
 WriteLiteral("\t\t<li>\r\n\t\t\t<a");
 
-WriteAttribute("href", Tuple.Create(" href=\"", 263), Tuple.Create("\"", 327)
+WriteAttribute("href", Tuple.Create(" href=\"", 263), Tuple.Create("\"", 328)
 , Tuple.Create(Tuple.Create("", 270), Tuple.Create("/Hadith/", 270), true)
             
             #line 13 "..\..\Views\HadithCollections\Index.cshtml"
@@ -100,6 +100,7 @@ WriteAttribute("href", Tuple.Create(" href=\"", 263), Tuple.Create("\"", 327)
             #line default
             #line hidden
 , 295), false)
+, Tuple.Create(Tuple.Create("", 327), Tuple.Create("/", 327), true)
 );
 
 WriteLiteral(">\r\n\t\t\t\t<div");
