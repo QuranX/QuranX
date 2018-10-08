@@ -97,15 +97,21 @@ namespace QuranX.Persistence.Models
 				return result;
 			if ((result = string.Compare(ReferenceCode, other.ReferenceCode, true)) != 0)
 				return result;
-			if ((result = other.ReferenceValue1 - ReferenceValue1) != 0)
+			if ((result = ReferenceValue1 - other.ReferenceValue1) != 0)
+				return result;
+			if ((result = (ReferenceValue1Suffix ?? "").Length - (other.ReferenceValue1Suffix ?? "").Length) != 0)
 				return result;
 			if ((result = string.Compare(ReferenceValue1Suffix, other.ReferenceValue1Suffix, true)) != 0)
 				return result;
-			if ((result = other.ReferenceValue2 ?? 0 - ReferenceValue2 ?? 0) != 0)
+			if ((result = (ReferenceValue2 ?? 0) - (other.ReferenceValue2 ?? 0)) != 0)
+				return result;
+			if ((result = (ReferenceValue2Suffix ?? "").Length - (other.ReferenceValue2Suffix ?? "").Length) != 0)
 				return result;
 			if ((result = string.Compare(ReferenceValue2Suffix, other.ReferenceValue2Suffix, true)) != 0)
 				return result;
-			if ((result = other.ReferenceValue3 ?? 0 - ReferenceValue3 ?? 0) != 0)
+			if ((result = (ReferenceValue3 ?? 0) - (other.ReferenceValue3 ?? 0)) != 0)
+				return result;
+			if ((result = (ReferenceValue3Suffix ?? "").Length - (other.ReferenceValue3Suffix ?? "").Length) != 0)
 				return result;
 			if ((result = string.Compare(ReferenceValue3Suffix, other.ReferenceValue3Suffix, true)) != 0)
 				return result;

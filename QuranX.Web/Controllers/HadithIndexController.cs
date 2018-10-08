@@ -93,10 +93,11 @@ namespace QuranX.Web.Controllers
 				// suffixes are shown on screen at once.
 				hadithReferences = hadithReferences
 					.Select(x => x.ExcludingFinalSuffix())
-					.Distinct();
+					.Distinct()
+					.OrderBy(x => x);
 				// Get the next available values
-				IEnumerable<string> nextReferencePartValues =
-					hadithReferences.Select(getNextValue)
+				IEnumerable<string> nextReferencePartValues = hadithReferences
+					.Select(getNextValue)
 					.Distinct();
 				var viewModel = new BrowseHadithIndexViewModel(
 					hadithIndexHeaderViewModel: headerViewModel,
