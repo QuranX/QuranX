@@ -22,46 +22,48 @@ namespace QuranX.Web.Controllers
 		}
 
 		// GET: HadithReferences
-		public ActionResult Index(string collectionCode, string indexCode,
-			string indexValue1, string indexValue2, string indexValue3)
+		public ActionResult Index(string collectionCode, string referenceCode,
+			string referenceValue1, string referenceValue2, string referenceValue3)
 		{
 			HadithCollection collection = HadithCollectionRepository.Get(collectionCode);
 			if (collection == null)
 				return HttpNotFound();
 
-			HadithReferenceDefinition indexDefinition = collection.GetReferenceDefinition(indexCode);
-			if (indexDefinition == null)
+			HadithReferenceDefinition referenceDefinition = collection.GetReferenceDefinition(referenceCode);
+			if (referenceDefinition == null)
 				return HttpNotFound();
 
-			var indexNamesAndValues = new List<(string indexPartName, int index, string suffix)>();
-			if (!string.IsNullOrWhiteSpace(indexValue1))
-				indexNamesAndValues.Add(HadithReference.SplitNameAndValue(indexValue1));
-			if (!string.IsNullOrWhiteSpace(indexValue2))
-				indexNamesAndValues.Add(HadithReference.SplitNameAndValue(indexValue2));
-			if (!string.IsNullOrWhiteSpace(indexValue3))
-				indexNamesAndValues.Add(HadithReference.SplitNameAndValue(indexValue3));
+			var referencePartNamesAndValues = new List<(string referencePartName, int value, string suffix)>();
+			if (!string.IsNullOrWhiteSpace(referenceValue1))
+				referencePartNamesAndValues.Add(HadithReference.SplitNameAndValue(referenceValue1));
+			if (!string.IsNullOrWhiteSpace(referenceValue2))
+				referencePartNamesAndValues.Add(HadithReference.SplitNameAndValue(referenceValue2));
+			if (!string.IsNullOrWhiteSpace(referenceValue3))
+				referencePartNamesAndValues.Add(HadithReference.SplitNameAndValue(referenceValue3));
 
-			IEnumerable<string> indexPartNames = indexNamesAndValues.Select(x => x.indexPartName);
-			if (!indexDefinition.PatternMatch(indexPartNames))
+			IEnumerable<string> referencePartNames = referencePartNamesAndValues
+				.Select(x => x.referencePartName);
+			if (!referenceDefinition.PatternMatch(referencePartNames))
 				return HttpNotFound();
 
-			IEnumerable<(int index, string suffix)> indexValues =
-				indexNamesAndValues.Select(x => (x.index, x.suffix));
+			IEnumerable<(int value, string suffix)> referenceValues =
+				referencePartNamesAndValues.Select(x => (x.value, x.suffix));
 			IEnumerable<HadithReference> hadithReferences =
 				HadithRepository.GetReferences(
 					collectionCode: collectionCode,
-					indexCode: indexCode,
-					values: indexValues);
+					referenceCode: referenceCode,
+					values: referenceValues);
 
-			IEnumerable<string> urlIndexParts = indexNamesAndValues
-				.Select(x => x.index + x.suffix)
-				.Select((value, index) => indexDefinition.PartNames[index] + "-" + value);
-			string partsAsUrl = string.Join("/", urlIndexParts);
+			IEnumerable<string> urlReferenceParts = referencePartNamesAndValues
+				.Select(x => x.value + x.suffix)
+				.Select((value, i) => referenceDefinition.PartNames[i] + "-" + value);
+			string partsAsUrl = string.Join("/", urlReferenceParts);
 			var headerViewModel = new HadithIndexHeaderViewModel(
-				$"/hadith/{collectionCode}/{indexCode}/{partsAsUrl}",
-				collection,
-				urlIndexParts);
-			if (indexPartNames.Count() == indexDefinition.PartNames.Count)
+				selectedReferenceCode: referenceCode,
+				urlSoFar: $"/hadith/{collectionCode}/{referenceCode}/{partsAsUrl}",
+				collection: collection, 
+				referencePartNamesAndValues: urlReferenceParts);
+			if (referencePartNames.Count() == referenceDefinition.PartNames.Count)
 			{
 				IEnumerable<int> hadithIds = hadithReferences.Select(x => x.HadithId);
 				IEnumerable<Hadith> hadiths = HadithRepository.GetHadiths(hadithIds);
@@ -70,36 +72,36 @@ namespace QuranX.Web.Controllers
 			}
 			else
 			{
-				string nextIndexPartName = indexDefinition.PartNames[indexPartNames.Count()];
+				string nextReferencePartName = referenceDefinition.PartNames[referencePartNames.Count()];
 				Func<HadithReference, string> getNextValue;
-				switch (indexPartNames.Count())
+				switch (referencePartNames.Count())
 				{
 					case 0:
-						getNextValue = x => x.IndexPart1 + x.IndexPart1Suffix;
+						getNextValue = x => x.ReferenceValue1 + x.ReferenceValue1Suffix;
 						break;
 					case 1:
-						getNextValue = x => x.IndexPart2 + x.IndexPart2Suffix;
+						getNextValue = x => x.ReferenceValue2 + x.ReferenceValue2Suffix;
 						break;
 					case 2:
-						getNextValue = x => x.IndexPart3 + x.IndexPart3Suffix;
+						getNextValue = x => x.ReferenceValue3 + x.ReferenceValue3Suffix;
 						break;
 					default:
 						throw new NotImplementedException();
 				}
 				// If the next level is the final level (the hadith itself) then remove the suffix
-				// from the final part so that all hadiths with the same index but different
+				// from the final part so that all hadiths with the same reference but different
 				// suffixes are shown on screen at once.
 				hadithReferences = hadithReferences
 					.Select(x => x.ExcludingFinalSuffix())
 					.Distinct();
 				// Get the next available values
-				IEnumerable<string> nextIndexPartValues =
+				IEnumerable<string> nextReferencePartValues =
 					hadithReferences.Select(getNextValue)
 					.Distinct();
 				var viewModel = new BrowseHadithIndexViewModel(
 					hadithIndexHeaderViewModel: headerViewModel,
-					nextIndexPartName: nextIndexPartName,
-					nextIndexPartValues: nextIndexPartValues);
+					nextReferencePartName: nextReferencePartName,
+					nextReferencePartValueSelection: nextReferencePartValues);
 				return View("BrowseHadithIndex", viewModel);
 			}
 		}

@@ -51,13 +51,13 @@ namespace QuranX.Persistence.Services.Repositories
 				doc
 					.AddObject(reference)
 					.StoreAndIndex(reference, x => x.CollectionCode)
-					.StoreAndIndex(reference, x => x.IndexCode, x => x.Replace("-", ""))
-					.StoreAndIndex(reference, x => x.IndexPart1)
-					.StoreAndIndex(reference, x => x.IndexPart1Suffix)
-					.StoreAndIndex(reference, x => x.IndexPart2)
-					.StoreAndIndex(reference, x => x.IndexPart2Suffix)
-					.StoreAndIndex(reference, x => x.IndexPart3)
-					.StoreAndIndex(reference, x => x.IndexPart3Suffix);
+					.StoreAndIndex(reference, x => x.ReferenceCode, x => x.Replace("-", ""))
+					.StoreAndIndex(reference, x => x.ReferenceValue1)
+					.StoreAndIndex(reference, x => x.ReferenceValue1Suffix)
+					.StoreAndIndex(reference, x => x.ReferenceValue2)
+					.StoreAndIndex(reference, x => x.ReferenceValue2Suffix)
+					.StoreAndIndex(reference, x => x.ReferenceValue3)
+					.StoreAndIndex(reference, x => x.ReferenceValue3Suffix);
 				indexWriter.AddDocument(doc);
 			}
 		}

@@ -85,13 +85,13 @@ namespace QuranX.DataMigration.Migrators
 					indexValues[indexValues.Length - 1].suffix = hadithReference.Suffix;
 				var reference = new HadithReferenceViewModel(
 					collectionCode: hadith.Collection.Code,
-					indexCode: hadithReference.Code,
-					indexPart1: indexValues[0].index,
-					indexPart1Suffix: indexValues[0].suffix.AsNullIfWhiteSpace(),
-					indexPart2: indexValues.Length > 1 ? indexValues[1].index : (int?)null,
-					indexPart2Suffix: indexValues.Length > 1 ? indexValues[1].suffix.AsNullIfWhiteSpace() : null,
-					indexPart3: indexValues.Length > 2 ? indexValues[2].index : (int?)null,
-					indexPart3Suffix: indexValues.Length > 2 ? indexValues[2].suffix.AsNullIfWhiteSpace() : null,
+					referenceCode: hadithReference.Code,
+					referenceValue1: indexValues[0].index,
+					referenceValue1Suffix: indexValues[0].suffix.AsNullIfWhiteSpace(),
+					referenceValue2: indexValues.Length > 1 ? indexValues[1].index : (int?)null,
+					referenceValue2Suffix: indexValues.Length > 1 ? indexValues[1].suffix.AsNullIfWhiteSpace() : null,
+					referenceValue3: indexValues.Length > 2 ? indexValues[2].index : (int?)null,
+					referenceValue3Suffix: indexValues.Length > 2 ? indexValues[2].suffix.AsNullIfWhiteSpace() : null,
 					hadithId: hadithId);
 				references.Add(reference);
 			}

@@ -12,8 +12,8 @@ namespace QuranX.Persistence.Services.Repositories
 	{
 		IEnumerable<HadithReference> GetReferences(
 			string collectionCode,
-			string indexCode,
-			IEnumerable<(int index, string suffix)> values);
+			string referenceCode,
+			IEnumerable<(int value, string suffix)> values);
 		IEnumerable<Hadith> GetHadiths(IEnumerable<int> ids);
 	}
 
@@ -32,12 +32,12 @@ namespace QuranX.Persistence.Services.Repositories
 
 		public IEnumerable<HadithReference> GetReferences(
 			string collectionCode,
-			string indexCode,
-			IEnumerable<(int index, string suffix)> values)
+			string referenceCode,
+			IEnumerable<(int value, string suffix)> values)
 		{
 			IEnumerable<int> docIds = GetReferencesIds(
 				collectionCode: collectionCode,
-				indexCode: indexCode,
+				referenceCode: referenceCode,
 				values: values);
 			IndexSearcher searcher = IndexSearcherProvider.GetIndexSearcher();
 			IEnumerable<HadithReference> references = docIds
@@ -74,42 +74,42 @@ namespace QuranX.Persistence.Services.Repositories
 
 		private IEnumerable<int> GetReferencesIds(
 			string collectionCode,
-			string indexCode,
-			IEnumerable<(int index, string suffix)> values)
+			string referenceCode,
+			IEnumerable<(int value, string suffix)> values)
 		{
-			values = values ?? Array.Empty<(int index, string suffix)>();
+			values = values ?? Array.Empty<(int value, string suffix)>();
 			HadithCollection collection = HadithCollectionRepository.Get(collectionCode);
-			HadithReferenceDefinition indexDefinition = collection.GetReferenceDefinition(indexCode);
+			HadithReferenceDefinition referenceDefinition = collection.GetReferenceDefinition(referenceCode);
 
 			var query = new BooleanQuery(disableCoord: true);
 			query
 				.FilterByType<HadithReference>()
 				.AddPhraseQuery<HadithReference>(x => x.CollectionCode, collectionCode, Occur.MUST)
-				.AddPhraseQuery<HadithReference>(x => x.IndexCode, indexCode.Replace("-", ""), Occur.MUST);
-			(int index, string suffix)[] valuesArray = values.ToArray();
+				.AddPhraseQuery<HadithReference>(x => x.ReferenceCode, referenceCode.Replace("-", ""), Occur.MUST);
+			(int value, string suffix)[] valuesArray = values.ToArray();
 
-			Func<int, bool> shouldFilterOnSuffix = indexPartNumber =>
+			Func<int, bool> shouldFilterOnSuffix = referencePartNumber =>
 			{
-				// If not the last part of the index then we always filter
+				// If not the last reference value then we always filter
 				// on the suffix. This includes ensuring the suffix is null.
-				if (indexDefinition.PartNames.Count != indexPartNumber)
+				if (referenceDefinition.PartNames.Count != referencePartNumber)
 					return true;
-				// If it is the last part of the index then we only filter
+				// If it is the last reference value then we only filter
 				// on suffix if the value filtering by is not null.
-				return !string.IsNullOrEmpty(valuesArray[indexPartNumber - 1].suffix);
+				return !string.IsNullOrEmpty(valuesArray[referencePartNumber - 1].suffix);
 			};
 
 			if (valuesArray.Length > 0)
 			{
 				query.AddNumericRangeQuery<HadithReference>(x =>
-					x.IndexPart1,
-					valuesArray[0].index,
-					valuesArray[0].index,
+					x.ReferenceValue1,
+					valuesArray[0].value,
+					valuesArray[0].value,
 					Occur.MUST);
 				if (shouldFilterOnSuffix(1))
 				{
 					query.AddPhraseQuery<HadithReference>(x =>
-						x.IndexPart1Suffix,
+						x.ReferenceValue1Suffix,
 						valuesArray[0].suffix.AsNullIfWhiteSpace(),
 						Occur.MUST);
 				}
@@ -117,14 +117,14 @@ namespace QuranX.Persistence.Services.Repositories
 			if (valuesArray.Length > 1)
 			{
 				query.AddNumericRangeQuery<HadithReference>(x =>
-					x.IndexPart2,
-					valuesArray[1].index,
-					valuesArray[1].index,
+					x.ReferenceValue2,
+					valuesArray[1].value,
+					valuesArray[1].value,
 					Occur.MUST);
 				if (shouldFilterOnSuffix(2))
 				{
 					query.AddPhraseQuery<HadithReference>(x =>
-					x.IndexPart2Suffix,
+					x.ReferenceValue2Suffix,
 					valuesArray[1].suffix.AsNullIfWhiteSpace(),
 					Occur.MUST);
 				}
@@ -132,14 +132,14 @@ namespace QuranX.Persistence.Services.Repositories
 			if (valuesArray.Length > 2)
 			{
 				query.AddNumericRangeQuery<HadithReference>(x =>
-					x.IndexPart3,
-					valuesArray[2].index,
-					valuesArray[2].index,
+					x.ReferenceValue3,
+					valuesArray[2].value,
+					valuesArray[2].value,
 					Occur.MUST);
 				if (shouldFilterOnSuffix(3))
 				{
 					query.AddPhraseQuery<HadithReference>(x =>
-					x.IndexPart3Suffix,
+					x.ReferenceValue3Suffix,
 					valuesArray[2].suffix.AsNullIfWhiteSpace(),
 					Occur.MUST);
 				}

@@ -34,37 +34,37 @@ namespace QuranX.Web
 
 			routes.MapRoute(
 				name: "HadithIndex3",
-				url: "Hadith/{CollectionCode}/{IndexCode}/{IndexValue1}/{IndexValue2}/{IndexValue3}",
+				url: "Hadith/{CollectionCode}/{ReferenceCode}/{ReferenceValue1}/{ReferenceValue2}/{ReferenceValue3}",
 				defaults: new { Controller = "HadithIndex", Action = "Index" },
 				constraints: new
 				{
-					IndexValue1 = @"([a-z]+)-(\d+)([a-z]*)",
-					IndexValue2 = @"([a-z]+)-(\d+)([a-z]*)",
-					IndexValue3 = @"([a-z]+)-(\d+)([a-z]*)"
+					ReferenceValue1 = @"([a-z]+)-(\d+)([a-z]*)",
+					ReferenceValue2 = @"([a-z]+)-(\d+)([a-z]*)",
+					ReferenceValue3 = @"([a-z]+)-(\d+)([a-z]*)"
 				});
 
 			routes.MapRoute(
 				name: "HadithIndex2",
-				url: "Hadith/{CollectionCode}/{IndexCode}/{IndexValue1}/{IndexValue2}",
+				url: "Hadith/{CollectionCode}/{ReferenceCode}/{ReferenceValue1}/{ReferenceValue2}",
 				defaults: new { Controller = "HadithIndex", Action = "Index" },
 				constraints: new
 				{
-					IndexValue1 = @"([a-z]+)-(\d+)([a-z]*)",
-					IndexValue2 = @"([a-z]+)-(\d+)([a-z]*)"
+					ReferenceValue1 = @"([a-z]+)-(\d+)([a-z]*)",
+					ReferenceValue2 = @"([a-z]+)-(\d+)([a-z]*)"
 				});
 
 			routes.MapRoute(
 				name: "HadithIndex1",
-				url: "Hadith/{CollectionCode}/{IndexCode}/{IndexValue1}",
+				url: "Hadith/{CollectionCode}/{ReferenceCode}/{ReferenceValue1}",
 				defaults: new { Controller = "HadithIndex", Action = "Index" },
 				constraints: new
 				{
-					IndexValue1 = @"([a-z]+)-(\d+)([a-z]*)"
+					ReferenceValue1 = @"([a-z]+)-(\d+)([a-z]*)"
 				});
 
 			routes.MapRoute(
 				name: "HadithIndex",
-				url: "Hadith/{CollectionCode}/{IndexCode}",
+				url: "Hadith/{CollectionCode}/{ReferenceCode}",
 				defaults: new { Controller = "HadithIndex", Action = "Index" });
 
 			routes.MapRoute(

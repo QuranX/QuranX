@@ -1,4 +1,5 @@
 ﻿@using QuranX.Web.Views.HadithIndex
+@using QuranX.Persistence.Models
 @model HadithsViewModel
 
 @{
@@ -6,4 +7,16 @@
 }
 
 @Html.Partial("HadithIndexHeader", Model.HadithIndexHeaderViewModel)
-
+@foreach(Hadith hadith in Model.Hadiths)
+{
+	<div>
+		@foreach(string text in hadith.EnglishText)
+		{
+			<p>@text</p>
+		}
+		@foreach(string text in hadith.ArabicText)
+		{
+			<p>@text</p>
+		}
+	</div>
+}

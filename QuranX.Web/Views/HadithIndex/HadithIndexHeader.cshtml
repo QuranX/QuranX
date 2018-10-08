@@ -8,7 +8,7 @@
 	</a>
 	@{
 		string urlSoFar = $"/Hadith/{Model.Collection.Code}/{Model.Collection.PrimaryReferenceCode}/";
-		foreach (string urlPart in Model.IndexPartsAndValues)
+		foreach (string urlPart in Model.ReferencePartNamesAndValues)
 		{
 			urlSoFar += urlPart + "/";
 			<span> / </span><a href="@urlSoFar">@urlPart</a>

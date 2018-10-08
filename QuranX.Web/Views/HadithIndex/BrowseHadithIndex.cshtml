@@ -7,11 +7,11 @@
 
 @Html.Partial("HadithIndexHeader", Model.HadithIndexHeaderViewModel)
 <ul class="hadith-index__list">
-	@foreach (string nextValue in Model.NextIndexPartValues)
+	@foreach (string nextValue in Model.NextReferencePartValueSelection)
 	{
 		<li>
-			<a href="@Model.HadithIndexHeaderViewModel.UrlSoFar/@Model.NextIndexPartName-@nextValue/">
-				@Model.NextIndexPartName @nextValue
+			<a href="@Model.HadithIndexHeaderViewModel.UrlSoFar/@Model.NextReferencePartName-@nextValue/">
+				@Model.NextReferencePartName @nextValue
 			</a>
 	 </li>
 	}

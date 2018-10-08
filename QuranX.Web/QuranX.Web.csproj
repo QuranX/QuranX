@@ -219,7 +219,22 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Index.cshtml</DependentUpon>
     </Compile>
+    <Compile Include="Views\HadithIndex\BrowseHadithIndex.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>BrowseHadithIndex.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\HadithIndex\HadithIndexHeader.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>HadithIndexHeader.cshtml</DependentUpon>
+    </Compile>
     <Compile Include="Views\HadithIndex\HadithIndexHeaderViewModel.cs" />
+    <Compile Include="Views\HadithIndex\Hadiths.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Hadiths.cshtml</DependentUpon>
+    </Compile>
     <Compile Include="Views\HadithIndex\HadithsViewModel.cs" />
     <Compile Include="Views\HadithIndex\BrowseHadithIndexViewModel.cs" />
     <Compile Include="Views\QuranVerses\Index.generated.cs">
@@ -254,6 +269,11 @@
       <DependentUpon>Index.cshtml</DependentUpon>
     </Compile>
     <Compile Include="Views\VerseCommentary\ViewModel.cs" />
+    <Compile Include="Views\_ViewStart.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>_ViewStart.cshtml</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-theme.css" />
@@ -304,10 +324,22 @@
       <DependentUpon>Web.config</DependentUpon>
     </Content>
     <Content Include="Views\Web.config" />
-    <Content Include="Views\_ViewStart.cshtml" />
-    <Content Include="Views\HadithIndex\Hadiths.cshtml" />
-    <Content Include="Views\HadithIndex\HadithIndexHeader.cshtml" />
-    <Content Include="Views\HadithIndex\BrowseHadithIndex.cshtml" />
+    <None Include="Views\_ViewStart.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>_ViewStart.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\HadithIndex\Hadiths.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>Hadiths.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\HadithIndex\HadithIndexHeader.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>HadithIndexHeader.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\HadithIndex\BrowseHadithIndex.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>BrowseHadithIndex.generated.cs</LastGenOutput>
+    </None>
     <None Include="Views\Shared\Error.cshtml">
       <Generator>RazorGenerator</Generator>
       <LastGenOutput>Error.generated.cs</LastGenOutput>

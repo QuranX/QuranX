@@ -23,7 +23,7 @@ namespace QuranX.Persistence.Models
 		}
 
 		public string PrimaryReferenceCode => ReferenceDefinitions.Single(x => x.IsPrimary).Code;
-		public HadithReferenceDefinition GetReferenceDefinition(string indexCode) => ReferenceDefinitions
-			.SingleOrDefault(x => string.Compare(x.Code, indexCode, true) == 0);
+		public HadithReferenceDefinition GetReferenceDefinition(string referenceCode) => ReferenceDefinitions
+			.SingleOrDefault(x => string.Compare(x.Code, referenceCode, true) == 0);
 	}
 }

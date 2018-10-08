@@ -5,17 +5,17 @@ namespace QuranX.Web.Views.HadithIndex
 	public class BrowseHadithIndexViewModel
 	{
 		public readonly HadithIndexHeaderViewModel HadithIndexHeaderViewModel;
-		public readonly string NextIndexPartName;
-		public readonly IEnumerable<string> NextIndexPartValues;
+		public readonly string NextReferencePartName;
+		public readonly IEnumerable<string> NextReferencePartValueSelection;
 
 		public BrowseHadithIndexViewModel(
 			HadithIndexHeaderViewModel hadithIndexHeaderViewModel,
-			string nextIndexPartName,
-			IEnumerable<string> nextIndexPartValues)
+			string nextReferencePartName,
+			IEnumerable<string> nextReferencePartValueSelection)
 		{
 			HadithIndexHeaderViewModel = hadithIndexHeaderViewModel;
-			NextIndexPartName = nextIndexPartName;
-			NextIndexPartValues = nextIndexPartValues;
+			NextReferencePartName = nextReferencePartName;
+			NextReferencePartValueSelection = nextReferencePartValueSelection;
 		}
 	}
 }
