@@ -67,7 +67,8 @@ namespace QuranX.Web.Controllers
 			{
 				IEnumerable<int> hadithIds = hadithReferences.Select(x => x.HadithId);
 				IEnumerable<Hadith> hadiths = HadithRepository.GetHadiths(hadithIds);
-				var viewModel = new HadithsViewModel(headerViewModel, hadiths);
+				IEnumerable<HadithViewModel> hadithViewModels = BuildHadithViewModels(hadiths);
+				var viewModel = new HadithsViewModel(headerViewModel, hadithViewModels);
 				return View("Hadiths", viewModel);
 			}
 			else
@@ -107,5 +108,28 @@ namespace QuranX.Web.Controllers
 			}
 		}
 
+		private IEnumerable<HadithViewModel> BuildHadithViewModels(IEnumerable<Hadith> hadiths)
+		{
+			var result = new List<HadithViewModel>();
+			foreach(Hadith hadith in hadiths)
+			{
+				string collectionCode = hadith.References[0].CollectionCode;
+				HadithCollection collection = HadithCollectionRepository.Get(collectionCode);
+				var references = new List<KeyValuePair<string, string>>();
+				foreach(HadithReference reference in hadith.References)
+				{
+					HadithReferenceDefinition referenceDefinition =
+						collection.GetReferenceDefinition(reference.ReferenceCode);
+					string referenceName = referenceDefinition.Name;
+					string path = reference.ToString(referenceDefinition);
+					references.Add(new KeyValuePair<string, string>(referenceName, path));
+				}
+				var viewModel = new HadithViewModel(
+					hadith: hadith,
+					references: references.OrderBy(x => x.Key));
+				result.Add(viewModel);
+			}
+			return result;
+		}
 	}
 }

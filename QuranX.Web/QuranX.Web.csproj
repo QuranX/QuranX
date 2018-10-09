@@ -237,6 +237,7 @@
     </Compile>
     <Compile Include="Views\HadithIndex\HadithsViewModel.cs" />
     <Compile Include="Views\HadithIndex\BrowseHadithIndexViewModel.cs" />
+    <Compile Include="Views\HadithIndex\HadithViewModel.cs" />
     <Compile Include="Views\QuranVerses\Index.generated.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Linq;
+using System.Text;
 using System.Text.RegularExpressions;
 
 namespace QuranX.Persistence.Models
@@ -35,6 +37,31 @@ namespace QuranX.Persistence.Models
 			ReferenceValue3 = referenceValue3;
 			ReferenceValue3Suffix = referenceValue3Suffix;
 			HadithId = hadithId;
+		}
+
+		public string ToString(HadithReferenceDefinition definition)
+		{
+			if (definition == null)
+				throw new ArgumentNullException(nameof(definition));
+			if (string.Compare(definition.CollectionCode, CollectionCode, true) != 0)
+				throw new ArgumentException(
+					$"Hadith reference collection {CollectionCode} is not same as definition " +
+					$"collection {definition.CollectionCode}",
+					nameof(definition));
+			if (string.Compare(definition.Code, ReferenceCode, true) != 0)
+				throw new ArgumentException(
+					$"Hadith reference code {ReferenceCode} is not same as definition " +
+					$"code {definition.Code}",
+					nameof(definition));
+			string[] values = new string[] {
+				ReferenceValue1 + ReferenceValue1Suffix,
+				ReferenceValue2 + ReferenceValue2Suffix,
+				ReferenceValue3 + ReferenceValue3Suffix
+			};
+			return string.Join(
+				", ",
+				definition.PartNames.Select((v, i) => v + " " + values[i])
+			);
 		}
 
 		public static (int value, string suffix) SplitValue(string value)
