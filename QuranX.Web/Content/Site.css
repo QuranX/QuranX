@@ -316,6 +316,20 @@ dl.boxed {
 	box-shadow: 2px 2px rgba(0, 0, 0, 0.1);
 }
 
+.hadith-reference-list {
+	margin-bottom: 1em;
+}
+
+.hadith-reference-list__item {
+	color: #eee;
+}
+
+	.hadith-reference-list__item.selected {
+		color: black;
+		background-color: hsl(208, 57%, 83%);
+		border-color: hsl(208, 57%, 83%);
+	}
+
 .hadith__reference {
 	clear: both;
 }

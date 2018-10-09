@@ -12,19 +12,18 @@
 		foreach (string urlPart in Model.ReferencePartNamesAndValues)
 		{
 			urlSoFar += urlPart + "/";
-			<span> / </span><a href="@urlSoFar">@urlPart</a>
+			<span> / </span><a href="@urlSoFar">@urlPart.Replace("-", " ")</a>
 		}
 	}
 </h2>
-<ul class="hadith-reference-list">
-	@foreach(HadithReferenceDefinition referenceDefinition in Model.Collection.ReferenceDefinitions)
+<div class="btn-group hadith-reference-list" role="group" aria-label="Indexes">
+	@foreach (HadithReferenceDefinition referenceDefinition in Model.Collection.ReferenceDefinitions.OrderBy(x => x.Name))
 	{
 		string cssClass = string.Compare(referenceDefinition.Code, Model.SelectedReferenceCode, true) == 0 ? "selected" : "";
-		<li>
-			<a href="/hadith/@Model.Collection.Code/@referenceDefinition.Code" class="@cssClass">
-				@referenceDefinition.Name
-			</a>
-		</li>
+		<a href="/hadith/@Model.Collection.Code/@referenceDefinition.Code" class="btn btn-primary hadith-reference-list__item @cssClass">
+			@referenceDefinition.Name
+		</a>
 	}
-</ul>
+
+</div>
 
