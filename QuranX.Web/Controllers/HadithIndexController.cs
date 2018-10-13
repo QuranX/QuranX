@@ -125,6 +125,7 @@ namespace QuranX.Web.Controllers
 					references.Add(new KeyValuePair<string, string>(referenceName, path));
 				}
 				var viewModel = new HadithViewModel(
+					collectionName: collection.Name,
 					hadith: hadith,
 					references: references.OrderBy(x => x.Key));
 				result.Add(viewModel);

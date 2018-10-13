@@ -330,8 +330,33 @@ dl.boxed {
 		border-color: hsl(208, 57%, 83%);
 	}
 
+.hadith {
+	border : 1px solid black;
+}
+
+.hadith__text {
+	padding: 0.25em;
+	margin: 0px;
+}
+
+.hadith__text>p {
+	margin: 0px;
+}
+
+.hadith__text-english {
+	background-color: hsl(0, 0%, 94%);
+}
+
+.hadith__text-arabic {
+	padding: 1em;
+}
+
+.hadith__references {
+	background-color: hsl(0, 0%, 94%);
+	padding: 0.25em;
+}
+
 .hadith__reference {
-	clear: both;
 }
 
 .hadith__reference-name {
@@ -350,12 +375,12 @@ dl.boxed {
 
 @media(min-width: 550px) {
 	.hadith__reference-name {
-		float: left;
+		display: inline-block;
 		width: 18em;
 	}
 
 	.hadith__reference-value {
-		float: left;
+		display: inline-block;
 	}
 }
 

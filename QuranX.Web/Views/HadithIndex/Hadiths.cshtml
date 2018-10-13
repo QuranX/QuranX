@@ -2,33 +2,45 @@
 @model HadithsViewModel
 
 @{
-    ViewBag.Title = $"{Model.HadithIndexHeaderViewModel.Collection.Name} Hadiths";
+	ViewBag.Title = $"{Model.HadithIndexHeaderViewModel.Collection.Name} Hadiths";
 }
 
 @Html.Partial("HadithIndexHeader", Model.HadithIndexHeaderViewModel)
 @foreach (HadithViewModel hadithVM in Model.Hadiths)
 {
-    <div>
-        @foreach (string text in hadithVM.Hadith.EnglishText)
-        {
-            <p>@text</p>
-        }
-        @foreach (string text in hadithVM.Hadith.ArabicText)
-        {
-            <p>@text</p>
-        }
-    </div>
-    <div>
-        @foreach (KeyValuePair<string, string> reference in hadithVM.References)
-        {
-            <div class="hadith__reference">
-                <div class="hadith__reference-name">
-                    @reference.Key
-                </div>
-                <div class="hadith__reference-value">
-                    @reference.Value
-                </div>
-            </div>
-        }
-    </div>
+	<div class="hadith">
+		<div class="hadith__text hadith__text-english">
+			@foreach (string text in hadithVM.Hadith.EnglishText)
+			{
+				<p>@text</p>
+			}
+		</div>
+		<div class="hadith__text hadith__text-arabic">
+			@foreach (string text in hadithVM.Hadith.ArabicText)
+			{
+				<p>@text</p>
+			}
+		</div>
+		<div class="hadith__references">
+			<div class="hadith__reference">
+				<div class="hadith__reference-name">
+					Collection
+				</div>
+				<div class="hadith__reference-value">
+					@hadithVM.CollectionName
+				</div>
+			</div>
+			@foreach (KeyValuePair<string, string> reference in hadithVM.References)
+			{
+				<div class="hadith__reference">
+					<div class="hadith__reference-name">
+						@reference.Key
+					</div>
+					<div class="hadith__reference-value">
+						@reference.Value
+					</div>
+				</div>
+			}
+		</div>
+	</div>
 }
