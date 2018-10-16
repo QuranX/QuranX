@@ -10,6 +10,7 @@ namespace QuranX.Persistence.Services.Repositories
 	public interface IVerseRepository
 	{
 		IEnumerable<VerseReference> GetVerseReferences();
+		Verse GetVerse(VerseReference verseReference);
 		IEnumerable<Verse> GetVerses(IEnumerable<VerseRangeReference> verseRangeReferences);
 	}
 
@@ -41,6 +42,15 @@ namespace QuranX.Persistence.Services.Repositories
 			IndexSearcher searcher = IndexSearcherProvider.GetIndexSearcher();
 			IEnumerable<Verse> verses = documentIds.Select(x => searcher.Doc(x).GetObject<Verse>());
 			return verses;
+		}
+
+		public Verse GetVerse(VerseReference verseReference)
+		{
+			var verseRangeReference = new VerseRangeReference(
+				chapter: verseReference.Chapter,
+				firstVerse: verseReference.Verse,
+				lastVerse: verseReference.Verse);
+			return GetVerses(new VerseRangeReference[] { verseRangeReference }).Single();
 		}
 
 		private IEnumerable<int> GetVerses(VerseRangeReference verseRangeReference)

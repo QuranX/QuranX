@@ -16,7 +16,7 @@
 		}
 	}
 </h2>
-<div class="btn-group hadith-reference-list" role="group" aria-label="Indexes">
+<div class="hadith-reference-list" role="group" aria-label="Indexes">
 	@foreach (HadithReferenceDefinition referenceDefinition in Model.Collection.ReferenceDefinitions.OrderBy(x => x.Name))
 	{
 		string cssClass = string.Compare(referenceDefinition.Code, Model.SelectedReferenceCode, true) == 0 ? "selected" : "";

@@ -5,6 +5,7 @@ using Lucene.Net.Documents;
 using Lucene.Net.Search;
 using QuranX.Persistence.Extensions;
 using QuranX.Persistence.Models;
+using QuranX.Shared.Models;
 
 namespace QuranX.Persistence.Services.Repositories
 {
@@ -15,6 +16,7 @@ namespace QuranX.Persistence.Services.Repositories
 			string referenceCode,
 			IEnumerable<(int value, string suffix)> values);
 		IEnumerable<Hadith> GetHadiths(IEnumerable<int> ids);
+		IEnumerable<Hadith> GetForVerse(VerseReference verseReference);
 	}
 
 	public class HadithRepository : IHadithRepository
@@ -148,6 +150,30 @@ namespace QuranX.Persistence.Services.Repositories
 			TopDocs docs = searcher.Search(query, 99000);
 			IEnumerable<int> hadithReferences = docs.ScoreDocs.Select(x => x.Doc).ToArray();
 			return hadithReferences;
+		}
+
+		public IEnumerable<Hadith> GetForVerse(VerseReference verseReference)
+		{
+			int verseIndexValue = verseReference.ToIndexValue();
+			var query = new BooleanQuery(disableCoord: true)
+				.FilterByType<HadithVerseLink>()
+				.AddNumericRangeQuery<HadithVerseLink>(x => x.VerseId, verseIndexValue, verseIndexValue, Occur.MUST);
+			IndexSearcher searcher = IndexSearcherProvider.GetIndexSearcher();
+			TopDocs docs = searcher.Search(query, 99000);
+			IEnumerable<int> hadithIds = docs.ScoreDocs.Select(x => searcher.Doc(x.Doc).GetStoredValue<HadithVerseLink>(i => i.HadithId));
+			return GetHadiths(hadithIds);
+		}
+	}
+
+	internal class HadithVerseLink
+	{
+		public int HadithId { get; }
+		public int VerseId { get; }
+
+		public HadithVerseLink(int hadithId, int verseId)
+		{
+			HadithId = hadithId;
+			VerseId = verseId;
 		}
 	}
 }

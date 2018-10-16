@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using Lucene.Net.Documents;
 using Lucene.Net.Index;
 using QuranX.Persistence.Extensions;
@@ -40,10 +42,11 @@ namespace QuranX.Persistence.Services.Repositories
 			IndexWriter indexWriter = IndexWriterProvider.GetIndexWriter();
 			indexWriter.AddDocument(document);
 
-			WriteReferences(indexWriter, hadith);
+			WriteHadithReferences(indexWriter, hadith);
+			WriteVerseReferences(indexWriter, hadith);
 		}
 
-		private void WriteReferences(IndexWriter indexWriter, Hadith hadith)
+		private void WriteHadithReferences(IndexWriter indexWriter, Hadith hadith)
 		{
 			foreach (HadithReference reference in hadith.References)
 			{
@@ -58,6 +61,26 @@ namespace QuranX.Persistence.Services.Repositories
 					.StoreAndIndex(reference, x => x.ReferenceValue2Suffix)
 					.StoreAndIndex(reference, x => x.ReferenceValue3)
 					.StoreAndIndex(reference, x => x.ReferenceValue3Suffix);
+				indexWriter.AddDocument(doc);
+			}
+		}
+
+		private void WriteVerseReferences(IndexWriter indexWriter, Hadith hadith)
+		{
+			IEnumerable<HadithVerseLink> hadithVerseLinks =
+				hadith.VerseRangeReferences
+				.SelectMany(verseReference => verseReference)
+				.Select(x => x.ToIndexValue())
+				.Select(x => new HadithVerseLink(
+					hadithId: hadith.Id,
+					verseId: x));
+
+			foreach(HadithVerseLink hadithVerseLink in hadithVerseLinks)
+			{
+				var doc = new Document();
+				doc
+					.StoreAndIndex(hadithVerseLink, x => x.HadithId)
+					.StoreAndIndex(hadithVerseLink, x => x.VerseId);
 				indexWriter.AddDocument(doc);
 			}
 		}

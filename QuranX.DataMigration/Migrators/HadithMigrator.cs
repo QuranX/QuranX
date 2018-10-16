@@ -2,16 +2,14 @@
 using QuranX.DataMigration.Services;
 using QuranX.Persistence.Services.Repositories;
 using QuranX.DocumentModel;
+using System.Linq;
+using System.Collections.Generic;
+using QuranX.Persistence.Extensions;
 using HadithCollectionViewModel = QuranX.Persistence.Models.HadithCollection;
 using XmlDocument = QuranX.DocumentModel.Document;
 using HadithIndexDefinitionViewModel = QuranX.Persistence.Models.HadithReferenceDefinition;
 using HadithViewModel = QuranX.Persistence.Models.Hadith;
 using HadithReferenceViewModel = QuranX.Persistence.Models.HadithReference;
-using System.Linq;
-using System.Collections.Generic;
-using System.Text.RegularExpressions;
-using System;
-using QuranX.Persistence.Extensions;
 
 namespace QuranX.DataMigration.Migrators
 {
@@ -24,6 +22,8 @@ namespace QuranX.DataMigration.Migrators
 	{
 		private readonly XmlDocument XmlDocument;
 		private readonly ILogger Logger;
+		private readonly IVerseRepository VerseRepository;
+		private readonly IVerseWriteRepository VerseWriteRepository;
 		private readonly IHadithCollectionWriteRepository HadithCollectionWriteRepository;
 		private readonly IHadithWriteRepository HadithWriteRepository;
 		private int NextHadithId;
@@ -31,15 +31,18 @@ namespace QuranX.DataMigration.Migrators
 		public HadithMigrator(
 			ILogger logger,
 			IXmlDocumentProvider xmlDocumentProvider,
+			IVerseRepository verseRepository,
+			IVerseWriteRepository verseWriteRepository,
 			IHadithCollectionWriteRepository hadithCollectionWriteRepository,
 			IHadithWriteRepository hadithWriteRepository)
 		{
 			Logger = logger;
+			VerseRepository = verseRepository;
+			VerseWriteRepository = verseWriteRepository;
 			XmlDocument = xmlDocumentProvider.Document;
 			HadithCollectionWriteRepository = hadithCollectionWriteRepository;
 			HadithWriteRepository = hadithWriteRepository;
 		}
-
 
 		public void Migrate()
 		{
@@ -75,7 +78,7 @@ namespace QuranX.DataMigration.Migrators
 		{
 			int hadithId = NextHadithId++;
 			var references = new List<HadithReferenceViewModel>();
-			foreach(HadithReference hadithReference in hadith.References)
+			foreach (HadithReference hadithReference in hadith.References)
 			{
 				(int index, string suffix)[] indexValues =
 					hadithReference.Values
@@ -103,7 +106,5 @@ namespace QuranX.DataMigration.Migrators
 				references: references);
 			HadithWriteRepository.Write(hadithViewModel);
 		}
-
-
 	}
 }
