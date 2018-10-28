@@ -52,7 +52,7 @@ namespace ASP
         {
 WriteLiteral("<h1>Hadith collection</h1>\r\n<h2>\r\n\t<a");
 
-WriteAttribute("href", Tuple.Create(" href=\"", 145), Tuple.Create("\"", 221)
+WriteAttribute("href", Tuple.Create(" href=\"", 145), Tuple.Create("\"", 211)
 , Tuple.Create(Tuple.Create("", 152), Tuple.Create("/Hadith/", 152), true)
             
             #line 7 "..\..\Views\HadithIndex\HadithIndexHeader.cshtml"
@@ -64,7 +64,7 @@ WriteAttribute("href", Tuple.Create(" href=\"", 145), Tuple.Create("\"", 221)
 , Tuple.Create(Tuple.Create("", 182), Tuple.Create("/", 182), true)
             
             #line 7 "..\..\Views\HadithIndex\HadithIndexHeader.cshtml"
-, Tuple.Create(Tuple.Create("", 183), Tuple.Create<System.Object, System.Int32>(Model.Collection.PrimaryReferenceCode
+, Tuple.Create(Tuple.Create("", 183), Tuple.Create<System.Object, System.Int32>(Model.SelectedReferenceCode
             
             #line default
             #line hidden
@@ -93,7 +93,7 @@ WriteLiteral("\r\n\t</a>\r\n");
             
             #line 10 "..\..\Views\HadithIndex\HadithIndexHeader.cshtml"
       
-		string urlSoFar = $"/Hadith/{Model.Collection.Code}/{Model.Collection.PrimaryReferenceCode}/";
+		string urlSoFar = $"/Hadith/{Model.Collection.Code}/{Model.SelectedReferenceCode}/";
 		foreach (string urlPart in Model.ReferencePartNamesAndValues)
 		{
 			urlSoFar += urlPart + "/";
@@ -105,14 +105,14 @@ WriteLiteral("\t\t\t<span> / </span>");
 
 WriteLiteral("<a");
 
-WriteAttribute("href", Tuple.Create(" href=\"", 483), Tuple.Create("\"", 499)
+WriteAttribute("href", Tuple.Create(" href=\"", 463), Tuple.Create("\"", 479)
             
             #line 15 "..\..\Views\HadithIndex\HadithIndexHeader.cshtml"
-, Tuple.Create(Tuple.Create("", 490), Tuple.Create<System.Object, System.Int32>(urlSoFar
+, Tuple.Create(Tuple.Create("", 470), Tuple.Create<System.Object, System.Int32>(urlSoFar
             
             #line default
             #line hidden
-, 490), false)
+, 470), false)
 );
 
 WriteLiteral(">");
@@ -160,36 +160,36 @@ WriteLiteral(">\r\n");
             #line hidden
 WriteLiteral("\t\t<a");
 
-WriteAttribute("href", Tuple.Create(" href=\"", 880), Tuple.Create("\"", 943)
-, Tuple.Create(Tuple.Create("", 887), Tuple.Create("/hadith/", 887), true)
+WriteAttribute("href", Tuple.Create(" href=\"", 860), Tuple.Create("\"", 923)
+, Tuple.Create(Tuple.Create("", 867), Tuple.Create("/hadith/", 867), true)
             
             #line 23 "..\..\Views\HadithIndex\HadithIndexHeader.cshtml"
-, Tuple.Create(Tuple.Create("", 895), Tuple.Create<System.Object, System.Int32>(Model.Collection.Code
+, Tuple.Create(Tuple.Create("", 875), Tuple.Create<System.Object, System.Int32>(Model.Collection.Code
             
             #line default
             #line hidden
-, 895), false)
-, Tuple.Create(Tuple.Create("", 917), Tuple.Create("/", 917), true)
+, 875), false)
+, Tuple.Create(Tuple.Create("", 897), Tuple.Create("/", 897), true)
             
             #line 23 "..\..\Views\HadithIndex\HadithIndexHeader.cshtml"
-, Tuple.Create(Tuple.Create("", 918), Tuple.Create<System.Object, System.Int32>(referenceDefinition.Code
+, Tuple.Create(Tuple.Create("", 898), Tuple.Create<System.Object, System.Int32>(referenceDefinition.Code
             
             #line default
             #line hidden
-, 918), false)
+, 898), false)
 );
 
-WriteAttribute("class", Tuple.Create(" class=\"", 944), Tuple.Create("\"", 1005)
-, Tuple.Create(Tuple.Create("", 952), Tuple.Create("btn", 952), true)
-, Tuple.Create(Tuple.Create(" ", 955), Tuple.Create("btn-primary", 956), true)
-, Tuple.Create(Tuple.Create(" ", 967), Tuple.Create("hadith-reference-list__item", 968), true)
+WriteAttribute("class", Tuple.Create(" class=\"", 924), Tuple.Create("\"", 985)
+, Tuple.Create(Tuple.Create("", 932), Tuple.Create("btn", 932), true)
+, Tuple.Create(Tuple.Create(" ", 935), Tuple.Create("btn-primary", 936), true)
+, Tuple.Create(Tuple.Create(" ", 947), Tuple.Create("hadith-reference-list__item", 948), true)
             
             #line 23 "..\..\Views\HadithIndex\HadithIndexHeader.cshtml"
-                                              , Tuple.Create(Tuple.Create(" ", 995), Tuple.Create<System.Object, System.Int32>(cssClass
+                                              , Tuple.Create(Tuple.Create(" ", 975), Tuple.Create<System.Object, System.Int32>(cssClass
             
             #line default
             #line hidden
-, 996), false)
+, 976), false)
 );
 
 WriteLiteral(">\r\n");

@@ -58,9 +58,12 @@ namespace QuranX.Web.Controllers
 				.Select(x => x.value + x.suffix)
 				.Select((value, i) => referenceDefinition.PartNames[i] + "-" + value);
 			string partsAsUrl = string.Join("/", urlReferenceParts);
+			string urlSoFar = $"/hadith/{collectionCode}/{referenceCode}/{partsAsUrl}";
+			if (urlSoFar.EndsWith("/"))
+				urlSoFar = urlSoFar.Substring(0, urlSoFar.Length - 1);
 			var headerViewModel = new HadithIndexHeaderViewModel(
 				selectedReferenceCode: referenceCode,
-				urlSoFar: $"/hadith/{collectionCode}/{referenceCode}/{partsAsUrl}",
+				urlSoFar: urlSoFar,
 				collection: collection, 
 				referencePartNamesAndValues: urlReferenceParts);
 			if (referencePartNames.Count() == referenceDefinition.PartNames.Count)
