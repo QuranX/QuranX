@@ -168,6 +168,97 @@
 	}
 }
 
+
+
+
+.hadith-index__list {
+	padding: 0;
+	list-style: none;
+}
+
+	.hadith-index__list.collapsing {
+		transition-duration: 0s;
+	}
+
+	.hadith-index__list li {
+		margin: 0 2rem;
+	}
+
+@media (max-width: 349px) {
+	.hadith-index__list {
+		-webkit-column-count: 1;
+		-moz-column-count: 1;
+		-ms-column-count: 1;
+		column-count: 1;
+	}
+}
+
+@media (min-width: 450px) {
+	.hadith-index__list {
+		-webkit-column-count: 2;
+		-moz-column-count: 2;
+		-ms-column-count: 2;
+		column-count: 2;
+	}
+}
+
+@media (min-width: 650px) {
+	.hadith-index__list {
+		-webkit-column-count: 3;
+		-moz-column-count: 3;
+		-ms-column-count: 3;
+		column-count: 3;
+	}
+}
+
+@media (min-width: 850px) {
+	.hadith-index__list {
+		-webkit-column-count: 4;
+		-moz-column-count: 4;
+		-ms-column-count: 4;
+		column-count: 4;
+	}
+}
+
+@media (min-width: 1050px) {
+	.hadith-index__list {
+		-webkit-column-count: 5;
+		-moz-column-count: 5;
+		-ms-column-count: 5;
+		column-count: 5;
+	}
+}
+
+@media (min-width: 1250px) {
+	.hadith-index__list {
+		-webkit-column-count: 6;
+		-moz-column-count: 6;
+		-ms-column-count: 6;
+		column-count: 6;
+	}
+}
+
+@media (min-width: 1450px) {
+	.hadith-index__list {
+		-webkit-column-count: 7;
+		-moz-column-count: 7;
+		-ms-column-count: 7;
+		column-count: 7;
+	}
+}
+
+@media (min-width: 1650px) {
+	.hadith-index__list {
+		-webkit-column-count: 8;
+		-moz-column-count: 8;
+		-ms-column-count: 8;
+		column-count: 8;
+	}
+}
+
+
+
+
 .chapter-and-verse-selector {
 	align-content: center;
 	margin-left: auto;
@@ -320,18 +411,42 @@ dl.boxed {
 	margin-bottom: 1em;
 }
 
+@media(max-width: 35em) {
+	.hadith-reference-list__item {
+		display: block;
+		float: none !important;
+		border-radius: 0px !important;
+	}
+
+		.hadith-reference-list__item:first-child {
+			display: block;
+			border-radius: 4px 4px 0px 0px !important;
+		}
+
+		.hadith-reference-list__item:last-child {
+			display: block;
+			border-radius: 0px 0px 4px 4px !important;
+		}
+}
+
 .hadith-reference-list__item {
 	color: #eee;
 }
 
+.hadith-reference-list__item {
+	color: black;
+	background-color: hsl(208, 57%, 83%);
+	border-color: hsl(208, 57%, 83%);
+}
+
 	.hadith-reference-list__item.selected {
-		color: black;
-		background-color: hsl(208, 57%, 83%);
-		border-color: hsl(208, 57%, 83%);
+		color: hsl(208, 57%, 93%);
+		background-color: hsl(208, 77%, 23%);
+		border-color: hsl(208, 77%, 23%);
 	}
 
 .hadith {
-	border : 1px solid black;
+	border: 1px solid black;
 }
 
 .hadith__text {
@@ -339,9 +454,9 @@ dl.boxed {
 	margin: 0px;
 }
 
-.hadith__text>p {
-	margin: 0px;
-}
+	.hadith__text > p {
+		margin: 0px;
+	}
 
 .hadith__text-english {
 	background-color: hsl(0, 0%, 94%);

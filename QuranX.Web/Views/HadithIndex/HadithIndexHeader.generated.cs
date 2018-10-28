@@ -135,7 +135,7 @@ WriteLiteral("</a>\r\n");
             #line hidden
 WriteLiteral("\r\n</h2>\r\n<div");
 
-WriteLiteral(" class=\"hadith-reference-list\"");
+WriteLiteral(" class=\"hadith-reference-list btn-group\"");
 
 WriteLiteral(" role=\"group\"");
 
@@ -160,36 +160,36 @@ WriteLiteral(">\r\n");
             #line hidden
 WriteLiteral("\t\t<a");
 
-WriteAttribute("href", Tuple.Create(" href=\"", 870), Tuple.Create("\"", 933)
-, Tuple.Create(Tuple.Create("", 877), Tuple.Create("/hadith/", 877), true)
+WriteAttribute("href", Tuple.Create(" href=\"", 880), Tuple.Create("\"", 943)
+, Tuple.Create(Tuple.Create("", 887), Tuple.Create("/hadith/", 887), true)
             
             #line 23 "..\..\Views\HadithIndex\HadithIndexHeader.cshtml"
-, Tuple.Create(Tuple.Create("", 885), Tuple.Create<System.Object, System.Int32>(Model.Collection.Code
+, Tuple.Create(Tuple.Create("", 895), Tuple.Create<System.Object, System.Int32>(Model.Collection.Code
             
             #line default
             #line hidden
-, 885), false)
-, Tuple.Create(Tuple.Create("", 907), Tuple.Create("/", 907), true)
+, 895), false)
+, Tuple.Create(Tuple.Create("", 917), Tuple.Create("/", 917), true)
             
             #line 23 "..\..\Views\HadithIndex\HadithIndexHeader.cshtml"
-, Tuple.Create(Tuple.Create("", 908), Tuple.Create<System.Object, System.Int32>(referenceDefinition.Code
+, Tuple.Create(Tuple.Create("", 918), Tuple.Create<System.Object, System.Int32>(referenceDefinition.Code
             
             #line default
             #line hidden
-, 908), false)
+, 918), false)
 );
 
-WriteAttribute("class", Tuple.Create(" class=\"", 934), Tuple.Create("\"", 995)
-, Tuple.Create(Tuple.Create("", 942), Tuple.Create("btn", 942), true)
-, Tuple.Create(Tuple.Create(" ", 945), Tuple.Create("btn-primary", 946), true)
-, Tuple.Create(Tuple.Create(" ", 957), Tuple.Create("hadith-reference-list__item", 958), true)
+WriteAttribute("class", Tuple.Create(" class=\"", 944), Tuple.Create("\"", 1005)
+, Tuple.Create(Tuple.Create("", 952), Tuple.Create("btn", 952), true)
+, Tuple.Create(Tuple.Create(" ", 955), Tuple.Create("btn-primary", 956), true)
+, Tuple.Create(Tuple.Create(" ", 967), Tuple.Create("hadith-reference-list__item", 968), true)
             
             #line 23 "..\..\Views\HadithIndex\HadithIndexHeader.cshtml"
-                                              , Tuple.Create(Tuple.Create(" ", 985), Tuple.Create<System.Object, System.Int32>(cssClass
+                                              , Tuple.Create(Tuple.Create(" ", 995), Tuple.Create<System.Object, System.Int32>(cssClass
             
             #line default
             #line hidden
-, 986), false)
+, 996), false)
 );
 
 WriteLiteral(">\r\n");

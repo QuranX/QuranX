@@ -55,7 +55,7 @@ namespace QuranX.DataMigration.Migrators
 					.Select(x => new HadithIndexDefinitionViewModel(
 						collectionCode: collection.Code,
 						code: x.Code,
-						name: x.Name,
+						name: x.Name.Replace(" reference", ""),
 						valuePrefix: x.ValuePrefix,
 						partNames: x.PartNames,
 						isPrimary: x.IsPrimary))
