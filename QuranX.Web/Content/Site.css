@@ -102,12 +102,7 @@
 	margin-left: auto;
 	margin-right: auto;
 	margin-bottom: 1em;
-}
-
-@media (max-width: 549px) {
-	.chapter-and-verse-selector {
-		width: 100%;
-	}
+	width: 100%;
 }
 
 @media (min-width: 550px) {
