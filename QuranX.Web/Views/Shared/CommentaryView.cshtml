@@ -4,7 +4,7 @@
 
 @{
 	var verse = new VerseRangeReference(Model.Commentary.ChapterNumber, Model.Commentary.FirstVerseNumber, Model.Commentary.LastVerseNumber);
-	string verseCaption = verse.IsMultipleVerses ? "verses" : "verse";
+	string verseCaption = verse.IsMultipleVerses() ? "verses" : "verse";
 }
 <div>
 	<dl class="boxed">

@@ -280,11 +280,15 @@ dl.boxed {
 
 .hadith {
 	border: 1px solid black;
+	margin-bottom: 2em;
+	border-radius: 4px;
+	padding: 2px;
 }
 
 .hadith__text {
 	padding: 0.25em;
 	margin: 0px;
+	padding: 1em;
 }
 
 	.hadith__text > p {
@@ -292,16 +296,16 @@ dl.boxed {
 	}
 
 .hadith__text-english {
-	background-color: hsl(0, 0%, 94%);
 }
 
 .hadith__text-arabic {
-	padding: 1em;
+	background-color: hsl(0, 0%, 94%);
+	text-align: right;
 }
 
 .hadith__references {
 	background-color: hsl(0, 0%, 94%);
-	padding: 0.25em;
+	padding: 1em;
 }
 
 .hadith__reference {

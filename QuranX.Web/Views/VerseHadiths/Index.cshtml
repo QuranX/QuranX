@@ -1,0 +1,15 @@
+﻿@model QuranX.Web.Views.VerseHadiths.ViewModel
+@using QuranX.Web.Views.Shared
+
+@{
+	ViewBag.Title = $"Hadiths for {Model.Chapter.ChapterNumber}.{Model.VerseNumber}";
+}
+<h1>
+	Hadiths for <a href="/@(Model.Chapter.ChapterNumber).@Model.VerseNumber">
+		@(Model.Chapter.ChapterNumber).@Model.VerseNumber
+	</a>
+</h1>
+@foreach (HadithViewModel hadithVM in Model.Hadiths)
+{
+	@Html.Partial("HadithView", hadithVM)
+}

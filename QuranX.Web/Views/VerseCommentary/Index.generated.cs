@@ -54,7 +54,7 @@ namespace ASP
             #line 5 "..\..\Views\VerseCommentary\Index.cshtml"
   
 	var verse = new VerseRangeReference(Model.CommentatorAndCommentary.Commentary.ChapterNumber, Model.CommentatorAndCommentary.Commentary.FirstVerseNumber, Model.CommentatorAndCommentary.Commentary.LastVerseNumber);
-	string verseCaption = verse.IsMultipleVerses ? "verses" : "verse";
+	string verseCaption = verse.IsMultipleVerses() ? "verses" : "verse";
 	ViewBag.Title = Model.CommentatorAndCommentary.Commentator.Description + $" commentary for {verseCaption} {verse}";
 
             

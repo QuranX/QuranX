@@ -69,7 +69,7 @@ namespace QuranX.Persistence.Services.Repositories
 		{
 			IEnumerable<HadithVerseLink> hadithVerseLinks =
 				hadith.VerseRangeReferences
-				.SelectMany(verseReference => verseReference)
+				.SelectMany(x => x.ToVerseReferences())
 				.Select(x => x.ToIndexValue())
 				.Select(x => new HadithVerseLink(
 					hadithId: hadith.Id,
@@ -80,7 +80,8 @@ namespace QuranX.Persistence.Services.Repositories
 				var doc = new Document();
 				doc
 					.StoreAndIndex(hadithVerseLink, x => x.HadithId)
-					.StoreAndIndex(hadithVerseLink, x => x.VerseId);
+					.StoreAndIndex(hadithVerseLink, x => x.VerseId)
+					.AddObject(hadithVerseLink);
 				indexWriter.AddDocument(doc);
 			}
 		}

@@ -15,12 +15,6 @@ namespace QuranX.Web
 			RegisterSettings(container);
 			RegisterServices(container);
 			Persistence.Services.Registration.Register(container);
-
-			// register all your components with the container here
-			// it is NOT necessary to register your controllers
-
-			// e.g. container.RegisterType<ITestService, TestService>();
-
 			DependencyResolver.SetResolver(new UnityDependencyResolver(container));
 		}
 
@@ -35,6 +29,7 @@ namespace QuranX.Web
 		{
 			container.RegisterSingleton<ICommentariesForVerseFactory, CommentariesForVerseFactory>();
 			container.RegisterSingleton<ISelectChapterAndVerseFactory, SelectChapterAndVerseFactory>();
+			container.RegisterSingleton<IHadithViewModelFactory, HadithViewModelFactory>();
 		}
 	}
 }

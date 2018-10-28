@@ -35,6 +35,12 @@ namespace ASP
     #line default
     #line hidden
     
+    #line 2 "..\..\Views\HadithIndex\Hadiths.cshtml"
+    using QuranX.Web.Views.Shared;
+    
+    #line default
+    #line hidden
+    
     [System.CodeDom.Compiler.GeneratedCodeAttribute("RazorGenerator", "2.0.0.0")]
     [System.Web.WebPages.PageVirtualPathAttribute("~/Views/HadithIndex/Hadiths.cshtml")]
     public partial class _Views_HadithIndex_Hadiths_cshtml : System.Web.Mvc.WebViewPage<HadithsViewModel>
@@ -45,7 +51,7 @@ namespace ASP
         public override void Execute()
         {
             
-            #line 4 "..\..\Views\HadithIndex\Hadiths.cshtml"
+            #line 5 "..\..\Views\HadithIndex\Hadiths.cshtml"
   
 	ViewBag.Title = $"{Model.HadithIndexHeaderViewModel.Collection.Name} Hadiths";
 
@@ -55,7 +61,7 @@ namespace ASP
 WriteLiteral("\r\n\r\n");
 
             
-            #line 8 "..\..\Views\HadithIndex\Hadiths.cshtml"
+            #line 9 "..\..\Views\HadithIndex\Hadiths.cshtml"
 Write(Html.Partial("HadithIndexHeader", Model.HadithIndexHeaderViewModel));
 
             
@@ -64,183 +70,23 @@ Write(Html.Partial("HadithIndexHeader", Model.HadithIndexHeaderViewModel));
 WriteLiteral("\r\n");
 
             
-            #line 9 "..\..\Views\HadithIndex\Hadiths.cshtml"
+            #line 10 "..\..\Views\HadithIndex\Hadiths.cshtml"
  foreach (HadithViewModel hadithVM in Model.Hadiths)
 {
-
-            
-            #line default
-            #line hidden
-WriteLiteral("\t<div");
-
-WriteLiteral(" class=\"hadith\"");
-
-WriteLiteral(">\r\n\t\t<div");
-
-WriteLiteral(" class=\"hadith__text hadith__text-english\"");
-
-WriteLiteral(">\r\n");
-
-            
-            #line 13 "..\..\Views\HadithIndex\Hadiths.cshtml"
-			
+	
             
             #line default
             #line hidden
             
-            #line 13 "..\..\Views\HadithIndex\Hadiths.cshtml"
-             foreach (string text in hadithVM.Hadith.EnglishText)
-			{
+            #line 12 "..\..\Views\HadithIndex\Hadiths.cshtml"
+Write(Html.Partial("HadithView", hadithVM));
 
             
             #line default
             #line hidden
-WriteLiteral("\t\t\t\t<p>");
-
             
-            #line 15 "..\..\Views\HadithIndex\Hadiths.cshtml"
-              Write(text);
-
-            
-            #line default
-            #line hidden
-WriteLiteral("</p>\r\n");
-
-            
-            #line 16 "..\..\Views\HadithIndex\Hadiths.cshtml"
-			}
-
-            
-            #line default
-            #line hidden
-WriteLiteral("\t\t</div>\r\n\t\t<div");
-
-WriteLiteral(" class=\"hadith__text hadith__text-arabic\"");
-
-WriteLiteral(">\r\n");
-
-            
-            #line 19 "..\..\Views\HadithIndex\Hadiths.cshtml"
-			
-            
-            #line default
-            #line hidden
-            
-            #line 19 "..\..\Views\HadithIndex\Hadiths.cshtml"
-             foreach (string text in hadithVM.Hadith.ArabicText)
-			{
-
-            
-            #line default
-            #line hidden
-WriteLiteral("\t\t\t\t<p>");
-
-            
-            #line 21 "..\..\Views\HadithIndex\Hadiths.cshtml"
-              Write(text);
-
-            
-            #line default
-            #line hidden
-WriteLiteral("</p>\r\n");
-
-            
-            #line 22 "..\..\Views\HadithIndex\Hadiths.cshtml"
-			}
-
-            
-            #line default
-            #line hidden
-WriteLiteral("\t\t</div>\r\n\t\t<div");
-
-WriteLiteral(" class=\"hadith__references\"");
-
-WriteLiteral(">\r\n\t\t\t<div");
-
-WriteLiteral(" class=\"hadith__reference\"");
-
-WriteLiteral(">\r\n\t\t\t\t<div");
-
-WriteLiteral(" class=\"hadith__reference-name\"");
-
-WriteLiteral(">\r\n\t\t\t\t\tCollection\r\n\t\t\t\t</div>\r\n\t\t\t\t<div");
-
-WriteLiteral(" class=\"hadith__reference-value\"");
-
-WriteLiteral(">\r\n");
-
-WriteLiteral("\t\t\t\t\t");
-
-            
-            #line 30 "..\..\Views\HadithIndex\Hadiths.cshtml"
-               Write(hadithVM.CollectionName);
-
-            
-            #line default
-            #line hidden
-WriteLiteral("\r\n\t\t\t\t</div>\r\n\t\t\t</div>\r\n");
-
-            
-            #line 33 "..\..\Views\HadithIndex\Hadiths.cshtml"
-			
-            
-            #line default
-            #line hidden
-            
-            #line 33 "..\..\Views\HadithIndex\Hadiths.cshtml"
-             foreach (KeyValuePair<string, string> reference in hadithVM.References)
-			{
-
-            
-            #line default
-            #line hidden
-WriteLiteral("\t\t\t\t<div");
-
-WriteLiteral(" class=\"hadith__reference\"");
-
-WriteLiteral(">\r\n\t\t\t\t\t<div");
-
-WriteLiteral(" class=\"hadith__reference-name\"");
-
-WriteLiteral(">\r\n");
-
-WriteLiteral("\t\t\t\t\t\t");
-
-            
-            #line 37 "..\..\Views\HadithIndex\Hadiths.cshtml"
-                   Write(reference.Key);
-
-            
-            #line default
-            #line hidden
-WriteLiteral("\r\n\t\t\t\t\t</div>\r\n\t\t\t\t\t<div");
-
-WriteLiteral(" class=\"hadith__reference-value\"");
-
-WriteLiteral(">\r\n");
-
-WriteLiteral("\t\t\t\t\t\t");
-
-            
-            #line 40 "..\..\Views\HadithIndex\Hadiths.cshtml"
-                   Write(reference.Value);
-
-            
-            #line default
-            #line hidden
-WriteLiteral("\r\n\t\t\t\t\t</div>\r\n\t\t\t\t</div>\r\n");
-
-            
-            #line 43 "..\..\Views\HadithIndex\Hadiths.cshtml"
-			}
-
-            
-            #line default
-            #line hidden
-WriteLiteral("\t\t</div>\r\n\t</div>\r\n");
-
-            
-            #line 46 "..\..\Views\HadithIndex\Hadiths.cshtml"
+            #line 12 "..\..\Views\HadithIndex\Hadiths.cshtml"
+                                         
 }
 
             

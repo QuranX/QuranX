@@ -4,7 +4,9 @@ using System.Linq;
 using System.Web.Mvc;
 using QuranX.Persistence.Models;
 using QuranX.Persistence.Services.Repositories;
+using QuranX.Web.Factories;
 using QuranX.Web.Views.HadithIndex;
+using QuranX.Web.Views.Shared;
 
 namespace QuranX.Web.Controllers
 {
@@ -12,13 +14,16 @@ namespace QuranX.Web.Controllers
 	{
 		private readonly IHadithRepository HadithRepository;
 		private readonly IHadithCollectionRepository HadithCollectionRepository;
+		private readonly IHadithViewModelFactory HadithViewModelFactory;
 
 		public HadithIndexController(
 			IHadithRepository hadithRepository,
-			IHadithCollectionRepository hadithCollectionRepository)
+			IHadithCollectionRepository hadithCollectionRepository,
+			IHadithViewModelFactory hadithViewModelFactory)
 		{
 			HadithRepository = hadithRepository;
 			HadithCollectionRepository = hadithCollectionRepository;
+			HadithViewModelFactory = hadithViewModelFactory;
 		}
 
 		// GET: HadithReferences
@@ -64,13 +69,13 @@ namespace QuranX.Web.Controllers
 			var headerViewModel = new HadithIndexHeaderViewModel(
 				selectedReferenceCode: referenceCode,
 				urlSoFar: urlSoFar,
-				collection: collection, 
+				collection: collection,
 				referencePartNamesAndValues: urlReferenceParts);
 			if (referencePartNames.Count() == referenceDefinition.PartNames.Count)
 			{
 				IEnumerable<int> hadithIds = hadithReferences.Select(x => x.HadithId);
 				IEnumerable<Hadith> hadiths = HadithRepository.GetHadiths(hadithIds);
-				IEnumerable<HadithViewModel> hadithViewModels = BuildHadithViewModels(hadiths);
+				IEnumerable<HadithViewModel> hadithViewModels = HadithViewModelFactory.Create(hadiths);
 				var viewModel = new HadithsViewModel(headerViewModel, hadithViewModels);
 				return View("Hadiths", viewModel);
 			}
@@ -109,31 +114,6 @@ namespace QuranX.Web.Controllers
 					nextReferencePartValueSelection: nextReferencePartValues);
 				return View("BrowseHadithIndex", viewModel);
 			}
-		}
-
-		private IEnumerable<HadithViewModel> BuildHadithViewModels(IEnumerable<Hadith> hadiths)
-		{
-			var result = new List<HadithViewModel>();
-			foreach(Hadith hadith in hadiths)
-			{
-				string collectionCode = hadith.References[0].CollectionCode;
-				HadithCollection collection = HadithCollectionRepository.Get(collectionCode);
-				var references = new List<KeyValuePair<string, string>>();
-				foreach(HadithReference reference in hadith.References)
-				{
-					HadithReferenceDefinition referenceDefinition =
-						collection.GetReferenceDefinition(reference.ReferenceCode);
-					string referenceName = referenceDefinition.Name;
-					string path = reference.ToString(referenceDefinition);
-					references.Add(new KeyValuePair<string, string>(referenceName, path));
-				}
-				var viewModel = new HadithViewModel(
-					collectionName: collection.Name,
-					hadith: hadith,
-					references: references.OrderBy(x => x.Key));
-				result.Add(viewModel);
-			}
-			return result;
 		}
 	}
 }

@@ -54,7 +54,7 @@ namespace ASP
             #line 5 "..\..\Views\Shared\CommentaryView.cshtml"
   
 	var verse = new VerseRangeReference(Model.Commentary.ChapterNumber, Model.Commentary.FirstVerseNumber, Model.Commentary.LastVerseNumber);
-	string verseCaption = verse.IsMultipleVerses ? "verses" : "verse";
+	string verseCaption = verse.IsMultipleVerses() ? "verses" : "verse";
 
             
             #line default
@@ -65,15 +65,15 @@ WriteLiteral(" class=\"boxed\"");
 
 WriteLiteral(">\r\n\t\t<dt>\r\n\t\t\t<a");
 
-WriteAttribute("href", Tuple.Create(" href=\"", 347), Tuple.Create("\"", 361)
-, Tuple.Create(Tuple.Create("", 354), Tuple.Create("/", 354), true)
+WriteAttribute("href", Tuple.Create(" href=\"", 349), Tuple.Create("\"", 363)
+, Tuple.Create(Tuple.Create("", 356), Tuple.Create("/", 356), true)
             
             #line 12 "..\..\Views\Shared\CommentaryView.cshtml"
-, Tuple.Create(Tuple.Create("", 355), Tuple.Create<System.Object, System.Int32>(verse
+, Tuple.Create(Tuple.Create("", 357), Tuple.Create<System.Object, System.Int32>(verse
             
             #line default
             #line hidden
-, 355), false)
+, 357), false)
 );
 
 WriteLiteral("><span");

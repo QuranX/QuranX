@@ -1,4 +1,5 @@
 ﻿using System.Web.Mvc;
+using QuranX.Shared.Models;
 using QuranX.Web.Factories;
 using QuranX.Web.Models;
 
@@ -14,9 +15,11 @@ namespace QuranX.Web.Controllers
 			CommentariesForVerseBuilder = commentariesForVerseBuilder;
 		}
 
-		// GET: VerseCommentary
 		public ActionResult Index(string commentatorCode, int chapterNumber, int verseNumber)
 		{
+			if (!QuranStructure.TryValidateChapterAndVerse(chapterNumber, verseNumber))
+				return HttpNotFound();
+
 			CommentariesForVerse viewModel = CommentariesForVerseBuilder.Create(
 				commentatorCode: commentatorCode,
 				chapterNumber: chapterNumber,

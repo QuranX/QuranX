@@ -1,11 +1,12 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using QuranX.Web.Views.Shared;
 
 namespace QuranX.Web.Views.HadithIndex
 {
 	public class HadithsViewModel
 	{
-		public readonly IReadOnlyCollection<HadithViewModel> Hadiths;
+		public readonly IReadOnlyList<HadithViewModel> Hadiths;
 		public readonly HadithIndexHeaderViewModel HadithIndexHeaderViewModel;
 
 		public HadithsViewModel(

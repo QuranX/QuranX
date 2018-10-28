@@ -5,7 +5,11 @@
 	ViewBag.Title = $"Commentaries for {Model.Chapter.ChapterNumber}.{Model.VerseNumber}";
 }
 
-<h1>@ViewBag.Title</h1>
+<h1>
+	Commentaries for <a href="/@(Model.Chapter.ChapterNumber).@Model.VerseNumber">
+		@(Model.Chapter.ChapterNumber).@Model.VerseNumber
+	</a>
+</h1>
 @Html.Partial("SelectChapterAndVerse", Model.SelectChapterAndVerse)
 @foreach (CommentatorAndCommentary commentatorAndCommentary in Model.Commentaries)
 {

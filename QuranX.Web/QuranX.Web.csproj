@@ -187,6 +187,7 @@
     <Compile Include="App_Start\UnityConfig.cs" />
     <Compile Include="Controllers\HadithIndexController.cs" />
     <Compile Include="Controllers\VerseCommentaryController.cs" />
+    <Compile Include="Controllers\VerseHadithsController.cs" />
     <Compile Include="Factories\CommentariesForVerseFactory.cs" />
     <Compile Include="Consts.cs" />
     <Compile Include="Controllers\CommentatorsController.cs" />
@@ -194,6 +195,7 @@
     <Compile Include="Controllers\QuranVersesController.cs" />
     <Compile Include="Controllers\RedirectController.cs" />
     <Compile Include="Controllers\CommentariesForVerseController.cs" />
+    <Compile Include="Factories\HadithViewModelFactory.cs" />
     <Compile Include="Factories\SelectChapterAndVerseFactory.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -237,7 +239,7 @@
     </Compile>
     <Compile Include="Views\HadithIndex\HadithsViewModel.cs" />
     <Compile Include="Views\HadithIndex\BrowseHadithIndexViewModel.cs" />
-    <Compile Include="Views\HadithIndex\HadithViewModel.cs" />
+    <Compile Include="Views\Shared\HadithViewModel.cs" />
     <Compile Include="Views\QuranVerses\Index.generated.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -270,6 +272,7 @@
       <DependentUpon>Index.cshtml</DependentUpon>
     </Compile>
     <Compile Include="Views\VerseCommentary\ViewModel.cs" />
+    <Compile Include="Views\VerseHadiths\ViewModel.cs" />
     <Compile Include="Views\_ViewStart.generated.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -325,6 +328,8 @@
       <DependentUpon>Web.config</DependentUpon>
     </Content>
     <Content Include="Views\Web.config" />
+    <Content Include="Views\Shared\HadithView.cshtml" />
+    <Content Include="Views\VerseHadiths\Index.cshtml" />
     <None Include="Views\_ViewStart.cshtml">
       <Generator>RazorGenerator</Generator>
       <LastGenOutput>_ViewStart.generated.cs</LastGenOutput>

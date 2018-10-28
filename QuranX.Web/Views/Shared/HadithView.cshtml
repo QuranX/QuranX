@@ -1,0 +1,37 @@
+﻿@model QuranX.Web.Views.Shared.HadithViewModel
+
+<div class="hadith">
+	<div class="hadith__references">
+		<div class="hadith__reference">
+			<div class="hadith__reference-name">
+				Collection
+			</div>
+			<div class="hadith__reference-value">
+				@Model.CollectionName
+			</div>
+		</div>
+		@foreach (KeyValuePair<string, string> reference in @Model.References)
+		{
+			<div class="hadith__reference">
+				<div class="hadith__reference-name">
+					@reference.Key
+				</div>
+				<div class="hadith__reference-value">
+					@reference.Value
+				</div>
+			</div>
+		}
+	</div>
+	<div class="hadith__text hadith__text-english">
+		@foreach (string text in @Model.Hadith.EnglishText)
+		{
+			<p>@text</p>
+		}
+	</div>
+	<div class="hadith__text hadith__text-arabic">
+		@foreach (string text in @Model.Hadith.ArabicText)
+		{
+			<p>@text</p>
+		}
+	</div>
+</div>

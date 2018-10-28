@@ -4,12 +4,12 @@ using System.Collections.Generic;
 
 namespace QuranX.Shared.Models
 {
-	public class VerseRangeReference : IComparable, IComparable<VerseRangeReference>, IEnumerable<VerseReference>
+	public class VerseRangeReference : IComparable, IComparable<VerseRangeReference>
 	{
 		public int Chapter { get; set; }
 		public int FirstVerse { get; set; }
 		public int LastVerse { get; set; }
-		public bool IsMultipleVerses => FirstVerse != LastVerse;
+		public bool IsMultipleVerses() => FirstVerse != LastVerse;
 
 		public VerseRangeReference() { }
 
@@ -126,20 +126,6 @@ namespace QuranX.Shared.Models
 			if (!(obj is VerseRangeReference))
 				throw new ArgumentException();
 			return CompareTo((VerseRangeReference)obj);
-		}
-
-
-		IEnumerator<VerseReference> IEnumerable<VerseReference>.GetEnumerator()
-		{
-			for (int verseIndex = FirstVerse; verseIndex <= LastVerse; verseIndex++)
-			{
-				yield return new VerseReference(chapter: Chapter, verse: verseIndex);
-			}
-		}
-
-		System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
-		{
-			return (this as IEnumerable<VerseReference>).GetEnumerator();
 		}
 	}
 }
