@@ -54,7 +54,7 @@ namespace ASP
             #line hidden
 WriteLiteral("\r\n\r\n<h1>The Quran</h1>\r\n<h2>\r\n\tCommentaries for <a");
 
-WriteAttribute("href", Tuple.Create(" href=\"", 201), Tuple.Create("\"", 258)
+WriteAttribute("href", Tuple.Create(" href=\"", 201), Tuple.Create("\"", 256)
 , Tuple.Create(Tuple.Create("", 208), Tuple.Create("/", 208), true)
             
             #line 10 "..\..\Views\CommentariesForVerse\Index.cshtml"
@@ -63,14 +63,14 @@ WriteAttribute("href", Tuple.Create(" href=\"", 201), Tuple.Create("\"", 258)
             #line default
             #line hidden
 , 209), false)
-, Tuple.Create(Tuple.Create("", 239), Tuple.Create(".", 239), true)
+, Tuple.Create(Tuple.Create("", 237), Tuple.Create(".", 237), true)
             
             #line 10 "..\..\Views\CommentariesForVerse\Index.cshtml"
-, Tuple.Create(Tuple.Create("", 240), Tuple.Create<System.Object, System.Int32>(Model.VerseNumber
+, Tuple.Create(Tuple.Create("", 238), Tuple.Create<System.Object, System.Int32>(Model.VerseNumber
             
             #line default
             #line hidden
-, 240), false)
+, 238), false)
 );
 
 WriteLiteral(">\r\n");
@@ -79,7 +79,7 @@ WriteLiteral("\t\t");
 
             
             #line 11 "..\..\Views\CommentariesForVerse\Index.cshtml"
-    Write(Model.Chapter.ChapterNumber);
+   Write(Model.Chapter.ChapterNumber);
 
             
             #line default
@@ -88,7 +88,7 @@ WriteLiteral(".");
 
             
             #line 11 "..\..\Views\CommentariesForVerse\Index.cshtml"
-                                  Write(Model.VerseNumber);
+                                Write(Model.VerseNumber);
 
             
             #line default

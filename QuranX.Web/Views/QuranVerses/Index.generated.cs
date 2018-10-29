@@ -131,7 +131,7 @@ WriteLiteral(">");
 
             
             #line 18 "..\..\Views\QuranVerses\Index.cshtml"
-                                      Write(verse.ChapterNumber);
+                                     Write(verse.ChapterNumber);
 
             
             #line default
@@ -140,30 +140,30 @@ WriteLiteral(".");
 
             
             #line 18 "..\..\Views\QuranVerses\Index.cshtml"
-                                                             Write(verse.VerseNumber);
+                                                          Write(verse.VerseNumber);
 
             
             #line default
             #line hidden
 WriteLiteral("</span>\r\n\t\t\t<a");
 
-WriteAttribute("href", Tuple.Create(" href=\"", 559), Tuple.Create("\"", 618)
-, Tuple.Create(Tuple.Create("", 566), Tuple.Create("analysis/", 566), true)
+WriteAttribute("href", Tuple.Create(" href=\"", 555), Tuple.Create("\"", 610)
+, Tuple.Create(Tuple.Create("", 562), Tuple.Create("analysis/", 562), true)
             
             #line 19 "..\..\Views\QuranVerses\Index.cshtml"
-, Tuple.Create(Tuple.Create("", 575), Tuple.Create<System.Object, System.Int32>(verse.ChapterNumber
+, Tuple.Create(Tuple.Create("", 571), Tuple.Create<System.Object, System.Int32>(verse.ChapterNumber
             
             #line default
             #line hidden
-, 575), false)
-, Tuple.Create(Tuple.Create("", 597), Tuple.Create(".", 597), true)
+, 571), false)
+, Tuple.Create(Tuple.Create("", 591), Tuple.Create(".", 591), true)
             
             #line 19 "..\..\Views\QuranVerses\Index.cshtml"
-, Tuple.Create(Tuple.Create("", 598), Tuple.Create<System.Object, System.Int32>(verse.VerseNumber
+, Tuple.Create(Tuple.Create("", 592), Tuple.Create<System.Object, System.Int32>(verse.VerseNumber
             
             #line default
             #line hidden
-, 598), false)
+, 592), false)
 );
 
 WriteLiteral(">\r\n\t\t\t\t<dl");
@@ -197,23 +197,23 @@ WriteLiteral("</dd>\r\n\t\t\t\t\t<dt>Roots</dt>\r\n\t\t\t\t</dl>\r\n\t\t\t</a>\r
             #line hidden
 WriteLiteral("\t\t\t\t<a");
 
-WriteAttribute("href", Tuple.Create(" href=\"", 781), Tuple.Create("\"", 839)
-, Tuple.Create(Tuple.Create("", 788), Tuple.Create("tafsirs/", 788), true)
+WriteAttribute("href", Tuple.Create(" href=\"", 773), Tuple.Create("\"", 827)
+, Tuple.Create(Tuple.Create("", 780), Tuple.Create("tafsirs/", 780), true)
             
             #line 27 "..\..\Views\QuranVerses\Index.cshtml"
-, Tuple.Create(Tuple.Create("", 796), Tuple.Create<System.Object, System.Int32>(verse.ChapterNumber
+, Tuple.Create(Tuple.Create("", 788), Tuple.Create<System.Object, System.Int32>(verse.ChapterNumber
             
             #line default
             #line hidden
-, 796), false)
-, Tuple.Create(Tuple.Create("", 818), Tuple.Create(".", 818), true)
+, 788), false)
+, Tuple.Create(Tuple.Create("", 808), Tuple.Create(".", 808), true)
             
             #line 27 "..\..\Views\QuranVerses\Index.cshtml"
-, Tuple.Create(Tuple.Create("", 819), Tuple.Create<System.Object, System.Int32>(verse.VerseNumber
+, Tuple.Create(Tuple.Create("", 809), Tuple.Create<System.Object, System.Int32>(verse.VerseNumber
             
             #line default
             #line hidden
-, 819), false)
+, 809), false)
 );
 
 WriteLiteral(">\r\n\t\t\t\t\t<dl");
@@ -250,23 +250,23 @@ WriteLiteral("\t\t\t");
             #line hidden
 WriteLiteral("\t\t\t\t<a");
 
-WriteAttribute("href", Tuple.Create(" href=\"", 1012), Tuple.Create("\"", 1070)
-, Tuple.Create(Tuple.Create("", 1019), Tuple.Create("hadiths/", 1019), true)
+WriteAttribute("href", Tuple.Create(" href=\"", 1000), Tuple.Create("\"", 1054)
+, Tuple.Create(Tuple.Create("", 1007), Tuple.Create("hadiths/", 1007), true)
             
             #line 36 "..\..\Views\QuranVerses\Index.cshtml"
-, Tuple.Create(Tuple.Create("", 1027), Tuple.Create<System.Object, System.Int32>(verse.ChapterNumber
+, Tuple.Create(Tuple.Create("", 1015), Tuple.Create<System.Object, System.Int32>(verse.ChapterNumber
             
             #line default
             #line hidden
-, 1027), false)
-, Tuple.Create(Tuple.Create("", 1049), Tuple.Create(".", 1049), true)
+, 1015), false)
+, Tuple.Create(Tuple.Create("", 1035), Tuple.Create(".", 1035), true)
             
             #line 36 "..\..\Views\QuranVerses\Index.cshtml"
-, Tuple.Create(Tuple.Create("", 1050), Tuple.Create<System.Object, System.Int32>(verse.VerseNumber
+, Tuple.Create(Tuple.Create("", 1036), Tuple.Create<System.Object, System.Int32>(verse.VerseNumber
             
             #line default
             #line hidden
-, 1050), false)
+, 1036), false)
 );
 
 WriteLiteral(">\r\n\t\t\t\t\t<dl");

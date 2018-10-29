@@ -6,11 +6,70 @@
 
 <h1>The Quran</h1>
 <h2>
-	Analysis of <a href="/(Model.Chapter.ChapterNumber).@Model.VerseNumber">
-		@(Model.Chapter.ChapterNumber).@Model.VerseNumber
+	Analysis of <a href="/@Model.Chapter.ChapterNumber.@Model.VerseNumber">
+		@Model.Chapter.ChapterNumber.@Model.VerseNumber
 	</a>
 </h2>
 <h3>
 	@Model.Chapter.EnglishName - @Model.Chapter.ArabicName
 </h3>
+<ul class="verse-analysis__word-list">
+	@foreach (var word in Model.Words)
+	{
+		<li class="verse-analysis__word row">
+			<a name="Word_@(Model.Chapter.ChapterNumber)_@(Model.VerseNumber)_(@word.WordNumber)"></a>
+			<div class="col-xs-1 verse-analysis__word-reference">
+				@Model.Chapter.ChapterNumber.@Model.VerseNumber.@word.WordNumber
+			</div>
+			<div class="col-xs-4 verse-analysis__word-text">
+				<div class="verse-analysis__word-text-image">
+					<img src="~/Content/Images/ArabicWords/@(Html.GetHexValues(word.Buckwalter)).png" alt="@word.Buckwalter" />
+				</div>
+				<div class="verse-analysis__word-text-buckwalter">
+					@word.Buckwalter
+				</div>
+				<div class="verse-analysis__word-text-english">
+					@word.English
+				</div>
+			</div>
+			<div class="verse-analysis__arabic">
+				@Html.RouteLink(
+					 linkText: word.Arabic,
+					 routeName: "WordAnalysis",
+					 routeValues: new
+					 {
+						Word = QuranX.Web.ArabicHelper.Standardize(word.Arabic)
+					 })
+			</div>
+			<ol class="col-xs-7 verse-analysis__word-parts">
+				@foreach (var wordPart in word.WordParts)
+				{
+					<li class="verse-analysis__word-part">
+						@wordPart.Type -
+						@foreach (string decorator in @wordPart.Decorators)
+						{
+							<span>@decorator</span>
+						}
+						@wordPart.Description
+						@if (!string.IsNullOrEmpty(wordPart.Root))
+						{
+							<span class="arabicText">
+								@Html.RouteLink(
+									linkText: wordPart.Root,
+									routeName: "RootAnalysis",
+									routeValues: new
+									{
+										Root = QuranX.Web.ArabicHelper
+											.ArabicToLetterNames(wordPart.Root)
+									}
+								)
+							</span>
+							<span>(@QuranX.Web.ArabicHelper.ArabicToLetterNames(wordPart.Root))</span>
+						}
+					</li>
+				}
+			</ol>
+		</li>
+	}
+</ul>
 

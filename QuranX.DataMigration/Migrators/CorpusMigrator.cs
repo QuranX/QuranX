@@ -54,7 +54,7 @@ namespace QuranX.DataMigration.Migrators
 						root: x.Root,
 						type: x.TypeCode,
 						description: x.TypeDescription,
-						decorators: x.Decorators));
+						decorators: x.Decorators.Select(d => d.Trim())));
 				var analysisWord = new AnalysisWordViewModel(
 					chapterNumber: corpusVerse.Reference.Chapter,
 					verseNumber: corpusVerse.Reference.Verse,

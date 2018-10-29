@@ -15,8 +15,8 @@
 	foreach (Verse verse in group.Verses)
 	{
 		<div class="row">
-			<span class="verse-reference">@(verse.ChapterNumber).@(verse.VerseNumber)</span>
-			<a href="analysis/@(verse.ChapterNumber).@(verse.VerseNumber)">
+			<span class="verse-reference">@verse.ChapterNumber.@verse.VerseNumber</span>
+			<a href="analysis/@verse.ChapterNumber.@verse.VerseNumber">
 				<dl class="count-and-label">
 					<dd>@verse.RootWordCount</dd>
 					<dt>Roots</dt>
@@ -24,7 +24,7 @@
 			</a>
 			@if (verse.CommentaryCount > 0)
 			{
-				<a href="tafsirs/@(verse.ChapterNumber).@(verse.VerseNumber)">
+				<a href="tafsirs/@verse.ChapterNumber.@verse.VerseNumber">
 					<dl class="count-and-label">
 						<dd>@verse.CommentaryCount</dd>
 						<dt>Tafirs</dt>
@@ -33,7 +33,7 @@
 			}
 			@if (verse.HadithCount > 0)
 			{
-				<a href="hadiths/@(verse.ChapterNumber).@(verse.VerseNumber)">
+				<a href="hadiths/@verse.ChapterNumber.@verse.VerseNumber">
 					<dl class="count-and-label">
 						<dd>@verse.HadithCount</dd>
 						<dt>Hadiths</dt>
