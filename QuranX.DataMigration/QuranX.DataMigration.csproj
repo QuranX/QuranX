@@ -128,6 +128,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Migrators\CommentaryMigrator.cs" />
+    <Compile Include="Migrators\CorpusMigrator.cs" />
     <Compile Include="Migrators\DataMigrator.cs" />
     <Compile Include="Migrators\HadithMigrator.cs" />
     <Compile Include="Migrators\QuranMigrator.cs" />

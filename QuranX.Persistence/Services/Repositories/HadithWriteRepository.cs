@@ -75,7 +75,7 @@ namespace QuranX.Persistence.Services.Repositories
 					hadithId: hadith.Id,
 					verseId: x));
 
-			foreach(HadithVerseLink hadithVerseLink in hadithVerseLinks)
+			foreach (HadithVerseLink hadithVerseLink in hadithVerseLinks)
 			{
 				var doc = new Document();
 				doc

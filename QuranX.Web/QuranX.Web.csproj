@@ -186,6 +186,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\UnityConfig.cs" />
     <Compile Include="Controllers\HadithIndexController.cs" />
+    <Compile Include="Controllers\VerseAnalysisController.cs" />
     <Compile Include="Controllers\VerseCommentaryController.cs" />
     <Compile Include="Controllers\VerseHadithsController.cs" />
     <Compile Include="Factories\CommentariesForVerseFactory.cs" />
@@ -271,6 +272,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>_Layout.cshtml</DependentUpon>
     </Compile>
+    <Compile Include="Views\VerseAnalysis\ViewModel.cs" />
     <Compile Include="Views\VerseCommentary\Index.generated.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -409,6 +411,7 @@
       <Generator>RazorGenerator</Generator>
       <LastGenOutput>Index.generated.cs</LastGenOutput>
     </Content>
+    <Content Include="Views\VerseAnalysis\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\Redirect\" />

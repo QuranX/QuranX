@@ -54,25 +54,25 @@ WriteLiteral("\r\n");
             
             #line default
             #line hidden
-WriteLiteral("\r\n<h1>\r\n\tHadiths for <a");
+WriteLiteral("\r\n<h1>The Quran</h1>\r\n<h2>\r\n\tHadiths for <a");
 
-WriteAttribute("href", Tuple.Create(" href=\"", 194), Tuple.Create("\"", 251)
-, Tuple.Create(Tuple.Create("", 201), Tuple.Create("/", 201), true)
+WriteAttribute("href", Tuple.Create(" href=\"", 214), Tuple.Create("\"", 271)
+, Tuple.Create(Tuple.Create("", 221), Tuple.Create("/", 221), true)
             
-            #line 8 "..\..\Views\VerseHadiths\Index.cshtml"
-, Tuple.Create(Tuple.Create("", 202), Tuple.Create<System.Object, System.Int32>(Model.Chapter.ChapterNumber
-            
-            #line default
-            #line hidden
-, 202), false)
-, Tuple.Create(Tuple.Create("", 232), Tuple.Create(".", 232), true)
-            
-            #line 8 "..\..\Views\VerseHadiths\Index.cshtml"
-, Tuple.Create(Tuple.Create("", 233), Tuple.Create<System.Object, System.Int32>(Model.VerseNumber
+            #line 9 "..\..\Views\VerseHadiths\Index.cshtml"
+, Tuple.Create(Tuple.Create("", 222), Tuple.Create<System.Object, System.Int32>(Model.Chapter.ChapterNumber
             
             #line default
             #line hidden
-, 233), false)
+, 222), false)
+, Tuple.Create(Tuple.Create("", 252), Tuple.Create(".", 252), true)
+            
+            #line 9 "..\..\Views\VerseHadiths\Index.cshtml"
+, Tuple.Create(Tuple.Create("", 253), Tuple.Create<System.Object, System.Int32>(Model.VerseNumber
+            
+            #line default
+            #line hidden
+, 253), false)
 );
 
 WriteLiteral(">\r\n");
@@ -80,7 +80,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("\t\t");
 
             
-            #line 9 "..\..\Views\VerseHadiths\Index.cshtml"
+            #line 10 "..\..\Views\VerseHadiths\Index.cshtml"
     Write(Model.Chapter.ChapterNumber);
 
             
@@ -89,16 +89,34 @@ WriteLiteral("\t\t");
 WriteLiteral(".");
 
             
-            #line 9 "..\..\Views\VerseHadiths\Index.cshtml"
+            #line 10 "..\..\Views\VerseHadiths\Index.cshtml"
                                   Write(Model.VerseNumber);
 
             
             #line default
             #line hidden
-WriteLiteral("\r\n\t</a>\r\n</h1>\r\n");
+WriteLiteral("\r\n\t</a>\r\n</h2>\r\n<h3>");
 
             
-            #line 12 "..\..\Views\VerseHadiths\Index.cshtml"
+            #line 13 "..\..\Views\VerseHadiths\Index.cshtml"
+Write(Model.Chapter.EnglishName);
+
+            
+            #line default
+            #line hidden
+WriteLiteral(" - ");
+
+            
+            #line 13 "..\..\Views\VerseHadiths\Index.cshtml"
+                            Write(Model.Chapter.ArabicName);
+
+            
+            #line default
+            #line hidden
+WriteLiteral("</h3>\r\n");
+
+            
+            #line 14 "..\..\Views\VerseHadiths\Index.cshtml"
  foreach (HadithViewModel hadithVM in Model.Hadiths)
 {
 	
@@ -106,14 +124,14 @@ WriteLiteral("\r\n\t</a>\r\n</h1>\r\n");
             #line default
             #line hidden
             
-            #line 14 "..\..\Views\VerseHadiths\Index.cshtml"
+            #line 16 "..\..\Views\VerseHadiths\Index.cshtml"
 Write(Html.Partial("HadithView", hadithVM));
 
             
             #line default
             #line hidden
             
-            #line 14 "..\..\Views\VerseHadiths\Index.cshtml"
+            #line 16 "..\..\Views\VerseHadiths\Index.cshtml"
                                          
 }
             

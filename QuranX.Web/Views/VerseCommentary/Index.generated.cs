@@ -60,10 +60,10 @@ namespace ASP
             
             #line default
             #line hidden
-WriteLiteral("\r\n<h1>Verse commentary</h1>\r\n");
+WriteLiteral("\r\n<h1>The Quran</h1>\r\n<h2>Verse commentary</h2>\r\n");
 
             
-            #line 11 "..\..\Views\VerseCommentary\Index.cshtml"
+            #line 12 "..\..\Views\VerseCommentary\Index.cshtml"
 Write(Html.Partial("SelectChapterAndVerse", Model.SelectChapterAndVerse));
 
             
@@ -72,7 +72,7 @@ Write(Html.Partial("SelectChapterAndVerse", Model.SelectChapterAndVerse));
 WriteLiteral("\r\n");
 
             
-            #line 12 "..\..\Views\VerseCommentary\Index.cshtml"
+            #line 13 "..\..\Views\VerseCommentary\Index.cshtml"
 Write(Html.Partial("CommentaryView", Model.CommentatorAndCommentary));
 
             
