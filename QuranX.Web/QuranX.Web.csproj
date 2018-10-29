@@ -239,6 +239,11 @@
     </Compile>
     <Compile Include="Views\HadithIndex\HadithsViewModel.cs" />
     <Compile Include="Views\HadithIndex\BrowseHadithIndexViewModel.cs" />
+    <Compile Include="Views\Shared\HadithView.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>HadithView.cshtml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Shared\HadithViewModel.cs" />
     <Compile Include="Views\QuranVerses\Index.generated.cs">
       <AutoGen>True</AutoGen>
@@ -272,6 +277,11 @@
       <DependentUpon>Index.cshtml</DependentUpon>
     </Compile>
     <Compile Include="Views\VerseCommentary\ViewModel.cs" />
+    <Compile Include="Views\VerseHadiths\Index.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Index.cshtml</DependentUpon>
+    </Compile>
     <Compile Include="Views\VerseHadiths\ViewModel.cs" />
     <Compile Include="Views\_ViewStart.generated.cs">
       <AutoGen>True</AutoGen>
@@ -280,6 +290,13 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Data\segments.gen" />
+    <Content Include="App_Data\segments_2" />
+    <Content Include="App_Data\_0.cfs" />
+    <Content Include="App_Data\_0.cfx" />
+    <Content Include="App_Data\_1.cfs" />
+    <Content Include="App_Data\_2.cfs" />
+    <Content Include="App_Data\_3.cfs" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
@@ -293,19 +310,14 @@
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="App_Data\segments.gen" />
-    <Content Include="App_Data\segments_2" />
-    <Content Include="App_Data\_0.cfs" />
-    <Content Include="App_Data\_0.cfx" />
-    <Content Include="App_Data\_1.cfs" />
-    <Content Include="App_Data\_2.cfs" />
-    <Content Include="App_Data\_3.cfs" />
-    <Content Include="App_Data\_4.fnm" />
-    <Content Include="App_Data\_4.frq" />
-    <Content Include="App_Data\_4.nrm" />
-    <Content Include="App_Data\_4.prx" />
-    <Content Include="App_Data\_4.tii" />
-    <Content Include="App_Data\_4.tis" />
+    <Content Include="App_Data\write.lock" />
+    <Content Include="App_Data\_4.cfs" />
+    <Content Include="App_Data\_5.fnm" />
+    <Content Include="App_Data\_5.frq" />
+    <Content Include="App_Data\_5.nrm" />
+    <Content Include="App_Data\_5.prx" />
+    <Content Include="App_Data\_5.tii" />
+    <Content Include="App_Data\_5.tis" />
     <None Include="Properties\PublishProfiles\PetePlayground - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\debounce.js" />
@@ -320,7 +332,9 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
     <Content Include="Scripts\site.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -328,67 +342,73 @@
       <DependentUpon>Web.config</DependentUpon>
     </Content>
     <Content Include="Views\Web.config" />
-    <Content Include="Views\Shared\HadithView.cshtml" />
-    <Content Include="Views\VerseHadiths\Index.cshtml" />
-    <None Include="Views\_ViewStart.cshtml">
+    <Content Include="Views\Shared\HadithView.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>HadithView.generated.cs</LastGenOutput>
+    </Content>
+    <Content Include="Views\VerseHadiths\Index.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>Index.generated.cs</LastGenOutput>
+    </Content>
+    <Content Include="Views\_ViewStart.cshtml">
       <Generator>RazorGenerator</Generator>
       <LastGenOutput>_ViewStart.generated.cs</LastGenOutput>
-    </None>
-    <None Include="Views\HadithIndex\Hadiths.cshtml">
+    </Content>
+    <Content Include="Views\HadithIndex\Hadiths.cshtml">
       <Generator>RazorGenerator</Generator>
       <LastGenOutput>Hadiths.generated.cs</LastGenOutput>
-    </None>
-    <None Include="Views\HadithIndex\HadithIndexHeader.cshtml">
+    </Content>
+    <Content Include="Views\HadithIndex\HadithIndexHeader.cshtml">
       <Generator>RazorGenerator</Generator>
       <LastGenOutput>HadithIndexHeader.generated.cs</LastGenOutput>
-    </None>
-    <None Include="Views\HadithIndex\BrowseHadithIndex.cshtml">
+    </Content>
+    <Content Include="Views\HadithIndex\BrowseHadithIndex.cshtml">
       <Generator>RazorGenerator</Generator>
       <LastGenOutput>BrowseHadithIndex.generated.cs</LastGenOutput>
-    </None>
-    <None Include="Views\Shared\Error.cshtml">
+    </Content>
+    <Content Include="Views\Shared\Error.cshtml">
       <Generator>RazorGenerator</Generator>
       <LastGenOutput>Error.generated.cs</LastGenOutput>
-    </None>
-    <None Include="Views\Shared\_Layout.cshtml">
+    </Content>
+    <Content Include="Views\Shared\_Layout.cshtml">
       <Generator>RazorGenerator</Generator>
       <LastGenOutput>_Layout.generated.cs</LastGenOutput>
-    </None>
-    <None Include="Views\QuranVerses\Index.cshtml">
+    </Content>
+    <Content Include="Views\QuranVerses\Index.cshtml">
       <BrowseToURL>~/1/1</BrowseToURL>
       <Generator>RazorGenerator</Generator>
       <LastGenOutput>Index.generated.cs</LastGenOutput>
-    </None>
-    <None Include="Views\Commentators\Index.cshtml">
+    </Content>
+    <Content Include="Views\Commentators\Index.cshtml">
       <Generator>RazorGenerator</Generator>
       <LastGenOutput>Index.generated.cs</LastGenOutput>
       <BrowseToURL>~/tafsirs</BrowseToURL>
-    </None>
-    <None Include="Views\CommentariesForVerse\Index.cshtml">
+    </Content>
+    <Content Include="Views\CommentariesForVerse\Index.cshtml">
       <Generator>RazorGenerator</Generator>
       <LastGenOutput>Index.generated.cs</LastGenOutput>
       <BrowseToURL>~/tafsirs/1.1</BrowseToURL>
-    </None>
-    <None Include="Views\Shared\CommentaryView.cshtml">
+    </Content>
+    <Content Include="Views\Shared\CommentaryView.cshtml">
       <BrowseToURL>~/Shared/Abbas/1.1</BrowseToURL>
       <Generator>RazorGenerator</Generator>
       <LastGenOutput>CommentaryView.generated.cs</LastGenOutput>
-    </None>
-    <None Include="Views\HadithCollections\Index.cshtml">
+    </Content>
+    <Content Include="Views\HadithCollections\Index.cshtml">
       <BrowseToURL>~/hadiths</BrowseToURL>
       <Generator>RazorGenerator</Generator>
       <LastGenOutput>Index.generated.cs</LastGenOutput>
-    </None>
-    <None Include="Views\Shared\SelectChapterAndVerse.cshtml">
+    </Content>
+    <Content Include="Views\Shared\SelectChapterAndVerse.cshtml">
       <BrowseToURL>~/1.1</BrowseToURL>
       <Generator>RazorGenerator</Generator>
       <LastGenOutput>SelectChapterAndVerse.generated.cs</LastGenOutput>
-    </None>
-    <None Include="Views\VerseCommentary\Index.cshtml">
+    </Content>
+    <Content Include="Views\VerseCommentary\Index.cshtml">
       <BrowseToURL>~/Tafsir/Abbas/1.1</BrowseToURL>
       <Generator>RazorGenerator</Generator>
       <LastGenOutput>Index.generated.cs</LastGenOutput>
-    </None>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\Redirect\" />
