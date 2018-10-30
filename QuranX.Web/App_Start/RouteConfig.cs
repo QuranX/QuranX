@@ -27,17 +27,10 @@ namespace QuranX.Web
 				defaults: new { Controller = "VerseAnalysis", Action = "Index" },
 				constraints: new { ChapterNumber = @"\d+", VerseNumber = @"\d+" });
 
-			//TODO: Write controller
 			routes.MapRoute(
 				name: "RootAnalysis",
-				url: "Analysis/Root/{root}",
+				url: "Analysis/Root/{rootLetterNames}",
 				defaults: new { Controller = "RootAnalysis", Action = "Index" }); ;
-
-			//TODO: Write controller
-			routes.MapRoute(
-				name: "WordAnalysis",
-				url: "Analysis/Word/{word}",
-				defaults: new { Controller = "WordAnalysis", Action = "Index" }); ;
 
 			routes.MapRoute(
 				name: "VerseCommentary",

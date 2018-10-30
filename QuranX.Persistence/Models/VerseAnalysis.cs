@@ -8,15 +8,15 @@ namespace QuranX.Persistence.Models
 	{
 		public int ChapterNumber { get; }
 		public int VerseNumber { get; }
-		public IReadOnlyCollection<VerseAnalysisWord> Words { get; }
-		public IReadOnlyCollection<string> Roots => GetRoots();
+		public IReadOnlyList<VerseAnalysisWord> Words { get; }
+		public IReadOnlyList<string> Roots => GetRoots();
 
-		private IReadOnlyCollection<string> _roots;
+		private IReadOnlyList<string> _roots;
 
 		public VerseAnalysis(
 			int chapterNumber,
 			int verseNumber,
-			IReadOnlyCollection<VerseAnalysisWord> words)
+			IReadOnlyList<VerseAnalysisWord> words)
 		{
 			if (words == null)
 				throw new ArgumentNullException(nameof(words));
@@ -26,7 +26,7 @@ namespace QuranX.Persistence.Models
 			Words = words.ToList().AsReadOnly();
 		}
 
-		private IReadOnlyCollection<string> GetRoots()
+		private IReadOnlyList<string> GetRoots()
 		{
 			if (_roots == null)
 			{

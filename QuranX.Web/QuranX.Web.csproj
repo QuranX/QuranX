@@ -243,6 +243,8 @@
     </Compile>
     <Compile Include="Views\HadithIndex\HadithsViewModel.cs" />
     <Compile Include="Views\HadithIndex\BrowseHadithIndexViewModel.cs" />
+    <Compile Include="Views\RootAnalysis\VerseViewModel.cs" />
+    <Compile Include="Views\RootAnalysis\ViewModel.cs" />
     <Compile Include="Views\Shared\HadithView.generated.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -18029,10 +18031,10 @@
       <Generator>RazorGenerator</Generator>
       <LastGenOutput>Index.generated.cs</LastGenOutput>
     </Content>
+    <Content Include="Views\RootAnalysis\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\Redirect\" />
-    <Folder Include="Views\RootAnalysis\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using Lucene.Net.Search;
 using QuranX.Persistence.Extensions;
@@ -50,7 +49,18 @@ namespace QuranX.Persistence.Services.Repositories
 
 		public IEnumerable<VerseAnalysis> GetForRoot(string root)
 		{
-			throw new NotImplementedException();
+			var query = new BooleanQuery(disableCoord: true);
+			query
+				.FilterByType<VerseAnalysis>()
+				.AddPhraseQuery<VerseAnalysis>(nameof(VerseAnalysis) + "_" + nameof(VerseAnalysis.Roots), root, Occur.MUST);
+
+			IndexSearcher indexSearcher = IndexSearcherProvider.GetIndexSearcher();
+			TopDocs topDocs = indexSearcher.Search(query, 9999);
+
+			IEnumerable<VerseAnalysis> result = topDocs.ScoreDocs
+				.Select(x => indexSearcher.Doc(x.Doc))
+				.Select(x => x.GetObject<VerseAnalysis>());
+			return result;
 		}
 	}
 }

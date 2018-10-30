@@ -140,37 +140,7 @@ WriteLiteral("\t\t<li");
 
 WriteLiteral(" class=\"verse-analysis__word row\"");
 
-WriteLiteral(">\r\n\t\t\t<a");
-
-WriteAttribute("name", Tuple.Create(" name=\"", 728), Tuple.Create("\"", 810)
-, Tuple.Create(Tuple.Create("", 735), Tuple.Create("Word_", 735), true)
-            
-            #line 22 "..\..\Views\VerseAnalysis\Index.cshtml"
-, Tuple.Create(Tuple.Create("", 740), Tuple.Create<System.Object, System.Int32>(Model.Chapter.ChapterNumber
-            
-            #line default
-            #line hidden
-, 740), false)
-, Tuple.Create(Tuple.Create("", 770), Tuple.Create("_", 770), true)
-            
-            #line 22 "..\..\Views\VerseAnalysis\Index.cshtml"
-, Tuple.Create(Tuple.Create("", 771), Tuple.Create<System.Object, System.Int32>(Model.VerseNumber
-            
-            #line default
-            #line hidden
-, 771), false)
-, Tuple.Create(Tuple.Create("", 791), Tuple.Create("_(", 791), true)
-            
-            #line 22 "..\..\Views\VerseAnalysis\Index.cshtml"
-, Tuple.Create(Tuple.Create("", 793), Tuple.Create<System.Object, System.Int32>(word.WordNumber
-            
-            #line default
-            #line hidden
-, 793), false)
-, Tuple.Create(Tuple.Create("", 809), Tuple.Create(")", 809), true)
-);
-
-WriteLiteral("></a>\r\n\t\t\t<div");
+WriteLiteral(">\r\n\t\t\t<div");
 
 WriteLiteral(" class=\"col-xs-6 verse-analysis__word-reference\"");
 
@@ -179,7 +149,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("\t\t\t\t");
 
             
-            #line 24 "..\..\Views\VerseAnalysis\Index.cshtml"
+            #line 23 "..\..\Views\VerseAnalysis\Index.cshtml"
            Write(Model.Chapter.ChapterNumber);
 
             
@@ -188,7 +158,7 @@ WriteLiteral("\t\t\t\t");
 WriteLiteral(".");
 
             
-            #line 24 "..\..\Views\VerseAnalysis\Index.cshtml"
+            #line 23 "..\..\Views\VerseAnalysis\Index.cshtml"
                                         Write(Model.VerseNumber);
 
             
@@ -197,7 +167,7 @@ WriteLiteral(".");
 WriteLiteral(".");
 
             
-            #line 24 "..\..\Views\VerseAnalysis\Index.cshtml"
+            #line 23 "..\..\Views\VerseAnalysis\Index.cshtml"
                                                            Write(word.WordNumber);
 
             
@@ -207,45 +177,32 @@ WriteLiteral("\r\n\t\t\t</div>\r\n\t\t\t<div");
 
 WriteLiteral(" class=\"col-xs-6 verse-analysis__word-image\"");
 
-WriteLiteral(">\r\n\t\t\t\t<a");
+WriteLiteral(">\r\n\t\t\t\t<img");
 
-WriteAttribute("href", Tuple.Create(" href=\"", 1017), Tuple.Create("\"", 1033)
+WriteAttribute("src", Tuple.Create(" src=\"", 924), Tuple.Create("\"", 1000)
+, Tuple.Create(Tuple.Create("", 930), Tuple.Create<System.Object, System.Int32>(Href("~/Content/Images/ArabicWords/")
+, 930), false)
             
-            #line 27 "..\..\Views\VerseAnalysis\Index.cshtml"
-, Tuple.Create(Tuple.Create("", 1024), Tuple.Create<System.Object, System.Int32>(wordUrl
+            #line 26 "..\..\Views\VerseAnalysis\Index.cshtml"
+, Tuple.Create(Tuple.Create("", 959), Tuple.Create<System.Object, System.Int32>(Html.GetHexValues(word.Buckwalter)
             
             #line default
             #line hidden
-, 1024), false)
-, Tuple.Create(Tuple.Create("\t", 1032), Tuple.Create("", 1032), true)
+, 959), false)
+, Tuple.Create(Tuple.Create("", 996), Tuple.Create(".png", 996), true)
 );
 
-WriteLiteral(">\r\n\t\t\t\t\t<img");
-
-WriteAttribute("src", Tuple.Create(" src=\"", 1046), Tuple.Create("\"", 1122)
-, Tuple.Create(Tuple.Create("", 1052), Tuple.Create<System.Object, System.Int32>(Href("~/Content/Images/ArabicWords/")
-, 1052), false)
+WriteAttribute("alt", Tuple.Create(" alt=\"", 1001), Tuple.Create("\"", 1023)
             
-            #line 28 "..\..\Views\VerseAnalysis\Index.cshtml"
-, Tuple.Create(Tuple.Create("", 1081), Tuple.Create<System.Object, System.Int32>(Html.GetHexValues(word.Buckwalter)
+            #line 26 "..\..\Views\VerseAnalysis\Index.cshtml"
+                       , Tuple.Create(Tuple.Create("", 1007), Tuple.Create<System.Object, System.Int32>(word.Buckwalter
             
             #line default
             #line hidden
-, 1081), false)
-, Tuple.Create(Tuple.Create("", 1118), Tuple.Create(".png", 1118), true)
+, 1007), false)
 );
 
-WriteAttribute("alt", Tuple.Create(" alt=\"", 1123), Tuple.Create("\"", 1145)
-            
-            #line 28 "..\..\Views\VerseAnalysis\Index.cshtml"
-                           , Tuple.Create(Tuple.Create("", 1129), Tuple.Create<System.Object, System.Int32>(word.Buckwalter
-            
-            #line default
-            #line hidden
-, 1129), false)
-);
-
-WriteLiteral(" />\r\n\t\t\t\t</a>\r\n\t\t\t</div>\r\n\t\t\t<div");
+WriteLiteral(" />\r\n\t\t\t</div>\r\n\t\t\t<div");
 
 WriteLiteral(" class=\"col-xs-6 verse-analysis__word-text\"");
 
@@ -258,7 +215,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("\t\t\t\t\t");
 
             
-            #line 33 "..\..\Views\VerseAnalysis\Index.cshtml"
+            #line 30 "..\..\Views\VerseAnalysis\Index.cshtml"
                Write(word.Buckwalter);
 
             
@@ -273,7 +230,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("\t\t\t\t\t");
 
             
-            #line 36 "..\..\Views\VerseAnalysis\Index.cshtml"
+            #line 33 "..\..\Views\VerseAnalysis\Index.cshtml"
                Write(word.English);
 
             
@@ -286,13 +243,13 @@ WriteLiteral(" class=\"col-xs-6 verse-analysis__word-parts\"");
 WriteLiteral(">\r\n");
 
             
-            #line 40 "..\..\Views\VerseAnalysis\Index.cshtml"
+            #line 37 "..\..\Views\VerseAnalysis\Index.cshtml"
 				
             
             #line default
             #line hidden
             
-            #line 40 "..\..\Views\VerseAnalysis\Index.cshtml"
+            #line 37 "..\..\Views\VerseAnalysis\Index.cshtml"
                  foreach (var wordPart in word.WordParts)
 				{
 
@@ -308,7 +265,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("\t\t\t\t\t\t");
 
             
-            #line 43 "..\..\Views\VerseAnalysis\Index.cshtml"
+            #line 40 "..\..\Views\VerseAnalysis\Index.cshtml"
                    Write(wordPart.Type);
 
             
@@ -317,13 +274,13 @@ WriteLiteral("\t\t\t\t\t\t");
 WriteLiteral(" -\r\n");
 
             
-            #line 44 "..\..\Views\VerseAnalysis\Index.cshtml"
+            #line 41 "..\..\Views\VerseAnalysis\Index.cshtml"
 						
             
             #line default
             #line hidden
             
-            #line 44 "..\..\Views\VerseAnalysis\Index.cshtml"
+            #line 41 "..\..\Views\VerseAnalysis\Index.cshtml"
                          foreach (string decorator in @wordPart.Decorators)
 						{
 
@@ -333,7 +290,7 @@ WriteLiteral(" -\r\n");
 WriteLiteral("\t\t\t\t\t\t\t<span>");
 
             
-            #line 46 "..\..\Views\VerseAnalysis\Index.cshtml"
+            #line 43 "..\..\Views\VerseAnalysis\Index.cshtml"
                              Write(decorator);
 
             
@@ -342,7 +299,7 @@ WriteLiteral("\t\t\t\t\t\t\t<span>");
 WriteLiteral("</span>\r\n");
 
             
-            #line 47 "..\..\Views\VerseAnalysis\Index.cshtml"
+            #line 44 "..\..\Views\VerseAnalysis\Index.cshtml"
 						}
 
             
@@ -351,7 +308,7 @@ WriteLiteral("</span>\r\n");
 WriteLiteral("\t\t\t\t\t\t");
 
             
-            #line 48 "..\..\Views\VerseAnalysis\Index.cshtml"
+            #line 45 "..\..\Views\VerseAnalysis\Index.cshtml"
                    Write(wordPart.Description);
 
             
@@ -360,13 +317,13 @@ WriteLiteral("\t\t\t\t\t\t");
 WriteLiteral("\r\n");
 
             
-            #line 49 "..\..\Views\VerseAnalysis\Index.cshtml"
+            #line 46 "..\..\Views\VerseAnalysis\Index.cshtml"
 						
             
             #line default
             #line hidden
             
-            #line 49 "..\..\Views\VerseAnalysis\Index.cshtml"
+            #line 46 "..\..\Views\VerseAnalysis\Index.cshtml"
                          if (!string.IsNullOrEmpty(wordPart.Root))
 						{
 
@@ -382,13 +339,13 @@ WriteLiteral(">\r\n");
 WriteLiteral("\t\t\t\t\t\t\t\t");
 
             
-            #line 52 "..\..\Views\VerseAnalysis\Index.cshtml"
+            #line 49 "..\..\Views\VerseAnalysis\Index.cshtml"
                            Write(Html.RouteLink(
 									linkText: wordPart.Root,
 									routeName: "RootAnalysis",
 									routeValues: new
 									{
-										Root = QuranX.Web.ArabicHelper
+										RootLetterNames = QuranX.Web.ArabicHelper
 											.ArabicToLetterNames(wordPart.Root)
 									}
 								));
@@ -401,7 +358,7 @@ WriteLiteral("\r\n\t\t\t\t\t\t\t</span>\r\n");
 WriteLiteral("\t\t\t\t\t\t\t<span>(");
 
             
-            #line 62 "..\..\Views\VerseAnalysis\Index.cshtml"
+            #line 59 "..\..\Views\VerseAnalysis\Index.cshtml"
                               Write(QuranX.Web.ArabicHelper.ArabicToLetterNames(wordPart.Root));
 
             
@@ -410,7 +367,7 @@ WriteLiteral("\t\t\t\t\t\t\t<span>(");
 WriteLiteral(")</span>\r\n");
 
             
-            #line 63 "..\..\Views\VerseAnalysis\Index.cshtml"
+            #line 60 "..\..\Views\VerseAnalysis\Index.cshtml"
 						}
 
             
@@ -419,7 +376,7 @@ WriteLiteral(")</span>\r\n");
 WriteLiteral("\t\t\t\t\t</li>\r\n");
 
             
-            #line 65 "..\..\Views\VerseAnalysis\Index.cshtml"
+            #line 62 "..\..\Views\VerseAnalysis\Index.cshtml"
 				}
 
             
@@ -428,7 +385,7 @@ WriteLiteral("\t\t\t\t\t</li>\r\n");
 WriteLiteral("\t\t\t</ol>\r\n\t\t</li>\r\n");
 
             
-            #line 68 "..\..\Views\VerseAnalysis\Index.cshtml"
+            #line 65 "..\..\Views\VerseAnalysis\Index.cshtml"
 	}
 
             

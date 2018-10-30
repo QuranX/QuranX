@@ -10,7 +10,7 @@ namespace QuranX.Persistence.Models
 		public string Arabic { get; }
 		public string English { get; }
 		public string Buckwalter { get; }
-		public IReadOnlyCollection<VerseAnalysisWordPart> WordParts { get; }
+		public IReadOnlyList<VerseAnalysisWordPart> WordParts { get; }
 
 		public VerseAnalysisWord(
 			int wordNumber,

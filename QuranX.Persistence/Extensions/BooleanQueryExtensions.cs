@@ -26,6 +26,15 @@ namespace QuranX.Persistence.Extensions
 			Occur occur)
 		{
 			string indexName = ExpressionExtensions.GetIndexName(expression);
+			return instance.AddPhraseQuery<TObj>(indexName, value, occur);
+		}
+
+		public static BooleanQuery AddPhraseQuery<TObj>(
+			this BooleanQuery instance,
+			string indexName,
+			string value,
+			Occur occur)
+		{
 			if (value != null)
 			{
 				value = value.ToLowerInvariant();

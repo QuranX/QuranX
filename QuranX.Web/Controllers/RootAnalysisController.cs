@@ -5,23 +5,70 @@ using System.Web.Mvc;
 using QuranX.Persistence.Models;
 using QuranX.Persistence.Services.Repositories;
 using QuranX.Shared.Models;
+using QuranX.Web.Views.RootAnalysis;
 
 namespace QuranX.Web.Controllers
 {
 	public class RootAnalysisController : Controller
 	{
-		private readonly IVerseAnalysisRepository VerseAnalysisWordRepository;
+		private readonly IVerseAnalysisRepository VerseAnalysisRepository;
 
 		public RootAnalysisController(
-			IVerseAnalysisRepository verseAnalysisWordRepository)
+			IVerseAnalysisRepository verseAnalysisRepository)
 		{
-			VerseAnalysisWordRepository = verseAnalysisWordRepository;
+			VerseAnalysisRepository = verseAnalysisRepository;
 		}
 
-		public ActionResult Index(string root)
+		public ActionResult Index(string rootLetterNames)
 		{
-			root = ArabicHelper.LetterNamesToArabic(root);
-			throw new NotImplementedException();
+			string root = ArabicHelper.LetterNamesToArabic(rootLetterNames);
+			IEnumerable<VerseAnalysis> verses =
+				VerseAnalysisRepository.GetForRoot(root)
+				.OrderBy(x => x.ChapterNumber)
+				.ThenBy(x => x.VerseNumber);
+			var extracts = new List<VerseViewModel>();
+			foreach(VerseAnalysis verseAnalysis in verses)
+			{
+				foreach(VerseAnalysisWord analysisWord in verseAnalysis.Words)
+				{
+					VerseAnalysisWordPart wordPart =
+						analysisWord.WordParts
+						.SingleOrDefault(x => x.Root == root);
+					if (wordPart != null)
+					{
+						VerseViewModel extract =
+							CreateVerseViewModel(verseAnalysis, analysisWord, wordPart);
+						extracts.Add(extract);
+					}
+				}
+			}
+
+			var viewModel = new ViewModel(
+				arabicRoot: root,
+				rootLetterNames: rootLetterNames,
+				extracts: extracts);
+			return View(viewModel);
+		}
+
+		private VerseViewModel CreateVerseViewModel(
+			VerseAnalysis verseAnalysis,
+			VerseAnalysisWord analysisWord,
+			VerseAnalysisWordPart analysisWordPart)
+		{
+			const int WordsBeforeAndAfter = 3;
+			int lower = Math.Max(1, analysisWord.WordNumber - WordsBeforeAndAfter);
+			int upper = Math.Min(verseAnalysis.Words.Count, analysisWord.WordNumber + WordsBeforeAndAfter);
+			var words = new List<VerseAnalysisWord>();
+			for(int index = lower - 1; index < upper; index ++)
+				words.Add(verseAnalysis.Words[index]);
+
+			var result = new VerseViewModel(
+				chapterNumber: verseAnalysis.ChapterNumber,
+				verseNumber: verseAnalysis.VerseNumber,
+				selectedWord: analysisWord,
+				selectedWordPart: analysisWordPart,
+				words: words);
+			return result;
 		}
 	}
 }

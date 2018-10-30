@@ -1,0 +1,54 @@
+﻿@model QuranX.Web.Views.RootAnalysis.ViewModel
+@using QuranX.Web.Views.RootAnalysis;
+@using QuranX.Persistence.Models;
+
+@{
+	ViewBag.Title = $"Verses for root {Model.ArabicRoot} ({Model.RootLetterNames})";
+}
+<h1>The Quran</h1>
+<h2>Verses for root @Model.ArabicRoot (@Model.RootLetterNames)</h2>
+<ul class="root-analysis__extract-list">
+	<li class="root-analysis__extract-header row">
+		<div class="col-xs-3 col-lg-1">Verse</div>
+		<div class="col-xs-3 col-lg-1">Type</div>
+		<div class="col-xs-3 col-lg-1">Arabic</div>
+		<div class="col-xs-3 col-lg-1">Transliteration</div>
+	</li>
+	@foreach (VerseViewModel extract in Model.Extracts)
+	{
+		<li class="root-analysis__extract">
+			<div class="col-xs-3 col-lg-1">@extract.ChapterNumber.@extract.VerseNumber</div>
+			<div class="col-xs-3 col-lg-1">@extract.SelectedWordPart.Description</div>
+			<div class="col-xs-3 col-lg-1">@extract.SelectedWord.Arabic</div>
+			<div class="col-xs-3 col-lg-1">@extract.SelectedWord.Buckwalter</div>
+			<div class="col-xs-12 col-lg-8">
+				<div class="row root-analysis__extract-english">
+					@foreach(VerseAnalysisWord word in extract.Words)
+					{
+						if (word == extract.SelectedWord)
+						{
+							<strong>@word.English&nbsp;</strong>
+						}
+						else
+						{
+							@word.English@:&nbsp;
+						}
+					}
+				</div>
+				<div class="row root-analysis__extract-arabic">
+					@foreach (VerseAnalysisWord word in extract.Words)
+					{
+						if (word == extract.SelectedWord)
+						{
+							<strong>@word.Arabic&nbsp;</strong>
+						}
+						else
+						{
+							@word.Arabic@:&nbsp;
+						}
+					}
+				</div>
+			</div>
+		</li>
+	}
+</ul>
