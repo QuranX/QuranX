@@ -26,7 +26,6 @@ namespace QuranX.Web.Controllers
 			HadithViewModelFactory = hadithViewModelFactory;
 		}
 
-		// GET: HadithReferences
 		public ActionResult Index(string collectionCode, string referenceCode,
 			string referenceValue1, string referenceValue2, string referenceValue3)
 		{

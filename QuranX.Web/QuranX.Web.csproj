@@ -187,6 +187,7 @@
     <Compile Include="App_Start\UnityConfig.cs" />
     <Compile Include="ArabicHelper.cs" />
     <Compile Include="Controllers\HadithIndexController.cs" />
+    <Compile Include="Controllers\RootAnalysisController.cs" />
     <Compile Include="Controllers\VerseAnalysisController.cs" />
     <Compile Include="Controllers\VerseCommentaryController.cs" />
     <Compile Include="Controllers\VerseHadithsController.cs" />
@@ -18031,6 +18032,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\Redirect\" />
+    <Folder Include="Views\RootAnalysis\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

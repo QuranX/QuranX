@@ -15,7 +15,7 @@
 </h3>
 @{ Html.RenderPartial("SelectChapterAndVerse", Model.SelectChapterAndVerse); }
 <ul class="verse-analysis__word-list">
-	@foreach (var word in Model.Words)
+	@foreach (var word in Model.VerseAnalysis.Words)
 	{
 		string wordUrl = Url.RouteUrl("WordAnalysis", new { Word = QuranX.Web.ArabicHelper.Standardize(word.Arabic) });
 		<li class="verse-analysis__word row">

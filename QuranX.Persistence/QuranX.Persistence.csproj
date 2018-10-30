@@ -135,6 +135,7 @@
     <Compile Include="Models\HadithReference.cs" />
     <Compile Include="Models\HadithReferenceDefinition.cs" />
     <Compile Include="Models\Verse.cs" />
+    <Compile Include="Models\VerseAnalysis.cs" />
     <Compile Include="Models\VerseAnalysisWord.cs" />
     <Compile Include="Models\VerseAnalysisWordPart.cs" />
     <Compile Include="Models\VerseText.cs" />
@@ -155,8 +156,8 @@
     <Compile Include="Services\Repositories\HadithCollectionWriteRepository.cs" />
     <Compile Include="Services\Repositories\HadithRepository.cs" />
     <Compile Include="Services\Repositories\HadithWriteRepository.cs" />
-    <Compile Include="Services\Repositories\VerseAnalysisWordRepository.cs" />
-    <Compile Include="Services\Repositories\VerseAnalysisWordWriteRepository.cs" />
+    <Compile Include="Services\Repositories\VerseAnalysisRepository.cs" />
+    <Compile Include="Services\Repositories\VerseAnalysisWriteRepository.cs" />
     <Compile Include="Services\Repositories\VerseRepository.cs" />
     <Compile Include="Services\Repositories\VerseWriteRepository.cs" />
     <Compile Include="Services\Settings.cs" />

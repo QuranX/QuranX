@@ -6,8 +6,6 @@ namespace QuranX.Persistence.Models
 {
 	public class VerseAnalysisWord
 	{
-		public int ChapterNumber { get; }
-		public int VerseNumber { get; }
 		public int WordNumber { get; }
 		public string Arabic { get; }
 		public string English { get; }
@@ -15,8 +13,6 @@ namespace QuranX.Persistence.Models
 		public IReadOnlyCollection<VerseAnalysisWordPart> WordParts { get; }
 
 		public VerseAnalysisWord(
-			int chapterNumber,
-			int verseNumber,
 			int wordNumber,
 			string arabic,
 			string english,
@@ -26,8 +22,6 @@ namespace QuranX.Persistence.Models
 			if (wordParts == null)
 				throw new ArgumentNullException(nameof(wordParts));
 
-			ChapterNumber = chapterNumber;
-			VerseNumber = verseNumber;
 			WordNumber = wordNumber;
 			Arabic = arabic;
 			English = english;

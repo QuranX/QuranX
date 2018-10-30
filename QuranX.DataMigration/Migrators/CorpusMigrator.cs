@@ -5,8 +5,9 @@ using QuranX.DataMigration.Services;
 using QuranX.DocumentModel;
 using QuranX.Persistence.Services.Repositories;
 using XmlDocument = QuranX.DocumentModel.Document;
-using AnalysisWordViewModel = QuranX.Persistence.Models.VerseAnalysisWord;
-using AnalysisWordPartViewModel = QuranX.Persistence.Models.VerseAnalysisWordPart;
+using VerseAnalysisVM = QuranX.Persistence.Models.VerseAnalysis;
+using AnalysisWordVM = QuranX.Persistence.Models.VerseAnalysisWord;
+using AnalysisWordPartVM = QuranX.Persistence.Models.VerseAnalysisWordPart;
 
 namespace QuranX.DataMigration.Migrators
 {
@@ -19,16 +20,16 @@ namespace QuranX.DataMigration.Migrators
 	{
 		private readonly XmlDocument XmlDocument;
 		private readonly ILogger Logger;
-		private readonly IVerseAnalysisWordWriteRepository AnalysisWordWriteRepository;
+		private readonly IVerseAnalysisWriteRepository VerseAnalysisWriteRepository;
 
 		public CorpusMigrator(
 			IXmlDocumentProvider xmlDocumentProvider,
 			ILogger logger,
-			IVerseAnalysisWordWriteRepository analysisWordWriteRepository)
+			IVerseAnalysisWriteRepository verseAnalysisWriteRepository)
 		{
 			XmlDocument = xmlDocumentProvider.Document;
 			Logger = logger;
-			AnalysisWordWriteRepository = analysisWordWriteRepository;
+			VerseAnalysisWriteRepository = verseAnalysisWriteRepository;
 		}
 
 		public void Migrate()
@@ -47,24 +48,28 @@ namespace QuranX.DataMigration.Migrators
 		private void WriteVerse(CorpusVerse corpusVerse)
 		{
 			string[] arabicWords = corpusVerse.ArabicText.Split(' ');
+			var words = new List<AnalysisWordVM>();
 			foreach (var word in corpusVerse.Words)
 			{
 				var analysisWordParts = word.Parts
-					.Select(x => new AnalysisWordPartViewModel(
+					.Select(x => new AnalysisWordPartVM(
 						root: x.Root,
 						type: x.TypeCode,
 						description: x.TypeDescription,
 						decorators: x.Decorators.Select(d => d.Trim())));
-				var analysisWord = new AnalysisWordViewModel(
-					chapterNumber: corpusVerse.Reference.Chapter,
-					verseNumber: corpusVerse.Reference.Verse,
+				var analysisWord = new AnalysisWordVM(
 					wordNumber: word.Index,
 					arabic: arabicWords[word.Index - 1],
 					english: word.English,
 					buckwalter: word.Buckwalter,
 					wordParts: analysisWordParts);
-				AnalysisWordWriteRepository.Write(analysisWord);
+				words.Add(analysisWord);
 			}
+			var verseAnalysis = new VerseAnalysisVM(
+				chapterNumber: corpusVerse.Reference.Chapter,
+				verseNumber: corpusVerse.Reference.Verse,
+				words: words);
+			VerseAnalysisWriteRepository.Write(verseAnalysis);
 		}
 	}
 }

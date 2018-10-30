@@ -45,6 +45,17 @@ namespace QuranX.Persistence.Extensions
 			return document;
 		}
 
+		public static Document IndexArray<TObj>(
+			this Document document,
+			TObj instance,
+			Expression<Func<TObj, IEnumerable<string>>> expression)
+		{
+			expression.GetIndexNameAndPropertyValue(instance, out string name, out IEnumerable<string> values);
+			foreach (string value in values)
+				Add(document, name, value, IndexKind.Index);
+			return document;
+		}
+
 		public static Document StoreAndIndex<TObj>(
 			this Document document,
 			TObj instance,
@@ -143,6 +154,9 @@ namespace QuranX.Persistence.Extensions
 
 		private static void Add(Document document, string fieldName, string value, IndexKind indexKind)
 		{
+			if (value == null)
+				return;
+
 			bool fullText = indexKind.HasFlag(IndexKind.FullText);
 			bool store = fullText || indexKind.HasFlag(IndexKind.Store);
 			bool index = fullText || indexKind.HasFlag(IndexKind.Index);

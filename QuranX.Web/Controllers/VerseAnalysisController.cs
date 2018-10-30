@@ -14,14 +14,14 @@ namespace QuranX.Web.Controllers
 	public class VerseAnalysisController : Controller
 	{
 		private readonly IChapterRepository ChapterRepository;
-		private readonly IVerseAnalysisWordRepository VerseAnalysisWordRepository;
+		private readonly IVerseAnalysisRepository VerseAnalysisRepository;
 
 		public VerseAnalysisController(
 			IChapterRepository chapterRepository,
-			IVerseAnalysisWordRepository verseAnalysisWordRepository)
+			IVerseAnalysisRepository verseAnalysisRepository)
 		{
 			ChapterRepository = chapterRepository;
-			VerseAnalysisWordRepository = verseAnalysisWordRepository;
+			VerseAnalysisRepository = verseAnalysisRepository;
 		}
 
 		public ActionResult Index(int chapterNumber, int verseNumber)
@@ -30,9 +30,8 @@ namespace QuranX.Web.Controllers
 				return HttpNotFound();
 
 			Chapter chapter = ChapterRepository.Get(chapterNumber);
-			IEnumerable<VerseAnalysisWord> analysis =
-				VerseAnalysisWordRepository.GetForVerse(chapterNumber, verseNumber)
-				.OrderBy(x => x.WordNumber);
+			VerseAnalysis analysis =
+				VerseAnalysisRepository.GetForVerse(chapterNumber, verseNumber);
 
 			var selectChapterAndVerse = new SelectChapterAndVerse(
 				selectedChapterNumber: chapterNumber,
@@ -41,7 +40,7 @@ namespace QuranX.Web.Controllers
 			var viewModel = new ViewModel(
 				chapter: chapter,
 				verseNumber: verseNumber,
-				words: analysis,
+				verseAnalysis: analysis,
 				selectChapterAndVerse: selectChapterAndVerse);
 			return View(viewModel);
 		}
