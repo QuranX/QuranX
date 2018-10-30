@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using QuranX.Persistence.Models;
 using QuranX.Persistence.Services.Repositories;
 using QuranX.Shared.Models;
+using QuranX.Web.Models;
 using QuranX.Web.Views.VerseAnalysis;
 
 namespace QuranX.Web.Controllers
@@ -33,10 +34,15 @@ namespace QuranX.Web.Controllers
 				VerseAnalysisWordRepository.GetForVerse(chapterNumber, verseNumber)
 				.OrderBy(x => x.WordNumber);
 
+			var selectChapterAndVerse = new SelectChapterAndVerse(
+				selectedChapterNumber: chapterNumber,
+				selectedVerseNumber: verseNumber,
+				url: "/Analysis/");
 			var viewModel = new ViewModel(
 				chapter: chapter,
 				verseNumber: verseNumber,
-				words: analysis);
+				words: analysis,
+				selectChapterAndVerse: selectChapterAndVerse);
 			return View(viewModel);
 		}
 	}

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using QuranX.Persistence.Models;
 using QuranX.Shared.Models;
+using QuranX.Web.Models;
 
 namespace QuranX.Web.Views.VerseAnalysis
 {
@@ -10,18 +11,18 @@ namespace QuranX.Web.Views.VerseAnalysis
 		public readonly Chapter Chapter;
 		public readonly int VerseNumber;
 		public IEnumerable<VerseAnalysisWord> Words;
+		public readonly SelectChapterAndVerse SelectChapterAndVerse;
 
 		public ViewModel(
 			Chapter chapter,
 			int verseNumber,
-			IEnumerable<VerseAnalysisWord> words)
+			IEnumerable<VerseAnalysisWord> words,
+			SelectChapterAndVerse selectChapterAndVerse)
 		{
-			if (words == null)
-				throw new ArgumentNullException(nameof(words));
-
 			Chapter = chapter;
 			VerseNumber = verseNumber;
-			Words = words;
+			Words = words ?? throw new ArgumentNullException(nameof(words));
+			SelectChapterAndVerse = selectChapterAndVerse;
 		}
 	}
 }

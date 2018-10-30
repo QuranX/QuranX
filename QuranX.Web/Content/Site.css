@@ -1,4 +1,12 @@
-﻿.hadith-index__list {
+﻿:root {
+	box-sizing: border-box;
+}
+
+*,::before,::after {
+	box-sizing: inherit;
+}    
+
+.hadith-index__list {
 	padding: 0;
 	list-style: none;
 	-webkit-column-count: 1;
@@ -111,6 +119,39 @@
 	}
 }
 
+.verse-analysis__word-list {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+}
+
+	.verse-analysis__word-list > li {
+		padding: 0.5em;
+		margin: 0;
+		margin-bottom: 0.25em;
+		background-color: hsl(208, 97%, 96%);
+	}
+
+		.verse-analysis__word-list > li:nth-child(2n) {
+			padding: 0;
+			margin: 0;
+			background-color: hsl(208, 97%, 99%);
+		}
+
+.verse-analysis__word-text-buckwalter {
+	font-variant: small-caps;
+	font-weight: bold;
+	margin-top: 0.25em;
+}
+
+.verse-analysis__word-text-english {
+	font-style: italic;
+}
+
+.verse-analysis__word-parts {
+	margin: 0.25em 0 0.25em 0;
+}
+
 .hadithcollection__collection-list {
 	list-style: none;
 	padding: 0;
@@ -119,10 +160,11 @@
 
 	.hadithcollection__collection-list > li {
 		padding: 0.25em;
+		background-color: hsl(208, 97%, 96%);
 	}
 
 		.hadithcollection__collection-list > li:nth-child(2n) {
-			background-color: #eee;
+			background-color: hsl(208, 97%, 99%);
 		}
 
 .commentary__commentator-list {
@@ -133,10 +175,11 @@
 
 	.commentary__commentator-list > li {
 		padding: 0.25em;
+		background-color: hsl(208, 97%, 96%);
 	}
 
 		.commentary__commentator-list > li:nth-child(2n) {
-			background-color: #eee;
+			background-color: hsl(208, 97%, 99%);
 		}
 
 @media(max-width: 480px) {
@@ -216,11 +259,11 @@ dl.boxed {
 	border: 2px solid #ddd;
 	border-radius: 0.5em;
 	box-shadow: #f0f0f0 5px 5px;
-	padding: 0;
+	padding: 2px;
 }
 
 	dl.boxed > dt {
-		background-color: #eee;
+		background-color: hsl(208, 97%, 999%);
 		padding: 0.25em 0.5em;
 	}
 
