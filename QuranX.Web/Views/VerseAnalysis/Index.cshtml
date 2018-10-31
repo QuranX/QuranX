@@ -14,54 +14,56 @@
 	@Model.Chapter.EnglishName - @Model.Chapter.ArabicName
 </h3>
 @{ Html.RenderPartial("SelectChapterAndVerse", Model.SelectChapterAndVerse); }
-<ul class="verse-analysis__word-list">
-	@foreach (var word in Model.VerseAnalysis.Words)
-	{
-		string wordUrl = Url.RouteUrl("WordAnalysis", new { Word = QuranX.Web.ArabicHelper.Standardize(word.Arabic) });
-		<li class="verse-analysis__word row">
-			<div class="col-xs-6 verse-analysis__word-reference">
-				@Model.Chapter.ChapterNumber.@Model.VerseNumber.@word.WordNumber
-			</div>
-			<div class="col-xs-6 verse-analysis__word-image">
-				<img src="~/Content/Images/ArabicWords/@(Html.GetHexValues(word.Buckwalter)).png" alt="@word.Buckwalter" />
-			</div>
-			<div class="col-xs-6 verse-analysis__word-text">
-				<div class="verse-analysis__word-text-buckwalter">
-					@word.Buckwalter
+<div class="row">
+	<ul class="verse-analysis__word-list col-sm-11 col-md-10 col-lg-9 center">
+		@foreach (var word in Model.VerseAnalysis.Words)
+		{
+			<li class="verse-analysis__word row">
+				<div class="col-xs-4 col-sm-5 col-md-4 col-lg-2">
+					<span class="verse-reference">
+						@Model.Chapter.ChapterNumber.@Model.VerseNumber.@word.WordNumber
+					</span>
 				</div>
-				<div class="verse-analysis__word-text-english">
-					@word.English
+				<div class="col-xs-8 col-sm-7 col-md-8 col-lg-10 verse-analysis__word-image">
+					<img src="~/Content/Images/ArabicWords/@(Html.GetHexValues(word.Buckwalter)).png" alt="@word.Buckwalter" />
 				</div>
-			</div>
-			<ol class="col-xs-6 verse-analysis__word-parts">
-				@foreach (var wordPart in word.WordParts)
-				{
-					<li class="verse-analysis__word-part">
-						@wordPart.Type -
-						@foreach (string decorator in @wordPart.Decorators)
-						{
-							<span>@decorator</span>
-						}
-						@wordPart.Description
-						@if (!string.IsNullOrEmpty(wordPart.Root))
-						{
-							<span class="arabicText">
-								@Html.RouteLink(
-									linkText: wordPart.Root,
-									routeName: "RootAnalysis",
-									routeValues: new
-									{
-										RootLetterNames = QuranX.Web.ArabicHelper
-											.ArabicToLetterNames(wordPart.Root)
-									}
-								)
-							</span>
-							<span>(@QuranX.Web.ArabicHelper.ArabicToLetterNames(wordPart.Root))</span>
-						}
-					</li>
-				}
-			</ol>
-		</li>
-	}
-</ul>
-
+				<div class="col-xs-12 col-sm-5 col-md-4 col-lg-2 verse-analysis__word-text">
+					<div class="verse-analysis__word-text-buckwalter">
+						@word.Buckwalter
+					</div>
+					<div class="verse-analysis__word-text-english">
+						@word.English
+					</div>
+				</div>
+				<ol class="col-xs-12 col-sm-7 col-md-8 col-lg-10 col verse-analysis__word-part-list">
+					@foreach (var wordPart in word.WordParts)
+					{
+						<li class="verse-analysis__word-part">
+							@wordPart.Type -
+							@foreach (string decorator in @wordPart.Decorators)
+							{
+								<span>@decorator</span>
+							}
+							@wordPart.Description
+							@if (!string.IsNullOrEmpty(wordPart.Root))
+							{
+								<span class="arabicText">
+									@Html.RouteLink(
+										linkText: wordPart.Root,
+										routeName: "RootAnalysis",
+										routeValues: new
+										{
+											RootLetterNames = QuranX.Web.ArabicHelper
+												.ArabicToLetterNames(wordPart.Root)
+										}
+									)
+								</span>
+								<span>(@QuranX.Web.ArabicHelper.ArabicToLetterNames(wordPart.Root))</span>
+							}
+						</li>
+					}
+				</ol>
+			</li>
+		}
+	</ul>
+</div>

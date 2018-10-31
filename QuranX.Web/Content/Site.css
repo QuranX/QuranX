@@ -133,7 +133,6 @@
 	}
 
 		.verse-analysis__word-list > li:nth-child(2n) {
-			padding: 0;
 			margin: 0;
 			background-color: hsl(208, 97%, 99%);
 		}
@@ -148,8 +147,8 @@
 	font-style: italic;
 }
 
-.verse-analysis__word-parts {
-	margin: 0.25em 0 0.25em 0;
+.verse-analysis__word-part-list {
+	list-style-position: inside;
 }
 
 .hadithcollection__collection-list {
@@ -223,18 +222,16 @@
 }
 
 dl.count-and-label {
-	background-color: #fef2da;
+	background-color: hsl(208, 57%, 83%);
 	padding: 0.25em 0.5em;
-	border-radius: 8px;
+	border-radius: 0.5em;
 	border: none;
-	color: hsl(40, 57%, 43%);
 	margin: 0px;
 	margin-right: 0.5em;
 	font-size: 0.75em;
 	display: inline-block;
 	box-shadow: 2px 2px rgba(0, 0, 0, 0.1);
 }
-
 	dl.count-and-label dt {
 		font-weight: normal;
 		font-size: 0.75em;
@@ -272,16 +269,26 @@ dl.boxed {
 	}
 
 .verse-reference {
-	background-color: #fef2da;
+	display: inline-block;
+	width: auto;
+	background-color: hsl(208, 57%, 83%);
 	padding: 0.25em 0.5em;
-	border-radius: 1em;
-	color: hsl(40, 57%, 43%);
-	margin: 0px;
-	margin-right: 1.25em;
+	border-radius: 0.5em;
 	font-size: 1.25em;
 	font-weight: bold;
 	box-shadow: 2px 2px rgba(0, 0, 0, 0.1);
 }
+
+.verse__statistics {
+	margin: 0.5em 0.5em 0.5em 0;
+	display: inline-flex;
+	align-items: center;
+}
+
+.verse__statistics>* {
+	margin-right: 0.25em;
+}
+
 
 .hadith-reference-list {
 	margin-bottom: 1em;
@@ -377,6 +384,13 @@ dl.boxed {
 	.hadith__reference-value {
 		display: inline-block;
 	}
+}
+
+.center {
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+	float: none;
 }
 
 body {
