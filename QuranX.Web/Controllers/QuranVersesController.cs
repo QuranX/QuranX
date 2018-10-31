@@ -51,7 +51,7 @@ namespace QuranX.Web.Controllers
 					firstReference.FirstVerse,
 					url: "")
 				); 
-			return View(viewModel);
+			return View("QuranVerses", viewModel);
 		}
 	}
 }

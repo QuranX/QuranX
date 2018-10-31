@@ -42,7 +42,7 @@ namespace QuranX.Web.Controllers
 				chapter: chapter,
 				verseNumber: verseNumber,
 				hadiths: hadithViewModels);
-			return View(viewModel);
+			return View("VerseHadiths", viewModel);
 		}
 	}
 }

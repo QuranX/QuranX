@@ -47,7 +47,7 @@ namespace QuranX.Web.Controllers
 				arabicRoot: root,
 				rootLetterNames: rootLetterNames,
 				extracts: extracts);
-			return View(viewModel);
+			return View("RootAnalysis", viewModel);
 		}
 
 		private VerseViewModel CreateVerseViewModel(

@@ -210,20 +210,20 @@
     <Compile Include="Models\CommentatorAndCommentary.cs" />
     <Compile Include="Models\SelectChapterAndVerse.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Views\CommentariesForVerse\Index.generated.cs">
+    <Compile Include="Views\CommentariesForVerse\CommentariesForVerse.generated.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>Index.cshtml</DependentUpon>
+      <DependentUpon>CommentariesForVerse.cshtml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Commentators\Index.generated.cs">
+    <Compile Include="Views\Commentators\Commentators.generated.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>Index.cshtml</DependentUpon>
+      <DependentUpon>Commentators.cshtml</DependentUpon>
     </Compile>
-    <Compile Include="Views\HadithCollections\Index.generated.cs">
+    <Compile Include="Views\HadithCollections\HadithCollections.generated.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>Index.cshtml</DependentUpon>
+      <DependentUpon>HadithCollections.cshtml</DependentUpon>
     </Compile>
     <Compile Include="Views\HadithIndex\BrowseHadithIndex.generated.cs">
       <AutoGen>True</AutoGen>
@@ -251,10 +251,10 @@
       <DependentUpon>HadithView.cshtml</DependentUpon>
     </Compile>
     <Compile Include="Views\Shared\HadithViewModel.cs" />
-    <Compile Include="Views\QuranVerses\Index.generated.cs">
+    <Compile Include="Views\QuranVerses\QuranVerses.generated.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>Index.cshtml</DependentUpon>
+      <DependentUpon>QuranVerses.cshtml</DependentUpon>
     </Compile>
     <Compile Include="Views\QuranVerses\ViewModel.cs" />
     <Compile Include="Views\Shared\CommentaryView.generated.cs">
@@ -277,22 +277,22 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>_Layout.cshtml</DependentUpon>
     </Compile>
-    <Compile Include="Views\VerseAnalysis\Index.generated.cs">
+    <Compile Include="Views\VerseAnalysis\VerseAnalysis.generated.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>Index.cshtml</DependentUpon>
+      <DependentUpon>VerseAnalysis.cshtml</DependentUpon>
     </Compile>
     <Compile Include="Views\VerseAnalysis\ViewModel.cs" />
-    <Compile Include="Views\VerseCommentary\Index.generated.cs">
+    <Compile Include="Views\VerseCommentary\VerseCommentary.generated.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>Index.cshtml</DependentUpon>
+      <DependentUpon>VerseCommentary.cshtml</DependentUpon>
     </Compile>
     <Compile Include="Views\VerseCommentary\ViewModel.cs" />
-    <Compile Include="Views\VerseHadiths\Index.generated.cs">
+    <Compile Include="Views\VerseHadiths\VerseHadiths.generated.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>Index.cshtml</DependentUpon>
+      <DependentUpon>VerseHadiths.cshtml</DependentUpon>
     </Compile>
     <Compile Include="Views\VerseHadiths\ViewModel.cs" />
     <Compile Include="Views\_ViewStart.generated.cs">
@@ -17964,9 +17964,9 @@
       <Generator>RazorGenerator</Generator>
       <LastGenOutput>HadithView.generated.cs</LastGenOutput>
     </Content>
-    <Content Include="Views\VerseHadiths\Index.cshtml">
+    <Content Include="Views\VerseHadiths\VerseHadiths.cshtml">
       <Generator>RazorGenerator</Generator>
-      <LastGenOutput>Index.generated.cs</LastGenOutput>
+      <LastGenOutput>VerseHadiths.generated.cs</LastGenOutput>
     </Content>
     <Content Include="Views\_ViewStart.cshtml">
       <Generator>RazorGenerator</Generator>
@@ -17992,19 +17992,19 @@
       <Generator>RazorGenerator</Generator>
       <LastGenOutput>_Layout.generated.cs</LastGenOutput>
     </Content>
-    <Content Include="Views\QuranVerses\Index.cshtml">
+    <Content Include="Views\QuranVerses\QuranVerses.cshtml">
       <BrowseToURL>~/1/1</BrowseToURL>
       <Generator>RazorGenerator</Generator>
-      <LastGenOutput>Index.generated.cs</LastGenOutput>
+      <LastGenOutput>QuranVerses.generated.cs</LastGenOutput>
     </Content>
-    <Content Include="Views\Commentators\Index.cshtml">
+    <Content Include="Views\Commentators\Commentators.cshtml">
       <Generator>RazorGenerator</Generator>
-      <LastGenOutput>Index.generated.cs</LastGenOutput>
+      <LastGenOutput>Commentators.generated.cs</LastGenOutput>
       <BrowseToURL>~/tafsirs</BrowseToURL>
     </Content>
-    <Content Include="Views\CommentariesForVerse\Index.cshtml">
+    <Content Include="Views\CommentariesForVerse\CommentariesForVerse.cshtml">
       <Generator>RazorGenerator</Generator>
-      <LastGenOutput>Index.generated.cs</LastGenOutput>
+      <LastGenOutput>CommentariesForVerse.generated.cs</LastGenOutput>
       <BrowseToURL>~/tafsirs/1.1</BrowseToURL>
     </Content>
     <Content Include="Views\Shared\CommentaryView.cshtml">
@@ -18012,30 +18012,28 @@
       <Generator>RazorGenerator</Generator>
       <LastGenOutput>CommentaryView.generated.cs</LastGenOutput>
     </Content>
-    <Content Include="Views\HadithCollections\Index.cshtml">
+    <Content Include="Views\HadithCollections\HadithCollections.cshtml">
       <BrowseToURL>~/hadiths</BrowseToURL>
       <Generator>RazorGenerator</Generator>
-      <LastGenOutput>Index.generated.cs</LastGenOutput>
+      <LastGenOutput>HadithCollections.generated.cs</LastGenOutput>
     </Content>
     <Content Include="Views\Shared\SelectChapterAndVerse.cshtml">
       <BrowseToURL>~/1.1</BrowseToURL>
       <Generator>RazorGenerator</Generator>
       <LastGenOutput>SelectChapterAndVerse.generated.cs</LastGenOutput>
     </Content>
-    <Content Include="Views\VerseCommentary\Index.cshtml">
+    <Content Include="Views\VerseCommentary\VerseCommentary.cshtml">
       <BrowseToURL>~/Tafsir/Abbas/1.1</BrowseToURL>
       <Generator>RazorGenerator</Generator>
-      <LastGenOutput>Index.generated.cs</LastGenOutput>
+      <LastGenOutput>VerseCommentary.generated.cs</LastGenOutput>
     </Content>
-    <Content Include="Views\VerseAnalysis\Index.cshtml">
+    <Content Include="Views\VerseAnalysis\VerseAnalysis.cshtml">
       <Generator>RazorGenerator</Generator>
-      <LastGenOutput>Index.generated.cs</LastGenOutput>
+      <LastGenOutput>VerseAnalysis.generated.cs</LastGenOutput>
     </Content>
-    <Content Include="Views\RootAnalysis\Index.cshtml" />
+    <Content Include="Views\RootAnalysis\RootAnalysis.cshtml" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Views\Redirect\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

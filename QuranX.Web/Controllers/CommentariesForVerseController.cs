@@ -24,7 +24,7 @@ namespace QuranX.Web.Controllers
 				commentatorCode: commentatorCode,
 				chapterNumber: chapterNumber,
 				verseNumber: verseNumber);
-			return View(viewModel);
+			return View("CommentariesForVerse", viewModel);
 		}
 	}
 }

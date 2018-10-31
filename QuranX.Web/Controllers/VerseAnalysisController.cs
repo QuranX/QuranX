@@ -42,7 +42,7 @@ namespace QuranX.Web.Controllers
 				verseNumber: verseNumber,
 				verseAnalysis: analysis,
 				selectChapterAndVerse: selectChapterAndVerse);
-			return View(viewModel);
+			return View("VerseAnalysis", viewModel);
 		}
 	}
 }

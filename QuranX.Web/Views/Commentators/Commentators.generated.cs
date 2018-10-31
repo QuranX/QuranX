@@ -28,7 +28,7 @@ namespace ASP
     using System.Web.UI;
     using System.Web.WebPages;
     
-    #line 1 "..\..\Views\HadithCollections\Index.cshtml"
+    #line 1 "..\..\Views\Commentators\Commentators.cshtml"
     using QuranX.Persistence.Models;
     
     #line default
@@ -36,18 +36,18 @@ namespace ASP
     using QuranX.Web;
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("RazorGenerator", "2.0.0.0")]
-    [System.Web.WebPages.PageVirtualPathAttribute("~/Views/HadithCollections/Index.cshtml")]
-    public partial class _Views_HadithCollections_Index_cshtml : System.Web.Mvc.WebViewPage<IEnumerable<HadithCollection>>
+    [System.Web.WebPages.PageVirtualPathAttribute("~/Views/Commentators/Commentators.cshtml")]
+    public partial class _Views_Commentators_Commentators_cshtml : System.Web.Mvc.WebViewPage<IEnumerable<Commentator>>
     {
-        public _Views_HadithCollections_Index_cshtml()
+        public _Views_Commentators_Commentators_cshtml()
         {
         }
         public override void Execute()
         {
             
-            #line 4 "..\..\Views\HadithCollections\Index.cshtml"
+            #line 4 "..\..\Views\Commentators\Commentators.cshtml"
   
-	ViewBag.Title = "Hadith collections";
+	ViewBag.Title = "Qur'anic commentators";
 
             
             #line default
@@ -55,7 +55,7 @@ namespace ASP
 WriteLiteral("\r\n\r\n<h1>");
 
             
-            #line 8 "..\..\Views\HadithCollections\Index.cshtml"
+            #line 8 "..\..\Views\Commentators\Commentators.cshtml"
 Write(ViewBag.Title);
 
             
@@ -63,19 +63,19 @@ Write(ViewBag.Title);
             #line hidden
 WriteLiteral("</h1>\r\n<ol");
 
-WriteLiteral(" class=\"hadithcollection__collection-list striped\"");
+WriteLiteral(" class=\"commentary__commentator-list striped\"");
 
 WriteLiteral(">\r\n");
 
             
-            #line 10 "..\..\Views\HadithCollections\Index.cshtml"
+            #line 10 "..\..\Views\Commentators\Commentators.cshtml"
 	
             
             #line default
             #line hidden
             
-            #line 10 "..\..\Views\HadithCollections\Index.cshtml"
-     foreach (HadithCollection collection in Model)
+            #line 10 "..\..\Views\Commentators\Commentators.cshtml"
+     foreach (Commentator commentator in Model)
 	{
 
             
@@ -83,24 +83,16 @@ WriteLiteral(">\r\n");
             #line hidden
 WriteLiteral("\t\t<li>\r\n\t\t\t<a");
 
-WriteAttribute("href", Tuple.Create(" href=\"", 271), Tuple.Create("\"", 336)
-, Tuple.Create(Tuple.Create("", 278), Tuple.Create("/Hadith/", 278), true)
+WriteAttribute("href", Tuple.Create(" href=\"", 260), Tuple.Create("\"", 296)
+, Tuple.Create(Tuple.Create("", 267), Tuple.Create("/Tafsir/", 267), true)
             
-            #line 13 "..\..\Views\HadithCollections\Index.cshtml"
-, Tuple.Create(Tuple.Create("", 286), Tuple.Create<System.Object, System.Int32>(collection.Code
-            
-            #line default
-            #line hidden
-, 286), false)
-, Tuple.Create(Tuple.Create("", 302), Tuple.Create("/", 302), true)
-            
-            #line 13 "..\..\Views\HadithCollections\Index.cshtml"
-, Tuple.Create(Tuple.Create("", 303), Tuple.Create<System.Object, System.Int32>(collection.PrimaryReferenceCode
+            #line 13 "..\..\Views\Commentators\Commentators.cshtml"
+, Tuple.Create(Tuple.Create("", 275), Tuple.Create<System.Object, System.Int32>(commentator.Code
             
             #line default
             #line hidden
-, 303), false)
-, Tuple.Create(Tuple.Create("", 335), Tuple.Create("/", 335), true)
+, 275), false)
+, Tuple.Create(Tuple.Create("", 292), Tuple.Create("/1.1", 292), true)
 );
 
 WriteLiteral(">\r\n\t\t\t\t<div");
@@ -114,8 +106,8 @@ WriteLiteral(" class=\"col-xs-4 col-sm-3 col-md-2\"");
 WriteLiteral(">");
 
             
-            #line 15 "..\..\Views\HadithCollections\Index.cshtml"
-                                                        Write(collection.Code);
+            #line 15 "..\..\Views\Commentators\Commentators.cshtml"
+                                                        Write(commentator.Code);
 
             
             #line default
@@ -127,8 +119,8 @@ WriteLiteral(" class=\"col-xs-8 col-sm-9 col-md-10\"");
 WriteLiteral(">");
 
             
-            #line 16 "..\..\Views\HadithCollections\Index.cshtml"
-                                                         Write(collection.Name);
+            #line 16 "..\..\Views\Commentators\Commentators.cshtml"
+                                                         Write(commentator.Description);
 
             
             #line default
@@ -136,7 +128,7 @@ WriteLiteral(">");
 WriteLiteral("</span>\r\n\t\t\t\t</div>\r\n\t\t\t</a>\r\n\t\t</li>\r\n");
 
             
-            #line 20 "..\..\Views\HadithCollections\Index.cshtml"
+            #line 20 "..\..\Views\Commentators\Commentators.cshtml"
 	}
 
             

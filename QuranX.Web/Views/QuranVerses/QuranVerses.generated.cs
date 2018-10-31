@@ -28,36 +28,36 @@ namespace ASP
     using System.Web.UI;
     using System.Web.WebPages;
     
-    #line 2 "..\..\Views\QuranVerses\Index.cshtml"
+    #line 2 "..\..\Views\QuranVerses\QuranVerses.cshtml"
     using QuranX.Persistence.Models;
     
     #line default
     #line hidden
     using QuranX.Web;
     
-    #line 1 "..\..\Views\QuranVerses\Index.cshtml"
+    #line 1 "..\..\Views\QuranVerses\QuranVerses.cshtml"
     using QuranX.Web.Models;
     
     #line default
     #line hidden
     
-    #line 3 "..\..\Views\QuranVerses\Index.cshtml"
+    #line 3 "..\..\Views\QuranVerses\QuranVerses.cshtml"
     using QuranX.Web.Views.QuranVerses;
     
     #line default
     #line hidden
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("RazorGenerator", "2.0.0.0")]
-    [System.Web.WebPages.PageVirtualPathAttribute("~/Views/QuranVerses/Index.cshtml")]
-    public partial class _Views_QuranVerses_Index_cshtml : System.Web.Mvc.WebViewPage<ViewModel>
+    [System.Web.WebPages.PageVirtualPathAttribute("~/Views/QuranVerses/QuranVerses.cshtml")]
+    public partial class _Views_QuranVerses_QuranVerses_cshtml : System.Web.Mvc.WebViewPage<ViewModel>
     {
-        public _Views_QuranVerses_Index_cshtml()
+        public _Views_QuranVerses_QuranVerses_cshtml()
         {
         }
         public override void Execute()
         {
             
-            #line 6 "..\..\Views\QuranVerses\Index.cshtml"
+            #line 6 "..\..\Views\QuranVerses\QuranVerses.cshtml"
   
 	ViewBag.Title = "The Noble Qur'an";
 
@@ -67,7 +67,7 @@ namespace ASP
 WriteLiteral("\r\n\r\n<h1>");
 
             
-            #line 10 "..\..\Views\QuranVerses\Index.cshtml"
+            #line 10 "..\..\Views\QuranVerses\QuranVerses.cshtml"
 Write(ViewBag.Title);
 
             
@@ -76,7 +76,7 @@ Write(ViewBag.Title);
 WriteLiteral("</h1>\r\n");
 
             
-            #line 11 "..\..\Views\QuranVerses\Index.cshtml"
+            #line 11 "..\..\Views\QuranVerses\QuranVerses.cshtml"
    Html.RenderPartial("SelectChapterAndVerse", Model.SelectChapterAndVerse); 
             
             #line default
@@ -84,7 +84,7 @@ WriteLiteral("</h1>\r\n");
 WriteLiteral("\r\n");
 
             
-            #line 12 "..\..\Views\QuranVerses\Index.cshtml"
+            #line 12 "..\..\Views\QuranVerses\QuranVerses.cshtml"
  foreach (ChapterAndVerseSelection group in Model.DisplayVerses)
 {
 
@@ -94,7 +94,7 @@ WriteLiteral("\r\n");
 WriteLiteral("\t<h2>");
 
             
-            #line 14 "..\..\Views\QuranVerses\Index.cshtml"
+            #line 14 "..\..\Views\QuranVerses\QuranVerses.cshtml"
    Write(group.Chapter.EnglishName);
 
             
@@ -103,7 +103,7 @@ WriteLiteral("\t<h2>");
 WriteLiteral(" - ");
 
             
-            #line 14 "..\..\Views\QuranVerses\Index.cshtml"
+            #line 14 "..\..\Views\QuranVerses\QuranVerses.cshtml"
                                 Write(group.Chapter.ArabicName);
 
             
@@ -112,7 +112,7 @@ WriteLiteral(" - ");
 WriteLiteral("</h2>\r\n");
 
             
-            #line 15 "..\..\Views\QuranVerses\Index.cshtml"
+            #line 15 "..\..\Views\QuranVerses\QuranVerses.cshtml"
 	foreach (Verse verse in group.Verses)
 	{
 
@@ -130,7 +130,7 @@ WriteLiteral(" class=\"verse__reference\"");
 WriteLiteral(">");
 
             
-            #line 18 "..\..\Views\QuranVerses\Index.cshtml"
+            #line 18 "..\..\Views\QuranVerses\QuranVerses.cshtml"
                                       Write(verse.ChapterNumber);
 
             
@@ -139,7 +139,7 @@ WriteLiteral(">");
 WriteLiteral(".");
 
             
-            #line 18 "..\..\Views\QuranVerses\Index.cshtml"
+            #line 18 "..\..\Views\QuranVerses\QuranVerses.cshtml"
                                                            Write(verse.VerseNumber);
 
             
@@ -150,7 +150,7 @@ WriteLiteral("</span>\r\n\t\t\t<a");
 WriteAttribute("href", Tuple.Create(" href=\"", 574), Tuple.Create("\"", 629)
 , Tuple.Create(Tuple.Create("", 581), Tuple.Create("analysis/", 581), true)
             
-            #line 19 "..\..\Views\QuranVerses\Index.cshtml"
+            #line 19 "..\..\Views\QuranVerses\QuranVerses.cshtml"
 , Tuple.Create(Tuple.Create("", 590), Tuple.Create<System.Object, System.Int32>(verse.ChapterNumber
             
             #line default
@@ -158,7 +158,7 @@ WriteAttribute("href", Tuple.Create(" href=\"", 574), Tuple.Create("\"", 629)
 , 590), false)
 , Tuple.Create(Tuple.Create("", 610), Tuple.Create(".", 610), true)
             
-            #line 19 "..\..\Views\QuranVerses\Index.cshtml"
+            #line 19 "..\..\Views\QuranVerses\QuranVerses.cshtml"
 , Tuple.Create(Tuple.Create("", 611), Tuple.Create<System.Object, System.Int32>(verse.VerseNumber
             
             #line default
@@ -173,7 +173,7 @@ WriteLiteral(" class=\"count-and-label\"");
 WriteLiteral(">\r\n\t\t\t\t\t<dd>");
 
             
-            #line 21 "..\..\Views\QuranVerses\Index.cshtml"
+            #line 21 "..\..\Views\QuranVerses\QuranVerses.cshtml"
                    Write(verse.RootWordCount);
 
             
@@ -182,13 +182,13 @@ WriteLiteral(">\r\n\t\t\t\t\t<dd>");
 WriteLiteral("</dd>\r\n\t\t\t\t\t<dt>Roots</dt>\r\n\t\t\t\t</dl>\r\n\t\t\t</a>\r\n");
 
             
-            #line 25 "..\..\Views\QuranVerses\Index.cshtml"
+            #line 25 "..\..\Views\QuranVerses\QuranVerses.cshtml"
 			
             
             #line default
             #line hidden
             
-            #line 25 "..\..\Views\QuranVerses\Index.cshtml"
+            #line 25 "..\..\Views\QuranVerses\QuranVerses.cshtml"
              if (verse.CommentaryCount > 0)
 			{
 
@@ -200,7 +200,7 @@ WriteLiteral("\t\t\t\t<a");
 WriteAttribute("href", Tuple.Create(" href=\"", 792), Tuple.Create("\"", 846)
 , Tuple.Create(Tuple.Create("", 799), Tuple.Create("tafsirs/", 799), true)
             
-            #line 27 "..\..\Views\QuranVerses\Index.cshtml"
+            #line 27 "..\..\Views\QuranVerses\QuranVerses.cshtml"
 , Tuple.Create(Tuple.Create("", 807), Tuple.Create<System.Object, System.Int32>(verse.ChapterNumber
             
             #line default
@@ -208,7 +208,7 @@ WriteAttribute("href", Tuple.Create(" href=\"", 792), Tuple.Create("\"", 846)
 , 807), false)
 , Tuple.Create(Tuple.Create("", 827), Tuple.Create(".", 827), true)
             
-            #line 27 "..\..\Views\QuranVerses\Index.cshtml"
+            #line 27 "..\..\Views\QuranVerses\QuranVerses.cshtml"
 , Tuple.Create(Tuple.Create("", 828), Tuple.Create<System.Object, System.Int32>(verse.VerseNumber
             
             #line default
@@ -223,7 +223,7 @@ WriteLiteral(" class=\"count-and-label\"");
 WriteLiteral(">\r\n\t\t\t\t\t\t<dd>");
 
             
-            #line 29 "..\..\Views\QuranVerses\Index.cshtml"
+            #line 29 "..\..\Views\QuranVerses\QuranVerses.cshtml"
                        Write(verse.CommentaryCount);
 
             
@@ -232,7 +232,7 @@ WriteLiteral(">\r\n\t\t\t\t\t\t<dd>");
 WriteLiteral("</dd>\r\n\t\t\t\t\t\t<dt>Tafirs</dt>\r\n\t\t\t\t\t</dl>\r\n\t\t\t\t</a>\r\n");
 
             
-            #line 33 "..\..\Views\QuranVerses\Index.cshtml"
+            #line 33 "..\..\Views\QuranVerses\QuranVerses.cshtml"
 			}
 
             
@@ -241,7 +241,7 @@ WriteLiteral("</dd>\r\n\t\t\t\t\t\t<dt>Tafirs</dt>\r\n\t\t\t\t\t</dl>\r\n\t\t\t\
 WriteLiteral("\t\t\t");
 
             
-            #line 34 "..\..\Views\QuranVerses\Index.cshtml"
+            #line 34 "..\..\Views\QuranVerses\QuranVerses.cshtml"
              if (verse.HadithCount > 0)
 			{
 
@@ -253,7 +253,7 @@ WriteLiteral("\t\t\t\t<a");
 WriteAttribute("href", Tuple.Create(" href=\"", 1019), Tuple.Create("\"", 1073)
 , Tuple.Create(Tuple.Create("", 1026), Tuple.Create("hadiths/", 1026), true)
             
-            #line 36 "..\..\Views\QuranVerses\Index.cshtml"
+            #line 36 "..\..\Views\QuranVerses\QuranVerses.cshtml"
 , Tuple.Create(Tuple.Create("", 1034), Tuple.Create<System.Object, System.Int32>(verse.ChapterNumber
             
             #line default
@@ -261,7 +261,7 @@ WriteAttribute("href", Tuple.Create(" href=\"", 1019), Tuple.Create("\"", 1073)
 , 1034), false)
 , Tuple.Create(Tuple.Create("", 1054), Tuple.Create(".", 1054), true)
             
-            #line 36 "..\..\Views\QuranVerses\Index.cshtml"
+            #line 36 "..\..\Views\QuranVerses\QuranVerses.cshtml"
 , Tuple.Create(Tuple.Create("", 1055), Tuple.Create<System.Object, System.Int32>(verse.VerseNumber
             
             #line default
@@ -276,7 +276,7 @@ WriteLiteral(" class=\"count-and-label\"");
 WriteLiteral(">\r\n\t\t\t\t\t\t<dd>");
 
             
-            #line 38 "..\..\Views\QuranVerses\Index.cshtml"
+            #line 38 "..\..\Views\QuranVerses\QuranVerses.cshtml"
                        Write(verse.HadithCount);
 
             
@@ -285,7 +285,7 @@ WriteLiteral(">\r\n\t\t\t\t\t\t<dd>");
 WriteLiteral("</dd>\r\n\t\t\t\t\t\t<dt>Hadiths</dt>\r\n\t\t\t\t\t</dl>\r\n\t\t\t\t</a>\r\n");
 
             
-            #line 42 "..\..\Views\QuranVerses\Index.cshtml"
+            #line 42 "..\..\Views\QuranVerses\QuranVerses.cshtml"
 			}
 
             
@@ -294,7 +294,7 @@ WriteLiteral("</dd>\r\n\t\t\t\t\t\t<dt>Hadiths</dt>\r\n\t\t\t\t\t</dl>\r\n\t\t\t
 WriteLiteral("\t\t</div>\r\n");
 
             
-            #line 44 "..\..\Views\QuranVerses\Index.cshtml"
+            #line 44 "..\..\Views\QuranVerses\QuranVerses.cshtml"
 
 
             
@@ -307,13 +307,13 @@ WriteLiteral(" class=\"verse__translation-hidden-items\"");
 WriteLiteral(">\r\n");
 
             
-            #line 46 "..\..\Views\QuranVerses\Index.cshtml"
+            #line 46 "..\..\Views\QuranVerses\QuranVerses.cshtml"
 			
             
             #line default
             #line hidden
             
-            #line 46 "..\..\Views\QuranVerses\Index.cshtml"
+            #line 46 "..\..\Views\QuranVerses\QuranVerses.cshtml"
              foreach (VerseText translation in verse.VerseTexts)
 			{
 
@@ -327,7 +327,7 @@ WriteLiteral(" class=\"verse__translation-hidden-item btn\"");
 WriteLiteral(" data-translator-code=\"");
 
             
-            #line 48 "..\..\Views\QuranVerses\Index.cshtml"
+            #line 48 "..\..\Views\QuranVerses\QuranVerses.cshtml"
                                                                                     Write(translation.TranslatorCode);
 
             
@@ -340,7 +340,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("\t\t\t\t\t");
 
             
-            #line 49 "..\..\Views\QuranVerses\Index.cshtml"
+            #line 49 "..\..\Views\QuranVerses\QuranVerses.cshtml"
                Write(translation.TranslatorName);
 
             
@@ -349,7 +349,7 @@ WriteLiteral("\t\t\t\t\t");
 WriteLiteral("\r\n\t\t\t\t</button>\r\n");
 
             
-            #line 51 "..\..\Views\QuranVerses\Index.cshtml"
+            #line 51 "..\..\Views\QuranVerses\QuranVerses.cshtml"
 			}
 
             
@@ -358,7 +358,7 @@ WriteLiteral("\r\n\t\t\t\t</button>\r\n");
 WriteLiteral("\t\t</div>\r\n");
 
             
-            #line 53 "..\..\Views\QuranVerses\Index.cshtml"
+            #line 53 "..\..\Views\QuranVerses\QuranVerses.cshtml"
 
 		foreach (VerseText translation in verse.VerseTexts)
 		{
@@ -373,7 +373,7 @@ WriteLiteral(" class=\"boxed verse__translation\"");
 WriteLiteral(" data-translator-code=\"");
 
             
-            #line 56 "..\..\Views\QuranVerses\Index.cshtml"
+            #line 56 "..\..\Views\QuranVerses\QuranVerses.cshtml"
                                                                   Write(translation.TranslatorCode);
 
             
@@ -384,7 +384,7 @@ WriteLiteral("\"");
 WriteLiteral(">\r\n\t\t\t\t<dt>");
 
             
-            #line 57 "..\..\Views\QuranVerses\Index.cshtml"
+            #line 57 "..\..\Views\QuranVerses\QuranVerses.cshtml"
                Write(translation.TranslatorName);
 
             
@@ -393,7 +393,7 @@ WriteLiteral(">\r\n\t\t\t\t<dt>");
 WriteLiteral("</dt>\r\n\t\t\t\t<dd>");
 
             
-            #line 58 "..\..\Views\QuranVerses\Index.cshtml"
+            #line 58 "..\..\Views\QuranVerses\QuranVerses.cshtml"
                Write(translation.Text);
 
             
@@ -402,7 +402,7 @@ WriteLiteral("</dt>\r\n\t\t\t\t<dd>");
 WriteLiteral("</dd>\r\n\t\t\t</dl>\r\n");
 
             
-            #line 60 "..\..\Views\QuranVerses\Index.cshtml"
+            #line 60 "..\..\Views\QuranVerses\QuranVerses.cshtml"
 		}
 	}
 }

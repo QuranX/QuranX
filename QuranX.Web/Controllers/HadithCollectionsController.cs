@@ -18,7 +18,7 @@ namespace QuranX.Web.Controllers
 		public ActionResult Index()
 		{
 			IEnumerable<HadithCollection> viewModel = HadithCollectionRepository.GetAll();
-			return View(viewModel);
+			return View("HadithCollections", viewModel);
 		}
 	}
 }

@@ -16,7 +16,7 @@ namespace QuranX.Web.Controllers
 		public ActionResult Index()
 		{
 			var viewModel = CommentatorRepository.GetAll();
-			return View(viewModel);
+			return View("Commentators", viewModel);
 		}
 	}
 }

@@ -29,23 +29,23 @@ namespace ASP
     using System.Web.WebPages;
     using QuranX.Web;
     
-    #line 1 "..\..\Views\CommentariesForVerse\Index.cshtml"
+    #line 1 "..\..\Views\CommentariesForVerse\CommentariesForVerse.cshtml"
     using QuranX.Web.Models;
     
     #line default
     #line hidden
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("RazorGenerator", "2.0.0.0")]
-    [System.Web.WebPages.PageVirtualPathAttribute("~/Views/CommentariesForVerse/Index.cshtml")]
-    public partial class _Views_CommentariesForVerse_Index_cshtml : System.Web.Mvc.WebViewPage<CommentariesForVerse>
+    [System.Web.WebPages.PageVirtualPathAttribute("~/Views/CommentariesForVerse/CommentariesForVerse.cshtml")]
+    public partial class _Views_CommentariesForVerse_CommentariesForVerse_cshtml : System.Web.Mvc.WebViewPage<CommentariesForVerse>
     {
-        public _Views_CommentariesForVerse_Index_cshtml()
+        public _Views_CommentariesForVerse_CommentariesForVerse_cshtml()
         {
         }
         public override void Execute()
         {
             
-            #line 4 "..\..\Views\CommentariesForVerse\Index.cshtml"
+            #line 4 "..\..\Views\CommentariesForVerse\CommentariesForVerse.cshtml"
   
 	ViewBag.Title = $"Commentaries for {Model.Chapter.ChapterNumber}.{Model.VerseNumber}";
 
@@ -57,7 +57,7 @@ WriteLiteral("\r\n\r\n<h1>The Quran</h1>\r\n<h2>\r\n\tCommentaries for <a");
 WriteAttribute("href", Tuple.Create(" href=\"", 201), Tuple.Create("\"", 256)
 , Tuple.Create(Tuple.Create("", 208), Tuple.Create("/", 208), true)
             
-            #line 10 "..\..\Views\CommentariesForVerse\Index.cshtml"
+            #line 10 "..\..\Views\CommentariesForVerse\CommentariesForVerse.cshtml"
 , Tuple.Create(Tuple.Create("", 209), Tuple.Create<System.Object, System.Int32>(Model.Chapter.ChapterNumber
             
             #line default
@@ -65,7 +65,7 @@ WriteAttribute("href", Tuple.Create(" href=\"", 201), Tuple.Create("\"", 256)
 , 209), false)
 , Tuple.Create(Tuple.Create("", 237), Tuple.Create(".", 237), true)
             
-            #line 10 "..\..\Views\CommentariesForVerse\Index.cshtml"
+            #line 10 "..\..\Views\CommentariesForVerse\CommentariesForVerse.cshtml"
 , Tuple.Create(Tuple.Create("", 238), Tuple.Create<System.Object, System.Int32>(Model.VerseNumber
             
             #line default
@@ -78,7 +78,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("\t\t");
 
             
-            #line 11 "..\..\Views\CommentariesForVerse\Index.cshtml"
+            #line 11 "..\..\Views\CommentariesForVerse\CommentariesForVerse.cshtml"
    Write(Model.Chapter.ChapterNumber);
 
             
@@ -87,7 +87,7 @@ WriteLiteral("\t\t");
 WriteLiteral(".");
 
             
-            #line 11 "..\..\Views\CommentariesForVerse\Index.cshtml"
+            #line 11 "..\..\Views\CommentariesForVerse\CommentariesForVerse.cshtml"
                                 Write(Model.VerseNumber);
 
             
@@ -96,7 +96,7 @@ WriteLiteral(".");
 WriteLiteral("\r\n\t</a>\r\n</h2>\r\n<h3>");
 
             
-            #line 14 "..\..\Views\CommentariesForVerse\Index.cshtml"
+            #line 14 "..\..\Views\CommentariesForVerse\CommentariesForVerse.cshtml"
 Write(Model.Chapter.EnglishName);
 
             
@@ -105,7 +105,7 @@ Write(Model.Chapter.EnglishName);
 WriteLiteral(" - ");
 
             
-            #line 14 "..\..\Views\CommentariesForVerse\Index.cshtml"
+            #line 14 "..\..\Views\CommentariesForVerse\CommentariesForVerse.cshtml"
                             Write(Model.Chapter.ArabicName);
 
             
@@ -114,7 +114,7 @@ WriteLiteral(" - ");
 WriteLiteral("</h3>\r\n");
 
             
-            #line 15 "..\..\Views\CommentariesForVerse\Index.cshtml"
+            #line 15 "..\..\Views\CommentariesForVerse\CommentariesForVerse.cshtml"
 Write(Html.Partial("SelectChapterAndVerse", Model.SelectChapterAndVerse));
 
             
@@ -123,7 +123,7 @@ Write(Html.Partial("SelectChapterAndVerse", Model.SelectChapterAndVerse));
 WriteLiteral("\r\n");
 
             
-            #line 16 "..\..\Views\CommentariesForVerse\Index.cshtml"
+            #line 16 "..\..\Views\CommentariesForVerse\CommentariesForVerse.cshtml"
  foreach (CommentatorAndCommentary commentatorAndCommentary in Model.Commentaries)
 {
 	
@@ -131,14 +131,14 @@ WriteLiteral("\r\n");
             #line default
             #line hidden
             
-            #line 18 "..\..\Views\CommentariesForVerse\Index.cshtml"
+            #line 18 "..\..\Views\CommentariesForVerse\CommentariesForVerse.cshtml"
 Write(Html.Partial("CommentaryView", commentatorAndCommentary));
 
             
             #line default
             #line hidden
             
-            #line 18 "..\..\Views\CommentariesForVerse\Index.cshtml"
+            #line 18 "..\..\Views\CommentariesForVerse\CommentariesForVerse.cshtml"
                                                              
 }
 

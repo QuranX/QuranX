@@ -55,7 +55,7 @@ namespace QuranX.Web.Controllers
 			var viewModel = new ViewModel(
 				commentatorAndCommentary: commentatorAndCommentary,
 				selectChapterAndVerse: selectChapterAndVerse);
-			return View(viewModel);
+			return View("VerseCommentary", viewModel);
 		}
 	}
 }

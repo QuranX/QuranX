@@ -29,17 +29,17 @@ namespace ASP
     using System.Web.WebPages;
     using QuranX.Web;
     
-    #line 2 "..\..\Views\VerseHadiths\Index.cshtml"
+    #line 2 "..\..\Views\VerseHadiths\VerseHadiths.cshtml"
     using QuranX.Web.Views.Shared;
     
     #line default
     #line hidden
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("RazorGenerator", "2.0.0.0")]
-    [System.Web.WebPages.PageVirtualPathAttribute("~/Views/VerseHadiths/Index.cshtml")]
-    public partial class _Views_VerseHadiths_Index_cshtml : System.Web.Mvc.WebViewPage<QuranX.Web.Views.VerseHadiths.ViewModel>
+    [System.Web.WebPages.PageVirtualPathAttribute("~/Views/VerseHadiths/VerseHadiths.cshtml")]
+    public partial class _Views_VerseHadiths_VerseHadiths_cshtml : System.Web.Mvc.WebViewPage<QuranX.Web.Views.VerseHadiths.ViewModel>
     {
-        public _Views_VerseHadiths_Index_cshtml()
+        public _Views_VerseHadiths_VerseHadiths_cshtml()
         {
         }
         public override void Execute()
@@ -47,7 +47,7 @@ namespace ASP
 WriteLiteral("\r\n");
 
             
-            #line 4 "..\..\Views\VerseHadiths\Index.cshtml"
+            #line 4 "..\..\Views\VerseHadiths\VerseHadiths.cshtml"
   
 	ViewBag.Title = $"Hadiths for {Model.Chapter.ChapterNumber}.{Model.VerseNumber}";
 
@@ -59,7 +59,7 @@ WriteLiteral("\r\n<h1>The Quran</h1>\r\n<h2>\r\n\tHadiths for <a");
 WriteAttribute("href", Tuple.Create(" href=\"", 214), Tuple.Create("\"", 269)
 , Tuple.Create(Tuple.Create("", 221), Tuple.Create("/", 221), true)
             
-            #line 9 "..\..\Views\VerseHadiths\Index.cshtml"
+            #line 9 "..\..\Views\VerseHadiths\VerseHadiths.cshtml"
 , Tuple.Create(Tuple.Create("", 222), Tuple.Create<System.Object, System.Int32>(Model.Chapter.ChapterNumber
             
             #line default
@@ -67,7 +67,7 @@ WriteAttribute("href", Tuple.Create(" href=\"", 214), Tuple.Create("\"", 269)
 , 222), false)
 , Tuple.Create(Tuple.Create("", 250), Tuple.Create(".", 250), true)
             
-            #line 9 "..\..\Views\VerseHadiths\Index.cshtml"
+            #line 9 "..\..\Views\VerseHadiths\VerseHadiths.cshtml"
 , Tuple.Create(Tuple.Create("", 251), Tuple.Create<System.Object, System.Int32>(Model.VerseNumber
             
             #line default
@@ -80,7 +80,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("\t\t");
 
             
-            #line 10 "..\..\Views\VerseHadiths\Index.cshtml"
+            #line 10 "..\..\Views\VerseHadiths\VerseHadiths.cshtml"
    Write(Model.Chapter.ChapterNumber);
 
             
@@ -89,7 +89,7 @@ WriteLiteral("\t\t");
 WriteLiteral(".");
 
             
-            #line 10 "..\..\Views\VerseHadiths\Index.cshtml"
+            #line 10 "..\..\Views\VerseHadiths\VerseHadiths.cshtml"
                                 Write(Model.VerseNumber);
 
             
@@ -98,7 +98,7 @@ WriteLiteral(".");
 WriteLiteral("\r\n\t</a>\r\n</h2>\r\n<h3>");
 
             
-            #line 13 "..\..\Views\VerseHadiths\Index.cshtml"
+            #line 13 "..\..\Views\VerseHadiths\VerseHadiths.cshtml"
 Write(Model.Chapter.EnglishName);
 
             
@@ -107,7 +107,7 @@ Write(Model.Chapter.EnglishName);
 WriteLiteral(" - ");
 
             
-            #line 13 "..\..\Views\VerseHadiths\Index.cshtml"
+            #line 13 "..\..\Views\VerseHadiths\VerseHadiths.cshtml"
                             Write(Model.Chapter.ArabicName);
 
             
@@ -116,7 +116,7 @@ WriteLiteral(" - ");
 WriteLiteral("</h3>\r\n");
 
             
-            #line 14 "..\..\Views\VerseHadiths\Index.cshtml"
+            #line 14 "..\..\Views\VerseHadiths\VerseHadiths.cshtml"
  foreach (HadithViewModel hadithVM in Model.Hadiths)
 {
 	
@@ -124,14 +124,14 @@ WriteLiteral("</h3>\r\n");
             #line default
             #line hidden
             
-            #line 16 "..\..\Views\VerseHadiths\Index.cshtml"
+            #line 16 "..\..\Views\VerseHadiths\VerseHadiths.cshtml"
 Write(Html.Partial("HadithView", hadithVM));
 
             
             #line default
             #line hidden
             
-            #line 16 "..\..\Views\VerseHadiths\Index.cshtml"
+            #line 16 "..\..\Views\VerseHadiths\VerseHadiths.cshtml"
                                          
 }
             

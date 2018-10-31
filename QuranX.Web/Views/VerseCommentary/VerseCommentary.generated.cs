@@ -28,30 +28,30 @@ namespace ASP
     using System.Web.UI;
     using System.Web.WebPages;
     
-    #line 2 "..\..\Views\VerseCommentary\Index.cshtml"
+    #line 2 "..\..\Views\VerseCommentary\VerseCommentary.cshtml"
     using QuranX.Shared.Models;
     
     #line default
     #line hidden
     using QuranX.Web;
     
-    #line 1 "..\..\Views\VerseCommentary\Index.cshtml"
+    #line 1 "..\..\Views\VerseCommentary\VerseCommentary.cshtml"
     using QuranX.Web.Views.VerseCommentary;
     
     #line default
     #line hidden
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("RazorGenerator", "2.0.0.0")]
-    [System.Web.WebPages.PageVirtualPathAttribute("~/Views/VerseCommentary/Index.cshtml")]
-    public partial class _Views_VerseCommentary_Index_cshtml : System.Web.Mvc.WebViewPage<ViewModel>
+    [System.Web.WebPages.PageVirtualPathAttribute("~/Views/VerseCommentary/VerseCommentary.cshtml")]
+    public partial class _Views_VerseCommentary_VerseCommentary_cshtml : System.Web.Mvc.WebViewPage<ViewModel>
     {
-        public _Views_VerseCommentary_Index_cshtml()
+        public _Views_VerseCommentary_VerseCommentary_cshtml()
         {
         }
         public override void Execute()
         {
             
-            #line 5 "..\..\Views\VerseCommentary\Index.cshtml"
+            #line 5 "..\..\Views\VerseCommentary\VerseCommentary.cshtml"
   
 	var verse = new VerseRangeReference(Model.CommentatorAndCommentary.Commentary.ChapterNumber, Model.CommentatorAndCommentary.Commentary.FirstVerseNumber, Model.CommentatorAndCommentary.Commentary.LastVerseNumber);
 	string verseCaption = verse.IsMultipleVerses() ? "verses" : "verse";
@@ -63,7 +63,7 @@ namespace ASP
 WriteLiteral("\r\n<h1>The Quran</h1>\r\n<h2>Verse commentary</h2>\r\n");
 
             
-            #line 12 "..\..\Views\VerseCommentary\Index.cshtml"
+            #line 12 "..\..\Views\VerseCommentary\VerseCommentary.cshtml"
 Write(Html.Partial("SelectChapterAndVerse", Model.SelectChapterAndVerse));
 
             
@@ -72,7 +72,7 @@ Write(Html.Partial("SelectChapterAndVerse", Model.SelectChapterAndVerse));
 WriteLiteral("\r\n");
 
             
-            #line 13 "..\..\Views\VerseCommentary\Index.cshtml"
+            #line 13 "..\..\Views\VerseCommentary\VerseCommentary.cshtml"
 Write(Html.Partial("CommentaryView", Model.CommentatorAndCommentary));
 
             
