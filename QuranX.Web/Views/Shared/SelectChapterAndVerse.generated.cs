@@ -74,7 +74,7 @@ WriteLiteral(" class=\"control-label\"");
 
 WriteLiteral(">Verse</label>\r\n\t\t</div>\r\n\t\t<div");
 
-WriteLiteral(" class=\"col-xs-8\"");
+WriteLiteral(" class=\"col-xs-7 col-sm-8\"");
 
 WriteLiteral(">\r\n\t\t\t<select");
 
@@ -104,14 +104,14 @@ WriteLiteral(">\r\n");
             #line hidden
 WriteLiteral("\t\t\t\t\t\t<option");
 
-WriteAttribute("value", Tuple.Create(" value=\"", 564), Tuple.Create("\"", 599)
+WriteAttribute("value", Tuple.Create(" value=\"", 573), Tuple.Create("\"", 608)
             
             #line 18 "..\..\Views\Shared\SelectChapterAndVerse.cshtml"
-, Tuple.Create(Tuple.Create("", 572), Tuple.Create<System.Object, System.Int32>(item.Chapter.ChapterNumber
+, Tuple.Create(Tuple.Create("", 581), Tuple.Create<System.Object, System.Int32>(item.Chapter.ChapterNumber
             
             #line default
             #line hidden
-, 572), false)
+, 581), false)
 );
 
 WriteLiteral(">\r\n");
@@ -839,7 +839,7 @@ WriteLiteral(">\r\n\t\t\t\t\t\t114 - An Nas (Mankind)\r\n\t\t\t\t\t</option>\r\n
             #line hidden
 WriteLiteral("\t\t\t</select>\r\n\t\t</div>\r\n\t\t<div");
 
-WriteLiteral(" class=\"col-xs-4\"");
+WriteLiteral(" class=\"col-xs-5 col-sm-4\"");
 
 WriteLiteral(">\r\n\t\t\t<select");
 
