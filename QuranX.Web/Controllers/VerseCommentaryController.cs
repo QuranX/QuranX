@@ -40,7 +40,7 @@ namespace QuranX.Web.Controllers
 					chapterNumber: chapterNumber,
 					firstVerseNumber: verseNumber,
 					lastVerseNumber: verseNumber,
-					text: new string[] { "No tafsir found" });
+					text: new string[] { "No tafsir found for this verse" });
 			var commentatorAndCommentary = new CommentatorAndCommentary(
 				commentator: commentator,
 				commentary: commentary);
