@@ -47,7 +47,6 @@ namespace QuranX.DataMigration.Migrators
 
 		private void WriteVerse(CorpusVerse corpusVerse)
 		{
-			string[] arabicWords = corpusVerse.ArabicText.Split(' ');
 			var words = new List<AnalysisWordVM>();
 			foreach (var word in corpusVerse.Words)
 			{
@@ -59,7 +58,6 @@ namespace QuranX.DataMigration.Migrators
 						decorators: x.Decorators.Select(d => d.Trim())));
 				var analysisWord = new AnalysisWordVM(
 					wordNumber: word.Index,
-					arabic: arabicWords[word.Index - 1],
 					english: word.English,
 					buckwalter: word.Buckwalter,
 					wordParts: analysisWordParts);
