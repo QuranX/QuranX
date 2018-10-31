@@ -178,7 +178,7 @@
 		padding: 0.25em;
 	}
 
-h1,h2,h3,h4,h5,h6 {
+h1, h2, h3, h4, h5, h6 {
 	text-align: center;
 	padding: 0;
 	margin: 0.25em 0;
@@ -297,23 +297,23 @@ dl.boxed {
 	margin: 0.25em 0 0.75em 0;
 }
 
-.verse__translation > dt {
-	font-weight: bold;
-	background-color: hsl(208, 97%, 96%) !important;
-	position: relative;
-	padding-left: 1.5em !important;
-	cursor: pointer;
-}
-
-	.verse__translation > dt::before {
-		content: "X";
-		display: inline-block;
-		margin: 0 0.5em 0 -1em;
-		border: 1px solid;
-		color: hsl(208, 57%, 83%);
-		border-color: hsl(208, 57%, 83%);
-		padding: 0.25em;
+	.verse__translation > dt {
+		font-weight: bold;
+		background-color: hsl(208, 97%, 96%) !important;
+		position: relative;
+		padding-left: 1.5em !important;
+		cursor: pointer;
 	}
+
+		.verse__translation > dt::before {
+			content: "X";
+			display: inline-block;
+			margin: 0 0.5em 0 -1em;
+			border: 1px solid;
+			color: hsl(208, 57%, 83%);
+			border-color: hsl(208, 57%, 83%);
+			padding: 0.25em;
+		}
 
 .verse__translation-hidden-item {
 	display: none;
@@ -433,13 +433,17 @@ dl.boxed {
 	float: none;
 }
 
-.root-analysis__extract-list{
+.root-analysis__extract-list {
 	list-style: none;
 }
 
-.root-analysis__extract-list > li:first-child {
-	font-weight: bold;
-	font-size: 1.25em;
+	.root-analysis__extract-list > li:first-child {
+		font-weight: bold;
+		font-size: 1.25em;
+	}
+
+.root-analysis__extract {
+	padding-bottom: 0.5em;
 }
 
 @media(max-width: 1200px) {
