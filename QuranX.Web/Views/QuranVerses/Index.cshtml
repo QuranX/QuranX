@@ -15,7 +15,7 @@
 	foreach (Verse verse in group.Verses)
 	{
 		<div class="row verse__statistics">
-			<span class="verse-reference">@verse.ChapterNumber.@verse.VerseNumber</span>
+			<span class="verse__reference">@verse.ChapterNumber.@verse.VerseNumber</span>
 			<a href="analysis/@verse.ChapterNumber.@verse.VerseNumber">
 				<dl class="count-and-label">
 					<dd>@verse.RootWordCount</dd>
@@ -41,12 +41,64 @@
 				</a>
 			}
 		</div>
+
+		<div class="verse__translation-hidden-items">
+			@foreach (VerseText translation in verse.VerseTexts)
+			{
+				<button class="verse__translation-hidden-item btn" data-translator-code="@translation.TranslatorCode">
+					@translation.TranslatorName
+				</button>
+			}
+		</div>
+
 		foreach (VerseText translation in verse.VerseTexts)
 		{
-		<dl class="boxed">
-			<dt>@translation.TranslatorName</dt>
-			<dd>@translation.Text</dd>
-		</dl>
+			<dl class="boxed verse__translation" data-translator-code="@translation.TranslatorCode">
+				<dt>@translation.TranslatorName</dt>
+				<dd>@translation.Text</dd>
+			</dl>
 		}
 	}
+}
+@section scripts {
+	<script>
+		function toggleTranslation(translatorCode) {
+			$(`.verse__translation[data-translator-code="${translatorCode}"`).toggle("collapse");
+			$(`.verse__translation-hidden-item[data-translator-code="${translatorCode}"`).toggle("collapse");
+		}
+		// Buttons to show translations
+		$(".verse__translation-hidden-item")
+			.each(function (index, elem) {
+				elem = $(elem);
+				const translatorCode = elem.data("translator-code");
+				if (window.localStorage.getItem(translatorCode)) {
+					elem.show();
+				} else {
+					elem.hide();
+				}
+			})
+			.on("click", function (ev) {
+				const elem = $(ev.target);
+				const translatorCode = elem.data("translator-code");
+				window.localStorage.removeItem(translatorCode);
+
+				toggleTranslation(translatorCode);
+			});
+		// Translations
+		$(".verse__translation>dt")
+			.each(function (index, elem) {
+				elem = $(elem.parentElement);
+				const translatorCode = elem.data("translator-code");
+				if (window.localStorage.getItem(translatorCode)) {
+					elem.hide();
+				};
+			})
+			.on("click", function (ev) {
+				const elem = $(ev.target.parentElement);
+				const translatorCode = elem.data("translator-code");
+				window.localStorage.setItem(translatorCode, true);
+
+				toggleTranslation(translatorCode);
+			});
+	</script>
 }

@@ -182,21 +182,12 @@ WriteLiteral("\t\t");
             
             #line default
             #line hidden
-WriteLiteral("\r\n\t\t<hr />\r\n\t\t<footer>\r\n\t\t\t<p>&copy; ");
-
-            
-            #line 36 "..\..\Views\Shared\_Layout.cshtml"
-                 Write(DateTime.Now.Year);
-
-            
-            #line default
-            #line hidden
-WriteLiteral(" - My ASP.NET Application</p>\r\n\t\t</footer>\r\n\t</div>\r\n\r\n");
+WriteLiteral("\r\n\t</div>\r\n\r\n");
 
 WriteLiteral("\t");
 
             
-            #line 40 "..\..\Views\Shared\_Layout.cshtml"
+            #line 36 "..\..\Views\Shared\_Layout.cshtml"
 Write(Scripts.Render("~/bundles/jquery"));
 
             
@@ -207,7 +198,7 @@ WriteLiteral("\r\n");
 WriteLiteral("\t");
 
             
-            #line 41 "..\..\Views\Shared\_Layout.cshtml"
+            #line 37 "..\..\Views\Shared\_Layout.cshtml"
 Write(Scripts.Render("~/bundles/bootstrap"));
 
             
@@ -218,7 +209,7 @@ WriteLiteral("\r\n");
 WriteLiteral("\t");
 
             
-            #line 42 "..\..\Views\Shared\_Layout.cshtml"
+            #line 38 "..\..\Views\Shared\_Layout.cshtml"
 Write(RenderSection("scripts", required: false));
 
             

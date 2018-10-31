@@ -78,13 +78,13 @@ WriteAttribute("href", Tuple.Create(" href=\"", 349), Tuple.Create("\"", 363)
 
 WriteLiteral("><span");
 
-WriteLiteral(" class=\"verse-reference\"");
+WriteLiteral(" class=\"verse__reference\"");
 
 WriteLiteral(">");
 
             
             #line 12 "..\..\Views\Shared\CommentaryView.cshtml"
-                                                       Write(verse);
+                                                        Write(verse);
 
             
             #line default

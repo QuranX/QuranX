@@ -262,7 +262,7 @@ dl.boxed {
 		padding: 0 0.5em 0.5em 0.5em;
 	}
 
-.verse-reference {
+.verse__reference {
 	display: inline-block;
 	width: auto;
 	background-color: hsl(208, 57%, 83%);
@@ -281,6 +281,42 @@ dl.boxed {
 
 	.verse__statistics > * {
 		margin-right: 0.25em;
+	}
+
+.verse__translation {
+	margin: 0.25em 0 0.75em 0;
+}
+
+.verse__translation > dt {
+	font-weight: bold;
+	background-color: hsl(208, 97%, 96%) !important;
+	position: relative;
+	padding-left: 1.5em !important;
+	cursor: pointer;
+}
+
+	.verse__translation > dt::before {
+		content: "X";
+		display: inline-block;
+		margin: 0 0.5em 0 -1em;
+		border: 1px solid;
+		color: hsl(208, 57%, 83%);
+		border-color: hsl(208, 57%, 83%);
+		padding: 0.25em;
+	}
+
+.verse__translation-hidden-item {
+	display: none;
+	background-color: hsl(208, 97%, 96%);
+	padding: 0.5em;
+	margin: 0.1em;
+	cursor: pointer;
+	font-size: 0.75em;
+	border-radius: 0.25em;
+}
+
+	.verse__translation-hidden-item:before {
+		content: '\2713';
 	}
 
 

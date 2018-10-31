@@ -149,7 +149,7 @@ WriteLiteral(" class=\"col-xs-4 col-sm-5 col-md-4 col-lg-2\"");
 
 WriteLiteral(">\r\n\t\t\t\t\t<span");
 
-WriteLiteral(" class=\"verse-reference\"");
+WriteLiteral(" class=\"verse__reference\"");
 
 WriteLiteral(">\r\n");
 
@@ -186,27 +186,27 @@ WriteLiteral(" class=\"col-xs-8 col-sm-7 col-md-8 col-lg-10 verse-analysis__word
 
 WriteLiteral(">\r\n\t\t\t\t\t<img");
 
-WriteAttribute("src", Tuple.Create(" src=\"", 957), Tuple.Create("\"", 1033)
-, Tuple.Create(Tuple.Create("", 963), Tuple.Create<System.Object, System.Int32>(Href("~/Content/Images/ArabicWords/")
-, 963), false)
+WriteAttribute("src", Tuple.Create(" src=\"", 958), Tuple.Create("\"", 1034)
+, Tuple.Create(Tuple.Create("", 964), Tuple.Create<System.Object, System.Int32>(Href("~/Content/Images/ArabicWords/")
+, 964), false)
             
             #line 28 "..\..\Views\VerseAnalysis\Index.cshtml"
-, Tuple.Create(Tuple.Create("", 992), Tuple.Create<System.Object, System.Int32>(Html.GetHexValues(word.Buckwalter)
+, Tuple.Create(Tuple.Create("", 993), Tuple.Create<System.Object, System.Int32>(Html.GetHexValues(word.Buckwalter)
             
             #line default
             #line hidden
-, 992), false)
-, Tuple.Create(Tuple.Create("", 1029), Tuple.Create(".png", 1029), true)
+, 993), false)
+, Tuple.Create(Tuple.Create("", 1030), Tuple.Create(".png", 1030), true)
 );
 
-WriteAttribute("alt", Tuple.Create(" alt=\"", 1034), Tuple.Create("\"", 1056)
+WriteAttribute("alt", Tuple.Create(" alt=\"", 1035), Tuple.Create("\"", 1057)
             
             #line 28 "..\..\Views\VerseAnalysis\Index.cshtml"
-                           , Tuple.Create(Tuple.Create("", 1040), Tuple.Create<System.Object, System.Int32>(word.Buckwalter
+                           , Tuple.Create(Tuple.Create("", 1041), Tuple.Create<System.Object, System.Int32>(word.Buckwalter
             
             #line default
             #line hidden
-, 1040), false)
+, 1041), false)
 );
 
 WriteLiteral(" />\r\n\t\t\t\t</div>\r\n\t\t\t\t<div");

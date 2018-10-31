@@ -125,13 +125,13 @@ WriteLiteral(" class=\"row verse__statistics\"");
 
 WriteLiteral(">\r\n\t\t\t<span");
 
-WriteLiteral(" class=\"verse-reference\"");
+WriteLiteral(" class=\"verse__reference\"");
 
 WriteLiteral(">");
 
             
             #line 18 "..\..\Views\QuranVerses\Index.cshtml"
-                                     Write(verse.ChapterNumber);
+                                      Write(verse.ChapterNumber);
 
             
             #line default
@@ -140,30 +140,30 @@ WriteLiteral(".");
 
             
             #line 18 "..\..\Views\QuranVerses\Index.cshtml"
-                                                          Write(verse.VerseNumber);
+                                                           Write(verse.VerseNumber);
 
             
             #line default
             #line hidden
 WriteLiteral("</span>\r\n\t\t\t<a");
 
-WriteAttribute("href", Tuple.Create(" href=\"", 573), Tuple.Create("\"", 628)
-, Tuple.Create(Tuple.Create("", 580), Tuple.Create("analysis/", 580), true)
+WriteAttribute("href", Tuple.Create(" href=\"", 574), Tuple.Create("\"", 629)
+, Tuple.Create(Tuple.Create("", 581), Tuple.Create("analysis/", 581), true)
             
             #line 19 "..\..\Views\QuranVerses\Index.cshtml"
-, Tuple.Create(Tuple.Create("", 589), Tuple.Create<System.Object, System.Int32>(verse.ChapterNumber
+, Tuple.Create(Tuple.Create("", 590), Tuple.Create<System.Object, System.Int32>(verse.ChapterNumber
             
             #line default
             #line hidden
-, 589), false)
-, Tuple.Create(Tuple.Create("", 609), Tuple.Create(".", 609), true)
+, 590), false)
+, Tuple.Create(Tuple.Create("", 610), Tuple.Create(".", 610), true)
             
             #line 19 "..\..\Views\QuranVerses\Index.cshtml"
-, Tuple.Create(Tuple.Create("", 610), Tuple.Create<System.Object, System.Int32>(verse.VerseNumber
+, Tuple.Create(Tuple.Create("", 611), Tuple.Create<System.Object, System.Int32>(verse.VerseNumber
             
             #line default
             #line hidden
-, 610), false)
+, 611), false)
 );
 
 WriteLiteral(">\r\n\t\t\t\t<dl");
@@ -197,23 +197,23 @@ WriteLiteral("</dd>\r\n\t\t\t\t\t<dt>Roots</dt>\r\n\t\t\t\t</dl>\r\n\t\t\t</a>\r
             #line hidden
 WriteLiteral("\t\t\t\t<a");
 
-WriteAttribute("href", Tuple.Create(" href=\"", 791), Tuple.Create("\"", 845)
-, Tuple.Create(Tuple.Create("", 798), Tuple.Create("tafsirs/", 798), true)
+WriteAttribute("href", Tuple.Create(" href=\"", 792), Tuple.Create("\"", 846)
+, Tuple.Create(Tuple.Create("", 799), Tuple.Create("tafsirs/", 799), true)
             
             #line 27 "..\..\Views\QuranVerses\Index.cshtml"
-, Tuple.Create(Tuple.Create("", 806), Tuple.Create<System.Object, System.Int32>(verse.ChapterNumber
+, Tuple.Create(Tuple.Create("", 807), Tuple.Create<System.Object, System.Int32>(verse.ChapterNumber
             
             #line default
             #line hidden
-, 806), false)
-, Tuple.Create(Tuple.Create("", 826), Tuple.Create(".", 826), true)
+, 807), false)
+, Tuple.Create(Tuple.Create("", 827), Tuple.Create(".", 827), true)
             
             #line 27 "..\..\Views\QuranVerses\Index.cshtml"
-, Tuple.Create(Tuple.Create("", 827), Tuple.Create<System.Object, System.Int32>(verse.VerseNumber
+, Tuple.Create(Tuple.Create("", 828), Tuple.Create<System.Object, System.Int32>(verse.VerseNumber
             
             #line default
             #line hidden
-, 827), false)
+, 828), false)
 );
 
 WriteLiteral(">\r\n\t\t\t\t\t<dl");
@@ -250,23 +250,23 @@ WriteLiteral("\t\t\t");
             #line hidden
 WriteLiteral("\t\t\t\t<a");
 
-WriteAttribute("href", Tuple.Create(" href=\"", 1018), Tuple.Create("\"", 1072)
-, Tuple.Create(Tuple.Create("", 1025), Tuple.Create("hadiths/", 1025), true)
+WriteAttribute("href", Tuple.Create(" href=\"", 1019), Tuple.Create("\"", 1073)
+, Tuple.Create(Tuple.Create("", 1026), Tuple.Create("hadiths/", 1026), true)
             
             #line 36 "..\..\Views\QuranVerses\Index.cshtml"
-, Tuple.Create(Tuple.Create("", 1033), Tuple.Create<System.Object, System.Int32>(verse.ChapterNumber
+, Tuple.Create(Tuple.Create("", 1034), Tuple.Create<System.Object, System.Int32>(verse.ChapterNumber
             
             #line default
             #line hidden
-, 1033), false)
-, Tuple.Create(Tuple.Create("", 1053), Tuple.Create(".", 1053), true)
+, 1034), false)
+, Tuple.Create(Tuple.Create("", 1054), Tuple.Create(".", 1054), true)
             
             #line 36 "..\..\Views\QuranVerses\Index.cshtml"
-, Tuple.Create(Tuple.Create("", 1054), Tuple.Create<System.Object, System.Int32>(verse.VerseNumber
+, Tuple.Create(Tuple.Create("", 1055), Tuple.Create<System.Object, System.Int32>(verse.VerseNumber
             
             #line default
             #line hidden
-, 1054), false)
+, 1055), false)
 );
 
 WriteLiteral(">\r\n\t\t\t\t\t<dl");
@@ -295,44 +295,168 @@ WriteLiteral("\t\t</div>\r\n");
 
             
             #line 44 "..\..\Views\QuranVerses\Index.cshtml"
+
+
+            
+            #line default
+            #line hidden
+WriteLiteral("\t\t<div");
+
+WriteLiteral(" class=\"verse__translation-hidden-items\"");
+
+WriteLiteral(">\r\n");
+
+            
+            #line 46 "..\..\Views\QuranVerses\Index.cshtml"
+			
+            
+            #line default
+            #line hidden
+            
+            #line 46 "..\..\Views\QuranVerses\Index.cshtml"
+             foreach (VerseText translation in verse.VerseTexts)
+			{
+
+            
+            #line default
+            #line hidden
+WriteLiteral("\t\t\t\t<button");
+
+WriteLiteral(" class=\"verse__translation-hidden-item btn\"");
+
+WriteLiteral(" data-translator-code=\"");
+
+            
+            #line 48 "..\..\Views\QuranVerses\Index.cshtml"
+                                                                                    Write(translation.TranslatorCode);
+
+            
+            #line default
+            #line hidden
+WriteLiteral("\"");
+
+WriteLiteral(">\r\n");
+
+WriteLiteral("\t\t\t\t\t");
+
+            
+            #line 49 "..\..\Views\QuranVerses\Index.cshtml"
+               Write(translation.TranslatorName);
+
+            
+            #line default
+            #line hidden
+WriteLiteral("\r\n\t\t\t\t</button>\r\n");
+
+            
+            #line 51 "..\..\Views\QuranVerses\Index.cshtml"
+			}
+
+            
+            #line default
+            #line hidden
+WriteLiteral("\t\t</div>\r\n");
+
+            
+            #line 53 "..\..\Views\QuranVerses\Index.cshtml"
+
 		foreach (VerseText translation in verse.VerseTexts)
 		{
 
             
             #line default
             #line hidden
-WriteLiteral("\t\t<dl");
+WriteLiteral("\t\t\t<dl");
 
-WriteLiteral(" class=\"boxed\"");
+WriteLiteral(" class=\"boxed verse__translation\"");
 
-WriteLiteral(">\r\n\t\t\t<dt>");
-
-            
-            #line 47 "..\..\Views\QuranVerses\Index.cshtml"
-           Write(translation.TranslatorName);
+WriteLiteral(" data-translator-code=\"");
 
             
-            #line default
-            #line hidden
-WriteLiteral("</dt>\r\n\t\t\t<dd>");
-
-            
-            #line 48 "..\..\Views\QuranVerses\Index.cshtml"
-           Write(translation.Text);
+            #line 56 "..\..\Views\QuranVerses\Index.cshtml"
+                                                                  Write(translation.TranslatorCode);
 
             
             #line default
             #line hidden
-WriteLiteral("</dd>\r\n\t\t</dl>\r\n");
+WriteLiteral("\"");
+
+WriteLiteral(">\r\n\t\t\t\t<dt>");
 
             
-            #line 50 "..\..\Views\QuranVerses\Index.cshtml"
+            #line 57 "..\..\Views\QuranVerses\Index.cshtml"
+               Write(translation.TranslatorName);
+
+            
+            #line default
+            #line hidden
+WriteLiteral("</dt>\r\n\t\t\t\t<dd>");
+
+            
+            #line 58 "..\..\Views\QuranVerses\Index.cshtml"
+               Write(translation.Text);
+
+            
+            #line default
+            #line hidden
+WriteLiteral("</dd>\r\n\t\t\t</dl>\r\n");
+
+            
+            #line 60 "..\..\Views\QuranVerses\Index.cshtml"
 		}
 	}
 }
+
             
             #line default
             #line hidden
+DefineSection("scripts", () => {
+
+WriteLiteral(@"
+	<script>
+		function toggleTranslation(translatorCode) {
+			$(`.verse__translation[data-translator-code=""${translatorCode}""`).toggle(""collapse"");
+			$(`.verse__translation-hidden-item[data-translator-code=""${translatorCode}""`).toggle(""collapse"");
+		}
+		// Buttons to show translations
+		$("".verse__translation-hidden-item"")
+			.each(function (index, elem) {
+				elem = $(elem);
+				const translatorCode = elem.data(""translator-code"");
+				if (window.localStorage.getItem(translatorCode)) {
+					elem.show();
+				} else {
+					elem.hide();
+				}
+			})
+			.on(""click"", function (ev) {
+				const elem = $(ev.target);
+				const translatorCode = elem.data(""translator-code"");
+				window.localStorage.removeItem(translatorCode);
+
+				toggleTranslation(translatorCode);
+			});
+		// Translations
+		$("".verse__translation>dt"")
+			.each(function (index, elem) {
+				elem = $(elem.parentElement);
+				const translatorCode = elem.data(""translator-code"");
+				if (window.localStorage.getItem(translatorCode)) {
+					elem.hide();
+				};
+			})
+			.on(""click"", function (ev) {
+				const elem = $(ev.target.parentElement);
+				const translatorCode = elem.data(""translator-code"");
+				window.localStorage.setItem(translatorCode, true);
+
+				toggleTranslation(translatorCode);
+			});
+	</script>
+");
+
+});
+
         }
     }
 }
