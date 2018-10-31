@@ -379,12 +379,12 @@ dl.boxed {
 }
 
 .hadith__text-arabic {
-	background-color: hsl(0, 0%, 94%);
+	background-color: hsl(208, 97%, 96%) !important;
 	text-align: right;
 }
 
 .hadith__references {
-	background-color: hsl(0, 0%, 94%);
+	background-color: hsl(208, 97%, 96%) !important;
 	padding: 1em;
 }
 
@@ -421,6 +421,26 @@ dl.boxed {
 	margin-left: auto;
 	margin-right: auto;
 	float: none;
+}
+
+.root-analysis__extract-list{
+	list-style: none;
+}
+
+.root-analysis__extract-list > li:first-child {
+	font-weight: bold;
+	font-size: 1.25em;
+}
+
+@media(max-width: 1200px) {
+	.root-analysis__extract-text {
+		margin: 1em 0 1em 0;
+		text-align: center;
+	}
+}
+
+.small-caps {
+	font-variant: small-caps;
 }
 
 body {

@@ -7,22 +7,26 @@
 }
 <h1>The Quran</h1>
 <h2>Verses for root @Model.ArabicRoot (@Model.RootLetterNames)</h2>
-<ul class="root-analysis__extract-list">
-	<li class="root-analysis__extract-header row">
-		<div class="col-xs-3 col-lg-1">Verse</div>
-		<div class="col-xs-3 col-lg-1">Type</div>
-		<div class="col-xs-3 col-lg-1">Arabic</div>
-		<div class="col-xs-3 col-lg-1">Transliteration</div>
+<ul class="root-analysis__extract-list striped">
+	<li class="root-analysis__extract-header row hidden-xs">
+		<div class="col-sm-3 col-lg-1">Verse</div>
+		<div class="col-sm-3 col-lg-1">Type</div>
+		<div class="col-sm-3 col-lg-1">Arabic</div>
+		<div class="col-sm-3 col-lg-1">Transliteration</div>
 	</li>
 	@foreach (VerseViewModel extract in Model.Extracts)
 	{
-		<li class="root-analysis__extract">
-			<div class="col-xs-3 col-lg-1">@extract.ChapterNumber.@extract.VerseNumber</div>
-			<div class="col-xs-3 col-lg-1">@extract.SelectedWordPart.Description</div>
-			<div class="col-xs-3 col-lg-1">@extract.SelectedWord.Arabic</div>
-			<div class="col-xs-3 col-lg-1">@extract.SelectedWord.Buckwalter</div>
-			<div class="col-xs-12 col-lg-8">
-				<div class="row root-analysis__extract-english">
+		<li class="root-analysis__extract row">
+			<div class="col-xs-4 col-sm-3 col-lg-1">
+				<div class="verse__reference">
+					@extract.ChapterNumber.@extract.VerseNumber
+				</div>
+			</div>
+			<div class="col-xs-8 col-sm-3 col-lg-1 small-caps">@extract.SelectedWordPart.Description</div>
+			<div class="col-xs-8 col-sm-3 col-lg-1">@extract.SelectedWord.Arabic</div>
+			<div class="col-xs-8 col-xs-push-4 col-sm-push-0 col-sm-3 col-lg-1 small-caps">@extract.SelectedWord.Buckwalter</div>
+			<div class="col-xs-12 col-sm-12 col-lg-8 root-analysis__extract-text">
+				<div class="root-analysis__extract-english">
 					@foreach(VerseAnalysisWord word in extract.Words)
 					{
 						if (word == extract.SelectedWord)
@@ -35,7 +39,7 @@
 						}
 					}
 				</div>
-				<div class="row root-analysis__extract-arabic">
+				<div class="root-analysis__extract-arabic">
 					@foreach (VerseAnalysisWord word in extract.Words)
 					{
 						if (word == extract.SelectedWord)
