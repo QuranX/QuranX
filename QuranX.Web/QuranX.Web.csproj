@@ -309,6 +309,13 @@
     <Content Include="App_Data\_1.cfs" />
     <Content Include="App_Data\_2.cfs" />
     <Content Include="App_Data\_3.cfs" />
+    <Content Include="App_Data\_4.cfs" />
+    <Content Include="App_Data\_5.fnm" />
+    <Content Include="App_Data\_5.frq" />
+    <Content Include="App_Data\_5.nrm" />
+    <Content Include="App_Data\_5.prx" />
+    <Content Include="App_Data\_5.tii" />
+    <Content Include="App_Data\_5.tis" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
@@ -17928,14 +17935,7 @@
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="App_Data\write.lock" />
-    <Content Include="App_Data\_4.cfs" />
-    <Content Include="App_Data\_5.fnm" />
-    <Content Include="App_Data\_5.frq" />
-    <Content Include="App_Data\_5.nrm" />
-    <Content Include="App_Data\_5.prx" />
-    <Content Include="App_Data\_5.tii" />
-    <Content Include="App_Data\_5.tis" />
+    <None Include="Properties\PublishProfiles\D_TEMP_PUBLISH.pubxml" />
     <None Include="Properties\PublishProfiles\PetePlayground - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\debounce.js" />

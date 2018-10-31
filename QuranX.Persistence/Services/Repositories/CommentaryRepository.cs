@@ -63,7 +63,7 @@ namespace QuranX.Persistence.Services.Repositories
 				.OrderBy(x => x.CommentatorCode)
 				.ThenBy(x => x.ChapterNumber)
 				.ThenBy(x => x.FirstVerseNumber)
-				.Single();
+				.SingleOrDefault();
 		}
 
 		public IEnumerable<VerseRangeReference> GetVerseRangeReferences(string commentatorCode)

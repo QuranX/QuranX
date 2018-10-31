@@ -42,10 +42,17 @@ namespace QuranX.Web.Factories
 				.ToDictionary(x => x.Code, StringComparer.InvariantCultureIgnoreCase);
 
 			Chapter chapter = ChapterRepository.Get(chapterNumber);
-			IEnumerable<Commentary> commentaries =
-				string.IsNullOrEmpty(commentatorCode)
-				? CommentaryRepository.GetForVerse(chapterNumber, verseNumber)
-				: new Commentary[] { CommentaryRepository.GetForVerse(commentatorCode, chapterNumber, verseNumber) };
+			IEnumerable<Commentary> commentaries;
+			if (string.IsNullOrEmpty(commentatorCode))
+				commentaries = CommentaryRepository.GetForVerse(chapterNumber, verseNumber);
+			else
+			{
+				commentaries = new Commentary[]
+				{
+					CommentaryRepository.GetForVerse(commentatorCode, chapterNumber, verseNumber)
+				}
+				.Where(x => x != null);
+			}
 
 			IEnumerable<CommentatorAndCommentary> commentatorsAndCommentaries =
 				commentaries

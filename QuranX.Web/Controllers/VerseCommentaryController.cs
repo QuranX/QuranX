@@ -34,6 +34,13 @@ namespace QuranX.Web.Controllers
 				commentatorCode: commentatorCode,
 				chapterNumber: chapterNumber,
 				verseNumber: verseNumber);
+			if (commentary == null)
+				commentary = new Commentary(
+					commentatorCode: commentatorCode,
+					chapterNumber: chapterNumber,
+					firstVerseNumber: verseNumber,
+					lastVerseNumber: verseNumber,
+					text: new string[] { "No tafsir found" });
 			var commentatorAndCommentary = new CommentatorAndCommentary(
 				commentator: commentator,
 				commentary: commentary);
