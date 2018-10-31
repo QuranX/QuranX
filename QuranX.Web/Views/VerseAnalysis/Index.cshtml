@@ -15,7 +15,7 @@
 </h3>
 @{ Html.RenderPartial("SelectChapterAndVerse", Model.SelectChapterAndVerse); }
 <div class="row">
-	<ul class="verse-analysis__word-list col-sm-11 col-md-10 col-lg-9 center">
+	<ul class="verse-analysis__word-list col-sm-11 col-md-10 col-lg-9 center striped">
 		@foreach (var word in Model.VerseAnalysis.Words)
 		{
 			<li class="verse-analysis__word row">

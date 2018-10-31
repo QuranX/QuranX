@@ -63,7 +63,7 @@ Write(ViewBag.Title);
             #line hidden
 WriteLiteral("</h1>\r\n<ol");
 
-WriteLiteral(" class=\"hadithcollection__collection-list\"");
+WriteLiteral(" class=\"hadithcollection__collection-list striped\"");
 
 WriteLiteral(">\r\n");
 
@@ -83,24 +83,24 @@ WriteLiteral(">\r\n");
             #line hidden
 WriteLiteral("\t\t<li>\r\n\t\t\t<a");
 
-WriteAttribute("href", Tuple.Create(" href=\"", 263), Tuple.Create("\"", 328)
-, Tuple.Create(Tuple.Create("", 270), Tuple.Create("/Hadith/", 270), true)
+WriteAttribute("href", Tuple.Create(" href=\"", 271), Tuple.Create("\"", 336)
+, Tuple.Create(Tuple.Create("", 278), Tuple.Create("/Hadith/", 278), true)
             
             #line 13 "..\..\Views\HadithCollections\Index.cshtml"
-, Tuple.Create(Tuple.Create("", 278), Tuple.Create<System.Object, System.Int32>(collection.Code
+, Tuple.Create(Tuple.Create("", 286), Tuple.Create<System.Object, System.Int32>(collection.Code
             
             #line default
             #line hidden
-, 278), false)
-, Tuple.Create(Tuple.Create("", 294), Tuple.Create("/", 294), true)
+, 286), false)
+, Tuple.Create(Tuple.Create("", 302), Tuple.Create("/", 302), true)
             
             #line 13 "..\..\Views\HadithCollections\Index.cshtml"
-, Tuple.Create(Tuple.Create("", 295), Tuple.Create<System.Object, System.Int32>(collection.PrimaryReferenceCode
+, Tuple.Create(Tuple.Create("", 303), Tuple.Create<System.Object, System.Int32>(collection.PrimaryReferenceCode
             
             #line default
             #line hidden
-, 295), false)
-, Tuple.Create(Tuple.Create("", 327), Tuple.Create("/", 327), true)
+, 303), false)
+, Tuple.Create(Tuple.Create("", 335), Tuple.Create("/", 335), true)
 );
 
 WriteLiteral(">\r\n\t\t\t\t<div");

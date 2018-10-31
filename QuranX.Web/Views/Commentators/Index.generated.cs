@@ -63,7 +63,7 @@ Write(ViewBag.Title);
             #line hidden
 WriteLiteral("</h1>\r\n<ol");
 
-WriteLiteral(" class=\"commentary__commentator-list\"");
+WriteLiteral(" class=\"commentary__commentator-list striped\"");
 
 WriteLiteral(">\r\n");
 
@@ -83,16 +83,16 @@ WriteLiteral(">\r\n");
             #line hidden
 WriteLiteral("\t\t<li>\r\n\t\t\t<a");
 
-WriteAttribute("href", Tuple.Create(" href=\"", 252), Tuple.Create("\"", 288)
-, Tuple.Create(Tuple.Create("", 259), Tuple.Create("/Tafsir/", 259), true)
+WriteAttribute("href", Tuple.Create(" href=\"", 260), Tuple.Create("\"", 296)
+, Tuple.Create(Tuple.Create("", 267), Tuple.Create("/Tafsir/", 267), true)
             
             #line 13 "..\..\Views\Commentators\Index.cshtml"
-, Tuple.Create(Tuple.Create("", 267), Tuple.Create<System.Object, System.Int32>(commentator.Code
+, Tuple.Create(Tuple.Create("", 275), Tuple.Create<System.Object, System.Int32>(commentator.Code
             
             #line default
             #line hidden
-, 267), false)
-, Tuple.Create(Tuple.Create("", 284), Tuple.Create("/1.1", 284), true)
+, 275), false)
+, Tuple.Create(Tuple.Create("", 292), Tuple.Create("/1.1", 292), true)
 );
 
 WriteLiteral(">\r\n\t\t\t\t<div");
