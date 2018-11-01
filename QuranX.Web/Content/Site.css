@@ -256,21 +256,21 @@ dl > dd:not(:first-child) {
 	margin-top: 0.5em;
 }
 
-dl.boxed {
+.boxed {
 	border: 2px solid #ddd;
 	border-radius: 0.5em;
 	box-shadow: #f0f0f0 5px 5px;
 	padding: 2px;
 }
 
-	dl.boxed > dt {
-		background-color: hsl(208, 97%, 999%);
-		padding: 0.25em 0.5em;
-	}
+dl.boxed > dt {
+	background-color: hsl(208, 97%, 999%);
+	padding: 0.25em 0.5em;
+}
 
-	dl.boxed > dd {
-		padding: 0 0.5em 0.5em 0.5em;
-	}
+dl.boxed > dd {
+	padding: 0 0.5em 0.5em 0.5em;
+}
 
 .verse__reference {
 	display: inline-block;
@@ -293,9 +293,13 @@ dl.boxed {
 		margin-right: 0.25em;
 	}
 
-.verse__translation {
-	margin: 0.25em 0 0.75em 0;
+.verse__translations {
+	margin-bottom: 1em;
 }
+
+	.verse__translation {
+		margin: 0.25em 0 0.75em 0;
+	}
 
 	.verse__translation > dt {
 		font-weight: bold;
@@ -313,6 +317,10 @@ dl.boxed {
 			color: hsl(208, 57%, 83%);
 			border-color: hsl(208, 57%, 83%);
 			padding: 0.25em;
+		}
+
+		.verse__translation > dd {
+			padding: 0 1em 0 2.5em;
 		}
 
 .verse__translation-hidden-item {

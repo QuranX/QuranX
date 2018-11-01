@@ -52,13 +52,15 @@
 			}
 		</div>
 
-		foreach (VerseText translation in verse.VerseTexts)
-		{
-			<dl class="boxed verse__translation" data-translator-code="@translation.TranslatorCode">
-				<dt>@translation.TranslatorName</dt>
-				<dd>@translation.Text</dd>
-			</dl>
-		}
+		<div class="verse__translations boxed">
+			@foreach (VerseText translation in verse.VerseTexts)
+			{
+				<dl class="verse__translation" data-translator-code="@translation.TranslatorCode">
+					<dt>@translation.TranslatorName</dt>
+					<dd>@translation.Text</dd>
+				</dl>
+			}
+		</div>
 	}
 }
 @section scripts {

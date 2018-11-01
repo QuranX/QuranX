@@ -351,50 +351,76 @@ WriteLiteral("\t\t</div>\r\n");
             
             #line 54 "..\..\Views\QuranVerses\QuranVerses.cshtml"
 
-		foreach (VerseText translation in verse.VerseTexts)
-		{
 
             
             #line default
             #line hidden
-WriteLiteral("\t\t\t<dl");
+WriteLiteral("\t\t<div");
 
-WriteLiteral(" class=\"boxed verse__translation\"");
+WriteLiteral(" class=\"verse__translations boxed\"");
+
+WriteLiteral(">\r\n");
+
+            
+            #line 56 "..\..\Views\QuranVerses\QuranVerses.cshtml"
+			
+            
+            #line default
+            #line hidden
+            
+            #line 56 "..\..\Views\QuranVerses\QuranVerses.cshtml"
+             foreach (VerseText translation in verse.VerseTexts)
+			{
+
+            
+            #line default
+            #line hidden
+WriteLiteral("\t\t\t\t<dl");
+
+WriteLiteral(" class=\"verse__translation\"");
 
 WriteLiteral(" data-translator-code=\"");
 
             
-            #line 57 "..\..\Views\QuranVerses\QuranVerses.cshtml"
-                                                                  Write(translation.TranslatorCode);
+            #line 58 "..\..\Views\QuranVerses\QuranVerses.cshtml"
+                                                                Write(translation.TranslatorCode);
 
             
             #line default
             #line hidden
 WriteLiteral("\"");
 
-WriteLiteral(">\r\n\t\t\t\t<dt>");
-
-            
-            #line 58 "..\..\Views\QuranVerses\QuranVerses.cshtml"
-               Write(translation.TranslatorName);
-
-            
-            #line default
-            #line hidden
-WriteLiteral("</dt>\r\n\t\t\t\t<dd>");
+WriteLiteral(">\r\n\t\t\t\t\t<dt>");
 
             
             #line 59 "..\..\Views\QuranVerses\QuranVerses.cshtml"
-               Write(translation.Text);
+                   Write(translation.TranslatorName);
 
             
             #line default
             #line hidden
-WriteLiteral("</dd>\r\n\t\t\t</dl>\r\n");
+WriteLiteral("</dt>\r\n\t\t\t\t\t<dd>");
 
             
-            #line 61 "..\..\Views\QuranVerses\QuranVerses.cshtml"
-		}
+            #line 60 "..\..\Views\QuranVerses\QuranVerses.cshtml"
+                   Write(translation.Text);
+
+            
+            #line default
+            #line hidden
+WriteLiteral("</dd>\r\n\t\t\t\t</dl>\r\n");
+
+            
+            #line 62 "..\..\Views\QuranVerses\QuranVerses.cshtml"
+			}
+
+            
+            #line default
+            #line hidden
+WriteLiteral("\t\t</div>\r\n");
+
+            
+            #line 64 "..\..\Views\QuranVerses\QuranVerses.cshtml"
 	}
 }
 
