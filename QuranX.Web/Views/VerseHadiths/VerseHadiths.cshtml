@@ -3,6 +3,7 @@
 
 @{
 	ViewBag.Title = $"Hadiths for {Model.Chapter.ChapterNumber}.{Model.VerseNumber}";
+	string hadithsTitle = Model.Hadiths.Count() == 1 ? "hadith" : "hadiths";
 }
 <h1>The Quran</h1>
 <h2>
@@ -11,6 +12,10 @@
 	</a>
 </h2>
 <h3>@Model.Chapter.EnglishName - @Model.Chapter.ArabicName</h3>
+@if (Model.Hadiths.Count() != 1)
+{
+	<h4>@Model.Hadiths.Count() @hadithsTitle</h4>
+}
 @foreach (HadithViewModel hadithVM in Model.Hadiths)
 {
 	@Html.Partial("HadithView", hadithVM)

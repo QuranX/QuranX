@@ -53,6 +53,7 @@ namespace ASP
             
             #line 5 "..\..\Views\HadithIndex\Hadiths.cshtml"
   
+	string hadithsTitle = Model.Hadiths.Count == 1 ? "hadith" : "hadiths";
 	ViewBag.Title = $"{Model.HadithIndexHeaderViewModel.Collection.Name} Hadiths";
 
             
@@ -61,7 +62,7 @@ namespace ASP
 WriteLiteral("\r\n\r\n");
 
             
-            #line 9 "..\..\Views\HadithIndex\Hadiths.cshtml"
+            #line 10 "..\..\Views\HadithIndex\Hadiths.cshtml"
 Write(Html.Partial("HadithIndexHeader", Model.HadithIndexHeaderViewModel));
 
             
@@ -70,7 +71,42 @@ Write(Html.Partial("HadithIndexHeader", Model.HadithIndexHeaderViewModel));
 WriteLiteral("\r\n");
 
             
-            #line 10 "..\..\Views\HadithIndex\Hadiths.cshtml"
+            #line 11 "..\..\Views\HadithIndex\Hadiths.cshtml"
+ if (@Model.Hadiths.Count() != 1)
+{
+
+            
+            #line default
+            #line hidden
+WriteLiteral("\t<h4>");
+
+            
+            #line 13 "..\..\Views\HadithIndex\Hadiths.cshtml"
+   Write(Model.Hadiths.Count());
+
+            
+            #line default
+            #line hidden
+WriteLiteral(" ");
+
+            
+            #line 13 "..\..\Views\HadithIndex\Hadiths.cshtml"
+                          Write(hadithsTitle);
+
+            
+            #line default
+            #line hidden
+WriteLiteral("</h4>\r\n");
+
+            
+            #line 14 "..\..\Views\HadithIndex\Hadiths.cshtml"
+}
+
+            
+            #line default
+            #line hidden
+            
+            #line 15 "..\..\Views\HadithIndex\Hadiths.cshtml"
  foreach (HadithViewModel hadithVM in Model.Hadiths)
 {
 	
@@ -78,14 +114,14 @@ WriteLiteral("\r\n");
             #line default
             #line hidden
             
-            #line 12 "..\..\Views\HadithIndex\Hadiths.cshtml"
+            #line 17 "..\..\Views\HadithIndex\Hadiths.cshtml"
 Write(Html.Partial("HadithView", hadithVM));
 
             
             #line default
             #line hidden
             
-            #line 12 "..\..\Views\HadithIndex\Hadiths.cshtml"
+            #line 17 "..\..\Views\HadithIndex\Hadiths.cshtml"
                                          
 }
 
