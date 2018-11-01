@@ -156,7 +156,7 @@ WriteAttribute("name", Tuple.Create(" name=\"", 687), Tuple.Create("\"", 715)
 , 699), false)
 );
 
-WriteLiteral(" />\r\n\t\t\t\t<div");
+WriteLiteral("></a>\r\n\t\t\t\t<div");
 
 WriteLiteral(" class=\"col-xs-4 col-sm-5 col-md-4 col-lg-2\"");
 
@@ -199,27 +199,27 @@ WriteLiteral(" class=\"col-xs-8 col-sm-7 col-md-8 col-lg-10 verse-analysis__word
 
 WriteLiteral(">\r\n\t\t\t\t\t<img");
 
-WriteAttribute("src", Tuple.Create(" src=\"", 1004), Tuple.Create("\"", 1080)
-, Tuple.Create(Tuple.Create("", 1010), Tuple.Create<System.Object, System.Int32>(Href("~/Content/Images/ArabicWords/")
-, 1010), false)
+WriteAttribute("src", Tuple.Create(" src=\"", 1006), Tuple.Create("\"", 1082)
+, Tuple.Create(Tuple.Create("", 1012), Tuple.Create<System.Object, System.Int32>(Href("~/Content/Images/ArabicWords/")
+, 1012), false)
             
             #line 29 "..\..\Views\VerseAnalysis\VerseAnalysis.cshtml"
-, Tuple.Create(Tuple.Create("", 1039), Tuple.Create<System.Object, System.Int32>(Html.GetHexValues(word.Buckwalter)
+, Tuple.Create(Tuple.Create("", 1041), Tuple.Create<System.Object, System.Int32>(Html.GetHexValues(word.Buckwalter)
             
             #line default
             #line hidden
-, 1039), false)
-, Tuple.Create(Tuple.Create("", 1076), Tuple.Create(".png", 1076), true)
+, 1041), false)
+, Tuple.Create(Tuple.Create("", 1078), Tuple.Create(".png", 1078), true)
 );
 
-WriteAttribute("alt", Tuple.Create(" alt=\"", 1081), Tuple.Create("\"", 1103)
+WriteAttribute("alt", Tuple.Create(" alt=\"", 1083), Tuple.Create("\"", 1105)
             
             #line 29 "..\..\Views\VerseAnalysis\VerseAnalysis.cshtml"
-                           , Tuple.Create(Tuple.Create("", 1087), Tuple.Create<System.Object, System.Int32>(word.Buckwalter
+                           , Tuple.Create(Tuple.Create("", 1089), Tuple.Create<System.Object, System.Int32>(word.Buckwalter
             
             #line default
             #line hidden
-, 1087), false)
+, 1089), false)
 );
 
 WriteLiteral(" />\r\n\t\t\t\t</div>\r\n\t\t\t\t<div");

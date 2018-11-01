@@ -16,7 +16,7 @@
         int wordCount = QuranX.SharedData.Document.CorpusDocument[item.Chapter.Index, item.Verse.Index].Words.Sum(x => x.Parts.Count());
 
         <article class="verse">
-            <a name="@item.Chapter.Index.@item.Verse.Index"/>
+            <a name="@item.Chapter.Index.@item.Verse.Index"></a>
             <span class="verseReference" itemprop="articleSection">@item.Chapter.Index.@item.Verse.Index</span>
             <a href="@Url.Action(actionName: "Verse", controllerName: "Analysis", routeValues: new { Chapter = item.Chapter.Index, Verse = item.Verse.Index })">
                 <dl class="countAndLabel">

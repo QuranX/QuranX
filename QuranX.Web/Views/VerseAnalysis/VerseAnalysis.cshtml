@@ -19,7 +19,7 @@
 		@foreach (var word in Model.VerseAnalysis.Words)
 		{
 			<li class="verse-analysis__word row">
-				<a name="word_@word.WordNumber" />
+				<a name="word_@word.WordNumber"></a>
 				<div class="col-xs-4 col-sm-5 col-md-4 col-lg-2">
 					<span class="verse__reference">
 						@Model.Chapter.ChapterNumber.@Model.VerseNumber.@word.WordNumber
