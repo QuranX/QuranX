@@ -10,13 +10,18 @@
 <h1>@ViewBag.Title</h1>
 @{ Html.RenderPartial("SelectChapterAndVerse", Model.SelectChapterAndVerse); }
 
-<div class="verse__translation-hidden-items">
-	@foreach (Translator translator in Model.Translators)
-	{
-		<button class="verse__translation-hidden-item btn" data-translator-code="@translator.Code">
-			@translator.Name
-		</button>
-	}
+<div class="dropdown">
+	<button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+		Translations
+	</button>
+	<div class="dropdown-menu verse__translation-hidden-items" aria-labelledby="dropdownMenuButton">
+		@foreach (Translator translator in Model.Translators)
+		{
+			<button class="verse__translation-hidden-item btn" data-translator-code="@translator.Code">
+				@translator.Name
+			</button>
+		}
+	</div>
 </div>
 
 @foreach (ChapterAndVerseSelection group in Model.DisplayVerses)
