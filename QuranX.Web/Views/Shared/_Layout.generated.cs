@@ -57,7 +57,7 @@ WriteLiteral(">\r\n\t<title>");
             
             #line default
             #line hidden
-WriteLiteral(" - My ASP.NET Application</title>\r\n");
+WriteLiteral("</title>\r\n");
 
 WriteLiteral("\t");
 
