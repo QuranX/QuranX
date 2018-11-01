@@ -9,6 +9,16 @@
 
 <h1>@ViewBag.Title</h1>
 @{ Html.RenderPartial("SelectChapterAndVerse", Model.SelectChapterAndVerse); }
+
+<div class="verse__translation-hidden-items">
+	@foreach (Translator translator in Model.Translators)
+	{
+		<button class="verse__translation-hidden-item btn" data-translator-code="@translator.Code">
+			@translator.Name
+		</button>
+	}
+</div>
+
 @foreach (ChapterAndVerseSelection group in Model.DisplayVerses)
 {
 	<h2>@group.Chapter.EnglishName - @group.Chapter.ArabicName</h2>
@@ -39,15 +49,6 @@
 						<dt>Hadiths</dt>
 					</dl>
 				</a>
-			}
-		</div>
-
-		<div class="verse__translation-hidden-items">
-			@foreach (VerseText translation in verse.VerseTexts)
-			{
-				<button class="verse__translation-hidden-item btn" data-translator-code="@translation.TranslatorCode">
-					@translation.TranslatorName
-				</button>
 			}
 		</div>
 
