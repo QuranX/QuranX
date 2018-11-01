@@ -7,13 +7,50 @@
 }
 
 .striped > * {
-	background-color: hsl(208, 97%, 96%);
+	background-color: hsl(69, 51.4%, 90.8%);
 }
 
 	.striped > *:nth-child(2n) {
-		background-color: hsl(208, 97%, 99%);
+		background-color: white;
 	}
 
+.quranx.navbar {
+	background-image: url(/Content/Images/HeaderRepeat.jpg);
+	font-weight: bold;
+	border: none;
+}
+
+.quranx.navbar-header {
+	background-image: url(/Content/Images/HeaderRepeat.jpg);
+}
+
+.quranx.navbar-collapse {
+	background-image: url(/Content/Images/HeaderRepeat.jpg);
+	border: none;
+}
+
+.quranx.navbar-toggle {
+	background-color: hsl(69, 39.2%, 44.5%);
+	color: white;
+}
+
+	.quranx.navbar-toggle:hover {
+		background-color: hsl(69, 41.4%, 48.8%);
+		color: white;
+	}
+
+	.quranx.navbar-toggle:focus {
+		background-color: hsl(69, 41.4%, 48.8%);
+		color: white;
+	}
+
+.navbar-collapse {
+	background-color: hsl(69, 10%, 10%) !important;
+}
+
+.navbar a {
+	color: white !important;
+}
 
 .hadith-index__list {
 	padding: 0;
@@ -120,16 +157,22 @@
 	margin-right: auto;
 	margin-bottom: 1em;
 	width: 100%;
-	background-color: hsl(208, 57%, 83%) !important;
+	background-color: hsl(69, 41.4%, 48.8%) !important;
 	padding: 0.5em 1em;
 	border-radius: 0.25em;
-	border: 2px solid hsl(208, 17%, 73%);
+	border: 2px solid hsl(69, 39.2%, 44.5%);
+	color: white;
 }
 
 @media (min-width: 550px) {
 	.chapter-and-verse-selector {
 		width: 50rem;
 	}
+}
+
+.btn.dropdown-toggle {
+	background-color: hsl(69, 41.4%, 48.8%);
+	color: white;
 }
 
 .verse-analysis__word-list {
@@ -184,6 +227,14 @@ h1, h2, h3, h4, h5, h6 {
 	margin: 0.25em 0;
 }
 
+h1 {
+	color: hsl(69, 39.2%, 44.5%);
+}
+
+h2, h3, h4, h5, h6 {
+	color: hsl(69, 41.4%, 48.8%);
+}
+
 @media(max-width: 480px) {
 	.commentary__commentator-list > li {
 		margin-bottom: .25em;
@@ -225,7 +276,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 dl.count-and-label {
-	background-color: hsl(208, 57%, 83%);
+	background-color: hsl(69, 57%, 83%);
 	padding: 0.25em 0.5em;
 	border-radius: 0.5em;
 	border: none;
@@ -275,7 +326,7 @@ dl.boxed > dd {
 .verse__reference {
 	display: inline-block;
 	width: auto;
-	background-color: hsl(208, 57%, 83%);
+	background-color: hsl(69, 57%, 83%);
 	padding: 0.25em 0.5em;
 	border-radius: 0.5em;
 	font-size: 1.25em;
@@ -297,13 +348,13 @@ dl.boxed > dd {
 	margin-bottom: 1em;
 }
 
-	.verse__translation {
-		margin: 0.25em 0 0.75em 0;
-	}
+.verse__translation {
+	margin: 0.25em 0 0.75em 0;
+}
 
 	.verse__translation > dt {
 		font-weight: bold;
-		background-color: hsl(208, 97%, 96%) !important;
+		background-color: hsl(69, 57%, 83%) !important;
 		position: relative;
 		padding-left: 1.5em !important;
 		cursor: pointer;
@@ -319,13 +370,13 @@ dl.boxed > dd {
 			padding: 0.25em;
 		}
 
-		.verse__translation > dd {
-			padding: 0 1em 0 2.5em;
-		}
+	.verse__translation > dd {
+		padding: 0 1em 0 2.5em;
+	}
 
 .verse__translation-hidden-item {
 	display: none;
-	background-color: hsl(208, 97%, 96%);
+	background-color: hsl(69, 57%, 83%);
 	padding: 0.5em;
 	margin: 0.1em;
 	cursor: pointer;
@@ -488,4 +539,8 @@ input,
 select,
 textarea {
 	max-width: 280px;
+}
+
+a {
+	text-decoration: underline dotted;
 }

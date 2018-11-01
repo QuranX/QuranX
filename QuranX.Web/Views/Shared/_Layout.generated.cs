@@ -103,47 +103,35 @@ Write(Scripts.Render("~/bundles/site"));
             #line hidden
 WriteLiteral("\r\n</head>\r\n<body>\r\n\t<div");
 
-WriteLiteral(" class=\"navbar navbar-inverse navbar-fixed-top\"");
+WriteLiteral(" class=\"quranx navbar navbar-inverse navbar-fixed-top\"");
 
 WriteLiteral(">\r\n\t\t<div>\r\n\t\t\t<div");
 
-WriteLiteral(" class=\"navbar-header\"");
+WriteLiteral(" class=\"quranx navbar-header\"");
 
 WriteLiteral(">\r\n\t\t\t\t<button");
 
 WriteLiteral(" type=\"button\"");
 
-WriteLiteral(" class=\"navbar-toggle\"");
+WriteLiteral(" class=\"quranx navbar-toggle\"");
 
 WriteLiteral(" data-toggle=\"collapse\"");
 
 WriteLiteral(" data-target=\".navbar-collapse\"");
 
-WriteLiteral(">\r\n\t\t\t\t\t<span");
-
-WriteLiteral(" class=\"icon-bar\"");
-
-WriteLiteral("></span>\r\n\t\t\t\t\t<span");
-
-WriteLiteral(" class=\"icon-bar\"");
-
-WriteLiteral("></span>\r\n\t\t\t\t\t<span");
-
-WriteLiteral(" class=\"icon-bar\"");
-
-WriteLiteral("></span>\r\n\t\t\t\t</button>\r\n\t\t\t\t<a");
+WriteLiteral(">\r\n\t\t\t\t\tMENU\r\n\t\t\t\t</button>\r\n\t\t\t\t<a");
 
 WriteLiteral(" href=\"/1.1\"");
 
-WriteLiteral(" class=\"navbar-brand\"");
+WriteLiteral(" class=\"quranx navbar-brand\"");
 
 WriteLiteral(">QuranX</a>\r\n\t\t\t</div>\r\n\t\t\t<div");
 
-WriteLiteral(" class=\"navbar-collapse collapse\"");
+WriteLiteral(" class=\"quranx navbar-collapse collapse\"");
 
 WriteLiteral(">\r\n\t\t\t\t<ul");
 
-WriteLiteral(" class=\"nav navbar-nav\"");
+WriteLiteral(" class=\"quranx nav navbar-nav\"");
 
 WriteLiteral(">\r\n\t\t\t\t\t<li><a");
 
@@ -152,7 +140,7 @@ WriteLiteral(" href=\"/1.1\"");
 WriteLiteral(">Quran</a></li>\r\n\t\t\t\t\t<li>");
 
             
-            #line 26 "..\..\Views\Shared\_Layout.cshtml"
+            #line 24 "..\..\Views\Shared\_Layout.cshtml"
                    Write(Html.RouteLink("Commentaries", "Commentators"));
 
             
@@ -161,7 +149,7 @@ WriteLiteral(">Quran</a></li>\r\n\t\t\t\t\t<li>");
 WriteLiteral("</li>\r\n\t\t\t\t\t<li>");
 
             
-            #line 27 "..\..\Views\Shared\_Layout.cshtml"
+            #line 25 "..\..\Views\Shared\_Layout.cshtml"
                    Write(Html.RouteLink("Hadiths", "HadithCollections"));
 
             
@@ -176,7 +164,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("\t\t");
 
             
-            #line 33 "..\..\Views\Shared\_Layout.cshtml"
+            #line 31 "..\..\Views\Shared\_Layout.cshtml"
    Write(RenderBody());
 
             
@@ -187,7 +175,7 @@ WriteLiteral("\r\n\t</div>\r\n\r\n");
 WriteLiteral("\t");
 
             
-            #line 36 "..\..\Views\Shared\_Layout.cshtml"
+            #line 34 "..\..\Views\Shared\_Layout.cshtml"
 Write(Scripts.Render("~/bundles/jquery"));
 
             
@@ -198,7 +186,7 @@ WriteLiteral("\r\n");
 WriteLiteral("\t");
 
             
-            #line 37 "..\..\Views\Shared\_Layout.cshtml"
+            #line 35 "..\..\Views\Shared\_Layout.cshtml"
 Write(Scripts.Render("~/bundles/bootstrap"));
 
             
@@ -209,7 +197,7 @@ WriteLiteral("\r\n");
 WriteLiteral("\t");
 
             
-            #line 38 "..\..\Views\Shared\_Layout.cshtml"
+            #line 36 "..\..\Views\Shared\_Layout.cshtml"
 Write(RenderSection("scripts", required: false));
 
             

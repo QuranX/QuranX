@@ -17927,6 +17927,8 @@
     <Content Include="Content\Images\ArabicWords\e1ba93c4816c696dc4ab.png" />
     <Content Include="Content\Images\ArabicWords\e1ba93c4816c696dc4ab6e61.png" />
     <Content Include="Content\Images\ArabicWords\e1ba93c4816c696dc5ab6e61.png" />
+    <Content Include="Content\Images\HeaderRepeat.jpg" />
+    <Content Include="Content\Images\QuranX.png" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
