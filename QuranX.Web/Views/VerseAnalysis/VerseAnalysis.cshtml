@@ -21,9 +21,11 @@
 			<li class="verse-analysis__word row">
 				<a name="word_@word.WordNumber"></a>
 				<div class="col-xs-4 col-sm-5 col-md-4 col-lg-2">
-					<span class="verse__reference">
-						@Model.Chapter.ChapterNumber.@Model.VerseNumber.@word.WordNumber
-					</span>
+					<a href="/@Model.Chapter.ChapterNumber.@Model.VerseNumber">
+						<span class="verse__reference">
+							@Model.Chapter.ChapterNumber.@Model.VerseNumber.@word.WordNumber
+						</span>
+					</a>
 				</div>
 				<div class="col-xs-8 col-sm-7 col-md-8 col-lg-10 verse-analysis__word-image">
 					<img src="~/Content/Images/ArabicWords/@(Html.GetHexValues(word.Buckwalter)).png" alt="@word.Buckwalter" />
