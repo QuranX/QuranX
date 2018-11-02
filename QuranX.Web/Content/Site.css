@@ -1,4 +1,42 @@
-﻿:root {
+﻿/*
+	Colors:
+		Header border
+			hsl(70, 48%, 40%);
+
+		Title bar
+			hsl(40, 94.7%, 92.5%);
+		Title bar text
+			hsl(31, 63.2%, 56.3%);
+		Title bar sub text
+			hsl(204, 100%, 51.5%);
+
+		H1
+			hsl(69, 39.2%, 44.5%);
+		H2
+			hsl(69, 41.4%, 48.8%);
+		H3+
+			hsl(67, 45.7%, 61.0%);
+
+		Striped 1
+			hsl(0, 0%, 93.3%);
+		Striped 2
+			hsl(0, 0%, 100.0%);
+
+		Tab
+			hsl(0, 0%, 86.77%);
+		Tab text
+			hsl(0, 0%, 26.7%);
+		Tab selected
+			hsl(67, 45.7%, 61.0%);
+		Tab text hover/active
+			hsl(70, 48%, 40%);
+
+		Link hover/active
+			hsl(67, 46%, 61%);
+			
+			
+*/
+:root {
 	box-sizing: border-box;
 }
 
@@ -7,11 +45,13 @@
 }
 
 .striped > * {
-	background-color: hsl(69, 51.4%, 90.8%);
+	/* Col:Striped 1*/
+	background-color: hsl(0, 0%, 93.3%);
 }
 
+	/* Col:Striped 2*/
 	.striped > *:nth-child(2n) {
-		background-color: white;
+		background-color: hsl(0, 0%, 100.0%);
 	}
 
 .quranx.navbar {
@@ -30,26 +70,26 @@
 }
 
 .quranx.navbar-toggle {
+	/* Col:H1 */
 	background-color: hsl(69, 39.2%, 44.5%);
 	color: white;
 }
 
+	/* Col:H2 */
 	.quranx.navbar-toggle:hover {
 		background-color: hsl(69, 41.4%, 48.8%);
 		color: white;
 	}
 
+	/* Col:H2 */
 	.quranx.navbar-toggle:focus {
 		background-color: hsl(69, 41.4%, 48.8%);
 		color: white;
 	}
 
-.navbar-collapse {
-	background-color: hsl(69, 10%, 10%) !important;
-}
-
 .navbar a {
 	color: white !important;
+	text-decoration: none;
 }
 
 .hadith-index__list {
@@ -157,11 +197,12 @@
 	margin-right: auto;
 	margin-bottom: 1em;
 	width: 100%;
-	background-color: hsl(69, 41.4%, 48.8%) !important;
+	/*Col:Tab text*/
+	color: hsl(0, 0%, 26.7%);
+	/*Col:Tab*/
+	background-color: hsl(0, 0%, 86.77%) !important;
 	padding: 0.5em 1em;
 	border-radius: 0.25em;
-	border: 2px solid hsl(69, 39.2%, 44.5%);
-	color: white;
 }
 
 @media (min-width: 550px) {
@@ -171,6 +212,7 @@
 }
 
 .btn.dropdown-toggle {
+	/*Col:H2*/
 	background-color: hsl(69, 41.4%, 48.8%);
 	color: white;
 }
@@ -228,11 +270,18 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 h1 {
+	/*Col:H1*/
 	color: hsl(69, 39.2%, 44.5%);
 }
 
-h2, h3, h4, h5, h6 {
+h2 {
+	/*Col:H2*/
 	color: hsl(69, 41.4%, 48.8%);
+}
+
+h3, h4, h5, h6 {
+	/*Col:H3+*/
+	color: hsl(67, 45.7%, 61.0%);
 }
 
 @media(max-width: 480px) {
@@ -276,7 +325,10 @@ h2, h3, h4, h5, h6 {
 }
 
 dl.count-and-label {
-	background-color: hsl(69, 57%, 83%);
+	/*Col:Title bar text*/
+	color: hsl(31, 63.2%, 56.3%);
+	/*Col:Title bar*/
+	background-color: hsl(40, 94.7%, 92.5%);
 	padding: 0.25em 0.5em;
 	border-radius: 0.5em;
 	border: none;
@@ -288,6 +340,8 @@ dl.count-and-label {
 }
 
 	dl.count-and-label dt {
+		/*Col:Title bar sub text*/
+		color: hsl(204, 100%, 51.5%);
 		font-weight: normal;
 		font-size: 0.75em;
 		text-align: center;
@@ -315,7 +369,6 @@ dl > dd:not(:first-child) {
 }
 
 dl.boxed > dt {
-	background-color: hsl(208, 97%, 999%);
 	padding: 0.25em 0.5em;
 }
 
@@ -326,7 +379,10 @@ dl.boxed > dd {
 .verse__reference {
 	display: inline-block;
 	width: auto;
-	background-color: hsl(69, 57%, 83%);
+	/*Col:Title bar text*/
+	color: hsl(31, 63.2%, 56.3%);
+	/*Col:Title bar*/
+	background-color: hsl(40, 94.7%, 92.5%);
 	padding: 0.25em 0.5em;
 	border-radius: 0.5em;
 	font-size: 1.25em;
@@ -353,8 +409,11 @@ dl.boxed > dd {
 }
 
 	.verse__translation > dt {
+		/*Col:Title bar sub text*/
+		color: hsl(204, 100%, 51.5%);
+		/*Col:Title bar*/
+		background-color: hsl(40, 94.7%, 92.5%);
 		font-weight: bold;
-		background-color: hsl(69, 57%, 83%) !important;
 		position: relative;
 		padding-left: 1.5em !important;
 		cursor: pointer;
@@ -365,8 +424,10 @@ dl.boxed > dd {
 			display: inline-block;
 			margin: 0 0.5em 0 -1em;
 			border: 1px solid;
-			color: hsl(208, 57%, 83%);
-			border-color: hsl(208, 57%, 83%);
+			/*Col:Tab text*/
+			color: hsl(0, 0%, 26.7%);
+			/*Col:Tab*/
+			border-color: hsl(0, 0%, 86.77%);
 			padding: 0.25em;
 		}
 
@@ -374,9 +435,16 @@ dl.boxed > dd {
 		padding: 0 1em 0 2.5em;
 	}
 
+.verse__translation-hidden-items {
+	padding: 0.25em;
+}
+
 .verse__translation-hidden-item {
 	display: none;
-	background-color: hsl(69, 57%, 83%);
+	/*Col:Title bar sub text*/
+	color: hsl(204, 100%, 51.5%);
+	/*Col:Title bar*/
+	background-color: hsl(40, 94.7%, 92.5%);
 	padding: 0.5em;
 	margin: 0.1em;
 	cursor: pointer;
@@ -390,7 +458,7 @@ dl.boxed > dd {
 
 
 .hadith-reference-list {
-	margin-bottom: 1em;
+	margin: 0.5em 0 1em 0;
 }
 
 @media(max-width: 30rem) {
@@ -412,19 +480,42 @@ dl.boxed > dd {
 }
 
 .hadith-reference-list__item {
-	color: #eee;
-}
-
-.hadith-reference-list__item {
-	color: black;
-	background-color: hsl(208, 57%, 83%);
-	border-color: hsl(208, 57%, 83%);
+	/*Col:Tab text*/
+	color: hsl(0, 0%, 26.7%);
+	/*Col:Tab*/
+	background-color: hsl(0, 0%, 86.77%);
+	font-weight: bold;
+	font-size: 1.25em;
+	text-decoration: none;
 }
 
 	.hadith-reference-list__item.selected {
-		color: hsl(208, 57%, 93%);
-		background-color: hsl(208, 77%, 23%);
-		border-color: hsl(208, 77%, 23%);
+		/*Col:Tab selected*/
+		background-color: hsl(67, 45.7%, 61.0%);
+	}
+
+	.hadith-reference-list__item.selected:hover {
+		/*Col:Tab selected*/
+		background-color: hsl(67, 45.7%, 61.0%);
+	}
+
+	.hadith-reference-list__item.selected:active {
+		/*Col:Tab selected*/
+		background-color: hsl(67, 45.7%, 61.0%);
+	}
+
+	.hadith-reference-list__item:active {
+		/*Col:Tab selected*/
+		color: hsl(70, 48%, 40%);
+		/*Col:Tab*/
+		background-color: hsl(0, 0%, 86.77%);
+	}
+
+	.hadith-reference-list__item:hover {
+		/*Col:Tab selected*/
+		color: hsl(70, 48%, 40%);
+		/*Col:Tab*/
+		background-color: hsl(0, 0%, 86.77%);
 	}
 
 .hadith {
@@ -448,12 +539,14 @@ dl.boxed > dd {
 }
 
 .hadith__text-arabic {
-	background-color: hsl(208, 97%, 96%) !important;
+	/*Col:Striped 1*/
+	background-color: hsl(0, 0%, 93.3%);
 	text-align: right;
 }
 
 .hadith__references {
-	background-color: hsl(208, 97%, 96%) !important;
+	/*Col:Striped 1*/
+	background-color: hsl(0, 0%, 93.3%);
 	padding: 1em;
 }
 
