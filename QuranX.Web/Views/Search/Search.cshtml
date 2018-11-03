@@ -8,10 +8,13 @@
 {
 	<div class="search__criteria">
 		<div class="row">
-			@Html.DropDownListFor(x => x.Context, Model.Context)
+			@Html.TextBoxFor(x => x.Q, new { @class = "form-control search__criteria-text center", placeholder = "Search..." })
 		</div>
 		<div class="row">
-			<input class="btn btn-primary" type="submit" value="Search" />
+			@Html.DropDownListFor(x => x.Context, Model.Context, new { @class = "form-control col-xs-12 center" })
+		</div>
+		<div class="row">
+			<input class="btn btn-primary center" type="submit" value="Search" />
 		</div>
 	</div>
 }

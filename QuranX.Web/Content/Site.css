@@ -211,6 +211,24 @@
 	}
 }
 
+.search__criteria {
+	margin-left: auto;
+	margin-right: auto;
+	margin-bottom: 1em;
+	width: 100%;
+	/*Col:Tab text*/
+	color: hsl(0, 0%, 26.7%);
+	/*Col:Tab*/
+	background-color: hsl(0, 0%, 86.77%) !important;
+	padding: 0.5em 1em;
+	border-radius: 0.25em;
+	width: 22em;
+}
+
+.search__criteria>*:not(:last-child) {
+	margin-bottom: 0.25em;
+}
+
 .btn.dropdown-toggle {
 	/*Col:H2*/
 	background-color: hsl(69, 41.4%, 48.8%);
