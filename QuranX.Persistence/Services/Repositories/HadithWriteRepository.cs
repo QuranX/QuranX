@@ -35,6 +35,7 @@ namespace QuranX.Persistence.Services.Repositories
 				string indexName = ExpressionExtensions.GetIndexName<Hadith, object>(x => x.VerseRangeReferences);
 				document.StoreAndIndex(indexName, verseRangeReference.ToIndexValue());
 			}
+			document.Index(hadith, x => x.CollectionCode);
 			document.AddSearchableText(hadith.ArabicText);
 			document.AddSearchableText(hadith.EnglishText);
 			document.AddObject(hadith);

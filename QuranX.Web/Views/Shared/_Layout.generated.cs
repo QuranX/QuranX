@@ -155,6 +155,15 @@ WriteLiteral("</li>\r\n\t\t\t\t\t<li>");
             
             #line default
             #line hidden
+WriteLiteral("</li>\r\n\t\t\t\t\t<li>");
+
+            
+            #line 26 "..\..\Views\Shared\_Layout.cshtml"
+                   Write(Html.RouteLink("Search", "Search"));
+
+            
+            #line default
+            #line hidden
 WriteLiteral("</li>\r\n\t\t\t\t</ul>\r\n\t\t\t</div>\r\n\t\t</div>\r\n\t</div>\r\n\t<div");
 
 WriteLiteral(" class=\"container-fluid body-content\"");
@@ -164,7 +173,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("\t\t");
 
             
-            #line 31 "..\..\Views\Shared\_Layout.cshtml"
+            #line 32 "..\..\Views\Shared\_Layout.cshtml"
    Write(RenderBody());
 
             
@@ -175,7 +184,7 @@ WriteLiteral("\r\n\t</div>\r\n\r\n");
 WriteLiteral("\t");
 
             
-            #line 34 "..\..\Views\Shared\_Layout.cshtml"
+            #line 35 "..\..\Views\Shared\_Layout.cshtml"
 Write(Scripts.Render("~/bundles/jquery"));
 
             
@@ -186,7 +195,7 @@ WriteLiteral("\r\n");
 WriteLiteral("\t");
 
             
-            #line 35 "..\..\Views\Shared\_Layout.cshtml"
+            #line 36 "..\..\Views\Shared\_Layout.cshtml"
 Write(Scripts.Render("~/bundles/bootstrap"));
 
             
@@ -197,7 +206,7 @@ WriteLiteral("\r\n");
 WriteLiteral("\t");
 
             
-            #line 36 "..\..\Views\Shared\_Layout.cshtml"
+            #line 37 "..\..\Views\Shared\_Layout.cshtml"
 Write(RenderSection("scripts", required: false));
 
             

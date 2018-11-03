@@ -188,6 +188,7 @@
     <Compile Include="ArabicHelper.cs" />
     <Compile Include="Controllers\HadithIndexController.cs" />
     <Compile Include="Controllers\RootAnalysisController.cs" />
+    <Compile Include="Controllers\SearchController.cs" />
     <Compile Include="Controllers\VerseAnalysisController.cs" />
     <Compile Include="Controllers\VerseCommentaryController.cs" />
     <Compile Include="Controllers\VerseHadithsController.cs" />
@@ -246,6 +247,7 @@
     <Compile Include="Views\HadithIndex\BrowseHadithIndexViewModel.cs" />
     <Compile Include="Views\RootAnalysis\VerseViewModel.cs" />
     <Compile Include="Views\RootAnalysis\ViewModel.cs" />
+    <Compile Include="Views\Search\ViewModel.cs" />
     <Compile Include="Views\Shared\HadithView.generated.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -18036,6 +18038,7 @@
       <LastGenOutput>VerseAnalysis.generated.cs</LastGenOutput>
     </Content>
     <Content Include="Views\RootAnalysis\RootAnalysis.cshtml" />
+    <Content Include="Views\Search\Search.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

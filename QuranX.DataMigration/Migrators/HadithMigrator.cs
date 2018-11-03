@@ -100,6 +100,7 @@ namespace QuranX.DataMigration.Migrators
 			}
 			var hadithViewModel = new HadithViewModel(
 				id: hadithId,
+				collectionCode: hadith.Collection.Code,
 				arabicText: hadith.ArabicText,
 				englishText: hadith.EnglishText,
 				verseRangeReferences: hadith.VerseReferences,

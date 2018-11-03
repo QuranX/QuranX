@@ -11,6 +11,11 @@ namespace QuranX.Web
 			routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
 			routes.MapRoute(
+				name: "Search",
+				url: "Search",
+				defaults: new { Controller = "Search", Action = "Index" });
+
+			routes.MapRoute(
 				name: "Commentators",
 				url: "Tafsirs",
 				defaults: new { Controller = "Commentators", Action = "Index" });
