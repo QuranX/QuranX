@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Web.Mvc;
 using QuranX.Persistence.Models;
+using QuranX.Persistence.Services;
 using QuranX.Persistence.Services.Repositories;
 using QuranX.Web.Views.Search;
 
@@ -9,13 +10,16 @@ namespace QuranX.Web.Controllers
 {
 	public class SearchController : Controller
 	{
+		private readonly ISearchEngine SearchEngine;
 		private readonly ICommentatorRepository CommentatorRepository;
 		private readonly IHadithCollectionRepository HadithCollectionRepository;
 
 		public SearchController(
+			ISearchEngine searchEngine,
 			ICommentatorRepository commentatorRepository,
 			IHadithCollectionRepository hadithCollectionRepository)
 		{
+			SearchEngine = searchEngine;
 			CommentatorRepository = commentatorRepository;
 			HadithCollectionRepository = hadithCollectionRepository;
 		}
@@ -23,12 +27,23 @@ namespace QuranX.Web.Controllers
 		public ActionResult Index(string q, string context)
 		{
 			context = (context ?? "").ToLowerInvariant();
+			IEnumerable<SearchResult> searchResults = null;
+			if (!string.IsNullOrWhiteSpace(q))
+			{
+				searchResults = SearchEngine.Search(q, out int totalResults);
+			}
+			List<SelectListItem> contextItems = CreateContextItems(context);
+			var viewModel = new ViewModel(q, contextItems, searchResults);
+			return View("Search", viewModel);
+		}
+
+		private List<SelectListItem> CreateContextItems(string context)
+		{
 			var contextItems = new List<SelectListItem>();
 			contextItems.AddRange(CreateTopLevelSelection(context));
 			contextItems.AddRange(CreateTafsirsSelection(context));
 			contextItems.AddRange(CreateHadithsSelection(context));
-			var viewModel = new ViewModel(q, contextItems);
-			return View("Search", viewModel);
+			return contextItems;
 		}
 
 		private IEnumerable<SelectListItem> CreateTopLevelSelection(string selectedValue)
@@ -37,6 +52,7 @@ namespace QuranX.Web.Controllers
 				Name = "Sections"
 			};
 			var result = new List<SelectListItem>();
+			result.Add(CreateSelectionItem(group, selectedValue, "", "Whole site"));
 			result.Add(CreateSelectionItem(group, selectedValue, "quran", "Quran"));
 			result.Add(CreateSelectionItem(group, selectedValue, "tafsir", "All commentaries"));
 			result.Add(CreateSelectionItem(group, selectedValue, "hadith", "All hadiths"));

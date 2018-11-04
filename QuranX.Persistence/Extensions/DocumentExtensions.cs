@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq.Expressions;
 using Lucene.Net.Documents;
-using QuranX.Persistence.Services.Repositories;
+using QuranX.Persistence.Services;
 
 namespace QuranX.Persistence.Extensions
 {

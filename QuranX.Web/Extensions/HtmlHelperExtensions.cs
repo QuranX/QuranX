@@ -11,4 +11,12 @@ public static class HtmlHelperExtensions
 			result.AppendFormat("{0:x2}", @byte);
 		return result.ToString();
 	}
+
+	public static MvcHtmlString Highlight(this HtmlHelper instance, string text)
+	{
+		string result = instance.Encode(text)
+			.Replace("&lt;b&gt;", "<strong>")
+			.Replace("&lt;/b&gt;", "</strong>");
+		return MvcHtmlString.Create(result);
+	}
 }

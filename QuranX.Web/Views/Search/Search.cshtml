@@ -1,4 +1,5 @@
 ﻿@model QuranX.Web.Views.Search.ViewModel
+@using QuranX.Persistence.Models
 
 @{
 	ViewBag.Title = "Search";
@@ -16,5 +17,29 @@
 		<div class="row">
 			<input class="btn btn-primary center" type="submit" value="Search" />
 		</div>
+	</div>
+}
+@if (Model.SearchResults != null)
+{
+	string resultsCaption = Model.SearchResults.Count() == 1 ? "result" : "results";
+	int resultNumber = 0;
+	<h2>@Model.SearchResults.Count() @resultsCaption</h2>
+
+	<div class="search__results">
+		@foreach (SearchResult searchResult in Model.SearchResults)
+		{
+			resultNumber++;
+			<dl class="search__item">
+				<dt>@resultNumber</dt>
+				<dd>
+					<ul>
+						@foreach (var snippet in searchResult.Snippets)
+						{
+							<li>@Html.Highlight(snippet)</li>
+						}
+					</ul>
+				</dd>
+			</dl>
+		}
 	</div>
 }

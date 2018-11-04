@@ -33,10 +33,10 @@ namespace QuranX.DataMigration.Migrators
 
 		public void Migrate()
 		{
-			WriteVerses();
+			WriteChapters();
 		}
 
-		private void WriteVerses()
+		private void WriteChapters()
 		{
 			foreach (Chapter chapter in XmlDocument.QuranDocument.Chapters)
 			{

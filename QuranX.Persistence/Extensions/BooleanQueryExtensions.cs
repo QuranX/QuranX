@@ -4,7 +4,7 @@ using Lucene.Net.Analysis.Standard;
 using Lucene.Net.Index;
 using Lucene.Net.QueryParsers;
 using Lucene.Net.Search;
-using QuranX.Persistence.Services.Repositories;
+using QuranX.Persistence.Services;
 
 namespace QuranX.Persistence.Extensions
 {

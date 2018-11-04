@@ -1,4 +1,4 @@
-﻿namespace QuranX.Persistence.Services.Repositories
+﻿namespace QuranX.Persistence.Services
 {
 	public static class Consts
 	{
