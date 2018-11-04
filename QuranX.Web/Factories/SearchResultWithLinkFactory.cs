@@ -75,8 +75,8 @@ namespace QuranX.Web.Services
 			int verseNumber = document.GetStoredValue<Commentary>(x => x.FirstVerseNumber);
 			string commentatorCode = document.GetStoredValue<Commentary>(x => x.CommentatorCode);
 			string commentatorDescription = CommentatorRepository.Get(commentatorCode).Description;
-			url = $"/Tafsir/{commentatorCode}/{chapterNumber}/{verseNumber}";
-			caption = $"{chapterNumber}.{verseNumber} commentary by {commentatorDescription}";
+			url = $"/Tafsir/{commentatorCode}/{chapterNumber}.{verseNumber}";
+			caption = $"Commentary by {commentatorDescription} for {chapterNumber}.{verseNumber}";
 		}
 
 		private void GetHadithUrl(Document document, out string url, out string caption)
@@ -87,7 +87,7 @@ namespace QuranX.Web.Services
 
 			HadithCollection collection = HadithCollectionRepository.Get(collectionCode);
 			url = $"/Hadith/{collectionCode}/{primaryReferenceCode}/{primaryReferenceValues}";
-			caption = $"Hadith {collection.Name} {primaryReferenceCode}/{primaryReferenceValues.Replace("/", ",")}";
+			caption = $"{collection.Name} {primaryReferenceValues.Replace("/", ", ").Replace("-", " ")}";
 		}
 	}
 }
