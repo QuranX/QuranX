@@ -12,24 +12,10 @@ namespace QuranX.Web
 		public static void RegisterComponents()
 		{
 			IUnityContainer container = new UnityContainer();
-			RegisterSettings(container);
-			RegisterServices(container);
 			Persistence.Services.Registration.Register(container);
+			QuranX.Web.Services.Registration.Register(container);
 			DependencyResolver.SetResolver(new UnityDependencyResolver(container));
 		}
 
-		private static void RegisterSettings(IUnityContainer container)
-		{
-			string dataPath = HostingEnvironment.MapPath("~/App_Data");
-			var settings = new Settings(dataPath);
-			container.RegisterInstance<ISettings>(settings);
-		}
-
-		private static void RegisterServices(IUnityContainer container)
-		{
-			container.RegisterSingleton<ICommentariesForVerseFactory, CommentariesForVerseFactory>();
-			container.RegisterSingleton<ISelectChapterAndVerseFactory, SelectChapterAndVerseFactory>();
-			container.RegisterSingleton<IHadithViewModelFactory, HadithViewModelFactory>();
-		}
 	}
 }

@@ -4,6 +4,7 @@ using System.Web.Mvc;
 using QuranX.Persistence.Models;
 using QuranX.Persistence.Services;
 using QuranX.Persistence.Services.Repositories;
+using QuranX.Web.Services;
 using QuranX.Web.Views.Search;
 
 namespace QuranX.Web.Controllers
@@ -11,15 +12,18 @@ namespace QuranX.Web.Controllers
 	public class SearchController : Controller
 	{
 		private readonly ISearchEngine SearchEngine;
+		private readonly ISearchResultWithLinkFactory SearchResultWithLinkFactory;
 		private readonly ICommentatorRepository CommentatorRepository;
 		private readonly IHadithCollectionRepository HadithCollectionRepository;
 
 		public SearchController(
 			ISearchEngine searchEngine,
+			ISearchResultWithLinkFactory searchResultWithLinkFactory,
 			ICommentatorRepository commentatorRepository,
 			IHadithCollectionRepository hadithCollectionRepository)
 		{
 			SearchEngine = searchEngine;
+			SearchResultWithLinkFactory = searchResultWithLinkFactory;
 			CommentatorRepository = commentatorRepository;
 			HadithCollectionRepository = hadithCollectionRepository;
 		}
@@ -27,13 +31,15 @@ namespace QuranX.Web.Controllers
 		public ActionResult Index(string q, string context)
 		{
 			context = (context ?? "").ToLowerInvariant();
-			IEnumerable<SearchResult> searchResults = null;
+			IEnumerable<SearchResultWithLink> searchResultsWithLink = null;
 			if (!string.IsNullOrWhiteSpace(q))
 			{
-				searchResults = SearchEngine.Search(q, out int totalResults);
+				IEnumerable<SearchResult> searchResults = SearchEngine.Search(q, out int totalResults);
+				searchResultsWithLink =
+					searchResults.Select(SearchResultWithLinkFactory.Create);
 			}
 			List<SelectListItem> contextItems = CreateContextItems(context);
-			var viewModel = new ViewModel(q, contextItems, searchResults);
+			var viewModel = new ViewModel(q, contextItems, searchResultsWithLink);
 			return View("Search", viewModel);
 		}
 

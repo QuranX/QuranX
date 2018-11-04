@@ -10,6 +10,7 @@ using XmlDocument = QuranX.DocumentModel.Document;
 using HadithIndexDefinitionViewModel = QuranX.Persistence.Models.HadithReferenceDefinition;
 using HadithViewModel = QuranX.Persistence.Models.Hadith;
 using HadithReferenceViewModel = QuranX.Persistence.Models.HadithReference;
+using System;
 
 namespace QuranX.DataMigration.Migrators
 {
@@ -69,15 +70,19 @@ namespace QuranX.DataMigration.Migrators
 
 				foreach (Hadith hadith in collection.Hadiths)
 				{
-					MigrateHadith(hadith);
+					MigrateHadith(hadith, referenceDefinitions);
 				}
 			}
 		}
 
-		private void MigrateHadith(Hadith hadith)
+		private void MigrateHadith(Hadith hadith, IEnumerable<HadithIndexDefinitionViewModel> referenceDefinitions)
 		{
+			Dictionary<string, HadithIndexDefinitionViewModel> definitionsByCode =
+				referenceDefinitions.ToDictionary(x => x.Code, StringComparer.InvariantCultureIgnoreCase);
+
 			int hadithId = NextHadithId++;
 			var references = new List<HadithReferenceViewModel>();
+			HadithReferenceViewModel primaryReference = null;
 			foreach (HadithReference hadithReference in hadith.References)
 			{
 				(int index, string suffix)[] indexValues =
@@ -97,10 +102,20 @@ namespace QuranX.DataMigration.Migrators
 					referenceValue3Suffix: indexValues.Length > 2 ? indexValues[2].suffix.AsNullIfWhiteSpace() : null,
 					hadithId: hadithId);
 				references.Add(reference);
+
+				var referenceDefinition = definitionsByCode[hadithReference.Code];
+				if (primaryReference == null || referenceDefinition.IsPrimary)
+					primaryReference = reference;
 			}
+
+			var primaryDefinition = definitionsByCode[primaryReference.ReferenceCode];
+			string primaryIndexValues = primaryReference.ToString(primaryDefinition, "/");
+
 			var hadithViewModel = new HadithViewModel(
 				id: hadithId,
 				collectionCode: hadith.Collection.Code,
+				primaryReferenceCode: primaryReference.ReferenceCode,
+				primaryReferenceValues: primaryIndexValues,
 				arabicText: hadith.ArabicText,
 				englishText: hadith.EnglishText,
 				verseRangeReferences: hadith.VerseReferences,

@@ -1,5 +1,5 @@
 ﻿@model QuranX.Web.Views.Search.ViewModel
-@using QuranX.Persistence.Models
+@using QuranX.Web.Views.Search
 
 @{
 	ViewBag.Title = "Search";
@@ -26,11 +26,16 @@
 	<h2>@Model.SearchResults.Count() @resultsCaption</h2>
 
 	<div class="search__results">
-		@foreach (SearchResult searchResult in Model.SearchResults)
+		@foreach (SearchResultWithLink searchResult in Model.SearchResults)
 		{
 			resultNumber++;
 			<dl class="search__item">
-				<dt>@resultNumber</dt>
+				<dt>
+					@resultNumber
+					<a href="@searchResult.Url">
+						@searchResult.Caption
+					</a>
+				</dt>
 				<dd>
 					<ul>
 						@foreach (var snippet in searchResult.Snippets)

@@ -48,6 +48,12 @@
     <Reference Include="CommonServiceLocator, Version=2.0.4.0, Culture=neutral, PublicKeyToken=489b6accfaf20ef0, processorArchitecture=MSIL">
       <HintPath>..\packages\Unity.5.8.11\lib\net47\CommonServiceLocator.dll</HintPath>
     </Reference>
+    <Reference Include="ICSharpCode.SharpZipLib, Version=0.86.0.518, Culture=neutral, PublicKeyToken=1b03e6acf1164f73, processorArchitecture=MSIL">
+      <HintPath>..\packages\SharpZipLib.0.86.0\lib\20\ICSharpCode.SharpZipLib.dll</HintPath>
+    </Reference>
+    <Reference Include="Lucene.Net, Version=3.0.3.0, Culture=neutral, PublicKeyToken=85089178b9ac3181, processorArchitecture=MSIL">
+      <HintPath>..\packages\Lucene.Net.3.0.3\lib\NET40\Lucene.Net.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.AI.DependencyCollector, Version=2.7.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.ApplicationInsights.DependencyCollector.2.7.2\lib\net45\Microsoft.AI.DependencyCollector.dll</HintPath>
     </Reference>
@@ -212,6 +218,8 @@
     <Compile Include="Models\SelectChapterAndVerse.cs" />
     <Compile Include="Models\Translator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\Registration.cs" />
+    <Compile Include="Factories\SearchResultWithLinkFactory.cs" />
     <Compile Include="Views\CommentariesForVerse\CommentariesForVerse.generated.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -247,6 +255,7 @@
     <Compile Include="Views\HadithIndex\BrowseHadithIndexViewModel.cs" />
     <Compile Include="Views\RootAnalysis\VerseViewModel.cs" />
     <Compile Include="Views\RootAnalysis\ViewModel.cs" />
+    <Compile Include="Views\Search\SearchResultWithLink.cs" />
     <Compile Include="Views\Search\ViewModel.cs" />
     <Compile Include="Views\Shared\HadithView.generated.cs">
       <AutoGen>True</AutoGen>

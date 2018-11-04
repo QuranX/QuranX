@@ -1,6 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
 
 namespace QuranX.Persistence.Models
@@ -39,7 +39,14 @@ namespace QuranX.Persistence.Models
 			HadithId = hadithId;
 		}
 
-		public string ToString(HadithReferenceDefinition definition)
+		public string ToString(HadithReferenceDefinition definition, string separator = ",")
+		{
+			IEnumerable<string> combined =
+				ToNameValuePairs(definition).Select(x => $"{x.Key}-{x.Value}");
+			return string.Join(separator, combined);
+		}
+
+		public IEnumerable<KeyValuePair<string, string>> ToNameValuePairs(HadithReferenceDefinition definition)
 		{
 			if (definition == null)
 				throw new ArgumentNullException(nameof(definition));
@@ -58,10 +65,7 @@ namespace QuranX.Persistence.Models
 				ReferenceValue2 + ReferenceValue2Suffix,
 				ReferenceValue3 + ReferenceValue3Suffix
 			};
-			return string.Join(
-				", ",
-				definition.PartNames.Select((v, i) => v + " " + values[i])
-			);
+			return definition.PartNames.Select((v, i) => new KeyValuePair<string, string>(v, values[i]));
 		}
 
 		public static (int value, string suffix) SplitValue(string value)
@@ -72,7 +76,7 @@ namespace QuranX.Persistence.Models
 				throw new ArgumentException("Must be digits alone or digits + letters", nameof(value));
 			int val = int.Parse(match.Groups[1].Value);
 			string suffix = match.Groups[2].Value;
-			return (value:val, suffix);
+			return (value: val, suffix);
 		}
 
 		public static (string referencePartName, int value, string suffix) SplitNameAndValue(string value)
@@ -84,7 +88,7 @@ namespace QuranX.Persistence.Models
 			string referencePartName = match.Groups[1].Value;
 			int val = int.Parse(match.Groups[2].Value);
 			string suffix = match.Groups[3].Value;
-			return (referencePartName, value:val, suffix);
+			return (referencePartName, value: val, suffix);
 		}
 
 		public override int GetHashCode()

@@ -74,7 +74,7 @@ namespace QuranX.Persistence.Services
 				var doc = indexSearcher.Doc(scoreDoc.Doc);
 				var searchResult = new SearchResult(
 					type: doc.Get(Consts.SerializedObjectTypeFieldName),
-					id: doc.Get("ID"),
+					document: doc,
 					snippets: fragments
 				);
 				result.Add(searchResult);

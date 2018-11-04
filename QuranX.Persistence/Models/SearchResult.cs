@@ -1,21 +1,22 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Lucene.Net.Documents;
 
 namespace QuranX.Persistence.Models
 {
 	public class SearchResult
 	{
 		public readonly string Type;
-		public readonly string ID;
+		public readonly Document Document;
 		public readonly string[] Snippets;
 
 		public SearchResult(
 			string type,
-			string id,
+			Document document,
 			IEnumerable<string> snippets)
 		{
 			Type = type;
-			ID = id;
+			Document = document;
 			if (string.Compare(type, "Verse", true) == 0)
 			{
 				if (snippets.Count() > 1)
