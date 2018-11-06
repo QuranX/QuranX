@@ -585,6 +585,44 @@ dl.boxed > dd {
 	font-weight: bold;
 }
 
+.hadith__reference-verse-caption {
+	font-weight: bold;
+	vertical-align: top;
+}
+
+.hadith__reference-verse-numbers {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+}
+
+.hadith__reference-verse-numbers > li {
+	display : inline-block;
+	width: 4em;
+}
+
+@media(max-width: 549px) {
+	.hadith__reference-verse-caption {
+		margin-top: 0.5em;
+	}
+
+	.hadith__reference-verse-numbers {
+		margin-left: 2em;
+	}
+}
+
+@media(min-width: 550px) {
+	.hadith__reference-verse-caption {
+		display: inline-block;
+		width: 18em;
+	}
+
+	.hadith__reference-verse-numbers {
+		display: inline-block;
+	}
+}
+
+
 @media(max-width: 549px) {
 	.hadith__reference-name {
 		margin-top: 0.5em;

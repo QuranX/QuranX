@@ -27,6 +27,12 @@ namespace ASP
     using System.Web.Security;
     using System.Web.UI;
     using System.Web.WebPages;
+    
+    #line 3 "..\..\Views\Shared\HadithView.cshtml"
+    using QuranX.Shared.Models;
+    
+    #line default
+    #line hidden
     using QuranX.Web;
     
     #line 2 "..\..\Views\Shared\HadithView.cshtml"
@@ -69,7 +75,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("\t\t\t\t");
 
             
-            #line 11 "..\..\Views\Shared\HadithView.cshtml"
+            #line 12 "..\..\Views\Shared\HadithView.cshtml"
            Write(Model.CollectionName);
 
             
@@ -78,13 +84,13 @@ WriteLiteral("\t\t\t\t");
 WriteLiteral("\r\n\t\t\t</div>\r\n\t\t</div>\r\n");
 
             
-            #line 14 "..\..\Views\Shared\HadithView.cshtml"
+            #line 15 "..\..\Views\Shared\HadithView.cshtml"
 		
             
             #line default
             #line hidden
             
-            #line 14 "..\..\Views\Shared\HadithView.cshtml"
+            #line 15 "..\..\Views\Shared\HadithView.cshtml"
          foreach (HadithReferenceViewModel reference in @Model.References)
 		{
 
@@ -104,7 +110,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("\t\t\t\t\t");
 
             
-            #line 18 "..\..\Views\Shared\HadithView.cshtml"
+            #line 19 "..\..\Views\Shared\HadithView.cshtml"
                Write(reference.IndexName);
 
             
@@ -116,31 +122,31 @@ WriteLiteral(" class=\"hadith__reference-value\"");
 
 WriteLiteral(">\r\n\t\t\t\t\t<a");
 
-WriteAttribute("href", Tuple.Create(" href=\"", 574), Tuple.Create("\"", 658)
-, Tuple.Create(Tuple.Create("", 581), Tuple.Create("/Hadith/", 581), true)
+WriteAttribute("href", Tuple.Create(" href=\"", 603), Tuple.Create("\"", 687)
+, Tuple.Create(Tuple.Create("", 610), Tuple.Create("/Hadith/", 610), true)
             
-            #line 21 "..\..\Views\Shared\HadithView.cshtml"
-, Tuple.Create(Tuple.Create("", 589), Tuple.Create<System.Object, System.Int32>(reference.CollectionCode
-            
-            #line default
-            #line hidden
-, 589), false)
-, Tuple.Create(Tuple.Create("", 614), Tuple.Create("/", 614), true)
-            
-            #line 21 "..\..\Views\Shared\HadithView.cshtml"
-, Tuple.Create(Tuple.Create("", 615), Tuple.Create<System.Object, System.Int32>(reference.IndexCode
+            #line 22 "..\..\Views\Shared\HadithView.cshtml"
+, Tuple.Create(Tuple.Create("", 618), Tuple.Create<System.Object, System.Int32>(reference.CollectionCode
             
             #line default
             #line hidden
-, 615), false)
-, Tuple.Create(Tuple.Create("", 635), Tuple.Create("/", 635), true)
+, 618), false)
+, Tuple.Create(Tuple.Create("", 643), Tuple.Create("/", 643), true)
             
-            #line 21 "..\..\Views\Shared\HadithView.cshtml"
-     , Tuple.Create(Tuple.Create("", 636), Tuple.Create<System.Object, System.Int32>(reference.ToUrlPath()
+            #line 22 "..\..\Views\Shared\HadithView.cshtml"
+, Tuple.Create(Tuple.Create("", 644), Tuple.Create<System.Object, System.Int32>(reference.IndexCode
             
             #line default
             #line hidden
-, 636), false)
+, 644), false)
+, Tuple.Create(Tuple.Create("", 664), Tuple.Create("/", 664), true)
+            
+            #line 22 "..\..\Views\Shared\HadithView.cshtml"
+     , Tuple.Create(Tuple.Create("", 665), Tuple.Create<System.Object, System.Int32>(reference.ToUrlPath()
+            
+            #line default
+            #line hidden
+, 665), false)
 );
 
 WriteLiteral(">\r\n");
@@ -148,7 +154,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("\t\t\t\t\t\t");
 
             
-            #line 22 "..\..\Views\Shared\HadithView.cshtml"
+            #line 23 "..\..\Views\Shared\HadithView.cshtml"
                    Write(reference.ToString());
 
             
@@ -157,7 +163,90 @@ WriteLiteral("\t\t\t\t\t\t");
 WriteLiteral("\r\n\t\t\t\t\t</a>\r\n\t\t\t\t</div>\r\n\t\t\t</div>\r\n");
 
             
-            #line 26 "..\..\Views\Shared\HadithView.cshtml"
+            #line 27 "..\..\Views\Shared\HadithView.cshtml"
+		}
+
+            
+            #line default
+            #line hidden
+WriteLiteral("\t\t");
+
+            
+            #line 28 "..\..\Views\Shared\HadithView.cshtml"
+         if (Model.Hadith.VerseRangeReferences.Any())
+		{
+
+            
+            #line default
+            #line hidden
+WriteLiteral("\t\t\t<div");
+
+WriteLiteral(" class=\"hadith__verse-references\"");
+
+WriteLiteral(">\r\n\t\t\t\t<div");
+
+WriteLiteral(" class=\"hadith__reference-verse-caption\"");
+
+WriteLiteral(">\r\n\t\t\t\t\tRelated Qur\'an verses\r\n\t\t\t\t</div>\r\n\t\t\t\t<ul");
+
+WriteLiteral(" class=\"hadith__reference-verse-numbers\"");
+
+WriteLiteral(">\r\n");
+
+            
+            #line 35 "..\..\Views\Shared\HadithView.cshtml"
+					
+            
+            #line default
+            #line hidden
+            
+            #line 35 "..\..\Views\Shared\HadithView.cshtml"
+                     foreach (VerseRangeReference verse in Model.Hadith.VerseRangeReferences)
+					{
+						string verseAsString = verse.Chapter + "." + verse.FirstVerse;
+						if (verse.IsMultipleVerses())
+						{
+							verseAsString += "-" + verse.LastVerse;
+						}
+
+            
+            #line default
+            #line hidden
+WriteLiteral("\t\t\t\t\t\t<li>\r\n\t\t\t\t\t\t\t<a");
+
+WriteAttribute("href", Tuple.Create(" href=\"", 1279), Tuple.Create("\"", 1301)
+, Tuple.Create(Tuple.Create("", 1286), Tuple.Create("/", 1286), true)
+            
+            #line 43 "..\..\Views\Shared\HadithView.cshtml"
+, Tuple.Create(Tuple.Create("", 1287), Tuple.Create<System.Object, System.Int32>(verseAsString
+            
+            #line default
+            #line hidden
+, 1287), false)
+);
+
+WriteLiteral(">");
+
+            
+            #line 43 "..\..\Views\Shared\HadithView.cshtml"
+                                                 Write(verseAsString);
+
+            
+            #line default
+            #line hidden
+WriteLiteral("</a>\r\n\t\t\t\t\t\t</li>\r\n");
+
+            
+            #line 45 "..\..\Views\Shared\HadithView.cshtml"
+					}
+
+            
+            #line default
+            #line hidden
+WriteLiteral("\t\t\t\t</ul>\r\n\t\t\t</div>\r\n");
+
+            
+            #line 48 "..\..\Views\Shared\HadithView.cshtml"
 		}
 
             
@@ -170,13 +259,13 @@ WriteLiteral(" class=\"hadith__text\"");
 WriteLiteral(">\r\n");
 
             
-            #line 29 "..\..\Views\Shared\HadithView.cshtml"
+            #line 51 "..\..\Views\Shared\HadithView.cshtml"
 		
             
             #line default
             #line hidden
             
-            #line 29 "..\..\Views\Shared\HadithView.cshtml"
+            #line 51 "..\..\Views\Shared\HadithView.cshtml"
          foreach (string text in @Model.Hadith.EnglishText)
 		{
 
@@ -186,7 +275,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("\t\t\t<p>");
 
             
-            #line 31 "..\..\Views\Shared\HadithView.cshtml"
+            #line 53 "..\..\Views\Shared\HadithView.cshtml"
           Write(text);
 
             
@@ -195,7 +284,7 @@ WriteLiteral("\t\t\t<p>");
 WriteLiteral("</p>\r\n");
 
             
-            #line 32 "..\..\Views\Shared\HadithView.cshtml"
+            #line 54 "..\..\Views\Shared\HadithView.cshtml"
 		}
 
             
@@ -208,13 +297,13 @@ WriteLiteral(" class=\"hadith__text arabic\"");
 WriteLiteral(">\r\n");
 
             
-            #line 35 "..\..\Views\Shared\HadithView.cshtml"
+            #line 57 "..\..\Views\Shared\HadithView.cshtml"
 		
             
             #line default
             #line hidden
             
-            #line 35 "..\..\Views\Shared\HadithView.cshtml"
+            #line 57 "..\..\Views\Shared\HadithView.cshtml"
          foreach (string text in @Model.Hadith.ArabicText)
 		{
 
@@ -224,7 +313,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("\t\t\t<p>");
 
             
-            #line 37 "..\..\Views\Shared\HadithView.cshtml"
+            #line 59 "..\..\Views\Shared\HadithView.cshtml"
           Write(text);
 
             
@@ -233,13 +322,13 @@ WriteLiteral("\t\t\t<p>");
 WriteLiteral("</p>\r\n");
 
             
-            #line 38 "..\..\Views\Shared\HadithView.cshtml"
+            #line 60 "..\..\Views\Shared\HadithView.cshtml"
 		}
 
             
             #line default
             #line hidden
-WriteLiteral("\t</div>\r\n</div>");
+WriteLiteral("\t</div>\r\n</div>\r\n");
 
         }
     }
