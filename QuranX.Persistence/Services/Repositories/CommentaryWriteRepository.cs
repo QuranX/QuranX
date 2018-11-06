@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using Lucene.Net.Documents;
 using Lucene.Net.Index;
 using QuranX.Persistence.Extensions;
@@ -30,7 +31,7 @@ namespace QuranX.Persistence.Services.Repositories
 			document.StoreAndIndex(commentary, x => x.ChapterNumber);
 			document.StoreAndIndex(commentary, x => x.FirstVerseNumber);
 			document.StoreAndIndex(commentary, x => x.LastVerseNumber);
-			document.AddSearchableText(commentary.Text);
+			document.AddSearchableText(commentary.Text.Select(x => x.Text));
 			document.AddObject(commentary);
 
 			IndexWriter indexWriter = IndexWriterProvider.GetIndexWriter();

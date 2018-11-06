@@ -9,14 +9,14 @@ namespace QuranX.Persistence.Models
 		public int ChapterNumber { get; }
 		public int FirstVerseNumber { get; }
 		public int LastVerseNumber { get; }
-		public IReadOnlyList<string> Text { get; }
+		public IReadOnlyList<TextContent> Text { get; }
 
 		public Commentary(
 			string commentatorCode,
 			int chapterNumber,
 			int firstVerseNumber,
 			int lastVerseNumber,
-			IEnumerable<string> text)
+			IEnumerable<TextContent> text)
 		{
 			CommentatorCode = commentatorCode;
 			ChapterNumber = chapterNumber;

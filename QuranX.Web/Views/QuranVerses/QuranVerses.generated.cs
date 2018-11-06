@@ -391,19 +391,30 @@ WriteLiteral(">\r\n");
             #line 61 "..\..\Views\QuranVerses\QuranVerses.cshtml"
              foreach (VerseText translation in verse.VerseTexts)
 			{
+				string arabicCss = translation.TranslatorCode == "AR" ? "arabic" : "";
+				string containerPaddingCss = arabicCss != "" ? "arabic-container" : "";
 
             
             #line default
             #line hidden
 WriteLiteral("\t\t\t\t<dl");
 
-WriteLiteral(" class=\"verse__translation\"");
+WriteAttribute("class", Tuple.Create(" class=\"", 1991), Tuple.Create("\"", 2038)
+, Tuple.Create(Tuple.Create("", 1999), Tuple.Create("verse__translation", 1999), true)
+            
+            #line 65 "..\..\Views\QuranVerses\QuranVerses.cshtml"
+, Tuple.Create(Tuple.Create(" ", 2017), Tuple.Create<System.Object, System.Int32>(containerPaddingCss
+            
+            #line default
+            #line hidden
+, 2018), false)
+);
 
 WriteLiteral(" data-translator-code=\"");
 
             
-            #line 63 "..\..\Views\QuranVerses\QuranVerses.cshtml"
-                                                                Write(translation.TranslatorCode);
+            #line 65 "..\..\Views\QuranVerses\QuranVerses.cshtml"
+                                                                                     Write(translation.TranslatorCode);
 
             
             #line default
@@ -413,17 +424,29 @@ WriteLiteral("\"");
 WriteLiteral(">\r\n\t\t\t\t\t<dt>");
 
             
-            #line 64 "..\..\Views\QuranVerses\QuranVerses.cshtml"
+            #line 66 "..\..\Views\QuranVerses\QuranVerses.cshtml"
                    Write(translation.TranslatorName);
 
             
             #line default
             #line hidden
-WriteLiteral("</dt>\r\n\t\t\t\t\t<dd>");
+WriteLiteral("</dt>\r\n\t\t\t\t\t<dd");
+
+WriteAttribute("class", Tuple.Create(" class=\"", 2144), Tuple.Create("\"", 2162)
+            
+            #line 67 "..\..\Views\QuranVerses\QuranVerses.cshtml"
+, Tuple.Create(Tuple.Create("", 2152), Tuple.Create<System.Object, System.Int32>(arabicCss
+            
+            #line default
+            #line hidden
+, 2152), false)
+);
+
+WriteLiteral(">");
 
             
-            #line 65 "..\..\Views\QuranVerses\QuranVerses.cshtml"
-                   Write(translation.Text);
+            #line 67 "..\..\Views\QuranVerses\QuranVerses.cshtml"
+                                      Write(translation.Text);
 
             
             #line default
@@ -431,7 +454,7 @@ WriteLiteral("</dt>\r\n\t\t\t\t\t<dd>");
 WriteLiteral("</dd>\r\n\t\t\t\t</dl>\r\n");
 
             
-            #line 67 "..\..\Views\QuranVerses\QuranVerses.cshtml"
+            #line 69 "..\..\Views\QuranVerses\QuranVerses.cshtml"
 			}
 
             
@@ -440,7 +463,7 @@ WriteLiteral("</dd>\r\n\t\t\t\t</dl>\r\n");
 WriteLiteral("\t\t</div>\r\n");
 
             
-            #line 69 "..\..\Views\QuranVerses\QuranVerses.cshtml"
+            #line 71 "..\..\Views\QuranVerses\QuranVerses.cshtml"
 	}
 }
 

@@ -1,16 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Web;
 using Lucene.Net.Analysis;
 using Lucene.Net.Analysis.AR;
-using Lucene.Net.Analysis.Standard;
 using Lucene.Net.Documents;
 using Lucene.Net.Index;
 using Lucene.Net.QueryParsers;
 using Lucene.Net.Search;
-using Lucene.Net.Search.Spans;
 using Lucene.Net.Search.Vectorhighlight;
 using Lucene.Net.Store;
 
@@ -43,7 +40,7 @@ namespace QuranX
 		static SearchEngine()
 		{
 			string luceneData = HttpContext.Current.Server.MapPath("~/app_data/Lucene");
-			Analyzer = 
+			Analyzer =
 				new ArabicAnalyzer(Lucene.Net.Util.Version.LUCENE_30);
 			bool needsIndexCreation = false;
 			if (!System.IO.Directory.Exists(luceneData))
@@ -52,7 +49,7 @@ namespace QuranX
 				needsIndexCreation = true;
 			}
 			Index = new SimpleFSDirectory(new System.IO.DirectoryInfo(luceneData));
-			ISet<string> stopWords = GenerateStopWords();	 
+			ISet<string> stopWords = GenerateStopWords();
 			if (needsIndexCreation)
 				WriteIndexes();
 		}
@@ -64,14 +61,14 @@ namespace QuranX
 		}
 
 		public static IEnumerable<SearchResult> Search(
-			string queryString, 
+			string queryString,
 			out int totalResults,
 			int maxResults = 100)
 		{
 #if DEBUG
-            maxResults = 2000;
+			maxResults = 2000;
 #endif
-            totalResults = 0;
+			totalResults = 0;
 			if (string.IsNullOrEmpty(queryString))
 				return new List<SearchResult>();
 
@@ -85,7 +82,7 @@ namespace QuranX
 				Analyzer
 			);
 			queryParser.AllowLeadingWildcard = true;
-			queryParser.DefaultOperator = QueryParser.Operator.AND; 
+			queryParser.DefaultOperator = QueryParser.Operator.AND;
 			var query = queryParser.Parse(queryString);
 
 			var resultsCollector = TopScoreDocCollector.Create(
@@ -103,7 +100,7 @@ namespace QuranX
 			var fq = fvh.GetFieldQuery(query);
 			foreach (var scoreDoc in resultsCollector.TopDocs().ScoreDocs)
 			{
-                string[] fragments = fvh.GetBestFragments(fq, indexSearcher.IndexReader, scoreDoc.Doc, "Body", 100, 5);
+				string[] fragments = fvh.GetBestFragments(fq, indexSearcher.IndexReader, scoreDoc.Doc, "Body", 100, 5);
 				var doc = indexSearcher.Doc(scoreDoc.Doc);
 				var searchResult = new SearchResult(
 					type: doc.Get("Type"),
@@ -207,15 +204,15 @@ namespace QuranX
 					body += referencesBuilder.ToString();
 
 					var doc = new Document();
-                    var primaryReference = hadith.PrimaryReference ?? hadith.References.First();
-					doc.Add(CreateField(name: "ID", value : string.Format(
+					var primaryReference = hadith.PrimaryReference ?? hadith.References.First();
+					doc.Add(CreateField(name: "ID", value: string.Format(
 						"{0}/{1}/{2}", collection.Code, primaryReference.Code, primaryReference
 						))
 					);
 					doc.Add(CreateField(name: "Type", value: "Hadith"));
 					doc.Add(CreateField(name: "Group", value: collection.Code));
 					doc.Add(CreateField(
-						name: "Body", 
+						name: "Body",
 						value: body
 							.Replace("\r", "")
 							.Replace("\n", " ")

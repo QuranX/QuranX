@@ -5,6 +5,8 @@ using NLog;
 using QuranX.Persistence.Services.Repositories;
 using QuranX.DataMigration.Services;
 using QuranX.DocumentModel;
+using System.Linq;
+using QuranX.Persistence.Models;
 
 namespace QuranX.DataMigration.Migrators
 {
@@ -55,7 +57,7 @@ namespace QuranX.DataMigration.Migrators
 					chapterNumber: commentary.VerseReference.Chapter,
 					firstVerseNumber: commentary.VerseReference.FirstVerse,
 					lastVerseNumber: commentary.VerseReference.LastVerse,
-					text: commentary.Text);
+					text: commentary.Text.Select(x => TextContent.Create(x)));
 				CommentaryWriteRepository.Write(commentaryViewModel);
 			}
 		}

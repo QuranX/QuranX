@@ -1,5 +1,6 @@
 ﻿@using QuranX.Web.Models
 @using QuranX.Shared.Models
+@using QuranX.Persistence.Models
 @model CommentatorAndCommentary
 
 @{
@@ -12,9 +13,10 @@
 			<a href="/@verse"><span class="verse__reference">@verse</span></a>
 			@Model.Commentator.Code - @Model.Commentator.Description
 		</dt>
-		@foreach (string text in Model.Commentary.Text)
+		@foreach (TextContent content in Model.Commentary.Text)
 		{
-			<dd>@text</dd>
+			string arabicCss = content.IsArabic ? "arabic" : "";
+			<dd class="@arabicCss">@content.Text</dd>
 		}
 	</dl>
 </div>

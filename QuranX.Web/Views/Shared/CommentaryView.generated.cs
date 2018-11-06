@@ -28,6 +28,12 @@ namespace ASP
     using System.Web.UI;
     using System.Web.WebPages;
     
+    #line 3 "..\..\Views\Shared\CommentaryView.cshtml"
+    using QuranX.Persistence.Models;
+    
+    #line default
+    #line hidden
+    
     #line 2 "..\..\Views\Shared\CommentaryView.cshtml"
     using QuranX.Shared.Models;
     
@@ -51,7 +57,7 @@ namespace ASP
         public override void Execute()
         {
             
-            #line 5 "..\..\Views\Shared\CommentaryView.cshtml"
+            #line 6 "..\..\Views\Shared\CommentaryView.cshtml"
   
 	var verse = new VerseRangeReference(Model.Commentary.ChapterNumber, Model.Commentary.FirstVerseNumber, Model.Commentary.LastVerseNumber);
 	string verseCaption = verse.IsMultipleVerses() ? "verses" : "verse";
@@ -65,15 +71,15 @@ WriteLiteral(" class=\"boxed\"");
 
 WriteLiteral(">\r\n\t\t<dt>\r\n\t\t\t<a");
 
-WriteAttribute("href", Tuple.Create(" href=\"", 349), Tuple.Create("\"", 363)
-, Tuple.Create(Tuple.Create("", 356), Tuple.Create("/", 356), true)
+WriteAttribute("href", Tuple.Create(" href=\"", 383), Tuple.Create("\"", 397)
+, Tuple.Create(Tuple.Create("", 390), Tuple.Create("/", 390), true)
             
-            #line 12 "..\..\Views\Shared\CommentaryView.cshtml"
-, Tuple.Create(Tuple.Create("", 357), Tuple.Create<System.Object, System.Int32>(verse
+            #line 13 "..\..\Views\Shared\CommentaryView.cshtml"
+, Tuple.Create(Tuple.Create("", 391), Tuple.Create<System.Object, System.Int32>(verse
             
             #line default
             #line hidden
-, 357), false)
+, 391), false)
 );
 
 WriteLiteral("><span");
@@ -83,7 +89,7 @@ WriteLiteral(" class=\"verse__reference\"");
 WriteLiteral(">");
 
             
-            #line 12 "..\..\Views\Shared\CommentaryView.cshtml"
+            #line 13 "..\..\Views\Shared\CommentaryView.cshtml"
                                                         Write(verse);
 
             
@@ -94,7 +100,7 @@ WriteLiteral("</span></a>\r\n");
 WriteLiteral("\t\t\t");
 
             
-            #line 13 "..\..\Views\Shared\CommentaryView.cshtml"
+            #line 14 "..\..\Views\Shared\CommentaryView.cshtml"
        Write(Model.Commentator.Code);
 
             
@@ -103,7 +109,7 @@ WriteLiteral("\t\t\t");
 WriteLiteral(" - ");
 
             
-            #line 13 "..\..\Views\Shared\CommentaryView.cshtml"
+            #line 14 "..\..\Views\Shared\CommentaryView.cshtml"
                                  Write(Model.Commentator.Description);
 
             
@@ -112,24 +118,37 @@ WriteLiteral(" - ");
 WriteLiteral("\r\n\t\t</dt>\r\n");
 
             
-            #line 15 "..\..\Views\Shared\CommentaryView.cshtml"
+            #line 16 "..\..\Views\Shared\CommentaryView.cshtml"
 		
             
             #line default
             #line hidden
             
-            #line 15 "..\..\Views\Shared\CommentaryView.cshtml"
-         foreach (string text in Model.Commentary.Text)
+            #line 16 "..\..\Views\Shared\CommentaryView.cshtml"
+         foreach (TextContent content in Model.Commentary.Text)
 		{
+			string arabicCss = content.IsArabic ? "arabic" : "";
 
             
             #line default
             #line hidden
-WriteLiteral("\t\t\t<dd>");
+WriteLiteral("\t\t\t<dd");
+
+WriteAttribute("class", Tuple.Create(" class=\"", 646), Tuple.Create("\"", 664)
+            
+            #line 19 "..\..\Views\Shared\CommentaryView.cshtml"
+, Tuple.Create(Tuple.Create("", 654), Tuple.Create<System.Object, System.Int32>(arabicCss
+            
+            #line default
+            #line hidden
+, 654), false)
+);
+
+WriteLiteral(">");
 
             
-            #line 17 "..\..\Views\Shared\CommentaryView.cshtml"
-           Write(text);
+            #line 19 "..\..\Views\Shared\CommentaryView.cshtml"
+                              Write(content.Text);
 
             
             #line default
@@ -137,7 +156,7 @@ WriteLiteral("\t\t\t<dd>");
 WriteLiteral("</dd>\r\n");
 
             
-            #line 18 "..\..\Views\Shared\CommentaryView.cshtml"
+            #line 20 "..\..\Views\Shared\CommentaryView.cshtml"
 		}
 
             

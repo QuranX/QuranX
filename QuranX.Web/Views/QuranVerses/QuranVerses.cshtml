@@ -60,9 +60,11 @@
 		<div class="verse__translations boxed">
 			@foreach (VerseText translation in verse.VerseTexts)
 			{
-				<dl class="verse__translation" data-translator-code="@translation.TranslatorCode">
+				string arabicCss = translation.TranslatorCode == "AR" ? "arabic" : "";
+				string containerPaddingCss = arabicCss != "" ? "arabic-container" : "";
+				<dl class="verse__translation @containerPaddingCss" data-translator-code="@translation.TranslatorCode">
 					<dt>@translation.TranslatorName</dt>
-					<dd>@translation.Text</dd>
+					<dd class="@arabicCss">@translation.Text</dd>
 				</dl>
 			}
 		</div>

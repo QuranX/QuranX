@@ -135,6 +135,7 @@
     <Compile Include="Models\HadithReference.cs" />
     <Compile Include="Models\HadithReferenceDefinition.cs" />
     <Compile Include="Models\SearchResult.cs" />
+    <Compile Include="Models\TextContent.cs" />
     <Compile Include="Models\Verse.cs" />
     <Compile Include="Models\VerseAnalysis.cs" />
     <Compile Include="Models\VerseAnalysisWord.cs" />
