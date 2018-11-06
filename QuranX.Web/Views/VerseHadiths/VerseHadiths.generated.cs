@@ -55,25 +55,25 @@ WriteLiteral("\r\n");
             
             #line default
             #line hidden
-WriteLiteral("\r\n<h1>The Quran</h1>\r\n<h2>\r\n\tHadiths for <a");
+WriteLiteral("\r\n<h1>The Qur\'an</h1>\r\n<h2>\r\n\tHadiths for <a");
 
-WriteAttribute("href", Tuple.Create(" href=\"", 289), Tuple.Create("\"", 344)
-, Tuple.Create(Tuple.Create("", 296), Tuple.Create("/", 296), true)
+WriteAttribute("href", Tuple.Create(" href=\"", 290), Tuple.Create("\"", 345)
+, Tuple.Create(Tuple.Create("", 297), Tuple.Create("/", 297), true)
             
             #line 10 "..\..\Views\VerseHadiths\VerseHadiths.cshtml"
-, Tuple.Create(Tuple.Create("", 297), Tuple.Create<System.Object, System.Int32>(Model.Chapter.ChapterNumber
+, Tuple.Create(Tuple.Create("", 298), Tuple.Create<System.Object, System.Int32>(Model.Chapter.ChapterNumber
             
             #line default
             #line hidden
-, 297), false)
-, Tuple.Create(Tuple.Create("", 325), Tuple.Create(".", 325), true)
+, 298), false)
+, Tuple.Create(Tuple.Create("", 326), Tuple.Create(".", 326), true)
             
             #line 10 "..\..\Views\VerseHadiths\VerseHadiths.cshtml"
-, Tuple.Create(Tuple.Create("", 326), Tuple.Create<System.Object, System.Int32>(Model.VerseNumber
+, Tuple.Create(Tuple.Create("", 327), Tuple.Create<System.Object, System.Int32>(Model.VerseNumber
             
             #line default
             #line hidden
-, 326), false)
+, 327), false)
 );
 
 WriteLiteral(">\r\n");

@@ -41,7 +41,7 @@ namespace ASP
             
             #line 1 "..\..\Views\_ViewStart.cshtml"
   
-    Layout = "~/Views/Shared/_Layout.cshtml";
+	Layout = "~/Views/Shared/_Layout.cshtml";
 
             
             #line default

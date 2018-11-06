@@ -253,8 +253,18 @@
     </Compile>
     <Compile Include="Views\HadithIndex\HadithsViewModel.cs" />
     <Compile Include="Views\HadithIndex\BrowseHadithIndexViewModel.cs" />
+    <Compile Include="Views\RootAnalysis\RootAnalysis.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>RootAnalysis.cshtml</DependentUpon>
+    </Compile>
     <Compile Include="Views\RootAnalysis\VerseViewModel.cs" />
     <Compile Include="Views\RootAnalysis\ViewModel.cs" />
+    <Compile Include="Views\Search\Search.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Search.cshtml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Search\SearchResultWithLink.cs" />
     <Compile Include="Views\Search\ViewModel.cs" />
     <Compile Include="Views\Shared\HadithView.generated.cs">
@@ -18046,8 +18056,14 @@
       <Generator>RazorGenerator</Generator>
       <LastGenOutput>VerseAnalysis.generated.cs</LastGenOutput>
     </Content>
-    <Content Include="Views\RootAnalysis\RootAnalysis.cshtml" />
-    <Content Include="Views\Search\Search.cshtml" />
+    <Content Include="Views\RootAnalysis\RootAnalysis.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>RootAnalysis.generated.cs</LastGenOutput>
+    </Content>
+    <Content Include="Views\Search\Search.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>Search.generated.cs</LastGenOutput>
+    </Content>
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

@@ -130,7 +130,7 @@ WriteLiteral("\r\n\t\t\t\t</div>\r\n\t\t\t</div>\r\n");
             #line hidden
 WriteLiteral("\t</div>\r\n\t<div");
 
-WriteLiteral(" class=\"hadith__text hadith__text-english\"");
+WriteLiteral(" class=\"hadith__text\"");
 
 WriteLiteral(">\r\n");
 
@@ -168,7 +168,7 @@ WriteLiteral("</p>\r\n");
             #line hidden
 WriteLiteral("\t</div>\r\n\t<div");
 
-WriteLiteral(" class=\"hadith__text hadith__text-arabic\"");
+WriteLiteral(" class=\"hadith__text arabic\"");
 
 WriteLiteral(">\r\n");
 

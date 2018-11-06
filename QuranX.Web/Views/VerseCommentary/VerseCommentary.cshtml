@@ -7,7 +7,7 @@
 	string verseCaption = verse.IsMultipleVerses() ? "verses" : "verse";
 	ViewBag.Title = Model.CommentatorAndCommentary.Commentator.Description + $" commentary for {verseCaption} {verse}";
 }
-<h1>The Quran</h1>
+<h1>The Qur'an</h1>
 <h2>Verse commentary</h2>
 @Html.Partial("SelectChapterAndVerse", Model.SelectChapterAndVerse)
 @Html.Partial("CommentaryView", Model.CommentatorAndCommentary)

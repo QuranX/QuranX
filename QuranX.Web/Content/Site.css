@@ -565,14 +565,12 @@ dl.boxed > dd {
 		margin: 0px;
 	}
 
-.hadith__text-english {
-}
-
-.hadith__text-arabic {
-	/*Col:Striped 1*/
-	background-color: hsl(0, 0%, 93.3%);
-	text-align: right;
-}
+	.hadith__text.arabic {
+		/*Col:Striped 1*/
+		background-color: hsl(0, 0%, 93.3%);
+		text-align: right;
+		padding: 0.5rem 0.5rem 0px 0.5rem;
+	}
 
 .hadith__references {
 	/*Col:Striped 1*/
