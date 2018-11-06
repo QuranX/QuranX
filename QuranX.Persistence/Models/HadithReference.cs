@@ -39,13 +39,6 @@ namespace QuranX.Persistence.Models
 			HadithId = hadithId;
 		}
 
-		public string ToString(HadithReferenceDefinition definition, string separator = ",")
-		{
-			IEnumerable<string> combined =
-				ToNameValuePairs(definition).Select(x => $"{x.Key}-{x.Value}");
-			return string.Join(separator, combined);
-		}
-
 		public IEnumerable<KeyValuePair<string, string>> ToNameValuePairs(HadithReferenceDefinition definition)
 		{
 			if (definition == null)

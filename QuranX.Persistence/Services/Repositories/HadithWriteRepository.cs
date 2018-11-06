@@ -39,7 +39,7 @@ namespace QuranX.Persistence.Services.Repositories
 			document.AddSearchableText(hadith.EnglishText);
 			document.StoreAndIndex(hadith, x => x.CollectionCode);
 			document.StoreAndIndex(hadith, x => x.PrimaryReferenceCode);
-			document.StoreAndIndex(hadith, x => x.PrimaryReferenceValues);
+			document.StoreAndIndex(hadith, x => x.PrimaryReferencePath);
 			document.AddObject(hadith);
 
 			IndexWriter indexWriter = IndexWriterProvider.GetIndexWriter();

@@ -109,13 +109,16 @@ namespace QuranX.DataMigration.Migrators
 			}
 
 			var primaryDefinition = definitionsByCode[primaryReference.ReferenceCode];
-			string primaryIndexValues = primaryReference.ToString(primaryDefinition, "/");
+			string primaryIndexPath = string.Join("/", 
+				primaryReference
+					.ToNameValuePairs(primaryDefinition)
+					.Select(x => $"{x.Key}-{x.Value}"));
 
 			var hadithViewModel = new HadithViewModel(
 				id: hadithId,
 				collectionCode: hadith.Collection.Code,
 				primaryReferenceCode: primaryReference.ReferenceCode,
-				primaryReferenceValues: primaryIndexValues,
+				primaryReferencePath: primaryIndexPath,
 				arabicText: hadith.ArabicText,
 				englishText: hadith.EnglishText,
 				verseRangeReferences: hadith.VerseReferences,

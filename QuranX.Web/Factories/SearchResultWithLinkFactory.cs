@@ -83,11 +83,11 @@ namespace QuranX.Web.Services
 		{
 			string collectionCode = document.GetStoredValue<Hadith>(x => x.CollectionCode);
 			string primaryReferenceCode = document.GetStoredValue<Hadith>(x => x.PrimaryReferenceCode);
-			string primaryReferenceValues = document.GetStoredValue<Hadith>(x => x.PrimaryReferenceValues);
+			string primaryReferencePath = document.GetStoredValue<Hadith>(x => x.PrimaryReferencePath);
 
 			HadithCollection collection = HadithCollectionRepository.Get(collectionCode);
-			url = $"/Hadith/{collectionCode}/{primaryReferenceCode}/{primaryReferenceValues}";
-			caption = $"{collection.Name} {primaryReferenceValues.Replace("/", ", ").Replace("-", " ")}";
+			url = $"/Hadith/{collectionCode}/{primaryReferenceCode}/{primaryReferencePath}";
+			caption = $"{collection.Name} {primaryReferencePath.Replace("/", ", ").Replace("-", " ")}";
 		}
 	}
 }

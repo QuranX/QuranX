@@ -267,6 +267,7 @@
     </Compile>
     <Compile Include="Views\Search\SearchResultWithLink.cs" />
     <Compile Include="Views\Search\ViewModel.cs" />
+    <Compile Include="Views\Shared\HadithReferenceViewModel.cs" />
     <Compile Include="Views\Shared\HadithView.generated.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

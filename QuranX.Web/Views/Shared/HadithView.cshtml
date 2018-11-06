@@ -1,4 +1,5 @@
 ﻿@model QuranX.Web.Views.Shared.HadithViewModel
+@using QuranX.Web.Views.Shared
 
 <div class="hadith">
 	<div class="hadith__references">
@@ -10,14 +11,16 @@
 				@Model.CollectionName
 			</div>
 		</div>
-		@foreach (KeyValuePair<string, string> reference in @Model.References)
+		@foreach (HadithReferenceViewModel reference in @Model.References)
 		{
 			<div class="hadith__reference">
 				<div class="hadith__reference-name">
-					@reference.Key
+					@reference.IndexName
 				</div>
 				<div class="hadith__reference-value">
-					@reference.Value
+					<a href="/Hadith/@reference.CollectionCode/@reference.IndexCode/@reference.ToUrlPath()">
+						@reference.ToString()
+					</a>
 				</div>
 			</div>
 		}

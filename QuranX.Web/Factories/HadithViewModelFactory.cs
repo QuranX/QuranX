@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using QuranX.Persistence.Models;
 using QuranX.Persistence.Services.Repositories;
@@ -27,19 +28,23 @@ namespace QuranX.Web.Factories
 			{
 				string collectionCode = hadith.References[0].CollectionCode;
 				HadithCollection collection = HadithCollectionRepository.Get(collectionCode);
-				var references = new List<KeyValuePair<string, string>>();
+				var references = new List<HadithReferenceViewModel>();
 				foreach (HadithReference reference in hadith.References)
 				{
 					HadithReferenceDefinition referenceDefinition =
 						collection.GetReferenceDefinition(reference.ReferenceCode);
-					string referenceName = referenceDefinition.Name;
-					string path = reference.ToString(referenceDefinition);
-					references.Add(new KeyValuePair<string, string>(referenceName, path));
+					var referenceViewModel = new HadithReferenceViewModel(
+						collectionCode: collection.Code,
+						collectionName: collection.Name,
+						indexCode: referenceDefinition.Code,
+						indexName: referenceDefinition.Name,
+						partNamesAndValues: reference.ToNameValuePairs(referenceDefinition));
+					references.Add(referenceViewModel);
 				}
 				var viewModel = new HadithViewModel(
 					collectionName: collection.Name,
 					hadith: hadith,
-					references: references.OrderBy(x => x.Key));
+					references: references);
 				result.Add(viewModel);
 			}
 			return result;

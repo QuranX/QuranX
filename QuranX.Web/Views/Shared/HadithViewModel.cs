@@ -8,12 +8,12 @@ namespace QuranX.Web.Views.Shared
 	{
 		public readonly string CollectionName;
 		public readonly Hadith Hadith;
-		public readonly IReadOnlyList<KeyValuePair<string, string>> References;
+		public readonly IReadOnlyList<HadithReferenceViewModel> References;
 
 		public HadithViewModel(
 			string collectionName,
 			Hadith hadith,
-			IEnumerable<KeyValuePair<string, string>> references)
+			IEnumerable<HadithReferenceViewModel> references)
 		{
 			CollectionName = collectionName;
 			Hadith = hadith;

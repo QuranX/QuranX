@@ -13,7 +13,7 @@ namespace QuranX.Persistence.Models
 		public IReadOnlyList<VerseRangeReference> VerseRangeReferences { get; }
 		public IReadOnlyList<HadithReference> References { get; }
 		public string PrimaryReferenceCode { get; }
-		public string PrimaryReferenceValues;
+		public string PrimaryReferencePath { get; }
 
 		public Hadith(
 			int id,
@@ -23,7 +23,7 @@ namespace QuranX.Persistence.Models
 			IEnumerable<VerseRangeReference> verseRangeReferences,
 			IEnumerable<HadithReference> references,
 			string primaryReferenceCode,
-			string primaryReferenceValues)
+			string primaryReferencePath)
 		{
 			Id = id;
 			CollectionCode = collectionCode;
@@ -32,7 +32,7 @@ namespace QuranX.Persistence.Models
 			EnglishText = englishText.ToList().AsReadOnly();
 			VerseRangeReferences = verseRangeReferences.ToList().AsReadOnly();
 			References = references.ToList().AsReadOnly();
-			PrimaryReferenceValues = primaryReferenceValues;
+			PrimaryReferencePath = primaryReferencePath;
 		}
 	}
 }
