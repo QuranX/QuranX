@@ -42,17 +42,17 @@ namespace QuranX.Web.Services
 
 		public void GetUrl(SearchResult searchResult, out string url, out string caption)
 		{
-			switch (searchResult.Type.ToLowerInvariant())
+			switch (searchResult.Type)
 			{
-				case "verse":
+				case nameof(Verse):
 					GetQuranUrl(searchResult.Document, out url, out caption);
 					break;
 
-				case "commentary":
+				case nameof(Commentary):
 					GetCommentaryUrl(searchResult.Document, out url, out caption);
 					break;
 
-				case "hadith":
+				case nameof(Hadith):
 					GetHadithUrl(searchResult.Document, out url, out caption);
 					break;
 
