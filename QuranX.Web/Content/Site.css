@@ -52,8 +52,8 @@
 }
 
 .verse__translation.arabic-container > dd {
-	padding: 0em 1em 0em 1em;
-	margin: 0.125em 0 -0.25em 0;
+	padding: 0em 2rem 0rem 2rem;
+	margin: 0.5rem 0 -0.25rem 0;
 }
 
 .striped > * {
@@ -240,6 +240,16 @@
 	.search__criteria > *:not(:last-child) {
 		margin-bottom: 0.25em;
 	}
+
+.search__result-number {
+	width: 2em;
+	display: inline-block;
+}
+
+dl.search__result > dt {
+	/* Col:Striped 1*/
+	background-color: hsl(0, 0%, 93.3%);
+}
 
 .btn.dropdown-toggle {
 	/*Col:H2*/

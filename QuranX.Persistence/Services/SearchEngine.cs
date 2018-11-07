@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using Lucene.Net.QueryParsers;
 using Lucene.Net.Search;
 using Lucene.Net.Search.Vectorhighlight;
@@ -8,7 +10,12 @@ namespace QuranX.Persistence.Services
 {
 	public interface ISearchEngine
 	{
-		IEnumerable<SearchResult> Search(string queryString, out int totalResults, int maxResults = 100);
+		IEnumerable<SearchResult> Search(
+			string queryString,
+			string context,
+			string subContext,
+			out int totalResults,
+			int maxResults = 100);
 	}
 
 	public class SearchEngine : ISearchEngine
@@ -27,16 +34,17 @@ namespace QuranX.Persistence.Services
 
 		public IEnumerable<SearchResult> Search(
 			string queryString,
+			string context,
+			string subContext,
 			out int totalResults,
-			int maxResults = 100)
+			int maxResults)
 		{
-#if DEBUG
-			maxResults = 2000;
-#endif
 			totalResults = 0;
 			queryString = (queryString ?? "").Replace(":", " ");
 			if (string.IsNullOrWhiteSpace(queryString))
 				return new List<SearchResult>();
+
+			queryString = AddContextCriteria(queryString, context, subContext);
 
 			IndexSearcher indexSearcher = SearcherProvider.GetIndexSearcher();
 			var analyser = AnalyzerProvider.GetAnalyzer();
@@ -50,7 +58,7 @@ namespace QuranX.Persistence.Services
 			var query = queryParser.Parse(queryString);
 
 			var resultsCollector = TopScoreDocCollector.Create(
-				numHits: maxResults,
+				numHits: 9999,
 				docsScoredInOrder: true
 			);
 			indexSearcher.Search(
@@ -62,7 +70,7 @@ namespace QuranX.Persistence.Services
 
 			var highlighter = new FastVectorHighlighter();
 			var fieldQuery = highlighter.GetFieldQuery(query);
-			foreach (var scoreDoc in resultsCollector.TopDocs().ScoreDocs)
+			foreach (var scoreDoc in resultsCollector.TopDocs().ScoreDocs.Take(maxResults))
 			{
 				string[] fragments = highlighter.GetBestFragments(
 					fieldQuery: fieldQuery,
@@ -80,6 +88,34 @@ namespace QuranX.Persistence.Services
 				result.Add(searchResult);
 			}
 			return result;
+		}
+
+		private string AddContextCriteria(string queryString, string context, string subContext)
+		{
+			if (string.IsNullOrWhiteSpace(context))
+				return queryString;
+
+			switch (context.ToLowerInvariant())
+			{
+				case SearchContexts.Quran:
+					string quranCriteria = $"{Consts.SerializedObjectTypeFieldName}:{nameof(Verse)}";
+					return $"{quranCriteria} AND {queryString}";
+
+				case SearchContexts.Commentaries:
+					string commentariesCriteria = $"{Consts.SerializedObjectTypeFieldName}:{nameof(Commentary)}";
+					if (!string.IsNullOrWhiteSpace(subContext))
+						queryString += $" AND {nameof(Commentary)}_{nameof(Commentary.CommentatorCode)}:{subContext}";
+					return $"{commentariesCriteria} AND {queryString}";
+
+				case SearchContexts.Hadiths:
+					string hadithsCriteria = $"{Consts.SerializedObjectTypeFieldName}:{nameof(Hadith)}";
+					if (!string.IsNullOrWhiteSpace(subContext))
+						queryString += $" AND {nameof(Hadith)}_{nameof(Hadith.CollectionCode)}:{subContext}";
+					return $"{hadithsCriteria} AND {queryString}";
+
+				default:
+					throw new ArgumentException($"Unknown context {context} {subContext}", nameof(context));
+			}
 		}
 	}
 }

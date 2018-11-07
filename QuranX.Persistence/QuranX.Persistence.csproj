@@ -162,6 +162,8 @@
     <Compile Include="Services\Repositories\VerseAnalysisWriteRepository.cs" />
     <Compile Include="Services\Repositories\VerseRepository.cs" />
     <Compile Include="Services\Repositories\VerseWriteRepository.cs" />
+    <Compile Include="Services\SearchContextGroupNames.cs" />
+    <Compile Include="Services\SearchContexts.cs" />
     <Compile Include="Services\SearchEngine.cs" />
     <Compile Include="Services\Settings.cs" />
   </ItemGroup>

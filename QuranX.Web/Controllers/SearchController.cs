@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 using QuranX.Persistence.Models;
@@ -31,15 +32,26 @@ namespace QuranX.Web.Controllers
 		public ActionResult Index(string q, string context)
 		{
 			context = (context ?? "").ToLowerInvariant();
+			string subContext = null;
+
+			string[] contextParts = context.Split('-');
+			if (contextParts.Length == 2 && !string.IsNullOrWhiteSpace(contextParts[1]))
+			{
+				context = contextParts[0];
+				subContext = contextParts[1];
+			}
+
+			int totalResults = 0;
 			IEnumerable<SearchResultWithLink> searchResultsWithLink = null;
 			if (!string.IsNullOrWhiteSpace(q))
 			{
-				IEnumerable<SearchResult> searchResults = SearchEngine.Search(q, out int totalResults);
+				IEnumerable<SearchResult> searchResults =
+					SearchEngine.Search(q, context, subContext, out totalResults);
 				searchResultsWithLink =
 					searchResults.Select(SearchResultWithLinkFactory.Create);
 			}
 			List<SelectListItem> contextItems = CreateContextItems(context);
-			var viewModel = new ViewModel(q, contextItems, searchResultsWithLink);
+			var viewModel = new ViewModel(q, contextItems, searchResultsWithLink, totalResults);
 			return View("Search", viewModel);
 		}
 
@@ -55,13 +67,13 @@ namespace QuranX.Web.Controllers
 		private IEnumerable<SelectListItem> CreateTopLevelSelection(string selectedValue)
 		{
 			var group = new SelectListGroup {
-				Name = "Sections"
+				Name = SearchContextGroupNames.Sections
 			};
 			var result = new List<SelectListItem>();
-			result.Add(CreateSelectionItem(group, selectedValue, "", "Whole site"));
-			result.Add(CreateSelectionItem(group, selectedValue, "quran", "Quran"));
-			result.Add(CreateSelectionItem(group, selectedValue, "tafsir", "All commentaries"));
-			result.Add(CreateSelectionItem(group, selectedValue, "hadith", "All hadiths"));
+			result.Add(CreateSelectionItem(group, selectedValue, SearchContexts.WholeSite, "Whole site"));
+			result.Add(CreateSelectionItem(group, selectedValue, SearchContexts.Quran, "Qur'an"));
+			result.Add(CreateSelectionItem(group, selectedValue, SearchContexts.Commentaries, "All commentaries"));
+			result.Add(CreateSelectionItem(group, selectedValue, SearchContexts.Hadiths, "All hadiths"));
 			return result;
 		}
 
@@ -69,7 +81,7 @@ namespace QuranX.Web.Controllers
 		private IEnumerable<SelectListItem> CreateTafsirsSelection(string selectedValue)
 		{
 			var group = new SelectListGroup {
-				Name = "Commentary"
+				Name = SearchContextGroupNames.Commentaries
 			};
 			var result = new List<SelectListItem>();
 			IEnumerable<Commentator> commentators =
@@ -77,7 +89,7 @@ namespace QuranX.Web.Controllers
 				.OrderBy(x => x.Code);
 			foreach (Commentator commentator in commentators)
 			{
-				string code = "tafsir-" + commentator.Code.ToLowerInvariant();
+				string code = $"{SearchContexts.Commentaries}-{commentator.Code}";
 				var item = new SelectListItem {
 					Group = group,
 					Selected = (selectedValue == code),
@@ -92,7 +104,7 @@ namespace QuranX.Web.Controllers
 		private IEnumerable<SelectListItem> CreateHadithsSelection(string selectedValue)
 		{
 			var group = new SelectListGroup {
-				Name = "Hadith"
+				Name = SearchContextGroupNames.Hadiths
 			};
 			var result = new List<SelectListItem>();
 			IEnumerable<HadithCollection> collections =
@@ -100,7 +112,7 @@ namespace QuranX.Web.Controllers
 				.OrderBy(x => x.Code);
 			foreach (HadithCollection collection in collections)
 			{
-				string code = "hadith-" + collection.Code.ToLowerInvariant();
+				string code = $"{SearchContexts.Hadiths}-{collection.Code}";
 				var item = new SelectListItem {
 					Group = group,
 					Selected = (selectedValue == code),

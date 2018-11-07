@@ -123,17 +123,33 @@ WriteLiteral(" />\r\n\t\t</div>\r\n\t</div>\r\n");
             #line 22 "..\..\Views\Search\Search.cshtml"
  if (Model.SearchResults != null)
 {
-	string resultsCaption = Model.SearchResults.Count() == 1 ? "result" : "results";
 	int resultNumber = 0;
+	if (Model.TotalResults == 0)
+	{
 
             
             #line default
             #line hidden
-WriteLiteral("\t<h2>");
+WriteLiteral("\t\t<h2>No results</h2>\r\n");
 
             
-            #line 26 "..\..\Views\Search\Search.cshtml"
-   Write(Model.SearchResults.Count());
+            #line 28 "..\..\Views\Search\Search.cshtml"
+	}
+	else
+	{
+		int numberOfResultsToShow = Model.SearchResults.Count();
+		string resultsCaption = Model.TotalResults == 1 ? "result" : "results";
+		if (numberOfResultsToShow == Model.TotalResults)
+		{
+
+            
+            #line default
+            #line hidden
+WriteLiteral("\t\t\t<h2>Showing ");
+
+            
+            #line 35 "..\..\Views\Search\Search.cshtml"
+                   Write(numberOfResultsToShow);
 
             
             #line default
@@ -141,8 +157,8 @@ WriteLiteral("\t<h2>");
 WriteLiteral(" ");
 
             
-            #line 26 "..\..\Views\Search\Search.cshtml"
-                                Write(resultsCaption);
+            #line 35 "..\..\Views\Search\Search.cshtml"
+                                          Write(resultsCaption);
 
             
             #line default
@@ -150,92 +166,132 @@ WriteLiteral(" ");
 WriteLiteral("</h2>\r\n");
 
             
-            #line 27 "..\..\Views\Search\Search.cshtml"
-
+            #line 36 "..\..\Views\Search\Search.cshtml"
+		}
+		else
+		{
 
             
             #line default
             #line hidden
-WriteLiteral("\t<div");
+WriteLiteral("\t\t\t<h2>Showing ");
+
+            
+            #line 39 "..\..\Views\Search\Search.cshtml"
+                   Write(numberOfResultsToShow);
+
+            
+            #line default
+            #line hidden
+WriteLiteral(" of ");
+
+            
+            #line 39 "..\..\Views\Search\Search.cshtml"
+                                             Write(Model.TotalResults);
+
+            
+            #line default
+            #line hidden
+WriteLiteral(" ");
+
+            
+            #line 39 "..\..\Views\Search\Search.cshtml"
+                                                                 Write(resultsCaption);
+
+            
+            #line default
+            #line hidden
+WriteLiteral("</h2>\r\n");
+
+            
+            #line 40 "..\..\Views\Search\Search.cshtml"
+		}
+
+            
+            #line default
+            #line hidden
+WriteLiteral("\t\t<div");
 
 WriteLiteral(" class=\"search__results\"");
 
 WriteLiteral(">\r\n");
 
             
-            #line 29 "..\..\Views\Search\Search.cshtml"
-		
+            #line 42 "..\..\Views\Search\Search.cshtml"
+			
             
             #line default
             #line hidden
             
-            #line 29 "..\..\Views\Search\Search.cshtml"
-         foreach (SearchResultWithLink searchResult in Model.SearchResults)
-		{
-			resultNumber++;
+            #line 42 "..\..\Views\Search\Search.cshtml"
+             foreach (SearchResultWithLink searchResult in Model.SearchResults)
+			{
+				resultNumber++;
 
             
             #line default
             #line hidden
-WriteLiteral("\t\t\t<dl");
+WriteLiteral("\t\t\t\t<dl");
 
-WriteLiteral(" class=\"search__item\"");
+WriteLiteral(" class=\"search__result\"");
 
-WriteLiteral(">\r\n\t\t\t\t<dt>\r\n");
+WriteLiteral(">\r\n\t\t\t\t\t<dt>\r\n\t\t\t\t\t\t<span");
 
-WriteLiteral("\t\t\t\t\t");
+WriteLiteral(" class=\"search__result-number\"");
 
-            
-            #line 34 "..\..\Views\Search\Search.cshtml"
-               Write(resultNumber);
+WriteLiteral(">");
 
             
-            #line default
-            #line hidden
-WriteLiteral("\r\n\t\t\t\t\t<a");
+            #line 47 "..\..\Views\Search\Search.cshtml"
+                                                       Write(resultNumber);
 
-WriteAttribute("href", Tuple.Create(" href=\"", 1064), Tuple.Create("\"", 1088)
-            
-            #line 35 "..\..\Views\Search\Search.cshtml"
-, Tuple.Create(Tuple.Create("", 1071), Tuple.Create<System.Object, System.Int32>(searchResult.Url
             
             #line default
             #line hidden
-, 1071), false)
+WriteLiteral("</span>\r\n\t\t\t\t\t\t<a");
+
+WriteAttribute("href", Tuple.Create(" href=\"", 1407), Tuple.Create("\"", 1431)
+            
+            #line 48 "..\..\Views\Search\Search.cshtml"
+, Tuple.Create(Tuple.Create("", 1414), Tuple.Create<System.Object, System.Int32>(searchResult.Url
+            
+            #line default
+            #line hidden
+, 1414), false)
 );
 
 WriteLiteral(">\r\n");
 
-WriteLiteral("\t\t\t\t\t\t");
+WriteLiteral("\t\t\t\t\t\t\t");
 
             
-            #line 36 "..\..\Views\Search\Search.cshtml"
-                   Write(searchResult.Caption);
-
-            
-            #line default
-            #line hidden
-WriteLiteral("\r\n\t\t\t\t\t</a>\r\n\t\t\t\t</dt>\r\n\t\t\t\t<dd>\r\n\t\t\t\t\t<ul>\r\n");
-
-            
-            #line 41 "..\..\Views\Search\Search.cshtml"
-						
-            
-            #line default
-            #line hidden
-            
-            #line 41 "..\..\Views\Search\Search.cshtml"
-                         foreach (var snippet in searchResult.Snippets)
-						{
+            #line 49 "..\..\Views\Search\Search.cshtml"
+                       Write(searchResult.Caption);
 
             
             #line default
             #line hidden
-WriteLiteral("\t\t\t\t\t\t\t<li>");
+WriteLiteral("\r\n\t\t\t\t\t\t</a>\r\n\t\t\t\t\t</dt>\r\n\t\t\t\t\t<dd>\r\n\t\t\t\t\t\t<ul>\r\n");
 
             
-            #line 43 "..\..\Views\Search\Search.cshtml"
-                           Write(Html.Highlight(snippet));
+            #line 54 "..\..\Views\Search\Search.cshtml"
+							
+            
+            #line default
+            #line hidden
+            
+            #line 54 "..\..\Views\Search\Search.cshtml"
+                             foreach (var snippet in searchResult.Snippets)
+							{
+
+            
+            #line default
+            #line hidden
+WriteLiteral("\t\t\t\t\t\t\t\t<li>");
+
+            
+            #line 56 "..\..\Views\Search\Search.cshtml"
+                               Write(Html.Highlight(snippet));
 
             
             #line default
@@ -243,25 +299,26 @@ WriteLiteral("\t\t\t\t\t\t\t<li>");
 WriteLiteral("</li>\r\n");
 
             
-            #line 44 "..\..\Views\Search\Search.cshtml"
-						}
+            #line 57 "..\..\Views\Search\Search.cshtml"
+							}
 
             
             #line default
             #line hidden
-WriteLiteral("\t\t\t\t\t</ul>\r\n\t\t\t\t</dd>\r\n\t\t\t</dl>\r\n");
+WriteLiteral("\t\t\t\t\t\t</ul>\r\n\t\t\t\t\t</dd>\r\n\t\t\t\t</dl>\r\n");
 
             
-            #line 48 "..\..\Views\Search\Search.cshtml"
-		}
+            #line 61 "..\..\Views\Search\Search.cshtml"
+			}
 
             
             #line default
             #line hidden
-WriteLiteral("\t</div>\r\n");
+WriteLiteral("\t\t</div>\r\n");
 
             
-            #line 50 "..\..\Views\Search\Search.cshtml"
+            #line 63 "..\..\Views\Search\Search.cshtml"
+	}
 }
             
             #line default

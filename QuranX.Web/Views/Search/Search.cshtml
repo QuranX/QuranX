@@ -21,30 +21,44 @@
 }
 @if (Model.SearchResults != null)
 {
-	string resultsCaption = Model.SearchResults.Count() == 1 ? "result" : "results";
 	int resultNumber = 0;
-	<h2>@Model.SearchResults.Count() @resultsCaption</h2>
-
-	<div class="search__results">
-		@foreach (SearchResultWithLink searchResult in Model.SearchResults)
+	if (Model.TotalResults == 0)
+	{
+		<h2>No results</h2>
+	}
+	else
+	{
+		int numberOfResultsToShow = Model.SearchResults.Count();
+		string resultsCaption = Model.TotalResults == 1 ? "result" : "results";
+		if (numberOfResultsToShow == Model.TotalResults)
 		{
-			resultNumber++;
-			<dl class="search__item">
-				<dt>
-					@resultNumber
-					<a href="@searchResult.Url">
-						@searchResult.Caption
-					</a>
-				</dt>
-				<dd>
-					<ul>
-						@foreach (var snippet in searchResult.Snippets)
-						{
-							<li>@Html.Highlight(snippet)</li>
-						}
-					</ul>
-				</dd>
-			</dl>
+			<h2>Showing @numberOfResultsToShow @resultsCaption</h2>
 		}
-	</div>
+		else
+		{
+			<h2>Showing @numberOfResultsToShow of @Model.TotalResults @resultsCaption</h2>
+		}
+		<div class="search__results">
+			@foreach (SearchResultWithLink searchResult in Model.SearchResults)
+			{
+				resultNumber++;
+				<dl class="search__result">
+					<dt>
+						<span class="search__result-number">@resultNumber</span>
+						<a href="@searchResult.Url">
+							@searchResult.Caption
+						</a>
+					</dt>
+					<dd>
+						<ul>
+							@foreach (var snippet in searchResult.Snippets)
+							{
+								<li>@Html.Highlight(snippet)</li>
+							}
+						</ul>
+					</dd>
+				</dl>
+			}
+		</div>
+	}
 }
