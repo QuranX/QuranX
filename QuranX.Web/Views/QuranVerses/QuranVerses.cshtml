@@ -130,7 +130,7 @@
 				const translatorCode = elem.data("translator-code");
 				window.localStorage.setItem("hide-" + translatorCode, true);
 
-				toggleTranslation(translatorCode, true);
+				toggleTranslation(translatorCode);
 			});
 		$(document).ready(function () {
 			window.localStorage.setItem("returnVisit", true);

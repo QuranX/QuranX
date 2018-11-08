@@ -513,8 +513,8 @@ WriteLiteral("\r\n\t<script>\r\n\r\n\t\tfunction toggleTranslation(translatorCod
 " true);\r\n\t\t\t\t};\r\n\t\t\t})\r\n\t\t\t.on(\"click\", function (ev) {\r\n\t\t\t\tconst elem = $(ev.t" +
 "arget.parentElement);\r\n\t\t\t\tconst translatorCode = elem.data(\"translator-code\");\r" +
 "\n\t\t\t\twindow.localStorage.setItem(\"hide-\" + translatorCode, true);\r\n\r\n\t\t\t\ttoggleT" +
-"ranslation(translatorCode, true);\r\n\t\t\t});\r\n\t\t$(document).ready(function () {\r\n\t\t" +
-"\twindow.localStorage.setItem(\"returnVisit\", true);\r\n\t\t});\r\n\t</script>\r\n");
+"ranslation(translatorCode);\r\n\t\t\t});\r\n\t\t$(document).ready(function () {\r\n\t\t\twindo" +
+"w.localStorage.setItem(\"returnVisit\", true);\r\n\t\t});\r\n\t</script>\r\n");
 
 });
 
