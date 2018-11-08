@@ -29,6 +29,12 @@
 	<h2>@group.Chapter.EnglishName - @group.Chapter.ArabicName</h2>
 	foreach (Verse verse in group.Verses)
 	{
+		if (Model.AutoScrollToSelectedVerse
+			&& verse.ChapterNumber == Model.SelectChapterAndVerse.SelectedChapterNumber
+			&& verse.VerseNumber == Model.SelectChapterAndVerse.SelectedVerseNumber)
+		{
+			<a name="focal-point"></a>
+		}
 		<div class="row verse__statistics">
 			<span class="verse__reference">@verse.ChapterNumber.@verse.VerseNumber</span>
 			<a href="analysis/@verse.ChapterNumber.@verse.VerseNumber">

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 using QuranX.Persistence.Models;
@@ -21,13 +22,18 @@ namespace QuranX.Web.Controllers
 			VerseRepository = verseRepository;
 		}
 
-		public ActionResult Index(string verses)
+		public ActionResult Index(string verses, int? context)
 		{
 			IEnumerable<VerseRangeReference> verseRangeReferences = verses.Split(',')
 				.ToList()
 				.ConvertAll(x => VerseRangeReference.Parse(x));
 			if (!verseRangeReferences.Any())
 				verseRangeReferences = new VerseRangeReference[] { new VerseRangeReference(1, 1, 1) };
+
+			VerseRangeReference firstReference = verseRangeReferences.First();
+			bool autoScrollToSelectedVerse = verseRangeReferences.Count() == 1 && context.HasValue && context > 0;
+			if (autoScrollToSelectedVerse)
+				verseRangeReferences = AddSurroundingVerses(context, firstReference);
 
 			IEnumerable<Verse> retrievedVerses = VerseRepository.GetVerses(verseRangeReferences)
 				.OrderBy(x => x.ChapterNumber)
@@ -43,15 +49,29 @@ namespace QuranX.Web.Controllers
 				displayVerses.Add(chapterAndSelection);
 			}
 
-			VerseRangeReference firstReference = verseRangeReferences.First();
 			var viewModel = new ViewModel(
 				displayVerses: displayVerses,
 				selectChapterAndVerse: new SelectChapterAndVerse(
 					firstReference.Chapter,
 					firstReference.FirstVerse,
-					url: "")
+					url: ""),
+				autoScrollToSelectedVerse: autoScrollToSelectedVerse
 				); 
 			return View("QuranVerses", viewModel);
+		}
+
+		private static IEnumerable<VerseRangeReference> AddSurroundingVerses(int? context, VerseRangeReference firstReference)
+		{
+			IEnumerable<VerseRangeReference> verseRangeReferences;
+			int numberOfVerses = QuranStructure.Chapter(firstReference.Chapter).NumberOfVerses;
+			int firstVerse = Math.Max(1, firstReference.FirstVerse - context.Value);
+			int lastVerse = Math.Min(numberOfVerses, firstReference.LastVerse + context.Value);
+			var newVerseReference = new VerseRangeReference(
+				chapter: firstReference.Chapter,
+				firstVerse: firstVerse,
+				lastVerse: lastVerse);
+			verseRangeReferences = new[] { newVerseReference };
+			return verseRangeReferences;
 		}
 	}
 }

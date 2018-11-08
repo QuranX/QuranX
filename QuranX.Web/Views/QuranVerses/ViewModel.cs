@@ -9,12 +9,17 @@ namespace QuranX.Web.Views.QuranVerses
 	{
 		public readonly IEnumerable<ChapterAndVerseSelection> DisplayVerses;
 		public readonly SelectChapterAndVerse SelectChapterAndVerse;
+		public readonly bool AutoScrollToSelectedVerse;
 		public readonly IEnumerable<Translator> Translators;
 
-		public ViewModel(IEnumerable<ChapterAndVerseSelection> displayVerses, SelectChapterAndVerse selectChapterAndVerse)
+		public ViewModel(
+			IEnumerable<ChapterAndVerseSelection> displayVerses,
+			SelectChapterAndVerse selectChapterAndVerse,
+			bool autoScrollToSelectedVerse)
 		{
 			DisplayVerses = displayVerses;
 			SelectChapterAndVerse = selectChapterAndVerse;
+			AutoScrollToSelectedVerse = autoScrollToSelectedVerse;
 			Translators = DisplayVerses
 				.SelectMany(x => x.Verses)
 				.FirstOrDefault()

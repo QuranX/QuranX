@@ -143,45 +143,45 @@ WriteLiteral("\t\t\t<li");
 
 WriteLiteral(" class=\"verse-analysis__word row\"");
 
-WriteLiteral(">\r\n\t\t\t\t<a");
-
-WriteAttribute("name", Tuple.Create(" name=\"", 688), Tuple.Create("\"", 716)
-, Tuple.Create(Tuple.Create("", 695), Tuple.Create("word_", 695), true)
-            
-            #line 22 "..\..\Views\VerseAnalysis\VerseAnalysis.cshtml"
-, Tuple.Create(Tuple.Create("", 700), Tuple.Create<System.Object, System.Int32>(word.WordNumber
-            
-            #line default
-            #line hidden
-, 700), false)
-);
-
-WriteLiteral("></a>\r\n\t\t\t\t<div");
+WriteLiteral(">\r\n\t\t\t\t<div");
 
 WriteLiteral(" class=\"col-xs-4 col-sm-5 col-md-4 col-lg-2\"");
 
 WriteLiteral(">\r\n\t\t\t\t\t<a");
 
-WriteAttribute("href", Tuple.Create(" href=\"", 786), Tuple.Create("\"", 841)
-, Tuple.Create(Tuple.Create("", 793), Tuple.Create("/", 793), true)
+WriteAttribute("href", Tuple.Create(" href=\"", 744), Tuple.Create("\"", 799)
+, Tuple.Create(Tuple.Create("", 751), Tuple.Create("/", 751), true)
             
-            #line 24 "..\..\Views\VerseAnalysis\VerseAnalysis.cshtml"
-, Tuple.Create(Tuple.Create("", 794), Tuple.Create<System.Object, System.Int32>(Model.Chapter.ChapterNumber
+            #line 23 "..\..\Views\VerseAnalysis\VerseAnalysis.cshtml"
+, Tuple.Create(Tuple.Create("", 752), Tuple.Create<System.Object, System.Int32>(Model.Chapter.ChapterNumber
             
             #line default
             #line hidden
-, 794), false)
-, Tuple.Create(Tuple.Create("", 822), Tuple.Create(".", 822), true)
+, 752), false)
+, Tuple.Create(Tuple.Create("", 780), Tuple.Create(".", 780), true)
+            
+            #line 23 "..\..\Views\VerseAnalysis\VerseAnalysis.cshtml"
+, Tuple.Create(Tuple.Create("", 781), Tuple.Create<System.Object, System.Int32>(Model.VerseNumber
+            
+            #line default
+            #line hidden
+, 781), false)
+);
+
+WriteLiteral(">\r\n\t\t\t\t\t\t<a");
+
+WriteAttribute("name", Tuple.Create(" name=\"", 811), Tuple.Create("\"", 839)
+, Tuple.Create(Tuple.Create("", 818), Tuple.Create("word_", 818), true)
             
             #line 24 "..\..\Views\VerseAnalysis\VerseAnalysis.cshtml"
-, Tuple.Create(Tuple.Create("", 823), Tuple.Create<System.Object, System.Int32>(Model.VerseNumber
+, Tuple.Create(Tuple.Create("", 823), Tuple.Create<System.Object, System.Int32>(word.WordNumber
             
             #line default
             #line hidden
 , 823), false)
 );
 
-WriteLiteral(">\r\n\t\t\t\t\t\t<span");
+WriteLiteral("></a>\r\n\t\t\t\t\t\t<span");
 
 WriteLiteral(" class=\"verse__reference\"");
 
@@ -220,27 +220,27 @@ WriteLiteral(" class=\"col-xs-8 col-sm-7 col-md-8 col-lg-10 verse-analysis__word
 
 WriteLiteral(">\r\n\t\t\t\t\t<img");
 
-WriteAttribute("src", Tuple.Create(" src=\"", 1087), Tuple.Create("\"", 1163)
-, Tuple.Create(Tuple.Create("", 1093), Tuple.Create<System.Object, System.Int32>(Href("~/Content/Images/ArabicWords/")
-, 1093), false)
+WriteAttribute("src", Tuple.Create(" src=\"", 1089), Tuple.Create("\"", 1165)
+, Tuple.Create(Tuple.Create("", 1095), Tuple.Create<System.Object, System.Int32>(Href("~/Content/Images/ArabicWords/")
+, 1095), false)
             
             #line 31 "..\..\Views\VerseAnalysis\VerseAnalysis.cshtml"
-, Tuple.Create(Tuple.Create("", 1122), Tuple.Create<System.Object, System.Int32>(Html.GetHexValues(word.Buckwalter)
+, Tuple.Create(Tuple.Create("", 1124), Tuple.Create<System.Object, System.Int32>(Html.GetHexValues(word.Buckwalter)
             
             #line default
             #line hidden
-, 1122), false)
-, Tuple.Create(Tuple.Create("", 1159), Tuple.Create(".png", 1159), true)
+, 1124), false)
+, Tuple.Create(Tuple.Create("", 1161), Tuple.Create(".png", 1161), true)
 );
 
-WriteAttribute("alt", Tuple.Create(" alt=\"", 1164), Tuple.Create("\"", 1186)
+WriteAttribute("alt", Tuple.Create(" alt=\"", 1166), Tuple.Create("\"", 1188)
             
             #line 31 "..\..\Views\VerseAnalysis\VerseAnalysis.cshtml"
-                           , Tuple.Create(Tuple.Create("", 1170), Tuple.Create<System.Object, System.Int32>(word.Buckwalter
+                           , Tuple.Create(Tuple.Create("", 1172), Tuple.Create<System.Object, System.Int32>(word.Buckwalter
             
             #line default
             #line hidden
-, 1170), false)
+, 1172), false)
 );
 
 WriteLiteral(" />\r\n\t\t\t\t</div>\r\n\t\t\t\t<div");

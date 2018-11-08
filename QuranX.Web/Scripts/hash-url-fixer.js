@@ -1,5 +1,12 @@
-﻿var shiftWindow = function () { scrollBy(0, -50); };
-window.addEventListener("hashchange", shiftWindow);
+﻿var shiftWindow = function (anchorName) {
+	if (anchorName.charAt(0) == '#') {
+		anchorName = anchorName.substring(1);
+	}
+	var tag = $('a[name="' + anchorName + '"]');
+	if (tag.length) {
+		$('html,body').animate({ scrollTop: tag.offset().top - 75 }, 'slow');
+	}
+};
 $(document).ready(function () {
-	if (window.location.hash) shiftWindow();
+	shiftWindow(window.location.hash || "focal-point");
 });
