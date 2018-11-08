@@ -17976,7 +17976,8 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
     <Content Include="Scripts\quranx.autohighlight.js" />
-    <Content Include="Scripts\quranx.verses.js" />
+    <Content Include="Scripts\quranx.verse-translations.js" />
+    <Content Include="Scripts\quranx.verse-counts.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>

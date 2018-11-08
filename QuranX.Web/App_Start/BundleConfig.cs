@@ -10,7 +10,10 @@ namespace QuranX.Web
 			bundles.Add(new ScriptBundle("~/bundles/site").Include(
 				"~/Scripts/quranx.autohighlight.js",
 				"~/Scripts/quranx.hash-url-fixer.js",
-				"~/Scripts/quranx.verses.js"));
+				"~/Scripts/quranx.verse-counts.js"));
+			bundles.Add(new ScriptBundle("~/bundles/verse-view").Include(
+				"~/Scripts/quranx.verse-translations.js"
+				));
 			bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
 				"~/Scripts/jquery.highlight.js",
 				"~/Scripts/jquery-{version}.js"));

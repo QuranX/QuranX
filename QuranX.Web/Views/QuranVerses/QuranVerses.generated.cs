@@ -490,31 +490,18 @@ WriteLiteral("\t\t</div>\r\n");
             #line hidden
 DefineSection("scripts", () => {
 
-WriteLiteral("\r\n\t<script>\r\n\r\n\t\tfunction toggleTranslation(translatorCode, immediateHide) {\r\n\t\t\t" +
-"var verseElem = $(`.verse__translation[data-translator-code=\"${translatorCode}\"`" +
-");\r\n\t\t\tvar hiddenCodeElem = $(`.verse__translation-hidden-item[data-translator-c" +
-"ode=\"${translatorCode}\"`);\r\n\r\n\t\t\tif (!immediateHide) {\r\n\t\t\t\tverseElem.toggle(\"co" +
-"llapse\");\r\n\t\t\t\thiddenCodeElem.toggle(\"collapse\");\r\n\t\t\t} else {\r\n\t\t\t\tverseElem.hi" +
-"de();\r\n\t\t\t\thiddenCodeElem.show();\r\n\t\t\t}\r\n\t\t}\r\n\t\t// Buttons to show translations\r" +
-"\n\t\t$(\".verse__translation-hidden-item\")\r\n\t\t\t.each(function (index, elem) {\r\n\t\t\t\t" +
-"elem = $(elem);\r\n\t\t\t\tconst translatorCode = elem.data(\"translator-code\");\r\n\t\t\t\ti" +
-"f (window.localStorage.getItem(translatorCode)) {\r\n\t\t\t\t\telem.show();\r\n\t\t\t\t} else" +
-" {\r\n\t\t\t\t\telem.hide();\r\n\t\t\t\t}\r\n\t\t\t})\r\n\t\t\t.on(\"click\", function (ev) {\r\n\t\t\t\tconst " +
-"elem = $(ev.target);\r\n\t\t\t\tconst translatorCode = elem.data(\"translator-code\");\r\n" +
-"\t\t\t\twindow.localStorage.removeItem(\"hide-\" + translatorCode);\r\n\r\n\t\t\t\ttoggleTrans" +
-"lation(translatorCode);\r\n\t\t\t});\r\n\t\t// Translations\r\n\t\t$(\".verse__translation>dt\"" +
-")\r\n\t\t\t.each(function (index, elem) {\r\n\t\t\t\telem = $(elem.parentElement);\r\n\t\t\t\tcon" +
-"st translatorCode = elem.data(\"translator-code\");\r\n\t\t\t\t// If this is the first v" +
-"isit\r\n\t\t\t\tif (!window.localStorage.getItem(\"returnVisit\")) {\r\n\t\t\t\t\t// Hide the t" +
-"ranslation if not one of the defaults to show\r\n\t\t\t\t\tif ([\"AR\", \"Pickthall\", \"Sah" +
-"ihIntl\", \"YusufAli\"].indexOf(translatorCode) < 0) {\r\n\t\t\t\t\t\twindow.localStorage.s" +
-"etItem(\"hide-\" + translatorCode, true);\r\n\t\t\t\t\t}\r\n\t\t\t\t}\r\n\t\t\t\tif (window.localStor" +
-"age.getItem(\"hide-\" + translatorCode)) {\r\n\t\t\t\t\ttoggleTranslation(translatorCode," +
-" true);\r\n\t\t\t\t};\r\n\t\t\t})\r\n\t\t\t.on(\"click\", function (ev) {\r\n\t\t\t\tconst elem = $(ev.t" +
-"arget.parentElement);\r\n\t\t\t\tconst translatorCode = elem.data(\"translator-code\");\r" +
-"\n\t\t\t\twindow.localStorage.setItem(\"hide-\" + translatorCode, true);\r\n\r\n\t\t\t\ttoggleT" +
-"ranslation(translatorCode);\r\n\t\t\t});\r\n\t\t$(document).ready(function () {\r\n\t\t\twindo" +
-"w.localStorage.setItem(\"returnVisit\", true);\r\n\t\t});\r\n\t</script>\r\n");
+WriteLiteral("\r\n");
+
+WriteLiteral("\t");
+
+            
+            #line 80 "..\..\Views\QuranVerses\QuranVerses.cshtml"
+Write(Scripts.Render("~/bundles/verse-view"));
+
+            
+            #line default
+            #line hidden
+WriteLiteral("\r\n");
 
 });
 
