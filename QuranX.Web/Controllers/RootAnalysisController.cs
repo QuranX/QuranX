@@ -4,11 +4,11 @@ using System.Linq;
 using System.Web.Mvc;
 using QuranX.Persistence.Models;
 using QuranX.Persistence.Services.Repositories;
-using QuranX.Shared.Models;
 using QuranX.Web.Views.RootAnalysis;
 
 namespace QuranX.Web.Controllers
 {
+	[OutputCache(Duration = Consts.CacheTimeInSeconds, NoStore = Consts.CacheTimeInSeconds == 0)]
 	public class RootAnalysisController : Controller
 	{
 		private readonly IVerseAnalysisRepository VerseAnalysisRepository;
@@ -27,9 +27,9 @@ namespace QuranX.Web.Controllers
 				.OrderBy(x => x.ChapterNumber)
 				.ThenBy(x => x.VerseNumber);
 			var extracts = new List<VerseViewModel>();
-			foreach(VerseAnalysis verseAnalysis in verses)
+			foreach (VerseAnalysis verseAnalysis in verses)
 			{
-				foreach(VerseAnalysisWord analysisWord in verseAnalysis.Words)
+				foreach (VerseAnalysisWord analysisWord in verseAnalysis.Words)
 				{
 					VerseAnalysisWordPart wordPart =
 						analysisWord.WordParts
@@ -59,7 +59,7 @@ namespace QuranX.Web.Controllers
 			int lower = Math.Max(1, analysisWord.WordNumber - WordsBeforeAndAfter);
 			int upper = Math.Min(verseAnalysis.Words.Count, analysisWord.WordNumber + WordsBeforeAndAfter);
 			var words = new List<VerseAnalysisWord>();
-			for(int index = lower - 1; index < upper; index ++)
+			for (int index = lower - 1; index < upper; index++)
 				words.Add(verseAnalysis.Words[index]);
 
 			var result = new VerseViewModel(

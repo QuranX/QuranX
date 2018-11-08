@@ -2,7 +2,7 @@
 
 namespace QuranX.Web.Controllers
 {
-	public class RedirectController : Controller
+	public class RedirectToUrlController : Controller
 	{
 		public ActionResult Index(string url)
 		{

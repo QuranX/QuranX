@@ -101,7 +101,13 @@ Write(Scripts.Render("~/bundles/site"));
             
             #line default
             #line hidden
-WriteLiteral("\r\n</head>\r\n<body>\r\n\t<div");
+WriteLiteral("\r\n\t<script async");
+
+WriteLiteral(" src=\"https://www.googletagmanager.com/gtag/js?id=UA-42308840-1\"");
+
+WriteLiteral("></script>\r\n\t<script>\r\n\t\twindow.dataLayer = window.dataLayer || [];\r\n\t\tfunction g" +
+"tag() { dataLayer.push(arguments); }\r\n\t\tgtag(\'js\', new Date());\r\n\r\n\t\tgtag(\'confi" +
+"g\', \'UA-42308840-1\');\r\n\t</script>\r\n</head>\r\n<body>\r\n\t<div");
 
 WriteLiteral(" class=\"quranx navbar navbar-inverse navbar-fixed-top\"");
 
@@ -140,7 +146,7 @@ WriteLiteral(" href=\"/1.1\"");
 WriteLiteral(">Quran</a></li>\r\n\t\t\t\t\t<li>");
 
             
-            #line 24 "..\..\Views\Shared\_Layout.cshtml"
+            #line 32 "..\..\Views\Shared\_Layout.cshtml"
                    Write(Html.RouteLink("Commentaries", "Commentators"));
 
             
@@ -149,7 +155,7 @@ WriteLiteral(">Quran</a></li>\r\n\t\t\t\t\t<li>");
 WriteLiteral("</li>\r\n\t\t\t\t\t<li>");
 
             
-            #line 25 "..\..\Views\Shared\_Layout.cshtml"
+            #line 33 "..\..\Views\Shared\_Layout.cshtml"
                    Write(Html.RouteLink("Hadiths", "HadithCollections"));
 
             
@@ -158,8 +164,8 @@ WriteLiteral("</li>\r\n\t\t\t\t\t<li>");
 WriteLiteral("</li>\r\n\t\t\t\t\t<li>");
 
             
-            #line 26 "..\..\Views\Shared\_Layout.cshtml"
-                   Write(Html.RouteLink("Search", "Search"));
+            #line 34 "..\..\Views\Shared\_Layout.cshtml"
+                   Write(Html.RouteLink("Search", "SiteSearch"));
 
             
             #line default
@@ -173,7 +179,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("\t\t");
 
             
-            #line 32 "..\..\Views\Shared\_Layout.cshtml"
+            #line 40 "..\..\Views\Shared\_Layout.cshtml"
    Write(RenderBody());
 
             
@@ -184,7 +190,7 @@ WriteLiteral("\r\n\t</div>\r\n\r\n");
 WriteLiteral("\t");
 
             
-            #line 35 "..\..\Views\Shared\_Layout.cshtml"
+            #line 43 "..\..\Views\Shared\_Layout.cshtml"
 Write(Scripts.Render("~/bundles/jquery"));
 
             
@@ -195,7 +201,7 @@ WriteLiteral("\r\n");
 WriteLiteral("\t");
 
             
-            #line 36 "..\..\Views\Shared\_Layout.cshtml"
+            #line 44 "..\..\Views\Shared\_Layout.cshtml"
 Write(Scripts.Render("~/bundles/bootstrap"));
 
             
@@ -206,7 +212,7 @@ WriteLiteral("\r\n");
 WriteLiteral("\t");
 
             
-            #line 37 "..\..\Views\Shared\_Layout.cshtml"
+            #line 45 "..\..\Views\Shared\_Layout.cshtml"
 Write(RenderSection("scripts", required: false));
 
             

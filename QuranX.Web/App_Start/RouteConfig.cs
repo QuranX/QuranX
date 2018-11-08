@@ -11,9 +11,9 @@ namespace QuranX.Web
 			routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
 			routes.MapRoute(
-				name: "Search",
+				name: "SiteSearch",
 				url: "Search",
-				defaults: new { Controller = "Search", Action = "Index" });
+				defaults: new { Controller = "SiteSearch", Action = "Index" });
 
 			routes.MapRoute(
 				name: "Commentators",
@@ -103,8 +103,8 @@ namespace QuranX.Web
 				url: "",
 				defaults: new
 				{
-					Controller = "Redirect",
-					Action = nameof(RedirectController.Index),
+					Controller = "RedirectToUrl",
+					Action = nameof(RedirectToUrlController.Index),
 					Url = "/1.1"
 				});
 		}

@@ -10,14 +10,14 @@ using QuranX.Web.Views.Search;
 
 namespace QuranX.Web.Controllers
 {
-	public class SearchController : Controller
+	public class SiteSearchController : Controller
 	{
 		private readonly ISearchEngine SearchEngine;
 		private readonly ISearchResultWithLinkFactory SearchResultWithLinkFactory;
 		private readonly ICommentatorRepository CommentatorRepository;
 		private readonly IHadithCollectionRepository HadithCollectionRepository;
 
-		public SearchController(
+		public SiteSearchController(
 			ISearchEngine searchEngine,
 			ISearchResultWithLinkFactory searchResultWithLinkFactory,
 			ICommentatorRepository commentatorRepository,
@@ -52,7 +52,7 @@ namespace QuranX.Web.Controllers
 			}
 			List<SelectListItem> contextItems = CreateContextItems(context);
 			var viewModel = new ViewModel(q, contextItems, searchResultsWithLink, totalResults);
-			return View("Search", viewModel);
+			return View("SiteSearch", viewModel);
 		}
 
 		private List<SelectListItem> CreateContextItems(string context)

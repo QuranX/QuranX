@@ -10,6 +10,7 @@ using QuranX.Web.Views.Shared;
 
 namespace QuranX.Web.Controllers
 {
+	[OutputCache(Duration = Consts.CacheTimeInSeconds, NoStore = Consts.CacheTimeInSeconds == 0)]
 	public class HadithIndexController : Controller
 	{
 		private readonly IHadithRepository HadithRepository;

@@ -72,6 +72,9 @@
     <Reference Include="Microsoft.ApplicationInsights, Version=2.7.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.ApplicationInsights.2.7.2\lib\net46\Microsoft.ApplicationInsights.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.ApplicationInsights.SnapshotCollector, Version=1.3.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.SnapshotCollector.1.3.1\lib\net45\Microsoft.ApplicationInsights.SnapshotCollector.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.AspNet.TelemetryCorrelation, Version=1.0.4.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.TelemetryCorrelation.1.0.4\lib\net45\Microsoft.AspNet.TelemetryCorrelation.dll</HintPath>
     </Reference>
@@ -194,7 +197,7 @@
     <Compile Include="ArabicHelper.cs" />
     <Compile Include="Controllers\HadithIndexController.cs" />
     <Compile Include="Controllers\RootAnalysisController.cs" />
-    <Compile Include="Controllers\SearchController.cs" />
+    <Compile Include="Controllers\SiteSearchController.cs" />
     <Compile Include="Controllers\VerseAnalysisController.cs" />
     <Compile Include="Controllers\VerseCommentaryController.cs" />
     <Compile Include="Controllers\VerseHadithsController.cs" />
@@ -204,7 +207,7 @@
     <Compile Include="Controllers\CommentatorsController.cs" />
     <Compile Include="Controllers\HadithCollectionsController.cs" />
     <Compile Include="Controllers\QuranVersesController.cs" />
-    <Compile Include="Controllers\RedirectController.cs" />
+    <Compile Include="Controllers\RedirectToUrlController.cs" />
     <Compile Include="Controllers\CommentariesForVerseController.cs" />
     <Compile Include="Factories\HadithViewModelFactory.cs" />
     <Compile Include="Factories\SelectChapterAndVerseFactory.cs" />
@@ -260,13 +263,13 @@
     </Compile>
     <Compile Include="Views\RootAnalysis\VerseViewModel.cs" />
     <Compile Include="Views\RootAnalysis\ViewModel.cs" />
-    <Compile Include="Views\Search\Search.generated.cs">
+    <Compile Include="Views\SiteSearch\SiteSearch.generated.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>Search.cshtml</DependentUpon>
+      <DependentUpon>SiteSearch.cshtml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Search\SearchResultWithLink.cs" />
-    <Compile Include="Views\Search\ViewModel.cs" />
+    <Compile Include="Views\SiteSearch\SearchResultWithLink.cs" />
+    <Compile Include="Views\SiteSearch\ViewModel.cs" />
     <Compile Include="Views\Shared\HadithReferenceViewModel.cs" />
     <Compile Include="Views\Shared\HadithView.generated.cs">
       <AutoGen>True</AutoGen>
@@ -17959,9 +17962,11 @@
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
     </Content>
     <None Include="Properties\PublishProfiles\D_TEMP_PUBLISH.pubxml" />
     <None Include="Properties\PublishProfiles\PetePlayground - Web Deploy.pubxml" />
+    <None Include="Properties\PublishProfiles\QuranX - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\quranx.hash-url-fixer.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
@@ -18063,9 +18068,9 @@
       <Generator>RazorGenerator</Generator>
       <LastGenOutput>RootAnalysis.generated.cs</LastGenOutput>
     </Content>
-    <Content Include="Views\Search\Search.cshtml">
+    <Content Include="Views\SiteSearch\SiteSearch.cshtml">
       <Generator>RazorGenerator</Generator>
-      <LastGenOutput>Search.generated.cs</LastGenOutput>
+      <LastGenOutput>SiteSearch.generated.cs</LastGenOutput>
     </Content>
   </ItemGroup>
   <ItemGroup />

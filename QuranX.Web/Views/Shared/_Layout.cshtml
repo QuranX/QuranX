@@ -8,6 +8,14 @@
 	@Scripts.Render("~/bundles/jquery")
 	@Scripts.Render("~/bundles/modernizr")
 	@Scripts.Render("~/bundles/site")
+	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-42308840-1"></script>
+	<script>
+		window.dataLayer = window.dataLayer || [];
+		function gtag() { dataLayer.push(arguments); }
+		gtag('js', new Date());
+
+		gtag('config', 'UA-42308840-1');
+	</script>
 </head>
 <body>
 	<div class="quranx navbar navbar-inverse navbar-fixed-top">
@@ -23,7 +31,7 @@
 					<li><a href="/1.1">Quran</a></li>
 					<li>@Html.RouteLink("Commentaries", "Commentators")</li>
 					<li>@Html.RouteLink("Hadiths", "HadithCollections")</li>
-					<li>@Html.RouteLink("Search", "Search")</li>
+					<li>@Html.RouteLink("Search", "SiteSearch")</li>
 				</ul>
 			</div>
 		</div>

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 using QuranX.Persistence.Models;
 using QuranX.Persistence.Services.Repositories;
 using QuranX.Shared.Models;
@@ -11,6 +7,7 @@ using QuranX.Web.Views.VerseAnalysis;
 
 namespace QuranX.Web.Controllers
 {
+	[OutputCache(Duration = Consts.CacheTimeInSeconds, NoStore = Consts.CacheTimeInSeconds == 0)]
 	public class VerseAnalysisController : Controller
 	{
 		private readonly IChapterRepository ChapterRepository;
