@@ -217,10 +217,15 @@
 	border-radius: 0.25em;
 }
 
-@media (min-width: 550px) {
+@media (min-width: 768px) {
 	.chapter-and-verse-selector {
-		width: 50rem;
+		width: 740px;
 	}
+}
+
+.chapter-and-verse-selector .control-label {
+	margin-top: 0.75rem;
+	vertical-align: middle;
 }
 
 .search__criteria {

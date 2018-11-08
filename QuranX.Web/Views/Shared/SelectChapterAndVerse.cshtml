@@ -3,13 +3,10 @@
 
 <div class="chapter-and-verse-selector">
 	<div class="row">
-		<div class="col-xs-8">
+		<div class="col-xs-3 col-sm-1">
 			<label for="ChapterNumber" class="control-label">Chapter</label>
 		</div>
-		<div class="col-xs-4">
-			<label for="VerseNumber" class="control-label">Verse</label>
-		</div>
-		<div class="col-xs-7 col-sm-8">
+		<div class="col-xs-9 col-sm-4">
 			<select id="ChapterNumber" name="ChapterNumber" class="form-control">
 				@if (!Model.AllVerses)
 				{
@@ -367,8 +364,14 @@
 				}
 			</select>
 		</div>
-		<div class="col-xs-5 col-sm-4">
+		<div class="col-xs-3 col-sm-1">
+			<label for="VerseNumber" class="control-label">Verse</label>
+		</div>
+		<div class="col-xs-6 col-sm-4">
 			<select id="VerseNumber" name="VerseNumber" class="form-control"></select>
+		</div>
+		<div class="col-xs-3 col-sm-2">
+			<button id="SelectChapterAndVerseNavigateButton" type="submit" role="button" class="btn">Go</button>
 		</div>
 	</div>
 </div>
@@ -379,11 +382,13 @@
 		var selectedVerseNumber = @Model.SelectedVerseNumber;
 		@if (!Model.AllVerses)
 		{
+			// JavaScript
 			@:var versesForChapter = { };
 			@:for (var chapterNumber = 1; chapterNumber <= 114; chapterNumber++)
 			@:{
 				@:versesForChapter[chapterNumber] = [];
 			@:}
+
 			foreach (ChapterAndVerseReferenceSelection item in Model.AvailableChapters)
 			{
 				string verseNumbers = string.Join(",", item.VerseReferences.Select(x => x.Verse));
@@ -396,6 +401,7 @@
 		}
 		var chapterNumberElement = $("#ChapterNumber");
 		var verseNumberElement = $("#VerseNumber");
+		var selectChapterAndVerseNavigateButton = $("#SelectChapterAndVerseNavigateButton");
 
 		var chapterNumberChanged = function () {
 			selectedChapterNumber = $('#ChapterNumber').val();
@@ -411,17 +417,14 @@
 			selectedVerseNumber = null;
 		};
 
-		var verseNumberChanged = debounce(function () {
+		chapterNumberElement.change(chapterNumberChanged);
+		chapterNumberElement.val(selectedChapterNumber);
+		chapterNumberChanged();
+		selectChapterAndVerseNavigateButton.click(function () {
 			if (verseNumberElement.val()) {
 				var verseReference = chapterNumberElement.val() + '.' + verseNumberElement.val();
 				window.location.replace('@Model.Url' + verseReference);
 			}
-		}, 1000);
-
-		chapterNumberElement.change(chapterNumberChanged);
-		chapterNumberElement.val(selectedChapterNumber);
-		chapterNumberChanged();
-		verseNumberElement.change(verseNumberChanged);
-		verseNumberElement.focus();
+		});
 	})();
 </script>
