@@ -16,7 +16,7 @@
 		@foreach (TextContent content in Model.Commentary.Text)
 		{
 			string arabicCss = content.IsArabic ? "arabic" : "";
-			<dd class="@arabicCss">@content.Text</dd>
+			<dd class="@arabicCss highlightable">@content.Text</dd>
 		}
 	</dl>
 </div>

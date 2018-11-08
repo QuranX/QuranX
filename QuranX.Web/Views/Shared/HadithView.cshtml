@@ -50,13 +50,13 @@
 	<div class="hadith__text">
 		@foreach (string text in @Model.Hadith.EnglishText)
 		{
-			<p>@text</p>
+			<p class="highlightable">@text</p>
 		}
 	</div>
 	<div class="hadith__text arabic">
 		@foreach (string text in @Model.Hadith.ArabicText)
 		{
-			<p>@text</p>
+			<p class="highlightable">@text</p>
 		}
 	</div>
 </div>

@@ -34,7 +34,10 @@
 		Link hover/active
 			hsl(67, 46%, 61%);
 			
-			
+		Highlight
+			hsl(69, 99.2%, 54.5%);
+		Highlight text
+			hsl(0, 0%, 26.7%);
 */
 :root {
 	box-sizing: border-box;
@@ -44,6 +47,14 @@
 	box-sizing: inherit;
 }
 
+.highlight {
+	/*Col:Highlight*/
+	background-color: hsl(69, 99.2%, 54.5%);
+	/*Col:Highlight text*/
+	color: hsl(0, 0%, 26.7%);
+	font-weight: bold;
+	padding: 4px 0px;
+}
 .arabic {
 	font-size: 1.5em;
 	direction: rtl;

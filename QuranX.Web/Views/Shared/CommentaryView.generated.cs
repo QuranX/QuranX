@@ -134,7 +134,7 @@ WriteLiteral("\r\n\t\t</dt>\r\n");
             #line hidden
 WriteLiteral("\t\t\t<dd");
 
-WriteAttribute("class", Tuple.Create(" class=\"", 646), Tuple.Create("\"", 664)
+WriteAttribute("class", Tuple.Create(" class=\"", 646), Tuple.Create("\"", 678)
             
             #line 19 "..\..\Views\Shared\CommentaryView.cshtml"
 , Tuple.Create(Tuple.Create("", 654), Tuple.Create<System.Object, System.Int32>(arabicCss
@@ -142,13 +142,14 @@ WriteAttribute("class", Tuple.Create(" class=\"", 646), Tuple.Create("\"", 664)
             #line default
             #line hidden
 , 654), false)
+, Tuple.Create(Tuple.Create(" ", 664), Tuple.Create("highlightable", 665), true)
 );
 
 WriteLiteral(">");
 
             
             #line 19 "..\..\Views\Shared\CommentaryView.cshtml"
-                              Write(content.Text);
+                                            Write(content.Text);
 
             
             #line default

@@ -8,9 +8,11 @@ namespace QuranX.Web
 		public static void RegisterBundles(BundleCollection bundles)
 		{
 			bundles.Add(new ScriptBundle("~/bundles/site").Include(
-				"~/Scripts/hash-url-fixer.js",
-				"~/Scripts/site.js"));
+				"~/Scripts/quranx.autohighlight.js",
+				"~/Scripts/quranx.hash-url-fixer.js",
+				"~/Scripts/quranx.verses.js"));
 			bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
+				"~/Scripts/jquery.highlight.js",
 				"~/Scripts/jquery-{version}.js"));
 
 			bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(

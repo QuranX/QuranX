@@ -449,7 +449,7 @@ WriteLiteral(">\r\n\t\t\t\t\t<dt>");
             #line hidden
 WriteLiteral("</dt>\r\n\t\t\t\t\t<dd");
 
-WriteAttribute("class", Tuple.Create(" class=\"", 2375), Tuple.Create("\"", 2393)
+WriteAttribute("class", Tuple.Create(" class=\"", 2375), Tuple.Create("\"", 2407)
             
             #line 73 "..\..\Views\QuranVerses\QuranVerses.cshtml"
 , Tuple.Create(Tuple.Create("", 2383), Tuple.Create<System.Object, System.Int32>(arabicCss
@@ -457,13 +457,14 @@ WriteAttribute("class", Tuple.Create(" class=\"", 2375), Tuple.Create("\"", 2393
             #line default
             #line hidden
 , 2383), false)
+, Tuple.Create(Tuple.Create(" ", 2393), Tuple.Create("highlightable", 2394), true)
 );
 
 WriteLiteral(">");
 
             
             #line 73 "..\..\Views\QuranVerses\QuranVerses.cshtml"
-                                      Write(translation.Text);
+                                                    Write(translation.Text);
 
             
             #line default

@@ -272,11 +272,15 @@ WriteLiteral(">\r\n");
             
             #line default
             #line hidden
-WriteLiteral("\t\t\t<p>");
+WriteLiteral("\t\t\t<p");
+
+WriteLiteral(" class=\"highlightable\"");
+
+WriteLiteral(">");
 
             
             #line 53 "..\..\Views\Shared\HadithView.cshtml"
-          Write(text);
+                                Write(text);
 
             
             #line default
@@ -310,11 +314,15 @@ WriteLiteral(">\r\n");
             
             #line default
             #line hidden
-WriteLiteral("\t\t\t<p>");
+WriteLiteral("\t\t\t<p");
+
+WriteLiteral(" class=\"highlightable\"");
+
+WriteLiteral(">");
 
             
             #line 59 "..\..\Views\Shared\HadithView.cshtml"
-          Write(text);
+                                Write(text);
 
             
             #line default
