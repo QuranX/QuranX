@@ -64,7 +64,7 @@ WriteLiteral(" class=\"control-label\"");
 
 WriteLiteral(">Chapter</label>\r\n\t\t</div>\r\n\t\t<div");
 
-WriteLiteral(" class=\"col-xs-9 col-sm-4\"");
+WriteLiteral(" class=\"col-xs-9 col-sm-5\"");
 
 WriteLiteral(">\r\n\t\t\t<select");
 
@@ -839,7 +839,7 @@ WriteLiteral(" class=\"control-label\"");
 
 WriteLiteral(">Verse</label>\r\n\t\t</div>\r\n\t\t<div");
 
-WriteLiteral(" class=\"col-xs-6 col-sm-4\"");
+WriteLiteral(" class=\"col-xs-6 col-sm-5\"");
 
 WriteLiteral(">\r\n\t\t\t<select");
 
@@ -849,25 +849,46 @@ WriteLiteral(" name=\"VerseNumber\"");
 
 WriteLiteral(" class=\"form-control\"");
 
-WriteLiteral("></select>\r\n\t\t</div>\r\n\t\t<div");
+WriteLiteral("></select>\r\n\t\t</div>\r\n\t</div>\r\n\t<div");
 
-WriteLiteral(" class=\"col-xs-3 col-sm-2\"");
+WriteLiteral(" class=\"chapter-and-verse-selector__navigator row\"");
+
+WriteLiteral(">\r\n\t\t<div");
+
+WriteLiteral(" class=\"chapter-and-verse-selector__navigator-buttons btn-group col-xs-push-3 col" +
+"-sm-push-0\"");
+
+WriteLiteral(" role=\"group\"");
 
 WriteLiteral(">\r\n\t\t\t<button");
 
-WriteLiteral(" id=\"SelectChapterAndVerseNavigateButton\"");
-
-WriteLiteral(" type=\"submit\"");
+WriteLiteral(" id=\"SelectPreviousVerseNavigateButton\"");
 
 WriteLiteral(" role=\"button\"");
 
 WriteLiteral(" class=\"btn\"");
 
-WriteLiteral(">Go</button>\r\n\t\t</div>\r\n\t</div>\r\n</div>\r\n\r\n<script>\r\n\t(function () {\r\n\t\tvar selec" +
-"tedChapterNumber = ");
+WriteLiteral(">&laquo; Prev</button>\r\n\t\t\t<button");
+
+WriteLiteral(" id=\"SelectChapterAndVerseNavigateButton\"");
+
+WriteLiteral(" role=\"button\"");
+
+WriteLiteral(" class=\"btn\"");
+
+WriteLiteral(">Go</button>\r\n\t\t\t<button");
+
+WriteLiteral(" id=\"SelectNextVerseNavigateButton\"");
+
+WriteLiteral(" role=\"button\"");
+
+WriteLiteral(" class=\"btn\"");
+
+WriteLiteral(">Next &raquo;</button>\r\n\t\t</div>\r\n\t</div>\r\n</div>\r\n\r\n<script>\r\n\t(function () {\r\n\t" +
+"\tvar selectedChapterNumber = ");
 
             
-            #line 381 "..\..\Views\Shared\SelectChapterAndVerse.cshtml"
+            #line 385 "..\..\Views\Shared\SelectChapterAndVerse.cshtml"
                                Write(Model.SelectedChapterNumber);
 
             
@@ -876,22 +897,23 @@ WriteLiteral(">Go</button>\r\n\t\t</div>\r\n\t</div>\r\n</div>\r\n\r\n<script>\r
 WriteLiteral(";\r\n\t\tvar selectedVerseNumber = ");
 
             
-            #line 382 "..\..\Views\Shared\SelectChapterAndVerse.cshtml"
+            #line 386 "..\..\Views\Shared\SelectChapterAndVerse.cshtml"
                              Write(Model.SelectedVerseNumber);
 
             
             #line default
             #line hidden
-WriteLiteral(";\r\n");
+WriteLiteral(";\r\n\r\n\t\tvar chapterNumberElement = $(\"#ChapterNumber\");\r\n\t\tvar verseNumberElement " +
+"= $(\"#VerseNumber\");\r\n\r\n");
 
             
-            #line 383 "..\..\Views\Shared\SelectChapterAndVerse.cshtml"
+            #line 391 "..\..\Views\Shared\SelectChapterAndVerse.cshtml"
 		
             
             #line default
             #line hidden
             
-            #line 383 "..\..\Views\Shared\SelectChapterAndVerse.cshtml"
+            #line 391 "..\..\Views\Shared\SelectChapterAndVerse.cshtml"
          if (!Model.AllVerses)
 		{
 			// JavaScript
@@ -901,11 +923,11 @@ WriteLiteral(";\r\n");
             #line hidden
 WriteLiteral("\t\t\t");
 
-WriteLiteral("var versesForChapter = { };\r\n");
+WriteLiteral("var versesForChapter = {};\r\n");
 
 WriteLiteral("\t\t\t");
 
-WriteLiteral("for (var chapterNumber = 1; chapterNumber <= 114; chapterNumber++)\r\n");
+WriteLiteral("for (chapterNumber = 1; chapterNumber <= 114; chapterNumber++)\r\n");
 
 WriteLiteral("\t\t\t");
 
@@ -920,7 +942,7 @@ WriteLiteral("\t\t\t");
 WriteLiteral("}\r\n");
 
             
-            #line 391 "..\..\Views\Shared\SelectChapterAndVerse.cshtml"
+            #line 399 "..\..\Views\Shared\SelectChapterAndVerse.cshtml"
 
 			foreach (ChapterAndVerseReferenceSelection item in Model.AvailableChapters)
 			{
@@ -930,14 +952,14 @@ WriteLiteral("}\r\n");
             #line default
             #line hidden
             
-            #line 395 "..\..\Views\Shared\SelectChapterAndVerse.cshtml"
+            #line 403 "..\..\Views\Shared\SelectChapterAndVerse.cshtml"
            Write(Html.Raw($"versesForChapter[{item.Chapter.ChapterNumber}] = [{verseNumbers}];"));
 
             
             #line default
             #line hidden
             
-            #line 395 "..\..\Views\Shared\SelectChapterAndVerse.cshtml"
+            #line 403 "..\..\Views\Shared\SelectChapterAndVerse.cshtml"
                                                                                                 ;
 			}
 		}
@@ -948,23 +970,53 @@ WriteLiteral("}\r\n");
             #line default
             #line hidden
             
-            #line 400 "..\..\Views\Shared\SelectChapterAndVerse.cshtml"
+            #line 408 "..\..\Views\Shared\SelectChapterAndVerse.cshtml"
        Write(Html.Raw("versesForChapter = allQuranVerses;"));
 
             
             #line default
             #line hidden
             
-            #line 400 "..\..\Views\Shared\SelectChapterAndVerse.cshtml"
+            #line 408 "..\..\Views\Shared\SelectChapterAndVerse.cshtml"
                                                            
 		}
 
             
             #line default
             #line hidden
-WriteLiteral(@"		var chapterNumberElement = $(""#ChapterNumber"");
-		var verseNumberElement = $(""#VerseNumber"");
-		var selectChapterAndVerseNavigateButton = $(""#SelectChapterAndVerseNavigateButton"");
+WriteLiteral(@"
+		var navigateVerse = function (delta) {
+			var entireList = [];
+			Object.keys(versesForChapter).forEach(function (chapterNumber) {
+				versesForChapter[chapterNumber].forEach(function (verseNumber) {
+					var idToInclude = `${chapterNumber}.${verseNumber}`;
+					entireList.push(idToInclude);
+				});
+			});
+
+			var selectedChapter = chapterNumberElement.val() || chapterNumberElement.find(""option"").first().val();
+			var selectedVerse = verseNumberElement.val() || verseNumberElement.find(""option"").first().val();
+			var currentId = selectedChapter + ""."" + selectedVerse;
+			var currentIndex = entireList.indexOf(currentId);
+			currentIndex += delta;
+			while (currentIndex < 0) {
+				currentIndex += entireList.length;
+			}
+			while (currentIndex >= entireList.length) {
+				currentIndex -= entireList.length;
+			}
+			var newId = entireList[currentIndex];
+			window.location.replace('");
+
+            
+            #line 432 "..\..\Views\Shared\SelectChapterAndVerse.cshtml"
+                                Write(Model.Url);
+
+            
+            #line default
+            #line hidden
+WriteLiteral(@"' + newId);
+		};
 
 		var chapterNumberChanged = function () {
 			selectedChapterNumber = $('#ChapterNumber').val();
@@ -983,13 +1035,21 @@ WriteLiteral(@"		var chapterNumberElement = $(""#ChapterNumber"");
 		chapterNumberElement.change(chapterNumberChanged);
 		chapterNumberElement.val(selectedChapterNumber);
 		chapterNumberChanged();
+
+		var selectPreviousVerseNavigateButton = $(""#SelectPreviousVerseNavigateButton"");
+		selectPreviousVerseNavigateButton.click(function () { navigateVerse(-1); });
+
+		var selectNextVerseNavigateButton = $(""#SelectNextVerseNavigateButton"");
+		selectNextVerseNavigateButton.click(function () { navigateVerse(1); });
+
+		var selectChapterAndVerseNavigateButton = $(""#SelectChapterAndVerseNavigateButton"");
 		selectChapterAndVerseNavigateButton.click(function () {
 			if (verseNumberElement.val()) {
 				var verseReference = chapterNumberElement.val() + '.' + verseNumberElement.val();
 				window.location.replace('");
 
             
-            #line 426 "..\..\Views\Shared\SelectChapterAndVerse.cshtml"
+            #line 463 "..\..\Views\Shared\SelectChapterAndVerse.cshtml"
                                     Write(Model.Url);
 
             

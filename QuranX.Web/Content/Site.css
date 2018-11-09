@@ -239,6 +239,22 @@
 	vertical-align: middle;
 }
 
+.chapter-and-verse-selector__navigator-buttons {
+	margin: 0 1.25em;
+}
+
+@media (min-width: 768px) {
+	.chapter-and-verse-selector__navigator-buttons {
+		float: right;
+	}
+}
+
+.chapter-and-verse-selector__navigator-buttons .btn {
+	margin: 4px 0 -4px 0;
+	width: 9rem;
+	border: 1px solid black;
+}
+
 .search__criteria {
 	margin-left: auto;
 	margin-right: auto;
