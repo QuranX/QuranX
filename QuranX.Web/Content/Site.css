@@ -239,6 +239,7 @@
 	vertical-align: middle;
 }
 
+
 .chapter-and-verse-selector__navigator-buttons {
 	margin: 0 1.25em;
 }
@@ -246,6 +247,12 @@
 @media (min-width: 768px) {
 	.chapter-and-verse-selector__navigator-buttons {
 		float: right;
+	}
+}
+
+@media (max-width: 767px) {
+	.chapter-and-verse-selector__navigator {
+		text-align: center;
 	}
 }
 

@@ -855,8 +855,7 @@ WriteLiteral(" class=\"chapter-and-verse-selector__navigator row\"");
 
 WriteLiteral(">\r\n\t\t<div");
 
-WriteLiteral(" class=\"chapter-and-verse-selector__navigator-buttons btn-group col-xs-push-3 col" +
-"-sm-push-0\"");
+WriteLiteral(" class=\"chapter-and-verse-selector__navigator-buttons btn-group\"");
 
 WriteLiteral(" role=\"group\"");
 
