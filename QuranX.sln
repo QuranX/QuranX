@@ -5,8 +5,6 @@ VisualStudioVersion = 15.0.27703.2042
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuranX.DocumentModel", "QuranX.DocumentModel\QuranX.DocumentModel.csproj", "{32BD00B9-5689-45D5-BA1A-376EA8BE22EC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuranX", "Web\QuranX.csproj", "{2D6F8C09-D724-48C7-9FF8-2E3218FBD45C}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{F4806323-6C77-41D8-B2D4-C0D60DD31F17}"
 	ProjectSection(SolutionItems) = preProject
 		.editorconfig = .editorconfig
@@ -45,16 +43,6 @@ Global
 		{32BD00B9-5689-45D5-BA1A-376EA8BE22EC}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{32BD00B9-5689-45D5-BA1A-376EA8BE22EC}.Release|x86.ActiveCfg = Release|Any CPU
 		{32BD00B9-5689-45D5-BA1A-376EA8BE22EC}.Release|x86.Build.0 = Release|Any CPU
-		{2D6F8C09-D724-48C7-9FF8-2E3218FBD45C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{2D6F8C09-D724-48C7-9FF8-2E3218FBD45C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{2D6F8C09-D724-48C7-9FF8-2E3218FBD45C}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{2D6F8C09-D724-48C7-9FF8-2E3218FBD45C}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
-		{2D6F8C09-D724-48C7-9FF8-2E3218FBD45C}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{2D6F8C09-D724-48C7-9FF8-2E3218FBD45C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{2D6F8C09-D724-48C7-9FF8-2E3218FBD45C}.Release|Any CPU.Build.0 = Release|Any CPU
-		{2D6F8C09-D724-48C7-9FF8-2E3218FBD45C}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
-		{2D6F8C09-D724-48C7-9FF8-2E3218FBD45C}.Release|Mixed Platforms.Build.0 = Release|Any CPU
-		{2D6F8C09-D724-48C7-9FF8-2E3218FBD45C}.Release|x86.ActiveCfg = Release|Any CPU
 		{CBFFA4CA-A4B9-422E-BF7F-C99AD25BADE2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{CBFFA4CA-A4B9-422E-BF7F-C99AD25BADE2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CBFFA4CA-A4B9-422E-BF7F-C99AD25BADE2}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
