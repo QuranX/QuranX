@@ -1,0 +1,29 @@
+﻿@using QuranX.Web.Views.HadithIndex
+@using QuranX.Persistence.Models
+@model HadithIndexHeaderViewModel
+
+<h1>Hadith collection</h1>
+<h2>
+	<a href="/Hadith/@Model.Collection.Code/@Model.SelectedReferenceCode">
+		@Model.Collection.Name
+	</a>
+	@{
+		string urlSoFar = $"/Hadith/{Model.Collection.Code}/{Model.SelectedReferenceCode}/";
+		foreach (string urlPart in Model.ReferencePartNamesAndValues)
+		{
+			urlSoFar += urlPart + "/";
+			<span> / </span><a href="@urlSoFar">@urlPart.Replace("-", " ")</a>
+		}
+	}
+</h2>
+<div class="hadith-reference-list btn-group" role="group" aria-label="Indexes">
+	@foreach (HadithReferenceDefinition referenceDefinition in Model.Collection.ReferenceDefinitions.OrderBy(x => x.Name))
+	{
+		string cssClass = string.Compare(referenceDefinition.Code, Model.SelectedReferenceCode, true) == 0 ? "selected" : "";
+		<a href="/hadith/@Model.Collection.Code/@referenceDefinition.Code" class="btn btn-primary hadith-reference-list__item @cssClass">
+			@referenceDefinition.Name
+		</a>
+	}
+
+</div>
+

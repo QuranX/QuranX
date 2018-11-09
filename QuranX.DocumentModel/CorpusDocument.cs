@@ -1,24 +1,23 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
+using QuranX.Shared.Models;
 
 namespace QuranX.DocumentModel
 {
 	public class CorpusDocument
 	{
-		readonly Dictionary<VerseReference, CorpusVerse> _Verses;
+		readonly Dictionary<VerseReference, CorpusVerse> _verses;
 
 		public CorpusDocument()
 		{
-			this._Verses = new Dictionary<VerseReference, CorpusVerse>();
+			_verses = new Dictionary<VerseReference, CorpusVerse>();
 		}
 
 		public IEnumerable<CorpusVerse> Verses
 		{
 			get
 			{
-				return _Verses
+				return _verses
 					.Select(x => x.Value)
 					.OrderBy(x => x.Reference);
 			}
@@ -32,13 +31,13 @@ namespace QuranX.DocumentModel
 						chapter: chapterIndex,
 						verse: verseIndex
 					);
-				return _Verses[verseReference];
+				return _verses[verseReference];
 			}
 		}
 
 		public void AddVerse(CorpusVerse verse)
 		{
-			_Verses.Add(verse.Reference, verse);
+			_verses.Add(verse.Reference, verse);
 		}
 
 

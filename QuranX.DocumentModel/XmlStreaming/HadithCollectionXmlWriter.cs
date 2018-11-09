@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Xml;
+using QuranX.Shared.Models;
 
 namespace QuranX.DocumentModel.XmlStreaming
 {

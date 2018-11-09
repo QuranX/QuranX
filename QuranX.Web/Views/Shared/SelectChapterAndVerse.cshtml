@@ -1,0 +1,430 @@
+﻿@using QuranX.Web.Models
+@model SelectChapterAndVerse
+
+<div class="chapter-and-verse-selector">
+	<div class="row">
+		<div class="col-xs-3 col-sm-1">
+			<label for="ChapterNumber" class="control-label">Chapter</label>
+		</div>
+		<div class="col-xs-9 col-sm-4">
+			<select id="ChapterNumber" name="ChapterNumber" class="form-control">
+				@if (!Model.AllVerses)
+				{
+					foreach (ChapterAndVerseReferenceSelection item in Model.AvailableChapters)
+					{
+						<option value="@item.Chapter.ChapterNumber">
+							@item.Chapter.ChapterNumber - @item.Chapter.EnglishName
+						</option>
+					}
+				}
+				else
+				{
+					<option value="1">
+						1 - Al Fatiha (The opening)
+					</option>
+					<option value="2">
+						2 - Al Baqara (The cow)
+					</option>
+					<option value="3">
+						3 - Al Imran (The family of Imran)
+					</option>
+					<option value="4">
+						4 - An Nisa (The women)
+					</option>
+					<option value="5">
+						5 - Al Maida (The food)
+					</option>
+					<option value="6">
+						6 - Al Anam (Cattle)
+					</option>
+					<option value="7">
+						7 - Al Araf (The heights)
+					</option>
+					<option value="8">
+						8 - Al Anfal (Spoils of war)
+					</option>
+					<option value="9">
+						9 - Al Tawba (Immunity)
+					</option>
+					<option value="10">
+						10 - Yunus (Jonah)
+					</option>
+					<option value="11">
+						11 - Hud
+					</option>
+					<option value="12">
+						12 - Yusuf (Joseph)
+					</option>
+					<option value="13">
+						13 - Ar Rad (The thunder)
+					</option>
+					<option value="14">
+						14 - Ibrahim (Abraham)
+					</option>
+					<option value="15">
+						15 - Al Hijr (The rock)
+					</option>
+					<option value="16">
+						16 - An Nahl (The bee)
+					</option>
+					<option value="17">
+						17 - Bani Israil (The Israelites)
+					</option>
+					<option value="18">
+						18 - Al Kahf (The cave)
+					</option>
+					<option value="19">
+						19 - Maryamn (Mary)
+					</option>
+					<option value="20">
+						20 - Ta-Ha
+					</option>
+					<option value="21">
+						21 - Al Anbiya (The prophets)
+					</option>
+					<option value="22">
+						22 - Al Hajj (The pilgrimage)
+					</option>
+					<option value="23">
+						23 - Al Muminun (The believers)
+					</option>
+					<option value="24">
+						24 - An Nur (The light)
+					</option>
+					<option value="25">
+						25 - Al Furqan (The discrimination)
+					</option>
+					<option value="26">
+						26 - Ash Shuara (The poets)
+					</option>
+					<option value="27">
+						27 - An Naml (The ant)
+					</option>
+					<option value="28">
+						28 - Al Qasas (The narrative)
+					</option>
+					<option value="29">
+						29 - Al Ankabut (The spider)
+					</option>
+					<option value="30">
+						30 - Ar Rum (The Romans)
+					</option>
+					<option value="31">
+						31 - Luqman
+					</option>
+					<option value="32">
+						32 - As Sajda (The adoration)
+					</option>
+					<option value="33">
+						33 - Al Ahzab (The allies)
+					</option>
+					<option value="34">
+						34 - Al Saba (The Saba)
+					</option>
+					<option value="35">
+						35 - Al Fatir (The angels)
+					</option>
+					<option value="36">
+						36 - Ya Sin
+					</option>
+					<option value="37">
+						37 - As Saffat (Those who set up ranks)
+					</option>
+					<option value="38">
+						38 - Saad
+					</option>
+					<option value="39">
+						39 - Az Zumar (The troops)
+					</option>
+					<option value="40">
+						40 - Al Ghafir (The forgiver)
+					</option>
+					<option value="41">
+						41 - Fussilat (Explained in detail)
+					</option>
+					<option value="42">
+						42 - Ash Shura (The council)
+					</option>
+					<option value="43">
+						43 - Az Zukhruf (Gold)
+					</option>
+					<option value="44">
+						44 - Ad Dukhan (Drought)
+					</option>
+					<option value="45">
+						45 - Al Jathiya (Kneeling)
+					</option>
+					<option value="46">
+						46 - Al Ahqaf (The dunes)
+					</option>
+					<option value="47">
+						47 - Muhammad
+					</option>
+					<option value="48">
+						48 - Al Fath (Victory)
+					</option>
+					<option value="49">
+						49 - Al Hujraat (The apartments)
+					</option>
+					<option value="50">
+						50 - Qaf
+					</option>
+					<option value="51">
+						51 - Adh Dhariyat (The scatterers)
+					</option>
+					<option value="52">
+						52 - At Tur (The mount)
+					</option>
+					<option value="53">
+						53 - An Najm (The star)
+					</option>
+					<option value="54">
+						54 - Al Qamar (The Moon)
+					</option>
+					<option value="55">
+						55 - Ar Rahman (The beneficent)
+					</option>
+					<option value="56">
+						56 - Al Waqia (The event)
+					</option>
+					<option value="57">
+						57 - Al Hadid (Iron)
+					</option>
+					<option value="58">
+						58 - Al Mujadila (The pleading woman)
+					</option>
+					<option value="59">
+						59 - Al Hashr (Exile)
+					</option>
+					<option value="60">
+						60 - Al Mumtahana (The examined woman)
+					</option>
+					<option value="61">
+						61 - As Saff (The ranks)
+					</option>
+					<option value="62">
+						62 - Al Jumua (The congregation)
+					</option>
+					<option value="63">
+						63 - Al Munafiqun (The hypocrites)
+					</option>
+					<option value="64">
+						64 - At Taghabun (Manifestation of losses)
+					</option>
+					<option value="65">
+						65 - At Talaq (Divorce)
+					</option>
+					<option value="66">
+						66 - At Tahrim (Prohibition)
+					</option>
+					<option value="67">
+						67 - Al Mulk (The kingdom)
+					</option>
+					<option value="68">
+						68 - Al Qalam (The pen)
+					</option>
+					<option value="69">
+						69 - Al Haqqa (The reality)
+					</option>
+					<option value="70">
+						70 - Al Maarij (Ascending stairways)
+					</option>
+					<option value="71">
+						71 - Nuh (Noah)
+					</option>
+					<option value="72">
+						72 - Al Jinn (The Jinn)
+					</option>
+					<option value="73">
+						73 - Al Muzzammil (The enshrouded one)
+					</option>
+					<option value="74">
+						74 - Al Muddaththir (The cloaked one)
+					</option>
+					<option value="75">
+						75 - Al Qiyama (Resurrection)
+					</option>
+					<option value="76">
+						76 - Al Insan (Man)
+					</option>
+					<option value="77">
+						77 - Al Mursalat (The emissaries)
+					</option>
+					<option value="78">
+						78 - An Naba (The tidings)
+					</option>
+					<option value="79">
+						79 - An Naziat (Those who yearn)
+					</option>
+					<option value="80">
+						80 - Abasa (He frowned)
+					</option>
+					<option value="81">
+						81 - At Takwir (The folding up)
+					</option>
+					<option value="82">
+						82 - Al Infitar (The cleaving)
+					</option>
+					<option value="83">
+						83 - Al Mutaffifin (The cheats)
+					</option>
+					<option value="84">
+						84 - Al Isnhiqaq (Splitting open)
+					</option>
+					<option value="85">
+						85 - Al Buruj (The stars)
+					</option>
+					<option value="86">
+						86 - At Tariq (The morning star)
+					</option>
+					<option value="87">
+						87 - Al Ala (The most high)
+					</option>
+					<option value="88">
+						88 - Al Ghashiya (The overwhelming)
+					</option>
+					<option value="89">
+						89 - Al Fajr (The dawn)
+					</option>
+					<option value="90">
+						90 - Al Balad (The city)
+					</option>
+					<option value="91">
+						91 - Ash Shams (The Sun)
+					</option>
+					<option value="92">
+						92 - Al Lail (The night)
+					</option>
+					<option value="93">
+						93 - Ad Duhaa (The brightness of day)
+					</option>
+					<option value="94">
+						94 - Al Inshirah (The expansion)
+					</option>
+					<option value="95">
+						95 - At tin (The fig)
+					</option>
+					<option value="96">
+						96 - Al Alaq (The clot)
+					</option>
+					<option value="97">
+						97 - Al Qadr (The power)
+					</option>
+					<option value="98">
+						98 - Al Bayyina (Clear proof)
+					</option>
+					<option value="99">
+						99 - Al Zalzala (The shaking)
+					</option>
+					<option value="100">
+						100 - Al Adiyat (The assaulters)
+					</option>
+					<option value="101">
+						101 - Al Qaria (The calamity)
+					</option>
+					<option value="102">
+						102 - At Takathur (Abundance of wealth)
+					</option>
+					<option value="103">
+						103 - Al Asr (The time)
+					</option>
+					<option value="104">
+						104 - Al Humaza (The slanderer)
+					</option>
+					<option value="105">
+						105 - Al Fil (The elephant)
+					</option>
+					<option value="106">
+						106 - Quraish (The Quraish)
+					</option>
+					<option value="107">
+						107 - Al Maun (Almsgiving)
+					</option>
+					<option value="108">
+						108 - Al Kauthar (Abundance)
+					</option>
+					<option value="109">
+						109 - Al Kafirun (The disbelievers)
+					</option>
+					<option value="110">
+						110 - An Nasr (Divine support)
+					</option>
+					<option value="111">
+						111 - Al Lahab (The flame)
+					</option>
+					<option value="112">
+						112 - Al Ikhlas (The unity)
+					</option>
+					<option value="113">
+						113 - Al Falaq (Dawn)
+					</option>
+					<option value="114">
+						114 - An Nas (Mankind)
+					</option>
+				}
+			</select>
+		</div>
+		<div class="col-xs-3 col-sm-1">
+			<label for="VerseNumber" class="control-label">Verse</label>
+		</div>
+		<div class="col-xs-6 col-sm-4">
+			<select id="VerseNumber" name="VerseNumber" class="form-control"></select>
+		</div>
+		<div class="col-xs-3 col-sm-2">
+			<button id="SelectChapterAndVerseNavigateButton" type="submit" role="button" class="btn">Go</button>
+		</div>
+	</div>
+</div>
+
+<script>
+	(function () {
+		var selectedChapterNumber = @Model.SelectedChapterNumber;
+		var selectedVerseNumber = @Model.SelectedVerseNumber;
+		@if (!Model.AllVerses)
+		{
+			// JavaScript
+			@:var versesForChapter = { };
+			@:for (var chapterNumber = 1; chapterNumber <= 114; chapterNumber++)
+			@:{
+				@:versesForChapter[chapterNumber] = [];
+			@:}
+
+			foreach (ChapterAndVerseReferenceSelection item in Model.AvailableChapters)
+			{
+				string verseNumbers = string.Join(",", item.VerseReferences.Select(x => x.Verse));
+				@Html.Raw($"versesForChapter[{item.Chapter.ChapterNumber}] = [{verseNumbers}];");
+			}
+		}
+		else
+		{
+			@Html.Raw("versesForChapter = allQuranVerses;")
+		}
+		var chapterNumberElement = $("#ChapterNumber");
+		var verseNumberElement = $("#VerseNumber");
+		var selectChapterAndVerseNavigateButton = $("#SelectChapterAndVerseNavigateButton");
+
+		var chapterNumberChanged = function () {
+			selectedChapterNumber = $('#ChapterNumber').val();
+			verseNumberElement
+				.find('option')
+				.remove()
+				.end();
+			var versesToInclude = versesForChapter[selectedChapterNumber];
+			for (var index = 0; index < versesToInclude.length; index++) {
+				verseNumberElement.append('<option>' + versesToInclude[index] + '</option>');
+			}
+			verseNumberElement.val(selectedVerseNumber);
+			selectedVerseNumber = null;
+		};
+
+		chapterNumberElement.change(chapterNumberChanged);
+		chapterNumberElement.val(selectedChapterNumber);
+		chapterNumberChanged();
+		selectChapterAndVerseNavigateButton.click(function () {
+			if (verseNumberElement.val()) {
+				var verseReference = chapterNumberElement.val() + '.' + verseNumberElement.val();
+				window.location.replace('@Model.Url' + verseReference);
+			}
+		});
+	})();
+</script>

@@ -1,0 +1,64 @@
+﻿@model QuranX.Web.Views.Search.ViewModel
+@using QuranX.Web.Views.Search
+
+@{
+	ViewBag.Title = "Search";
+}
+<h1>Search</h1>
+@using (Html.BeginForm(actionName: "index", controllerName: "SiteSearch", method: FormMethod.Get))
+{
+	<div class="search__criteria">
+		<div class="row">
+			@Html.TextBoxFor(x => x.Q, new { @class = "form-control search__criteria-text center", placeholder = "Search..." })
+		</div>
+		<div class="row">
+			@Html.DropDownListFor(x => x.Context, Model.Context, new { @class = "form-control col-xs-12 center" })
+		</div>
+		<div class="row">
+			<input class="btn btn-primary center" type="submit" value="Search" />
+		</div>
+	</div>
+}
+@if (Model.SearchResults != null)
+{
+	int resultNumber = 0;
+	if (Model.TotalResults == 0)
+	{
+		<h2>No results</h2>
+	}
+	else
+	{
+		int numberOfResultsToShow = Model.SearchResults.Count();
+		string resultsCaption = Model.TotalResults == 1 ? "result" : "results";
+		if (numberOfResultsToShow == Model.TotalResults)
+		{
+			<h2>Showing @numberOfResultsToShow @resultsCaption</h2>
+		}
+		else
+		{
+			<h2>Showing @numberOfResultsToShow of @Model.TotalResults @resultsCaption</h2>
+		}
+		<div class="search__results">
+			@foreach (SearchResultWithLink searchResult in Model.SearchResults)
+			{
+				resultNumber++;
+				<dl class="search__result">
+					<dt>
+						<span class="search__result-number">@resultNumber</span>
+						<a href="@searchResult.Url">
+							@searchResult.Caption
+						</a>
+					</dt>
+					<dd>
+						<ul>
+							@foreach (var snippet in searchResult.Snippets)
+							{
+								<li>@Html.Highlight(snippet)</li>
+							}
+						</ul>
+					</dd>
+				</dl>
+			}
+		</div>
+	}
+}

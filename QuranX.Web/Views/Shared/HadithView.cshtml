@@ -1,0 +1,62 @@
+﻿@model QuranX.Web.Views.Shared.HadithViewModel
+@using QuranX.Web.Views.Shared
+@using QuranX.Shared.Models
+
+<div class="hadith">
+	<div class="hadith__references">
+		<div class="hadith__reference">
+			<div class="hadith__reference-name">
+				Collection
+			</div>
+			<div class="hadith__reference-value">
+				@Model.CollectionName
+			</div>
+		</div>
+		@foreach (HadithReferenceViewModel reference in @Model.References)
+		{
+			<div class="hadith__reference">
+				<div class="hadith__reference-name">
+					@reference.IndexName
+				</div>
+				<div class="hadith__reference-value">
+					<a href="/Hadith/@reference.CollectionCode/@reference.IndexCode/@reference.ToUrlPath()">
+						@reference.ToString()
+					</a>
+				</div>
+			</div>
+		}
+		@if (Model.Hadith.VerseRangeReferences.Any())
+		{
+			<div class="hadith__verse-references">
+				<div class="hadith__reference-verse-caption">
+					Related Qur'an verses
+				</div>
+				<ul class="hadith__reference-verse-numbers">
+					@foreach (VerseRangeReference verse in Model.Hadith.VerseRangeReferences)
+					{
+						string verseAsString = verse.Chapter + "." + verse.FirstVerse;
+						if (verse.IsMultipleVerses())
+						{
+							verseAsString += "-" + verse.LastVerse;
+						}
+						<li>
+							<a href="/@verseAsString">@verseAsString</a>
+						</li>
+					}
+				</ul>
+			</div>
+		}
+	</div>
+	<div class="hadith__text">
+		@foreach (string text in @Model.Hadith.EnglishText)
+		{
+			<p class="highlightable">@text</p>
+		}
+	</div>
+	<div class="hadith__text arabic">
+		@foreach (string text in @Model.Hadith.ArabicText)
+		{
+			<p class="highlightable">@text</p>
+		}
+	</div>
+</div>

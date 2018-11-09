@@ -3,6 +3,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
+using NLog;
 
 namespace QuranX
 {
@@ -18,8 +19,19 @@ namespace QuranX
 			FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
 			RouteConfig.RegisterRoutes(RouteTable.Routes);
 			BundleConfig.RegisterBundles(BundleTable.Bundles);
-			SharedData.Initialize();
+			ILogger logger = CreateLogger();
+			SharedData.Initialize(logger);
 			SearchEngine.Initialize();
+		}
+
+		private ILogger CreateLogger()
+		{
+			var config = new NLog.Config.LoggingConfiguration();
+			var logConsole = new NLog.Targets.ColoredConsoleTarget("logconsole");
+			config.AddRule(LogLevel.Trace, LogLevel.Fatal, logConsole);
+			LogManager.Configuration = config;
+			ILogger logger = NLog.LogManager.GetCurrentClassLogger();
+			return logger;
 		}
 
 		public override string GetVaryByCustomString(HttpContext context, string arg)

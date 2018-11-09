@@ -6,7 +6,7 @@ using System.Web.Mvc;
 
 namespace QuranX.Controllers
 {
-	[OutputCache(Duration = Consts.CacheTimeInSeconds)]
+	[OutputCache(Duration = 0, NoStore = true)]
 	public class SiteMapController : Controller
 	{
 		const string Domain = "http://QuranX.com";

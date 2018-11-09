@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System;
 using System.Linq;
+using QuranX.Shared.Models;
 
 namespace QuranX.DocumentModel
 {
@@ -53,8 +54,7 @@ namespace QuranX.DocumentModel
 		{
 			get
 			{
-				return _Comments
-					.OrderBy(x => x.VerseReference);
+				return _Comments.OrderBy(x => x.VerseReference);
 			}
 		}
 

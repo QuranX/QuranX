@@ -1,0 +1,18 @@
+﻿@using QuranX.Web.Views.HadithIndex
+@using QuranX.Web.Views.Shared
+@model HadithsViewModel
+
+@{
+	string hadithsTitle = Model.Hadiths.Count == 1 ? "hadith" : "hadiths";
+	ViewBag.Title = $"{Model.HadithIndexHeaderViewModel.Collection.Name} Hadiths";
+}
+
+@Html.Partial("HadithIndexHeader", Model.HadithIndexHeaderViewModel)
+@if (@Model.Hadiths.Count() != 1)
+{
+	<h4>@Model.Hadiths.Count() @hadithsTitle</h4>
+}
+@foreach (HadithViewModel hadithVM in Model.Hadiths)
+{
+	@Html.Partial("HadithView", hadithVM)
+}

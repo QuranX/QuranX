@@ -1,0 +1,19 @@
+﻿@using QuranX.Web.Models
+@model CommentariesForVerse
+
+@{
+	ViewBag.Title = $"Commentaries for {Model.Chapter.ChapterNumber}.{Model.VerseNumber}";
+}
+
+<h1>The Quran</h1>
+<h2>
+	Commentaries for <a href="/@Model.Chapter.ChapterNumber.@Model.VerseNumber">
+		@Model.Chapter.ChapterNumber.@Model.VerseNumber
+	</a>
+</h2>
+<h3>@Model.Chapter.EnglishName - @Model.Chapter.ArabicName</h3>
+@Html.Partial("SelectChapterAndVerse", Model.SelectChapterAndVerse)
+@foreach (CommentatorAndCommentary commentatorAndCommentary in Model.Commentaries)
+{
+	@Html.Partial("CommentaryView", commentatorAndCommentary)
+}

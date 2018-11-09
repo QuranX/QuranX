@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Text;
 
 namespace QuranX.DocumentModel
 {
@@ -15,8 +12,5 @@ namespace QuranX.DocumentModel
 				result.AppendFormat("{0:x2}", @byte);
 			return result.ToString();
 		}
-
-
-
 	}
 }
