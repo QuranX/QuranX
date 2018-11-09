@@ -209,7 +209,7 @@ WriteLiteral(" rel=\"icon\"");
 
 WriteLiteral(" sizes=\"192x192\"");
 
-WriteLiteral(" href=\"/Content/Images/AppleTouchIcons/touch-icon-192x192.png\"");
+WriteLiteral(" href=\"/Content/Images/AppleTouchIcons/apple-touch-icon-192x192.png\"");
 
 WriteLiteral(">\r\n</head>\r\n<body>\r\n\t<div");
 
