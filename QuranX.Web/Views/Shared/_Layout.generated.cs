@@ -141,7 +141,77 @@ WriteLiteral(" property=\"og:type\"");
 
 WriteLiteral(" content=\"website\"");
 
-WriteLiteral(" />\r\n</head>\r\n<body>\r\n\t<div");
+WriteLiteral(" />\r\n\t<link");
+
+WriteLiteral(" rel=\"apple-touch-icon\"");
+
+WriteLiteral(" href=\"/Content/Images/AppleTouchIcons/apple-touch-icon-57x57.png\"");
+
+WriteLiteral(">\r\n\t<link");
+
+WriteLiteral(" rel=\"apple-touch-icon\"");
+
+WriteLiteral(" sizes=\"72x72\"");
+
+WriteLiteral(" href=\"/Content/Images/AppleTouchIcons/apple-touch-icon-72x72.png\"");
+
+WriteLiteral(">\r\n\t<link");
+
+WriteLiteral(" rel=\"apple-touch-icon\"");
+
+WriteLiteral(" sizes=\"76x76\"");
+
+WriteLiteral(" href=\"/Content/Images/AppleTouchIcons/apple-touch-icon-76x76.png\"");
+
+WriteLiteral(">\r\n\t<link");
+
+WriteLiteral(" rel=\"apple-touch-icon\"");
+
+WriteLiteral(" sizes=\"114x114\"");
+
+WriteLiteral(" href=\"/Content/Images/AppleTouchIcons/apple-touch-icon-114x114.png\"");
+
+WriteLiteral(">\r\n\t<link");
+
+WriteLiteral(" rel=\"apple-touch-icon\"");
+
+WriteLiteral(" sizes=\"120x120\"");
+
+WriteLiteral(" href=\"/Content/Images/AppleTouchIcons/apple-touch-icon-120x120.png\"");
+
+WriteLiteral(">\r\n\t<link");
+
+WriteLiteral(" rel=\"apple-touch-icon\"");
+
+WriteLiteral(" sizes=\"144x144\"");
+
+WriteLiteral(" href=\"/Content/Images/AppleTouchIcons/apple-touch-icon-144x144.png\"");
+
+WriteLiteral(">\r\n\t<link");
+
+WriteLiteral(" rel=\"apple-touch-icon\"");
+
+WriteLiteral(" sizes=\"152x152\"");
+
+WriteLiteral(" href=\"/Content/Images/AppleTouchIcons/apple-touch-icon-152x152.png\"");
+
+WriteLiteral(">\r\n\t<link");
+
+WriteLiteral(" rel=\"apple-touch-icon\"");
+
+WriteLiteral(" sizes=\"180x180\"");
+
+WriteLiteral(" href=\"/Content/Images/AppleTouchIcons/apple-touch-icon-180x180.png\"");
+
+WriteLiteral(">\r\n\t<link");
+
+WriteLiteral(" rel=\"icon\"");
+
+WriteLiteral(" sizes=\"192x192\"");
+
+WriteLiteral(" href=\"/Content/Images/AppleTouchIcons/touch-icon-192x192.png\"");
+
+WriteLiteral(">\r\n</head>\r\n<body>\r\n\t<div");
 
 WriteLiteral(" class=\"quranx navbar navbar-inverse navbar-fixed-top\"");
 
@@ -180,7 +250,7 @@ WriteLiteral(" href=\"/1.1\"");
 WriteLiteral(">Quran</a></li>\r\n\t\t\t\t\t<li>");
 
             
-            #line 35 "..\..\Views\Shared\_Layout.cshtml"
+            #line 44 "..\..\Views\Shared\_Layout.cshtml"
                    Write(Html.RouteLink("Commentaries", "Commentators"));
 
             
@@ -189,7 +259,7 @@ WriteLiteral(">Quran</a></li>\r\n\t\t\t\t\t<li>");
 WriteLiteral("</li>\r\n\t\t\t\t\t<li>");
 
             
-            #line 36 "..\..\Views\Shared\_Layout.cshtml"
+            #line 45 "..\..\Views\Shared\_Layout.cshtml"
                    Write(Html.RouteLink("Hadiths", "HadithCollections"));
 
             
@@ -198,7 +268,7 @@ WriteLiteral("</li>\r\n\t\t\t\t\t<li>");
 WriteLiteral("</li>\r\n\t\t\t\t\t<li>");
 
             
-            #line 37 "..\..\Views\Shared\_Layout.cshtml"
+            #line 46 "..\..\Views\Shared\_Layout.cshtml"
                    Write(Html.RouteLink("Search", "SiteSearch"));
 
             
@@ -213,7 +283,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("\t\t");
 
             
-            #line 43 "..\..\Views\Shared\_Layout.cshtml"
+            #line 52 "..\..\Views\Shared\_Layout.cshtml"
    Write(RenderBody());
 
             
@@ -224,7 +294,7 @@ WriteLiteral("\r\n\t</div>\r\n\r\n");
 WriteLiteral("\t");
 
             
-            #line 46 "..\..\Views\Shared\_Layout.cshtml"
+            #line 55 "..\..\Views\Shared\_Layout.cshtml"
 Write(Scripts.Render("~/bundles/jquery"));
 
             
@@ -235,7 +305,7 @@ WriteLiteral("\r\n");
 WriteLiteral("\t");
 
             
-            #line 47 "..\..\Views\Shared\_Layout.cshtml"
+            #line 56 "..\..\Views\Shared\_Layout.cshtml"
 Write(Scripts.Render("~/bundles/bootstrap"));
 
             
@@ -246,7 +316,7 @@ WriteLiteral("\r\n");
 WriteLiteral("\t");
 
             
-            #line 48 "..\..\Views\Shared\_Layout.cshtml"
+            #line 57 "..\..\Views\Shared\_Layout.cshtml"
 Write(RenderSection("scripts", required: false));
 
             

@@ -346,6 +346,15 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\Images\AppleTouchIcons\apple-touch-icon-114x114.png" />
+    <Content Include="Content\Images\AppleTouchIcons\apple-touch-icon-120x120.png" />
+    <Content Include="Content\Images\AppleTouchIcons\apple-touch-icon-144x144.png" />
+    <Content Include="Content\Images\AppleTouchIcons\apple-touch-icon-152x152.png" />
+    <Content Include="Content\Images\AppleTouchIcons\apple-touch-icon-180x180.png" />
+    <Content Include="Content\Images\AppleTouchIcons\apple-touch-icon-192x192.png" />
+    <Content Include="Content\Images\AppleTouchIcons\apple-touch-icon-57x57.png" />
+    <Content Include="Content\Images\AppleTouchIcons\apple-touch-icon-72x72.png" />
+    <Content Include="Content\Images\AppleTouchIcons\apple-touch-icon-76x76.png" />
     <Content Include="Content\Images\ArabicWords\612d616c696475.png" />
     <Content Include="Content\Images\ArabicWords\612d616d696e74756d.png" />
     <Content Include="Content\Images\ArabicWords\612d616e64686172746168756d.png" />
