@@ -1,6 +1,6 @@
 ﻿function toggleTranslation(translatorCode, immediateHide) {
-	var verseElem = $(`.verse__translation[data-translator-code="${translatorCode}"`);
-	var hiddenCodeElem = $(`.verse__translation-hidden-item[data-translator-code="${translatorCode}"`);
+	var verseElem = $(".verse__translation[data-translator-code=\"" + translatorCode + "\"]");
+	var hiddenCodeElem = $(".verse__translation-hidden-item[data-translator-code=\"" + translatorCode + "\"]");
 
 	if (!immediateHide) {
 		verseElem.toggle("collapse");

@@ -988,7 +988,7 @@ WriteLiteral(@"
 			var entireList = [];
 			Object.keys(versesForChapter).forEach(function (chapterNumber) {
 				versesForChapter[chapterNumber].forEach(function (verseNumber) {
-					var idToInclude = `${chapterNumber}.${verseNumber}`;
+					var idToInclude = chapterNumber + ""."" + verseNumber;
 					entireList.push(idToInclude);
 				});
 			});
