@@ -15,9 +15,6 @@ namespace QuranX.Shared.Models
 
 		public VerseRangeReference(int chapter, int firstVerse, int lastVerse)
 		{
-			QuranStructure.EnsureChapterAndVerseAreValid(chapter, firstVerse);
-			QuranStructure.EnsureChapterAndVerseAreValid(chapter, lastVerse);
-
 			Chapter = chapter;
 			FirstVerse = firstVerse;
 			LastVerse = lastVerse;

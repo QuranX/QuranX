@@ -17,14 +17,6 @@ namespace QuranX.Shared.Models
 		public static Chapter Chapter(int chapterNumber) => _chaptersByChapterNumber[chapterNumber];
 		public static IEnumerable<Chapter> Chapters => _chaptersByChapterNumber.Values.OrderBy(x => x.ChapterNumber);
 
-		public static void EnsureChapterAndVerseAreValid(int chapterNumber, int verseNumber)
-		{
-			if (chapterNumber < 1 || chapterNumber > 114)
-				throw new ArgumentOutOfRangeException("Chapter");
-			if (verseNumber < 1 || verseNumber > Chapter(chapterNumber).NumberOfVerses)
-				throw new ArgumentOutOfRangeException("Verse");
-		}
-
 		public static bool TryValidateChapterAndVerse(int chapterNumber, int verseNumber)
 		{
 			if (chapterNumber < 1 || chapterNumber > 114)
