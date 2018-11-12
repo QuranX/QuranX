@@ -328,6 +328,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="apple-touch-icon.png" />
     <Content Include="App_Data\segments.gen" />
     <Content Include="App_Data\segments_2" />
     <Content Include="App_Data\_0.cfs" />
