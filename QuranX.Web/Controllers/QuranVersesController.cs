@@ -24,11 +24,9 @@ namespace QuranX.Web.Controllers
 
 		public ActionResult Index(string verses, int? context)
 		{
-			IEnumerable<VerseRangeReference> verseRangeReferences = verses.Split(',')
-				.ToList()
-				.ConvertAll(x => VerseRangeReference.Parse(x));
-			if (!verseRangeReferences.Any())
-				verseRangeReferences = new VerseRangeReference[] { new VerseRangeReference(1, 1, 1) };
+			IEnumerable<VerseRangeReference> verseRangeReferences = GetVerseRangeReferencesFromUrl(verses);
+			if (verseRangeReferences == null)
+				return HttpNotFound();
 
 			VerseRangeReference firstReference = verseRangeReferences.First();
 			bool autoScrollToSelectedVerse = verseRangeReferences.Count() == 1 && context.HasValue && context > 0;
@@ -56,8 +54,25 @@ namespace QuranX.Web.Controllers
 					firstReference.FirstVerse,
 					url: ""),
 				autoScrollToSelectedVerse: autoScrollToSelectedVerse
-				); 
+				);
 			return View("QuranVerses", viewModel);
+		}
+
+		private static IEnumerable<VerseRangeReference> GetVerseRangeReferencesFromUrl(string verses)
+		{
+			try
+			{
+				IEnumerable<VerseRangeReference> verseRangeReferences = verses.Split(',')
+								.ToList()
+								.ConvertAll(x => VerseRangeReference.Parse(x));
+				if (!verseRangeReferences.Any())
+					verseRangeReferences = new VerseRangeReference[] { new VerseRangeReference(1, 1, 1) };
+				return verseRangeReferences;
+			}
+			catch (ArgumentOutOfRangeException)
+			{
+				return null;
+			}
 		}
 
 		private static IEnumerable<VerseRangeReference> AddSurroundingVerses(int? context, VerseRangeReference firstReference)
