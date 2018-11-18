@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Web.Mvc;
 using QuranX.Persistence.Models;
 using QuranX.Persistence.Services.Repositories;
@@ -34,10 +35,6 @@ namespace QuranX.Web.Controllers
 			if (collection == null)
 				return HttpNotFound();
 
-			HadithReferenceDefinition referenceDefinition = collection.GetReferenceDefinition(referenceCode);
-			if (referenceDefinition == null)
-				return HttpNotFound();
-
 			var referencePartNamesAndValues = new List<(string referencePartName, int value, string suffix)>();
 			if (!string.IsNullOrWhiteSpace(referenceValue1))
 				referencePartNamesAndValues.Add(HadithReference.SplitNameAndValue(referenceValue1));
@@ -48,6 +45,37 @@ namespace QuranX.Web.Controllers
 
 			IEnumerable<string> referencePartNames = referencePartNamesAndValues
 				.Select(x => x.referencePartName);
+			HadithReferenceDefinition referenceDefinition = collection.GetReferenceDefinition(referenceCode);
+			if (referenceDefinition == null)
+			{
+				// If the reference definition is a valid reference value then we probably have
+				// a reference without the index specified. Some websites link to the old website
+				// in this way. In that case we should see if we can infer the index.
+				(string referencePartName, int value, string suffix) additionalReferenceValue;
+				if (HadithReference.TrySplitNameAndValue(referenceCode, out additionalReferenceValue))
+				{
+					var newReferencePartNames = new List<string>();
+					newReferencePartNames.Add(additionalReferenceValue.referencePartName);
+					newReferencePartNames.AddRange(referencePartNames);
+					referenceDefinition = collection.GetReferenceDefinitionByPartNames(newReferencePartNames);
+					if (referenceDefinition != null)
+					{
+						var urlBuilder = new StringBuilder($"/hadith/{collectionCode}/{referenceDefinition.Code}");
+						referencePartNamesAndValues.Insert(0, additionalReferenceValue);
+						foreach(var referencePartNameAndValue in referencePartNamesAndValues)
+						{
+							urlBuilder.Append("/"
+								+ referencePartNameAndValue.referencePartName
+								+ "-"
+								+ referencePartNameAndValue.value
+								+ referencePartNameAndValue.suffix);
+						}
+						return Redirect(urlBuilder.ToString());
+					}
+				}
+				return HttpNotFound();
+			}
+
 			if (!referenceDefinition.PatternMatch(referencePartNames))
 				return HttpNotFound();
 

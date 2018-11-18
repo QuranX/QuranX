@@ -72,16 +72,28 @@ namespace QuranX.Persistence.Models
 			return (value: val, suffix);
 		}
 
-		public static (string referencePartName, int value, string suffix) SplitNameAndValue(string value)
+		public static bool TrySplitNameAndValue(string value, out (string referencePartName, int value, string suffix) result)
 		{
 			var regex = new Regex(@"^([a-zA-Z]+)-(\d+)(\w+)?$");
 			Match match = regex.Match(value);
 			if (!match.Success)
-				throw new ArgumentException("Must be Name, a dash, and then digits alone or digits + letters", nameof(value));
+			{
+				result = (referencePartName: null, value: 0, suffix: null);
+				return false;
+			}
 			string referencePartName = match.Groups[1].Value;
 			int val = int.Parse(match.Groups[2].Value);
 			string suffix = match.Groups[3].Value;
-			return (referencePartName, value: val, suffix);
+			result = (referencePartName, value: val, suffix);
+			return true;
+		}
+
+		public static (string referencePartName, int value, string suffix) SplitNameAndValue(string value)
+		{
+			(string referencePartName, int value, string suffix) result;
+			if (!TrySplitNameAndValue(value, out result))
+				throw new ArgumentException("Must be Name, a dash, and then digits alone or digits + letters", nameof(value));
+			return result;
 		}
 
 		public override int GetHashCode()
