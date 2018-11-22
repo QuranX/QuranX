@@ -161,11 +161,11 @@ WriteLiteral(" data-target=\".navbar-collapse\"");
 
 WriteLiteral(">\r\n\t\t\t\t\tMENU\r\n\t\t\t\t</button>\r\n\t\t\t\t<a");
 
-WriteLiteral(" href=\"/1.1\"");
+WriteLiteral(" href=\"https://www.patreon.com/QuranX\"");
 
 WriteLiteral(" class=\"quranx navbar-brand\"");
 
-WriteLiteral(">QuranX</a>\r\n\t\t\t</div>\r\n\t\t\t<div");
+WriteLiteral(">Donate</a>\r\n\t\t\t</div>\r\n\t\t\t<div");
 
 WriteLiteral(" class=\"quranx navbar-collapse collapse\"");
 
