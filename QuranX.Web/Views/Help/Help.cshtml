@@ -1,0 +1,75 @@
+﻿@{
+	ViewBag.Title = "QuranX - Help";
+}
+
+<h1>About</h1>
+<dl class="about">
+	<dt>Linking tips</dt>
+	<dd>
+		QuranX.com has been written to try to make it as easy as possible to link to
+		specific information.
+	</dd>
+	<dt>Available on all pages</dt>
+	<dd>
+		<ul class="help-list">
+			<li>
+				<span class="header">Highlighting text using the <em>hl</em> parameter</span>
+				<ul>
+					<li><label>Single word</label> <a href="/1.1?hl=name">http://QuranX.com/1.1?<em>hl</em>=name</a></li>
+					<li><label>Phrase</label> <a href="/tafsirs/1.1?hl=in+the+name">http://QuranX.com/tafsirs/1.1?hl=in<em>+</em>the<em>+</em>name</a></li>
+					<li><label>Multiple words</label> <a href="/1.1?hl=name,merciful">http://QuranX.com/1.1?hl=name<em>,</em>merciful</a></li>
+					<li><label>Multiple phrases</label> <a href="/1.1?hl=in+the+name,most+merciful">http://QuranX.com/1.1?hl=in<em>+</em>the<em>+</em>name<em>,</em>most<em>+</em>merciful</a></li>
+				</ul>
+			</li>
+		</ul>
+	</dd>
+
+	<dt>Available on Quran pages only</dt>
+	<dd>
+		<ul class="help-list">
+			<li>
+				<span class="header">Showing a verse with surrounding verses for context</span>
+				<ul>
+					<li><a href="/50.50?context=2">http://QuranX.com/1.1?<em>context</em>=2</a></li>
+				</ul>
+			</li>
+			<li>
+				<span class="header">Showing all translations despite user&apos;s preferences</span>
+				<ul>
+					<li><a href="/1.1?allTranslations=y">http://QuranX.com/1.1?<em>allTranslations</em>=y</a></li>
+				</ul>
+			</li>
+			<li>
+				<span class="header">Multiple verses</span>
+				<ul>
+					<li><label>Verse range</label> <a href="/1.1-3">http://QuranX.com/1.<em>1-3</em></a></li>
+					<li><label>Verse list</label> <a href="/1.1,2.34,10.32">http://QuranX.com/1.1<em>,</em>2.34<em>,</em>10.32</a></li>
+					<li><label>List with ranges</label> <a href="/1.1-3,10.32,23.4-5">http://QuranX.com/1.1-3,10.32,23.1-1</a></li>
+
+				</ul>
+			</li>
+		</ul>
+	</dd>
+	<dt>Advanced search tips<a name="search"></a></dt>
+	<dd>
+		By default QuranX search will take your search text and find results with as many
+		matches as possible and then list them in order of relevance.  This will often result
+		in a large number of matches, so there are a number of options you may use to refine
+		your search results.
+	</dd>
+	<dd>
+		<dl class="search-tips">
+			<dt>Phrases</dt>
+			<dd>Enclose search phrases in quotes to search for an exact phrase: "The all knowing"</dd>
+			<dt>Excluded words</dt>
+			<dd>Use the prefix - to ensure no results matching the word/phrase are included: +Allah -"All knowing"</dd>
+			<dt>Conditional words/phrases</dt>
+			<dd>Use capital letters OR: Mohammed OR Muhammad</dd>
+			<dt>Partial words / wildcards</dt>
+			<dd>
+				You may use an astrisk * to indicate a match for any number of characters, for example
+				m*h*m*d would match both "Muhammad" and "Mohammed"
+			</dd>
+		</dl>
+	</dd>
+</dl>

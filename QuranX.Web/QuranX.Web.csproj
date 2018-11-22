@@ -197,6 +197,7 @@
     <Compile Include="ArabicHelper.cs" />
     <Compile Include="Controllers\AboutController.cs" />
     <Compile Include="Controllers\HadithIndexController.cs" />
+    <Compile Include="Controllers\HelpController.cs" />
     <Compile Include="Controllers\RootAnalysisController.cs" />
     <Compile Include="Controllers\SiteSearchController.cs" />
     <Compile Include="Controllers\VerseAnalysisController.cs" />
@@ -18087,6 +18088,7 @@
       <LastGenOutput>SiteSearch.generated.cs</LastGenOutput>
     </Content>
     <Content Include="Views\About\About.cshtml" />
+    <Content Include="Views\Help\Help.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

@@ -16,6 +16,11 @@ namespace QuranX.Web
 				defaults: new { Controller = "About", Action = "Index" });
 
 			routes.MapRoute(
+				name: "Help",
+				url: "Help",
+				defaults: new { Controller = "Help", Action = "Index" });
+
+			routes.MapRoute(
 				name: "SiteSearch",
 				url: "Search",
 				defaults: new { Controller = "SiteSearch", Action = "Index" });

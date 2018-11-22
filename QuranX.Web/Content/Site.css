@@ -754,16 +754,75 @@ a {
 	text-decoration: underline dotted;
 }
 
-dl.about > dt {
-	font-size: 1.5em;
+dl.about > dt, dl.search-tips > dt {
+	font-size: 1.5rem;
 	margin: 0;
 	padding: 0;
 	/*Col:H2*/
 	color: hsl(69, 41.4%, 48.8%);
 }
 
-dl.about>dd {
-	margin: 0 0 1em 0;
+dl.about > dd, dl.search-tips > dd {
+	margin: 0 0 1rem 0;
 	padding: 0;
-	padding-left: 1em;
+	padding-left: 1rem;
 }
+
+dl.about > dt {
+	font-size: 1.5rem;
+	margin: 0;
+	padding: 0;
+}
+
+dl.about > dd {
+	margin: 0 0 1rem 1rem;
+	padding: 0;
+}
+
+.help-list {
+	padding: 0;
+	list-style: none;
+	line-height: 2rem;
+	border: 2px solid rgba(0, 0, 0, 0.5);
+	border-radius: 4px;
+	box-shadow: rgba(0, 0, 0, 0.5) 2px 2px;
+}
+
+	.help-list > li {
+		padding: 0px;
+		/*Col:Tab*/
+		background-color: hsl(0, 0%, 86.77%);
+	}
+
+		.help-list > li .header {
+			font-weight: bold;
+			padding-left: 1rem;
+		}
+
+		.help-list > li > ul {
+			list-style: none;
+			background-color: white;
+		}
+
+			.help-list > li > ul > li {
+				border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+			}
+
+				.help-list > li > ul > li:last-child {
+					border: none;
+				}
+
+	.help-list label {
+		display: inline-block;
+		width: 10em;
+	}
+
+	.help-list em {
+		background-color: #ffffcc;
+		padding: 0.25rem;
+		text-decoration: none;
+		font-style: normal;
+		font-weight: bold;
+		text-shadow: 2px 2px rgba(0, 0, 0, 0.1);
+		border: 1px solid black;
+	}

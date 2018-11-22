@@ -169,15 +169,15 @@ WriteLiteral(">QuranX</a>\r\n\t\t\t</div>\r\n\t\t\t<div");
 
 WriteLiteral(" class=\"quranx navbar-collapse collapse\"");
 
-WriteLiteral(">\r\n                <ul");
+WriteLiteral(">\r\n\t\t\t\t<ul");
 
 WriteLiteral(" class=\"quranx nav navbar-nav\"");
 
-WriteLiteral(">\r\n                    <li><a");
+WriteLiteral(">\r\n\t\t\t\t\t<li><a");
 
 WriteLiteral(" href=\"/1.1\"");
 
-WriteLiteral(">Quran</a></li>\r\n                    <li>");
+WriteLiteral(">Quran</a></li>\r\n\t\t\t\t\t<li>");
 
             
             #line 35 "..\..\Views\Shared\_Layout.cshtml"
@@ -186,7 +186,7 @@ WriteLiteral(">Quran</a></li>\r\n                    <li>");
             
             #line default
             #line hidden
-WriteLiteral("</li>\r\n                    <li>");
+WriteLiteral("</li>\r\n\t\t\t\t\t<li>");
 
             
             #line 36 "..\..\Views\Shared\_Layout.cshtml"
@@ -195,7 +195,7 @@ WriteLiteral("</li>\r\n                    <li>");
             
             #line default
             #line hidden
-WriteLiteral("</li>\r\n                    <li>");
+WriteLiteral("</li>\r\n\t\t\t\t\t<li>");
 
             
             #line 37 "..\..\Views\Shared\_Layout.cshtml"
@@ -204,16 +204,25 @@ WriteLiteral("</li>\r\n                    <li>");
             
             #line default
             #line hidden
-WriteLiteral("</li>\r\n                    <li>");
+WriteLiteral("</li>\r\n\t\t\t\t\t<li>");
 
             
             #line 38 "..\..\Views\Shared\_Layout.cshtml"
+                   Write(Html.RouteLink("Help", "Help"));
+
+            
+            #line default
+            #line hidden
+WriteLiteral("</li>\r\n\t\t\t\t\t<li>");
+
+            
+            #line 39 "..\..\Views\Shared\_Layout.cshtml"
                    Write(Html.RouteLink("About", "About"));
 
             
             #line default
             #line hidden
-WriteLiteral("</li>\r\n                </ul>\r\n\t\t\t</div>\r\n\t\t</div>\r\n\t</div>\r\n\t<div");
+WriteLiteral("</li>\r\n\t\t\t\t</ul>\r\n\t\t\t</div>\r\n\t\t</div>\r\n\t</div>\r\n\t<div");
 
 WriteLiteral(" class=\"container-fluid body-content\"");
 
@@ -222,7 +231,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("\t\t");
 
             
-            #line 44 "..\..\Views\Shared\_Layout.cshtml"
+            #line 45 "..\..\Views\Shared\_Layout.cshtml"
    Write(RenderBody());
 
             
@@ -233,7 +242,7 @@ WriteLiteral("\r\n\t</div>\r\n\r\n");
 WriteLiteral("\t");
 
             
-            #line 47 "..\..\Views\Shared\_Layout.cshtml"
+            #line 48 "..\..\Views\Shared\_Layout.cshtml"
 Write(Scripts.Render("~/bundles/jquery"));
 
             
@@ -244,7 +253,7 @@ WriteLiteral("\r\n");
 WriteLiteral("\t");
 
             
-            #line 48 "..\..\Views\Shared\_Layout.cshtml"
+            #line 49 "..\..\Views\Shared\_Layout.cshtml"
 Write(Scripts.Render("~/bundles/bootstrap"));
 
             
@@ -255,7 +264,7 @@ WriteLiteral("\r\n");
 WriteLiteral("\t");
 
             
-            #line 49 "..\..\Views\Shared\_Layout.cshtml"
+            #line 50 "..\..\Views\Shared\_Layout.cshtml"
 Write(RenderSection("scripts", required: false));
 
             
