@@ -11,6 +11,10 @@ namespace QuranX.Persistence.Services.Repositories
 {
 	public interface IHadithRepository
 	{
+		bool HasReferences(
+			string collectionCode,
+			string referenceCode,
+			IEnumerable<(int value, string suffix)> values);
 		IEnumerable<HadithReference> GetReferences(
 			string collectionCode,
 			string referenceCode,
@@ -45,6 +49,17 @@ namespace QuranX.Persistence.Services.Repositories
 			IEnumerable<HadithReference> references = docIds
 				.Select(x => searcher.Doc(x).GetObject<HadithReference>());
 			return references;
+		}
+
+		public bool HasReferences(
+			string collectionCode,
+			string referenceCode,
+			IEnumerable<(int value, string suffix)> values)
+		{
+			return GetReferencesIds(
+				collectionCode: collectionCode,
+				referenceCode: referenceCode,
+				values: values).Any();
 		}
 
 		public IEnumerable<Hadith> GetHadiths(IEnumerable<int> ids)

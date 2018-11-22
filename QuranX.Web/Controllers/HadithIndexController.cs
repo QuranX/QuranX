@@ -46,35 +46,8 @@ namespace QuranX.Web.Controllers
 			IEnumerable<string> referencePartNames = referencePartNamesAndValues
 				.Select(x => x.referencePartName);
 			HadithReferenceDefinition referenceDefinition = collection.GetReferenceDefinition(referenceCode);
-			if (referenceDefinition == null)
-			{
-				// If the reference definition is a valid reference value then we probably have
-				// a reference without the index specified. Some websites link to the old website
-				// in this way. In that case we should see if we can infer the index.
-				(string referencePartName, int value, string suffix) additionalReferenceValue;
-				if (HadithReference.TrySplitNameAndValue(referenceCode, out additionalReferenceValue))
-				{
-					var newReferencePartNames = new List<string>();
-					newReferencePartNames.Add(additionalReferenceValue.referencePartName);
-					newReferencePartNames.AddRange(referencePartNames);
-					referenceDefinition = collection.GetReferenceDefinitionByPartNames(newReferencePartNames);
-					if (referenceDefinition != null)
-					{
-						var urlBuilder = new StringBuilder($"/hadith/{collectionCode}/{referenceDefinition.Code}");
-						referencePartNamesAndValues.Insert(0, additionalReferenceValue);
-						foreach(var referencePartNameAndValue in referencePartNamesAndValues)
-						{
-							urlBuilder.Append("/"
-								+ referencePartNameAndValue.referencePartName
-								+ "-"
-								+ referencePartNameAndValue.value
-								+ referencePartNameAndValue.suffix);
-						}
-						return Redirect(urlBuilder.ToString());
-					}
-				}
-				return HttpNotFound();
-			}
+			if (referenceDefinition == null && referenceCode.Contains("-"))
+				return RedirectForMissingIndexCode(collectionCode, referenceCode, collection, referencePartNamesAndValues, referencePartNames, ref referenceDefinition);
 
 			if (!referenceDefinition.PatternMatch(referencePartNames))
 				return HttpNotFound();
@@ -142,6 +115,45 @@ namespace QuranX.Web.Controllers
 					nextReferencePartValueSelection: nextReferencePartValues);
 				return View("BrowseHadithIndex", viewModel);
 			}
+		}
+
+		private ActionResult RedirectForMissingIndexCode(string collectionCode, string referenceCode, HadithCollection collection, List<(string referencePartName, int value, string suffix)> referencePartNamesAndValues, IEnumerable<string> referencePartNames, ref HadithReferenceDefinition referenceDefinition)
+		{
+			// If the reference definition is a valid reference value then we probably have
+			// a reference without the index specified. Some websites link to the old website
+			// in this way. In that case we should see if we can infer the index.
+			(string referencePartName, int value, string suffix) additionalReferenceValue;
+			if (HadithReference.TrySplitNameAndValue(referenceCode, out additionalReferenceValue))
+			{
+				referencePartNamesAndValues.Insert(0, additionalReferenceValue);
+				var possibleReferenceDefinitions = collection.GetPossibleReferenceDefinitionsByPartNames(referencePartNames);
+				var lookupValues = referencePartNamesAndValues.Select(x => (value: x.value, suffix: x.suffix));
+				foreach (var candidateDefinition in possibleReferenceDefinitions)
+				{
+					if (HadithRepository.HasReferences(
+							collectionCode: collectionCode,
+							referenceCode: candidateDefinition.Code,
+							values: lookupValues))
+					{
+						referenceDefinition = candidateDefinition;
+						break;
+					}
+				}
+				if (referenceDefinition != null)
+				{
+					var urlBuilder = new StringBuilder($"/hadith/{collectionCode}/{referenceDefinition.Code}");
+					foreach (var referencePartNameAndValue in referencePartNamesAndValues)
+					{
+						urlBuilder.Append("/"
+							+ referencePartNameAndValue.referencePartName
+							+ "-"
+							+ referencePartNameAndValue.value
+							+ referencePartNameAndValue.suffix);
+					}
+					return Redirect(urlBuilder.ToString());
+				}
+			}
+			return HttpNotFound();
 		}
 	}
 }

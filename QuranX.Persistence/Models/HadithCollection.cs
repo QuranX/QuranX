@@ -29,16 +29,18 @@ namespace QuranX.Persistence.Models
 		public HadithReferenceDefinition GetPrimaryReferenceDefinition() =>
 			GetReferenceDefinition(PrimaryReferenceCode);
 
-		public HadithReferenceDefinition GetReferenceDefinitionByPartNames(IEnumerable<string> referencePartNames)
+		public IEnumerable<HadithReferenceDefinition> GetPossibleReferenceDefinitionsByPartNames(IEnumerable<string> referencePartNames)
 		{
 			string requiredValues = string.Join(":", referencePartNames).ToLowerInvariant();
-			Dictionary<string, HadithReferenceDefinition> availableDefinitions =
-				ReferenceDefinitions
-				.ToDictionary(x => string.Join(":", x.PartNames), StringComparer.InvariantCultureIgnoreCase);
-			HadithReferenceDefinition result;
-			if (availableDefinitions.TryGetValue(requiredValues, out result))
-				return result;
-			return null;
+			var result = new List<HadithReferenceDefinition>();
+
+			foreach(var reference in ReferenceDefinitions.OrderBy(x => x.IsPrimary))
+			{
+				string key = string.Join(":", reference.PartNames);
+				if (string.Compare(key, requiredValues, true) == 0)
+					result.Add(reference);
+			}
+			return result;
 		}
 	}
 }
