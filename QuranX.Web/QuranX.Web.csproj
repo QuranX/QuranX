@@ -195,7 +195,9 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\UnityConfig.cs" />
     <Compile Include="ArabicHelper.cs" />
+    <Compile Include="Controllers\AboutController.cs" />
     <Compile Include="Controllers\HadithIndexController.cs" />
+    <Compile Include="Controllers\HelpController.cs" />
     <Compile Include="Controllers\RootAnalysisController.cs" />
     <Compile Include="Controllers\SiteSearchController.cs" />
     <Compile Include="Controllers\VerseAnalysisController.cs" />
@@ -328,6 +330,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="apple-touch-icon.png" />
     <Content Include="App_Data\segments.gen" />
     <Content Include="App_Data\segments_2" />
     <Content Include="App_Data\_0.cfs" />
@@ -346,6 +349,15 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="apple-touch-icon-114x114.png" />
+    <Content Include="apple-touch-icon-120x120.png" />
+    <Content Include="apple-touch-icon-144x144.png" />
+    <Content Include="apple-touch-icon-152x152.png" />
+    <Content Include="apple-touch-icon-180x180.png" />
+    <Content Include="apple-touch-icon-192x192.png" />
+    <Content Include="apple-touch-icon-57x57.png" />
+    <Content Include="apple-touch-icon-72x72.png" />
+    <Content Include="apple-touch-icon-76x76.png" />
     <Content Include="Content\Images\ArabicWords\612d616c696475.png" />
     <Content Include="Content\Images\ArabicWords\612d616d696e74756d.png" />
     <Content Include="Content\Images\ArabicWords\612d616e64686172746168756d.png" />
@@ -17954,10 +17966,13 @@
     <Content Include="Content\Images\ArabicWords\e1ba93c4816c696dc5ab6e61.png" />
     <Content Include="Content\Images\HeaderRepeat.jpg" />
     <Content Include="Content\Images\QuranX.png" />
+    <Content Include="Content\Images\QuranXSocialIcon.png" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="googled30b8dc6eaddea95.html" />
+    <Content Include="robots.txt" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="ApplicationInsights.config">
@@ -18072,6 +18087,8 @@
       <Generator>RazorGenerator</Generator>
       <LastGenOutput>SiteSearch.generated.cs</LastGenOutput>
     </Content>
+    <Content Include="Views\About\About.cshtml" />
+    <Content Include="Views\Help\Help.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

@@ -15,11 +15,6 @@ namespace QuranX.Shared.Models
 		{
 			Chapter = chapter;
 			Verse = verse;
-
-			QuranStructure.EnsureChapterAndVerseAreValid(
-					chapterNumber: chapter,
-					verseNumber: verse
-				);
 		}
 
 		public static int GetIndexValue(int chapterNumber, int verseNumber) => chapterNumber * 1000 + verseNumber;

@@ -106,8 +106,42 @@ WriteLiteral("\r\n\t<script async");
 WriteLiteral(" src=\"https://www.googletagmanager.com/gtag/js?id=UA-42308840-1\"");
 
 WriteLiteral("></script>\r\n\t<script>\r\n\t\twindow.dataLayer = window.dataLayer || [];\r\n\t\tfunction g" +
-"tag() { dataLayer.push(arguments); }\r\n\t\tgtag(\'js\', new Date());\r\n\r\n\t\tgtag(\'confi" +
-"g\', \'UA-42308840-1\');\r\n\t</script>\r\n</head>\r\n<body>\r\n\t<div");
+"tag() { dataLayer.push(arguments); }\r\n\t\tgtag(\'js\', new Date());\r\n\t\tgtag(\'config\'" +
+", \'UA-42308840-1\');\r\n\t</script>\r\n\t<meta");
+
+WriteLiteral(" property=\"og:image\"");
+
+WriteLiteral(" content=\"https://QuranX.com/Content/Images/QuranXSocialIcon.png\"");
+
+WriteLiteral(" />\r\n\t<meta");
+
+WriteLiteral(" property=\"og:title\"");
+
+WriteLiteral(" content=\"QuranX.com The most complete Quran / Hadith / Tafsir collection availab" +
+"le!\"");
+
+WriteLiteral(" />\r\n\t<meta");
+
+WriteLiteral(" property=\"og:url\"");
+
+WriteAttribute("content", Tuple.Create(" content=\"", 822), Tuple.Create("\"", 867)
+, Tuple.Create(Tuple.Create("", 832), Tuple.Create("https://QuranX.com", 832), true)
+            
+            #line 20 "..\..\Views\Shared\_Layout.cshtml"
+, Tuple.Create(Tuple.Create("", 850), Tuple.Create<System.Object, System.Int32>(Request.RawUrl
+            
+            #line default
+            #line hidden
+, 850), false)
+);
+
+WriteLiteral(" />\r\n\t<meta");
+
+WriteLiteral(" property=\"og:type\"");
+
+WriteLiteral(" content=\"website\"");
+
+WriteLiteral(" />\r\n</head>\r\n<body>\r\n\t<div");
 
 WriteLiteral(" class=\"quranx navbar navbar-inverse navbar-fixed-top\"");
 
@@ -146,7 +180,7 @@ WriteLiteral(" href=\"/1.1\"");
 WriteLiteral(">Quran</a></li>\r\n\t\t\t\t\t<li>");
 
             
-            #line 32 "..\..\Views\Shared\_Layout.cshtml"
+            #line 35 "..\..\Views\Shared\_Layout.cshtml"
                    Write(Html.RouteLink("Commentaries", "Commentators"));
 
             
@@ -155,7 +189,7 @@ WriteLiteral(">Quran</a></li>\r\n\t\t\t\t\t<li>");
 WriteLiteral("</li>\r\n\t\t\t\t\t<li>");
 
             
-            #line 33 "..\..\Views\Shared\_Layout.cshtml"
+            #line 36 "..\..\Views\Shared\_Layout.cshtml"
                    Write(Html.RouteLink("Hadiths", "HadithCollections"));
 
             
@@ -164,8 +198,26 @@ WriteLiteral("</li>\r\n\t\t\t\t\t<li>");
 WriteLiteral("</li>\r\n\t\t\t\t\t<li>");
 
             
-            #line 34 "..\..\Views\Shared\_Layout.cshtml"
+            #line 37 "..\..\Views\Shared\_Layout.cshtml"
                    Write(Html.RouteLink("Search", "SiteSearch"));
+
+            
+            #line default
+            #line hidden
+WriteLiteral("</li>\r\n\t\t\t\t\t<li>");
+
+            
+            #line 38 "..\..\Views\Shared\_Layout.cshtml"
+                   Write(Html.RouteLink("Help", "Help"));
+
+            
+            #line default
+            #line hidden
+WriteLiteral("</li>\r\n\t\t\t\t\t<li>");
+
+            
+            #line 39 "..\..\Views\Shared\_Layout.cshtml"
+                   Write(Html.RouteLink("About", "About"));
 
             
             #line default
@@ -179,7 +231,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("\t\t");
 
             
-            #line 40 "..\..\Views\Shared\_Layout.cshtml"
+            #line 45 "..\..\Views\Shared\_Layout.cshtml"
    Write(RenderBody());
 
             
@@ -190,7 +242,7 @@ WriteLiteral("\r\n\t</div>\r\n\r\n");
 WriteLiteral("\t");
 
             
-            #line 43 "..\..\Views\Shared\_Layout.cshtml"
+            #line 48 "..\..\Views\Shared\_Layout.cshtml"
 Write(Scripts.Render("~/bundles/jquery"));
 
             
@@ -201,7 +253,7 @@ WriteLiteral("\r\n");
 WriteLiteral("\t");
 
             
-            #line 44 "..\..\Views\Shared\_Layout.cshtml"
+            #line 49 "..\..\Views\Shared\_Layout.cshtml"
 Write(Scripts.Render("~/bundles/bootstrap"));
 
             
@@ -212,7 +264,7 @@ WriteLiteral("\r\n");
 WriteLiteral("\t");
 
             
-            #line 45 "..\..\Views\Shared\_Layout.cshtml"
+            #line 50 "..\..\Views\Shared\_Layout.cshtml"
 Write(RenderSection("scripts", required: false));
 
             

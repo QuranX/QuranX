@@ -35,8 +35,6 @@ namespace QuranX.Web.Factories
 
 		public CommentariesForVerse Create(string commentatorCode, int chapterNumber, int verseNumber)
 		{
-			QuranStructure.EnsureChapterAndVerseAreValid(chapterNumber, verseNumber);
-
 			Dictionary<string, Commentator> commentatorByCode =
 				CommentatorRepository.GetAll()
 				.ToDictionary(x => x.Code, StringComparer.InvariantCultureIgnoreCase);

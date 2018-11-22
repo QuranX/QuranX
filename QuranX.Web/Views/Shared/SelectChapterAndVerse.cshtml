@@ -6,7 +6,7 @@
 		<div class="col-xs-3 col-sm-1">
 			<label for="ChapterNumber" class="control-label">Chapter</label>
 		</div>
-		<div class="col-xs-9 col-sm-4">
+		<div class="col-xs-9 col-sm-5">
 			<select id="ChapterNumber" name="ChapterNumber" class="form-control">
 				@if (!Model.AllVerses)
 				{
@@ -367,11 +367,15 @@
 		<div class="col-xs-3 col-sm-1">
 			<label for="VerseNumber" class="control-label">Verse</label>
 		</div>
-		<div class="col-xs-6 col-sm-4">
+		<div class="col-xs-6 col-sm-5">
 			<select id="VerseNumber" name="VerseNumber" class="form-control"></select>
 		</div>
-		<div class="col-xs-3 col-sm-2">
-			<button id="SelectChapterAndVerseNavigateButton" type="submit" role="button" class="btn">Go</button>
+	</div>
+	<div class="chapter-and-verse-selector__navigator row">
+		<div class="chapter-and-verse-selector__navigator-buttons btn-group" role="group">
+			<button id="SelectPreviousVerseNavigateButton" role="button" class="btn">&laquo; Prev</button>
+			<button id="SelectChapterAndVerseNavigateButton" role="button" class="btn">Go</button>
+			<button id="SelectNextVerseNavigateButton" role="button" class="btn">Next &raquo;</button>
 		</div>
 	</div>
 </div>
@@ -380,11 +384,15 @@
 	(function () {
 		var selectedChapterNumber = @Model.SelectedChapterNumber;
 		var selectedVerseNumber = @Model.SelectedVerseNumber;
+
+		var chapterNumberElement = $("#ChapterNumber");
+		var verseNumberElement = $("#VerseNumber");
+
 		@if (!Model.AllVerses)
 		{
 			// JavaScript
-			@:var versesForChapter = { };
-			@:for (var chapterNumber = 1; chapterNumber <= 114; chapterNumber++)
+			@:var versesForChapter = {};
+			@:for (chapterNumber = 1; chapterNumber <= 114; chapterNumber++)
 			@:{
 				@:versesForChapter[chapterNumber] = [];
 			@:}
@@ -399,9 +407,30 @@
 		{
 			@Html.Raw("versesForChapter = allQuranVerses;")
 		}
-		var chapterNumberElement = $("#ChapterNumber");
-		var verseNumberElement = $("#VerseNumber");
-		var selectChapterAndVerseNavigateButton = $("#SelectChapterAndVerseNavigateButton");
+
+		var navigateVerse = function (delta) {
+			var entireList = [];
+			Object.keys(versesForChapter).forEach(function (chapterNumber) {
+				versesForChapter[chapterNumber].forEach(function (verseNumber) {
+					var idToInclude = chapterNumber + "." + verseNumber;
+					entireList.push(idToInclude);
+				});
+			});
+
+			var selectedChapter = chapterNumberElement.val() || chapterNumberElement.find("option").first().val();
+			var selectedVerse = verseNumberElement.val() || verseNumberElement.find("option").first().val();
+			var currentId = selectedChapter + "." + selectedVerse;
+			var currentIndex = entireList.indexOf(currentId);
+			currentIndex += delta;
+			while (currentIndex < 0) {
+				currentIndex += entireList.length;
+			}
+			while (currentIndex >= entireList.length) {
+				currentIndex -= entireList.length;
+			}
+			var newId = entireList[currentIndex];
+			window.location.replace('@Model.Url' + newId);
+		};
 
 		var chapterNumberChanged = function () {
 			selectedChapterNumber = $('#ChapterNumber').val();
@@ -420,6 +449,14 @@
 		chapterNumberElement.change(chapterNumberChanged);
 		chapterNumberElement.val(selectedChapterNumber);
 		chapterNumberChanged();
+
+		var selectPreviousVerseNavigateButton = $("#SelectPreviousVerseNavigateButton");
+		selectPreviousVerseNavigateButton.click(function () { navigateVerse(-1); });
+
+		var selectNextVerseNavigateButton = $("#SelectNextVerseNavigateButton");
+		selectNextVerseNavigateButton.click(function () { navigateVerse(1); });
+
+		var selectChapterAndVerseNavigateButton = $("#SelectChapterAndVerseNavigateButton");
 		selectChapterAndVerseNavigateButton.click(function () {
 			if (verseNumberElement.val()) {
 				var verseReference = chapterNumberElement.val() + '.' + verseNumberElement.val();

@@ -23,8 +23,6 @@ namespace QuranX.Persistence.Models
 			int commentaryCount,
 			IEnumerable<VerseText> verseTexts)
 		{
-			QuranStructure.EnsureChapterAndVerseAreValid(chapterNumber, verseNumber);
-
 			Id = VerseReference.GetIndexValue(chapterNumber, verseNumber);
 			ChapterNumber = chapterNumber;
 			VerseNumber = verseNumber;
