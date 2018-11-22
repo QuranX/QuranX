@@ -10,22 +10,13 @@
 		hiddenCodeElem.show();
 	}
 }
+var quranXShowAllTranslations = (window.location.search || "").toLowerCase().indexOf("alltranslations=y") > -1;
 // Buttons to show translations
 $(".verse__translation-hidden-item")
-	.each(function (index, elem) {
-		elem = $(elem);
-		const translatorCode = elem.data("translator-code");
-		if (window.localStorage.getItem(translatorCode)) {
-			elem.show();
-		} else {
-			elem.hide();
-		}
-	})
 	.on("click", function (ev) {
 		const elem = $(ev.target);
 		const translatorCode = elem.data("translator-code");
-		window.localStorage.removeItem("hide-" + translatorCode);
-
+		window.localStorage.removeItem("show-" + translatorCode);
 		toggleTranslation(translatorCode);
 	});
 // Translations
@@ -34,23 +25,20 @@ $(".verse__translation>dt")
 		elem = $(elem.parentElement);
 		const translatorCode = elem.data("translator-code");
 		// If this is the first visit
-		if (!window.localStorage.getItem("returnVisit")) {
+		if (window.localStorage.getItem("useDefaultTranslations") !== false) {
 			// Hide the translation if not one of the defaults to show
-			if (["AR", "Pickthall", "SahihIntl", "YusufAli"].indexOf(translatorCode) < 0) {
-				window.localStorage.setItem("hide-" + translatorCode, true);
+			if (["AR", "Pickthall", "SahihIntl", "YusufAli"].indexOf(translatorCode) > -1) {
+				window.localStorage.setItem("show-" + translatorCode, true);
 			}
+			window.localStorage.setItem("useDefaultTranslations", false);
 		}
-		if (window.localStorage.getItem("hide-" + translatorCode)) {
+		if (!quranXShowAllTranslations && !window.localStorage.getItem("show-" + translatorCode)) {
 			toggleTranslation(translatorCode, true);
 		};
 	})
 	.on("click", function (ev) {
 		const elem = $(ev.target.parentElement);
 		const translatorCode = elem.data("translator-code");
-		window.localStorage.setItem("hide-" + translatorCode, true);
-
+		window.localStorage.removeItem("show-" + translatorCode, true);
 		toggleTranslation(translatorCode);
 	});
-$(document).ready(function () {
-	window.localStorage.setItem("returnVisit", true);
-});
