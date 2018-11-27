@@ -54,13 +54,10 @@ namespace QuranX.DataMigration.Migrators
 			verseTexts.Add(new VerseTextViewModel("AR", "Arabic", verse.ArabicText));
 			foreach (VerseTranslation translation in verse.Translations.OrderBy(x => x.TranslatorName))
 			{
-				if (translation.TranslatorCode != "Corpus")
-				{
-					verseTexts.Add(new VerseTextViewModel(
-						translatorCode: translation.TranslatorCode,
-						translatorName: translation.TranslatorName,
-						text: translation.Text));
-				}
+				verseTexts.Add(new VerseTextViewModel(
+					translatorCode: translation.TranslatorCode,
+					translatorName: translation.TranslatorName,
+					text: translation.Text));
 			}
 
 			var verseViewModel = new VerseViewModel(
