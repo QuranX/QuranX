@@ -533,7 +533,7 @@ dl.boxed > dd {
 }
 
 	.verse__translation-hidden-item:before {
-		content: '\2713';
+		content: '+';
 	}
 
 
