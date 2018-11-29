@@ -15,7 +15,6 @@ namespace QuranX.Persistence.Models
 
 		public static TextContent Create(string text)
 		{
-			text = (text ?? "").ToLowerInvariant();
 			return new TextContent(text, ContainsOnlyArabic(text));
 		}
 
