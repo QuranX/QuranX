@@ -16,7 +16,7 @@ $(".verse__translation-hidden-item")
 	.on("click", function (ev) {
 		const elem = $(ev.target);
 		const translatorCode = elem.data("translator-code");
-		window.localStorage.removeItem("show-" + translatorCode);
+		window.localStorage.setItem("show-" + translatorCode, true);
 		toggleTranslation(translatorCode);
 	});
 // Translations
@@ -24,13 +24,17 @@ $(".verse__translation>dt")
 	.each(function (index, elem) {
 		elem = $(elem.parentElement);
 		const translatorCode = elem.data("translator-code");
+		const useDefaultTranslationsKey = "useDefaultTranslations";
+		const useDefaultTranslations = window.localStorage.getItem(useDefaultTranslationsKey);
 		// If this is the first visit
-		if (window.localStorage.getItem("useDefaultTranslations") !== false) {
+		if (useDefaultTranslations !== "N") {
 			// Hide the translation if not one of the defaults to show
-			if (["AR", "Pickthall", "SahihIntl", "YusufAli"].indexOf(translatorCode) > -1) {
+			const defaultTranslations = ["AR", "Pickthall", "SahihIntl", "YusufAli"];
+			for (var translationIndex = 0; translationIndex < defaultTranslations.length; translationIndex++) {
+				const translatorCode = defaultTranslations[translationIndex];
 				window.localStorage.setItem("show-" + translatorCode, true);
 			}
-			window.localStorage.setItem("useDefaultTranslations", false);
+			window.localStorage.setItem(useDefaultTranslationsKey, "N");
 		}
 		if (!quranXShowAllTranslations && !window.localStorage.getItem("show-" + translatorCode)) {
 			toggleTranslation(translatorCode, true);
