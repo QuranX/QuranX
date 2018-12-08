@@ -8,12 +8,14 @@ namespace QuranX.Persistence.Models
 	{
 		public string Root { get; }
 		public string Type { get; }
+		public int? SubType { get; }
 		public string Description { get; }
 		public IReadOnlyList<string> Decorators { get; }
 
 		public VerseAnalysisWordPart(
 			string root,
 			string type,
+			int? subType,
 			string description,
 			IEnumerable<string> decorators)
 		{
@@ -22,6 +24,7 @@ namespace QuranX.Persistence.Models
 
 			Root = root;
 			Type = type;
+			SubType = subType;
 			Description = description;
 			Decorators = decorators.ToList().AsReadOnly();
 		}
