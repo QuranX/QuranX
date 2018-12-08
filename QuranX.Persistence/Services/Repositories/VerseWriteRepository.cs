@@ -27,6 +27,7 @@ namespace QuranX.Persistence.Services.Repositories
 			if (verse == null)
 				throw new ArgumentNullException(nameof(verse));
 
+			float boost = DocumentWeights.Weights["Quran"];
 			var document = new Document();
 			IEnumerable<string> searchableText = verse.VerseTexts
 				.Where(x => string.Compare(x.TranslatorCode, "Transliteration", true) != 0)
@@ -35,7 +36,7 @@ namespace QuranX.Persistence.Services.Repositories
 				.StoreAndIndex(verse, x => x.Id)
 				.StoreAndIndex(verse, x => x.ChapterNumber)
 				.StoreAndIndex(verse, x => x.VerseNumber)
-				.AddSearchableText(searchableText)
+				.AddSearchableText(searchableText, boost)
 				.AddObject(verse);
 
 			IndexWriter indexWriter = IndexWriterProvider.GetIndexWriter();

@@ -115,23 +115,24 @@ namespace QuranX.Persistence.Extensions
 			return document;
 		}
 
-		public static Document AddSearchableText(this Document document, string text)
+		public static Document AddSearchableText(this Document document, string text, float boost)
 		{
 			if (text == null)
 				throw new ArgumentNullException(nameof(text));
 
+			document.Boost = boost;
 			Add(document, Consts.FullTextFieldName, text, IndexKind.FullText);
 			return document;
 		}
 
-		public static Document AddSearchableText(this Document document, IEnumerable<string> texts)
+		public static Document AddSearchableText(this Document document, IEnumerable<string> texts, float boost)
 		{
 			if (texts == null)
 				throw new ArgumentNullException(nameof(texts));
 
 			foreach (string text in texts)
 			{
-				AddSearchableText(document, text);
+				AddSearchableText(document, text, boost);
 			}
 
 			return document;
