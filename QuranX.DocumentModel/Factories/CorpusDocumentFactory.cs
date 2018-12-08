@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using QuranX.DocumentModel;
 using System.Xml.Linq;
 using System.IO;
 using QuranX.Shared.Models;
@@ -38,7 +36,7 @@ namespace QuranX.DocumentModel.Factories
 
 		void ReadVerses(IEnumerable<Tuple<int, XElement>> verses)
 		{
-			foreach(var verse in verses)
+			foreach (var verse in verses)
 				ReadVerse(verse);
 		}
 
@@ -84,7 +82,7 @@ namespace QuranX.DocumentModel.Factories
 			string buckwalter = wordNode.Element("buckwalter").Value;
 			string english = wordNode.Element("english").Value;
 			var reference = new MultiPartReference(
-					new string[] { 
+					new string[] {
 								corpusVerse.Reference.Chapter.ToString(),
 								corpusVerse.Reference.Verse.ToString(),
 								(index + 1).ToString()
@@ -101,7 +99,7 @@ namespace QuranX.DocumentModel.Factories
 			ReadWordParts(wordNode, corpusVerseWord);
 		}
 
-		void ReadWordParts(XElement wordNode,CorpusVerseWord corpusVerseWord)
+		void ReadWordParts(XElement wordNode, CorpusVerseWord corpusVerseWord)
 		{
 			var partNodes = wordNode
 				.Element("wordParts")
@@ -117,6 +115,8 @@ namespace QuranX.DocumentModel.Factories
 		void ReadWordPart(XElement wordPartNode, CorpusVerseWord corpusVerseWord, int index)
 		{
 			string typeCode = wordPartNode.Element("type").Value;
+			string subTypeValue = wordPartNode.Element("subType")?.Value;
+			int? subType = subTypeValue != null ? int.Parse(subTypeValue) : (int?)null;
 			string root = wordPartNode.Element("root").Value;
 			string[] decorators = wordPartNode
 				.Descendants("decorator")
@@ -125,6 +125,7 @@ namespace QuranX.DocumentModel.Factories
 			var wordPart = new CorpusVerseWordPart(
 				index: index,
 				typeCode: typeCode,
+				subType: subType,
 				root: root,
 				decorators: decorators
 			);

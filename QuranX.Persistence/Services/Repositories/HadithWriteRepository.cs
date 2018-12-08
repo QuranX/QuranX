@@ -29,6 +29,7 @@ namespace QuranX.Persistence.Services.Repositories
 				throw new ArgumentOutOfRangeException(nameof(Hadith.Id));
 
 			var document = new Document();
+			document.Boost = DocumentWeights.Weights["Hadith-" + hadith.CollectionCode];
 			document.StoreAndIndex(hadith, x => x.Id);
 			foreach (VerseRangeReference verseRangeReference in hadith.VerseRangeReferences)
 			{

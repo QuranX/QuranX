@@ -42,7 +42,12 @@
 					@foreach (var wordPart in word.WordParts)
 					{
 						<li class="verse-analysis__word-part">
-							@wordPart.Type -
+							<strong>@wordPart.Type</strong>
+							@if (wordPart.SubType.HasValue)
+							{
+								<em>[Form @wordPart.SubType]</em>
+							}
+							-
 							@foreach (string decorator in @wordPart.Decorators)
 							{
 								<span>@decorator</span>

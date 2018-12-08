@@ -28,6 +28,7 @@ namespace QuranX.Persistence.Services.Repositories
 				throw new ArgumentNullException(nameof(verse));
 
 			var document = new Document();
+			document.Boost = DocumentWeights.Weights["Quran"];
 			IEnumerable<string> searchableText = verse.VerseTexts
 				.Where(x => string.Compare(x.TranslatorCode, "Transliteration", true) != 0)
 				.Select(x => x.Text);
