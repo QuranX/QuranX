@@ -28,17 +28,16 @@ namespace QuranX.Persistence.Services.Repositories
 			if (hadith.Id <= 0)
 				throw new ArgumentOutOfRangeException(nameof(Hadith.Id));
 
-			float boost = DocumentWeights.Weights["Hadith-" + hadith.CollectionCode];
-
 			var document = new Document();
+			document.Boost = DocumentWeights.Weights["Hadith-" + hadith.CollectionCode];
 			document.StoreAndIndex(hadith, x => x.Id);
 			foreach (VerseRangeReference verseRangeReference in hadith.VerseRangeReferences)
 			{
 				string indexName = ExpressionExtensions.GetIndexName<Hadith, object>(x => x.VerseRangeReferences);
 				document.StoreAndIndex(indexName, verseRangeReference.ToIndexValue());
 			}
-			document.AddSearchableText(hadith.ArabicText, boost);
-			document.AddSearchableText(hadith.EnglishText, boost);
+			document.AddSearchableText(hadith.ArabicText);
+			document.AddSearchableText(hadith.EnglishText);
 			document.StoreAndIndex(hadith, x => x.CollectionCode);
 			document.StoreAndIndex(hadith, x => x.PrimaryReferenceCode);
 			document.StoreAndIndex(hadith, x => x.PrimaryReferencePath);
