@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace QuranX.Web.Views.RootAnalysis
 {
@@ -8,19 +7,16 @@ namespace QuranX.Web.Views.RootAnalysis
 	{
 		public string ArabicRoot { get; }
 		public string RootLetterNames { get; }
-		public IReadOnlyList<VerseViewModel> Extracts { get; }
+		public IEnumerable<WordTypeViewModel> Types { get; }
 
 		public ViewModel(
 			string arabicRoot,
 			string rootLetterNames,
-			IReadOnlyList<VerseViewModel> extracts)
+			IEnumerable<WordTypeViewModel> types)
 		{
-			if (extracts == null)
-				throw new ArgumentNullException(nameof(extracts));
-
 			ArabicRoot = arabicRoot;
 			RootLetterNames = rootLetterNames;
-			Extracts = extracts.ToList().AsReadOnly();
+			Types = types ?? throw new ArgumentNullException(nameof(types));
 		}
 	}
 }

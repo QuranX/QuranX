@@ -701,21 +701,49 @@ dl.boxed > dd {
 	float: none;
 }
 
+.root-analysis__group {
+	border-radius: 0.25rem;
+	margin-bottom: 2.5rem;
+}
+
+	.root-analysis__group .word-type {
+		padding: 4px;
+		text-transform: capitalize;
+	}
+
+	.root-analysis__group .word-form {
+		font-size: .6em;
+		font-style: italic;
+		vertical-align: middle;
+		display: inline-block;
+		vertical-align: top;
+	}
+
+	.root-analysis__group h3 {
+		text-align: left;
+		margin-left: 2rem;
+		padding: 4px;
+		/*Col:Title bar*/
+		background-color: hsl(40, 94.7%, 92.5%);
+		/*Col:Title bar text*/
+		color: hsl(31, 63.2%, 56.3%);
+	}
+
 .root-analysis__extract-list {
 	list-style: none;
 }
 
-	.root-analysis__extract-list > li:first-child {
-		font-weight: bold;
-		font-size: 1.25em;
-	}
-
 .root-analysis__extract {
-	padding-bottom: 0.5em;
+	margin-bottom: 0.5em;
+	margin-right: 0.25em;
 }
 
-@media(max-width: 1200px) {
-	.root-analysis__extract-text {
+	.root-analysis__extract .word-number {
+		font-size: 0.75em;
+	}
+
+	@media(max-width: 1200px) {
+		.root-analysis__extract-text {
 		margin: 1em 0 1em 0;
 		text-align: center;
 	}

@@ -7,39 +7,50 @@
 }
 <h1>The Qur'an</h1>
 <h2>Verses for root @Model.ArabicRoot (@Model.RootLetterNames)</h2>
-<ul class="root-analysis__extract-list striped">
-	<li class="root-analysis__extract-header row hidden-xs">
-		<div class="col-sm-4 col-lg-1">Verse</div>
-		<div class="col-sm-4 col-lg-1">Type</div>
-		<div class="col-sm-4 col-lg-1">Transliteration</div>
-	</li>
-	@foreach (VerseViewModel extract in Model.Extracts)
+@foreach (var wordType in Model.Types)
+{
+	foreach (var wordForm in wordType.WordForms)
 	{
-		<li class="root-analysis__extract row">
-			<div class="col-xs-4 col-sm-4 col-lg-1">
-				<a href="/Analysis/@extract.ChapterNumber.@extract.VerseNumber#word_@extract.SelectedWord.WordNumber">
-					<div class="verse__reference">
-						@extract.ChapterNumber.@extract.VerseNumber
-					</div>
-				</a>
-			</div>
-			<div class="col-xs-8 col-sm-4 col-lg-1 small-caps">@extract.SelectedWordPart.Description</div>
-			<div class="col-xs-8 col-sm-push-0 col-sm-3 col-lg-1 small-caps">@extract.SelectedWord.Buckwalter</div>
-			<div class="col-xs-12 col-sm-12 col-lg-8 root-analysis__extract-text">
-				<div class="root-analysis__extract-english">
-					@foreach (VerseAnalysisWord word in extract.Words)
-					{
-						if (word == extract.SelectedWord)
-						{
-							<strong>@word.English&nbsp;</strong>
-						}
-						else
-						{
-							@word.English@:&nbsp;
-						}
-					}
+<div class="root-analysis__group">
+	<h3>
+		<span class="word-type">@wordType.Type</span>
+		@if (!string.IsNullOrWhiteSpace(wordForm.Form))
+		{
+			<span class="word-form">Form @wordForm.Form</span>
+		}
+	</h3>
+	<ul class="root-analysis__extract-list striped">
+		@foreach (VerseViewModel extract in wordForm.Extracts)
+		{
+			<li class="root-analysis__extract row">
+				<div class="col-xs-4 col-sm-4 col-lg-1">
+					<a href="/Analysis/@extract.ChapterNumber.@extract.VerseNumber#word_@extract.SelectedWord.WordNumber">
+						<div class="verse__reference">
+							@extract.ChapterNumber.@extract.VerseNumber.<span class="word-number">@extract.SelectedWord.WordNumber</span>
+						</div>
+					</a>
 				</div>
-			</div>
-		</li>
+				<div class="col-xs-8 col-sm-4 col-lg-1 small-caps">@extract.SelectedWordPart.Description</div>
+				<div class="col-xs-8 col-sm-push-0 col-sm-3 col-lg-1 small-caps">@extract.SelectedWord.Buckwalter</div>
+				<div class="col-xs-12 col-sm-12 col-lg-8 root-analysis__extract-text">
+					<div class="root-analysis__extract-english">
+						@foreach (VerseAnalysisWord word in extract.Words)
+						{
+							if (word == extract.SelectedWord)
+							{
+								<strong>@word.English&nbsp;</strong>
+							}
+							else
+							{
+								@word.English@:&nbsp;
+							}
+						}
+					</div>
+				</div>
+			</li>
+		}
+	</ul>
+
+</div>
 	}
-</ul>
+}
