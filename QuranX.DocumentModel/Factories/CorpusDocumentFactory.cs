@@ -115,8 +115,7 @@ namespace QuranX.DocumentModel.Factories
 		void ReadWordPart(XElement wordPartNode, CorpusVerseWord corpusVerseWord, int index)
 		{
 			string typeCode = wordPartNode.Element("type").Value;
-			string subTypeValue = wordPartNode.Element("subType")?.Value;
-			int? subType = subTypeValue != null ? int.Parse(subTypeValue) : (int?)null;
+			string form = wordPartNode.Element("form")?.Value;
 			string root = wordPartNode.Element("root").Value;
 			string[] decorators = wordPartNode
 				.Descendants("decorator")
@@ -125,7 +124,7 @@ namespace QuranX.DocumentModel.Factories
 			var wordPart = new CorpusVerseWordPart(
 				index: index,
 				typeCode: typeCode,
-				subType: subType,
+				form: form,
 				root: root,
 				decorators: decorators
 			);
