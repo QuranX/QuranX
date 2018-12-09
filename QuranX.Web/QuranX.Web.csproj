@@ -230,6 +230,8 @@
     <Compile Include="Views\HadithIndex\BrowseHadithIndexViewModel.cs" />
     <Compile Include="Views\RootAnalysis\VerseViewModel.cs" />
     <Compile Include="Views\RootAnalysis\ViewModel.cs" />
+    <Compile Include="Views\RootAnalysis\WordFormViewModel.cs" />
+    <Compile Include="Views\RootAnalysis\WordTypeViewModel.cs" />
     <Compile Include="Views\SiteSearch\SearchResultWithLink.cs" />
     <Compile Include="Views\SiteSearch\ViewModel.cs" />
     <Compile Include="Views\Shared\HadithReferenceViewModel.cs" />

@@ -43,10 +43,38 @@ namespace QuranX.Web.Controllers
 				}
 			}
 
+			var romanNumerals = new List<string> {
+				"I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX", "X"
+			};
+			var wordFormsData = extracts
+				.GroupBy(x => new
+				{
+					Type = x.SelectedWordPart.Description,
+					x.SelectedWordPart.Form
+				})
+				.OrderBy(x => romanNumerals.IndexOf(x.Key.Form));
+
+			var wordTypesData = wordFormsData
+				.GroupBy(x => x.Key.Type)
+				.OrderBy(x => x.Key);
+
+			var wordTypesViewModel = wordTypesData
+				.Select(t =>
+					new WordTypeViewModel(
+						type: t.Key,
+						wordForms: t.Select(f =>
+							new WordFormViewModel(
+								form: f.Key.Form,
+								extracts: f
+							)
+						)
+					)
+				);
+
 			var viewModel = new ViewModel(
 				arabicRoot: root,
 				rootLetterNames: rootLetterNames,
-				extracts: extracts);
+				types: wordTypesViewModel);
 			return View("RootAnalysis", viewModel);
 		}
 
