@@ -54,7 +54,7 @@ namespace QuranX.DataMigration.Migrators
 					.Select(x => new AnalysisWordPartVM(
 						root: x.Root,
 						type: x.TypeCode,
-						subType: x.SubType,
+						form: x.Form,
 						description: x.TypeDescription,
 						decorators: x.Decorators.Select(d => d.Trim())));
 				var analysisWord = new AnalysisWordVM(

@@ -43,9 +43,9 @@
 					{
 						<li class="verse-analysis__word-part">
 							<strong>@wordPart.Type</strong>
-							@if (wordPart.SubType.HasValue)
+							@if (!string.IsNullOrWhiteSpace(wordPart.Form))
 							{
-								<em>[Form @wordPart.SubType]</em>
+								<em>[Form @wordPart.Form]</em>
 							}
 							-
 							@foreach (string decorator in @wordPart.Decorators)
