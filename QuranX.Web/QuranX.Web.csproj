@@ -17897,10 +17897,7 @@
       <SubType>Designer</SubType>
     </Content>
     <None Include="Properties\PublishProfiles\D_TEMP_PUBLISH.pubxml" />
-    <None Include="Properties\PublishProfiles\PetePlayground - Web Deploy.pubxml" />
-    <None Include="Properties\PublishProfiles\QuranX - Web Deploy.pubxml" />
     <None Include="Properties\PublishProfiles\quranx-Staging - Web Deploy.pubxml" />
-    <None Include="Properties\PublishProfiles\QuranX2 - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\quranx.hash-url-fixer.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
