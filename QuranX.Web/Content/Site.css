@@ -703,7 +703,7 @@ dl.boxed > dd {
 
 .root-analysis__group {
 	border-radius: 0.25rem;
-	margin-bottom: 2.5rem;
+	margin-bottom: 1.5rem;
 }
 
 	.root-analysis__group .word-type {
@@ -734,8 +734,8 @@ dl.boxed > dd {
 }
 
 .root-analysis__extract {
-	margin-bottom: 0.5em;
-	margin-right: 0.25em;
+	padding: 0.5rem;
+	margin-right: 0.25rem;
 }
 
 	.root-analysis__extract .word-number {
