@@ -26,7 +26,6 @@ namespace QuranX.DataMigration.Services
 		private static void RegisterConfiguration(IUnityContainer container)
 		{
 			string appDataPath = Path.Combine(GetAppDirectory(), "App_Data");
-			string dictionariesDataPath = Path.Combine(appDataPath, "Dictionaries");
 
 			var configuration = new Configuration(appDataPath);
 			container.RegisterInstance<IConfiguration>(configuration);
