@@ -162,7 +162,6 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\UnityConfig.cs" />
-    <Compile Include="ArabicHelper.cs" />
     <Compile Include="Controllers\AboutController.cs" />
     <Compile Include="Controllers\HadithIndexController.cs" />
     <Compile Include="Controllers\HelpController.cs" />

@@ -131,6 +131,8 @@
     <Compile Include="LuceneSupport\QuranXLetterTokenizer.cs" />
     <Compile Include="Models\Commentary.cs" />
     <Compile Include="Models\Commentator.cs" />
+    <Compile Include="Models\Dictionary.cs" />
+    <Compile Include="Models\DictionaryEntry.cs" />
     <Compile Include="Models\Hadith.cs" />
     <Compile Include="Models\HadithCollection.cs" />
     <Compile Include="Models\HadithReference.cs" />
@@ -155,6 +157,10 @@
     <Compile Include="Services\Repositories\CommentatorRepository.cs" />
     <Compile Include="Services\Repositories\CommentatorWriteRepository.cs" />
     <Compile Include="Services\Consts.cs" />
+    <Compile Include="Services\Repositories\DictionaryEntryRepository.cs" />
+    <Compile Include="Services\Repositories\DictionaryEntryWriteRepository.cs" />
+    <Compile Include="Services\Repositories\DictionaryRepository.cs" />
+    <Compile Include="Services\Repositories\DictionaryWriteRepository.cs" />
     <Compile Include="Services\Repositories\HadithCollectionRepository.cs" />
     <Compile Include="Services\Repositories\HadithCollectionWriteRepository.cs" />
     <Compile Include="Services\Repositories\HadithRepository.cs" />

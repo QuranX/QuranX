@@ -41,6 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ArabicHelper.cs" />
     <Compile Include="Models\Chapter.cs" />
     <Compile Include="Models\QuranStructure.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

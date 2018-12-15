@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace QuranX.Web
+namespace QuranX.Shared
 {
 	public static class ArabicHelper
 	{
-		const string ArabicAlphabet = "إ أ آ ا ب ت ث ج ح خ د ذ ر ز س ش ص ض ط ظ ع غ ف ق ك ل م ن ه و ي ؤ ء ة ئ ى ";
+		const string ArabicAlphabet = "إ أ آ ا ب ت ة ث ج ح خ د ذ ر ز س ش ص ض ط ظ ع غ ف ق ك ل م ن ه و ي ؤ ء ة ئ ى ي ئ";
 		static HashSet<char> PermittedChars;
 		public static readonly Dictionary<char, string> LetterNames;
 		public static readonly Dictionary<string, char> LettersByName;
@@ -82,6 +82,10 @@ namespace QuranX.Web
 		static void PopulateAlternateChars()
 		{
 			AlternateChars['ٱ'] = 'ا';
+			AlternateChars['أ'] = 'ا';
+			AlternateChars['ة'] = 'ت';
+			AlternateChars['ى'] = 'ي';
+			AlternateChars['ئ'] = 'ي';
 		}
 
 		static char GetArabicSubstituteChar(char c)

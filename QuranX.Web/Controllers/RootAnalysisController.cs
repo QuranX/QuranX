@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web.Mvc;
 using QuranX.Persistence.Models;
 using QuranX.Persistence.Services.Repositories;
+using QuranX.Shared;
 using QuranX.Web.Views.RootAnalysis;
 
 namespace QuranX.Web.Controllers
