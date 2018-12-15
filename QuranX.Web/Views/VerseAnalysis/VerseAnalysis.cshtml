@@ -55,18 +55,18 @@
 							@wordPart.Description
 							@if (!string.IsNullOrEmpty(wordPart.Root))
 							{
-								<span class="arabicText">
+								<span class="arabic">
 									@Html.RouteLink(
 										linkText: wordPart.Root,
 										routeName: "RootAnalysis",
 										routeValues: new
 										{
-											RootLetterNames = QuranX.Web.ArabicHelper
+											RootLetterNames = QuranX.Shared.ArabicHelper
 												.ArabicToLetterNames(wordPart.Root)
 										}
 									)
 								</span>
-								<span>(@QuranX.Web.ArabicHelper.ArabicToLetterNames(wordPart.Root))</span>
+								<span>(@QuranX.Shared.ArabicHelper.ArabicToLetterNames(wordPart.Root))</span>
 							}
 						</li>
 					}
