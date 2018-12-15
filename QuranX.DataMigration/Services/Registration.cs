@@ -20,6 +20,7 @@ namespace QuranX.DataMigration.Services
 			container.RegisterSingleton<ICommentaryMigrator, CommentaryMigrator>();
 			container.RegisterSingleton<IHadithMigrator, HadithMigrator>();
 			container.RegisterSingleton<ICorpusMigrator, CorpusMigrator>();
+			container.RegisterSingleton<ILanesLexiconMigrator, LanesLexiconMigrator>();
 		}
 
 		private static void RegisterXmlSettings(IUnityContainer container)
