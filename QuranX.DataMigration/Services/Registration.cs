@@ -11,7 +11,7 @@ namespace QuranX.DataMigration.Services
 	{
 		public static void Register(IUnityContainer container)
 		{
-			RegisterXmlSettings(container);
+			RegisterConfiguration(container);
 			RegisterWebSettings(container);
 			RegisterLogger(container);
 			container.RegisterSingleton<IXmlDocumentProvider, XmlDocumentProvider>();
@@ -23,12 +23,13 @@ namespace QuranX.DataMigration.Services
 			container.RegisterSingleton<ILanesLexiconMigrator, LanesLexiconMigrator>();
 		}
 
-		private static void RegisterXmlSettings(IUnityContainer container)
+		private static void RegisterConfiguration(IUnityContainer container)
 		{
-			string xmlDataPath = Path.Combine(GetAppDirectory(), "App_Data");
+			string appDataPath = Path.Combine(GetAppDirectory(), "App_Data");
+			string dictionariesDataPath = Path.Combine(appDataPath, "Dictionaries");
 
-			var xmlSettings = new XmlSettings(xmlDataPath);
-			container.RegisterInstance<IXmlSettings>(xmlSettings);
+			var configuration = new Configuration(appDataPath);
+			container.RegisterInstance<IConfiguration>(configuration);
 		}
 
 		private static void RegisterWebSettings(IUnityContainer container)

@@ -140,7 +140,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\Registration.cs" />
     <Compile Include="Services\XmlDocumentProvider.cs" />
-    <Compile Include="Services\XmlSettings.cs" />
+    <Compile Include="Services\Configuration.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

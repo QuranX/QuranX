@@ -1,15 +1,15 @@
 ﻿namespace QuranX.DataMigration.Services
 {
-	public interface IXmlSettings
+	public interface IConfiguration
 	{
 		string XmlDataPath { get;  }
 	}
 
-	public class XmlSettings : IXmlSettings
+	public class Configuration : IConfiguration
 	{
 		public string XmlDataPath { get; private set; }
 
-		public XmlSettings(string xmlDataPath)
+		public Configuration(string xmlDataPath)
 		{
 			XmlDataPath = xmlDataPath;
 		}
