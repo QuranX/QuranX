@@ -25,7 +25,7 @@ namespace QuranX.Persistence.Services.Repositories
 			var document = new Document();
 			document.StoreAndIndex(verseAnalysis, x => x.ChapterNumber);
 			document.StoreAndIndex(verseAnalysis, x => x.VerseNumber);
-			document.IndexArray(verseAnalysis, x => x.Roots);
+			document.IndexArray(verseAnalysis, x => x.RootIndexes);
 			document.AddObject(verseAnalysis);
 
 			IndexWriter indexWriter = IndexWriterProvider.GetIndexWriter();

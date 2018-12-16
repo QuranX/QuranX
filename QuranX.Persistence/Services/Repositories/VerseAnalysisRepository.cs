@@ -49,10 +49,11 @@ namespace QuranX.Persistence.Services.Repositories
 
 		public IEnumerable<VerseAnalysis> GetForRoot(string root)
 		{
+			string rootIndex = VerseAnalysis.GetIndexForArabicRoot(root);
 			var query = new BooleanQuery(disableCoord: true);
 			query
 				.FilterByType<VerseAnalysis>()
-				.AddPhraseQuery<VerseAnalysis>(nameof(VerseAnalysis) + "_" + nameof(VerseAnalysis.Roots), root, Occur.MUST);
+				.AddPhraseQuery<VerseAnalysis>(nameof(VerseAnalysis) + "_" + nameof(VerseAnalysis.RootIndexes), rootIndex, Occur.MUST);
 
 			IndexSearcher indexSearcher = IndexSearcherProvider.GetIndexSearcher();
 			TopDocs topDocs = indexSearcher.Search(query, 9999);
