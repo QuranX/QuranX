@@ -135,7 +135,7 @@
     <Compile Include="Migrators\DataMigrator.cs" />
     <Compile Include="Migrators\DictionariesMigrator.cs" />
     <Compile Include="Migrators\HadithMigrator.cs" />
-    <Compile Include="Migrators\LanesLexiconMigrator.cs" />
+    <Compile Include="Migrators\LisaanDictionaryMigrator.cs" />
     <Compile Include="Migrators\QuranMigrator.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

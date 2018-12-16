@@ -25,7 +25,7 @@ namespace QuranX.Shared
 
 		public static string ArabicToLetterNames(string source)
 		{
-			source = Standardize(source);
+			source = SubstituteAndOmit(source);
 			bool isFirst = true;
 			var builder = new StringBuilder();
 			foreach (char arabicChar in source)
@@ -54,7 +54,7 @@ namespace QuranX.Shared
 			return builder.ToString();
 		}
 
-		public static string Standardize(string arabicText)
+		public static string SubstituteAndOmit(string arabicText)
 		{
 			if (string.IsNullOrEmpty(arabicText))
 				return arabicText;
@@ -82,6 +82,7 @@ namespace QuranX.Shared
 		static void PopulateAlternateChars()
 		{
 			AlternateChars['ٱ'] = 'ا';
+			AlternateChars['آ'] = 'ا';
 			AlternateChars['أ'] = 'ا';
 			AlternateChars['ة'] = 'ت';
 			AlternateChars['ى'] = 'ي';

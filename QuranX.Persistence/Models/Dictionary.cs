@@ -2,8 +2,8 @@
 {
 	public class Dictionary
 	{
-		public string Code { get; set; }
-		public string Name { get; set; }
+		public string Code { get; }
+		public string Name { get; }
 		public string Copyright { get; }
 
 		public Dictionary(string code, string name, string copyright)

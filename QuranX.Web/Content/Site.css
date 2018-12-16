@@ -5,6 +5,8 @@
 
 		Title bar
 			hsl(40, 94.7%, 92.5%);
+		Title bar shadow
+			hsl(40, 94.7%, 92.5%);
 		Title bar text
 			hsl(31, 63.2%, 56.3%);
 		Title bar sub text
@@ -57,7 +59,7 @@
 }
 
 .arabic {
-	font-size: 1.5em;
+	font-size: 1.5rem;
 	direction: rtl;
 	padding: 0;
 	margin: 0;
@@ -219,14 +221,14 @@
 	align-content: center;
 	margin-left: auto;
 	margin-right: auto;
-	margin-bottom: 1em;
+	margin-bottom: 1rem;
 	width: 100%;
 	/*Col:Tab text*/
 	color: hsl(0, 0%, 26.7%);
 	/*Col:Tab*/
 	background-color: hsl(0, 0%, 86.77%) !important;
-	padding: 0.5em 1em;
-	border-radius: 0.25em;
+	padding: 0.5rem 1rem;
+	border-radius: 0.25rem;
 }
 
 @media (min-width: 768px) {
@@ -242,7 +244,7 @@
 
 
 .chapter-and-verse-selector__navigator-buttons {
-	margin: 0 1.25em;
+	margin: 0 1.25rem;
 }
 
 @media (min-width: 768px) {
@@ -266,23 +268,23 @@
 .search__criteria {
 	margin-left: auto;
 	margin-right: auto;
-	margin-bottom: 1em;
+	margin-bottom: 1rem;
 	width: 100%;
 	/*Col:Tab text*/
 	color: hsl(0, 0%, 26.7%);
 	/*Col:Tab*/
 	background-color: hsl(0, 0%, 86.77%) !important;
-	padding: 0.5em 1em;
-	border-radius: 0.25em;
-	width: 22em;
+	padding: 0.5em 1rem;
+	border-radius: 0.25rem;
+	width: 22rem;
 }
 
 	.search__criteria > *:not(:last-child) {
-		margin-bottom: 0.25em;
+		margin-bottom: 0.25rem;
 	}
 
 .search__result-number {
-	width: 2em;
+	width: 2rem;
 	display: inline-block;
 }
 
@@ -304,15 +306,15 @@ dl.search__result > dt {
 }
 
 	.verse-analysis__word-list > li {
-		padding: 0.5em;
+		padding: 0.5rem;
 		margin: 0;
-		margin-bottom: 0.25em;
+		margin-bottom: 0.25rem;
 	}
 
 .verse-analysis__word-text-buckwalter {
 	font-variant: small-caps;
 	font-weight: bold;
-	margin-top: 0.25em;
+	margin-top: 0.25rem;
 }
 
 .verse-analysis__word-text-english {
@@ -330,7 +332,7 @@ dl.search__result > dt {
 }
 
 	.hadithcollection__collection-list > li {
-		padding: 0.25em;
+		padding: 0.25rem;
 	}
 
 .commentary__commentator-list {
@@ -340,7 +342,7 @@ dl.search__result > dt {
 }
 
 	.commentary__commentator-list > li {
-		padding: 0.25em;
+		padding: 0.25rem;
 	}
 
 h1, h2, h3, h4, h5, h6 {
@@ -366,7 +368,7 @@ h3, h4, h5, h6 {
 
 @media(max-width: 480px) {
 	.commentary__commentator-list > li {
-		margin-bottom: .25em;
+		margin-bottom: .25rem;
 	}
 }
 
@@ -409,12 +411,12 @@ dl.count-and-label {
 	color: hsl(31, 63.2%, 56.3%);
 	/*Col:Title bar*/
 	background-color: hsl(40, 94.7%, 92.5%);
-	padding: 0.25em 0.5em;
-	border-radius: 0.5em;
+	padding: 0.25em 0.5rem;
+	border-radius: 0.5rem;
 	border: none;
 	margin: 0px;
-	margin-right: 0.5em;
-	font-size: 0.75em;
+	margin-right: 0.5rem;
+	font-size: 0.75rem;
 	display: inline-block;
 	box-shadow: 2px 2px rgba(0, 0, 0, 0.1);
 }
@@ -423,7 +425,7 @@ dl.count-and-label {
 		/*Col:Title bar sub text*/
 		color: hsl(204, 100%, 51.5%);
 		font-weight: normal;
-		font-size: 0.75em;
+		font-size: 0.75rem;
 		text-align: center;
 		margin: 0px;
 		padding: 0px;
@@ -431,29 +433,29 @@ dl.count-and-label {
 
 	dl.count-and-label dd {
 		font-weight: bold;
-		font-size: 1.25em;
+		font-size: 1.25rem;
 		text-align: center;
 		margin: 0px;
 		padding: 0px;
 	}
 
 dl > dd:not(:first-child) {
-	margin-top: 0.5em;
+	margin-top: 0.5rem;
 }
 
 .boxed {
 	border: 2px solid #ddd;
-	border-radius: 0.5em;
+	border-radius: 0.5rem;
 	box-shadow: #f0f0f0 5px 5px;
 	padding: 2px;
 }
 
 dl.boxed > dt {
-	padding: 0.25em 0.5em;
+	padding: 0.25em 0.5rem;
 }
 
 dl.boxed > dd {
-	padding: 0 0.5em 0.5em 0.5em;
+	padding: 0 0.5em 0.5em 0.5rem;
 }
 
 .verse__reference {
@@ -463,9 +465,9 @@ dl.boxed > dd {
 	color: hsl(31, 63.2%, 56.3%);
 	/*Col:Title bar*/
 	background-color: hsl(40, 94.7%, 92.5%);
-	padding: 0.25em 0.5em;
-	border-radius: 0.5em;
-	font-size: 1.25em;
+	padding: 0.25em 0.5rem;
+	border-radius: 0.5rem;
+	font-size: 1.25rem;
 	font-weight: bold;
 	box-shadow: 2px 2px rgba(0, 0, 0, 0.1);
 }
@@ -477,11 +479,11 @@ dl.boxed > dd {
 }
 
 	.verse__statistics > * {
-		margin-right: 0.25em;
+		margin-right: 0.25rem;
 	}
 
 .verse__translations {
-	margin-bottom: 1em;
+	margin-bottom: 1rem;
 }
 
 .verse__translation {
@@ -502,21 +504,21 @@ dl.boxed > dd {
 		.verse__translation > dt::before {
 			content: "X";
 			display: inline-block;
-			margin: 0 0.5em 0 -1em;
+			margin: 0 0.5em 0 -1rem;
 			border: 1px solid;
 			/*Col:Tab text*/
 			color: hsl(0, 0%, 26.7%);
 			/*Col:Tab*/
 			border-color: hsl(0, 0%, 86.77%);
-			padding: 0.25em;
+			padding: 0.25rem;
 		}
 
 	.verse__translation > dd {
-		padding: 0 1em 0 2.5em;
+		padding: 0 1em 0 2.5rem;
 	}
 
 .verse__translation-hidden-items {
-	padding: 0.25em;
+	padding: 0.25rem;
 }
 
 .verse__translation-hidden-item {
@@ -525,11 +527,11 @@ dl.boxed > dd {
 	color: hsl(204, 100%, 51.5%);
 	/*Col:Title bar*/
 	background-color: hsl(40, 94.7%, 92.5%);
-	padding: 0.5em;
-	margin: 0.1em;
+	padding: 0.5rem;
+	margin: 0.1rem;
 	cursor: pointer;
-	font-size: 0.75em;
-	border-radius: 0.25em;
+	font-size: 0.75rem;
+	border-radius: 0.25rem;
 }
 
 	.verse__translation-hidden-item:before {
@@ -565,7 +567,7 @@ dl.boxed > dd {
 	/*Col:Tab*/
 	background-color: hsl(0, 0%, 86.77%);
 	font-weight: bold;
-	font-size: 1.25em;
+	font-size: 1.25rem;
 	text-decoration: none;
 }
 
@@ -600,15 +602,15 @@ dl.boxed > dd {
 
 .hadith {
 	border: 1px solid hsl(208, 37%, 43%);
-	margin-bottom: 2em;
+	margin-bottom: 2rem;
 	border-radius: 4px;
 	padding: 2px;
 }
 
 .hadith__text {
-	padding: 0.25em;
+	padding: 0.25rem;
 	margin: 0px;
-	padding: 1em;
+	padding: 1rem;
 }
 
 	.hadith__text > p {
@@ -625,7 +627,7 @@ dl.boxed > dd {
 .hadith__references {
 	/*Col:Striped 1*/
 	background-color: hsl(0, 0%, 93.3%);
-	padding: 1em;
+	padding: 1rem;
 }
 
 .hadith__reference {
@@ -648,23 +650,23 @@ dl.boxed > dd {
 
 	.hadith__reference-verse-numbers > li {
 		display: inline-block;
-		width: 4em;
+		width: 4rem;
 	}
 
 @media(max-width: 549px) {
 	.hadith__reference-verse-caption {
-		margin-top: 0.5em;
+		margin-top: 0.5rem;
 	}
 
 	.hadith__reference-verse-numbers {
-		margin-left: 2em;
+		margin-left: 2rem;
 	}
 }
 
 @media(min-width: 550px) {
 	.hadith__reference-verse-caption {
 		display: inline-block;
-		width: 18em;
+		width: 18rem;
 	}
 
 	.hadith__reference-verse-numbers {
@@ -675,18 +677,18 @@ dl.boxed > dd {
 
 @media(max-width: 549px) {
 	.hadith__reference-name {
-		margin-top: 0.5em;
+		margin-top: 0.5rem;
 	}
 
 	.hadith__reference-value {
-		margin-left: 2em;
+		margin-left: 2rem;
 	}
 }
 
 @media(min-width: 550px) {
 	.hadith__reference-name {
 		display: inline-block;
-		width: 18em;
+		width: 18rem;
 	}
 
 	.hadith__reference-value {
@@ -712,7 +714,7 @@ dl.boxed > dd {
 	}
 
 	.root-analysis__group .word-form {
-		font-size: .6em;
+		font-size: .6rem;
 		font-style: italic;
 		vertical-align: middle;
 		display: inline-block;
@@ -739,14 +741,63 @@ dl.boxed > dd {
 }
 
 	.root-analysis__extract .word-number {
-		font-size: 0.75em;
+		font-size: 0.75rem;
 	}
 
-	@media(max-width: 1200px) {
-		.root-analysis__extract-text {
+@media(max-width: 1200px) {
+	.root-analysis__extract-text {
 		margin: 1em 0 1em 0;
 		text-align: center;
 	}
+}
+
+.root-analysis__dictionaries-title {
+	text-align: left;
+	margin-left: 2rem;
+	padding: 4px;
+	/*Col:Title bar*/
+	background-color: hsl(40, 94.7%, 92.5%);
+	/*Col:Title bar text*/
+	color: hsl(31, 63.2%, 56.3%);
+}
+
+.root-analysis__dictionary-list {
+	list-style: none;
+}
+
+.dictionary__details {
+	margin: 1rem;
+	line-height: 3rem;
+}
+
+	.dictionary__details .sense {
+		padding: .5rem;
+		border-radius: 1rem;
+		font-variant: small-caps;
+		/*Col:Title bar shadow*/
+		border: solid 2px hsl(40, 94.7%, 85%);
+		background-color: hsl(40, 94.7%, 92.5%);
+	}
+
+	.dictionary__details .sub-sense {
+		padding: .5rem;
+		border-radius: 1rem;
+		font-variant: small-caps;
+		/*Col:Title bar shadow*/
+		border: solid 2px hsl(40, 94.7%, 85%);
+		background-color: hsl(40, 94.7%, 92.5%);
+	}
+
+	.dictionary__details abbr {
+		/*Col:H1*/
+		color: hsl(69, 39.2%, 44.5%);
+	}
+
+.dictionary__copyright {
+	border: 1px solid black;
+	border-radius: 0.25rem;
+	margin: 1rem;
+	padding: 1rem;
 }
 
 .small-caps {
@@ -842,7 +893,7 @@ dl.about > dd {
 
 	.help-list label {
 		display: inline-block;
-		width: 10em;
+		width: 10rem;
 	}
 
 	.help-list em {

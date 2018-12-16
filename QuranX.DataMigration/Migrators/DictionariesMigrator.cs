@@ -13,9 +13,9 @@ namespace QuranX.DataMigration.Migrators
 
 	public class DictionariesMigrator : IDictionariesMigrator
 	{
-		private readonly ILanesLexiconMigrator LanesLexiconMigrator;
+		private readonly ILisaanDictionaryMigrator LanesLexiconMigrator;
 
-		public DictionariesMigrator(ILanesLexiconMigrator lanesLexiconMigrator)
+		public DictionariesMigrator(ILisaanDictionaryMigrator lanesLexiconMigrator)
 		{
 			LanesLexiconMigrator = lanesLexiconMigrator;
 		}

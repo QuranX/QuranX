@@ -33,7 +33,7 @@ namespace QuranX.Persistence.Services.Repositories
 			var document = new Document();
 			document.AddObject(entry);
 			document.StoreAndIndex(entry, x => x.DictionaryCode);
-			document.StoreAndIndex(entry, x => x.Code);
+			document.StoreAndIndex(entry, x => x.Word);
 
 			IndexWriter indexWriter = IndexWriterProvider.GetIndexWriter();
 			indexWriter.AddDocument(document);

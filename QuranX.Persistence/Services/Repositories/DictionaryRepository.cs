@@ -28,7 +28,9 @@ namespace QuranX.Persistence.Services.Repositories
 		public Dictionary Get(string dictionaryCode)
 		{
 			EnsureData();
-			return DictionariesByCode[dictionaryCode];
+			Dictionary result;
+			DictionariesByCode.TryGetValue(dictionaryCode, out result);
+			return result;
 		}
 
 		public IEnumerable<Dictionary> GetAll()
