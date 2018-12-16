@@ -714,11 +714,12 @@ dl.boxed > dd {
 	}
 
 	.root-analysis__group .word-form {
-		font-size: .6rem;
+		font-size: 1.25rem;
 		font-style: italic;
 		vertical-align: middle;
 		display: inline-block;
 		vertical-align: top;
+		padding-top: 0.1rem;
 	}
 
 	.root-analysis__group h3 {
