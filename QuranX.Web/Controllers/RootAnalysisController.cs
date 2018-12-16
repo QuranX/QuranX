@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web.Mvc;
 using QuranX.Persistence.Models;
 using QuranX.Persistence.Services.Repositories;
+using QuranX.Shared;
 using QuranX.Web.Views.RootAnalysis;
 
 namespace QuranX.Web.Controllers
@@ -12,11 +13,17 @@ namespace QuranX.Web.Controllers
 	public class RootAnalysisController : Controller
 	{
 		private readonly IVerseAnalysisRepository VerseAnalysisRepository;
+		private readonly IDictionaryEntryRepository DictionaryEntryRepository;
+		private readonly IDictionaryRepository DictionaryRepository;
 
 		public RootAnalysisController(
-			IVerseAnalysisRepository verseAnalysisRepository)
+			IVerseAnalysisRepository verseAnalysisRepository,
+			IDictionaryEntryRepository dictionaryEntryRepository,
+			IDictionaryRepository dictionaryRepository)
 		{
 			VerseAnalysisRepository = verseAnalysisRepository;
+			DictionaryEntryRepository = dictionaryEntryRepository;
+			DictionaryRepository = dictionaryRepository;
 		}
 
 		public ActionResult Index(string rootLetterNames)
@@ -71,9 +78,17 @@ namespace QuranX.Web.Controllers
 					)
 				);
 
+			IEnumerable<DictionaryEntry> dictionaryEntries =
+				DictionaryEntryRepository.Get(root);
+			IEnumerable<Dictionary> dictionaries =
+				dictionaryEntries
+				.Select(x => DictionaryRepository.Get(x.DictionaryCode))
+				.OrderBy(x => x.Name);
+
 			var viewModel = new ViewModel(
 				arabicRoot: root,
 				rootLetterNames: rootLetterNames,
+				dictionaries: dictionaries,
 				types: wordTypesViewModel);
 			return View("RootAnalysis", viewModel);
 		}

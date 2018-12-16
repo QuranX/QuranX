@@ -16,6 +16,7 @@ namespace QuranX.DataMigration.Migrators
 		private readonly ICommentaryMigrator CommentaryMigrator;
 		private readonly IHadithMigrator HadithMigrator;
 		private readonly ILuceneIndexWriterProvider IndexWriterProvider;
+		private readonly IDictionariesMigrator DictionariesMigrator;
 		private readonly ISettings Settings;
 
 		public DataMigrator(
@@ -24,6 +25,7 @@ namespace QuranX.DataMigration.Migrators
 			ICommentaryMigrator commentaryMigrator, 
 			IHadithMigrator hadithMigrator,
 			ILuceneIndexWriterProvider indexWriterProvider,
+			IDictionariesMigrator dictionariesMigrator,
 			ISettings settings)
 		{
 			CorpusMigrator = corpusMigrator;
@@ -31,6 +33,7 @@ namespace QuranX.DataMigration.Migrators
 			CommentaryMigrator = commentaryMigrator;
 			HadithMigrator = hadithMigrator;
 			IndexWriterProvider = indexWriterProvider;
+			DictionariesMigrator = dictionariesMigrator;
 			Settings = settings;
 		}
 
@@ -39,6 +42,7 @@ namespace QuranX.DataMigration.Migrators
 			Directory.Delete(Settings.DataPath, true);
 			Directory.CreateDirectory(Settings.DataPath);
 
+			DictionariesMigrator.Migrate();
 			CorpusMigrator.Migrate();
 			QuranMigrator.Migrate();
 			CommentaryMigrator.Migrate();

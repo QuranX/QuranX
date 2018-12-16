@@ -100,6 +100,11 @@ namespace QuranX.Web
 				defaults: new { Controller = "HadithIndex", Action = "Index" });
 
 			routes.MapRoute(
+				name: "DictionaryEntry",
+				url: "Dictionary/{DictionaryCode}/{Word}",
+				defaults: new { Controller = "DictionaryEntry", Action = "Index" });
+
+			routes.MapRoute(
 				name: "QuranVerses",
 				url: "{*Verses}",
 				defaults: new { Controller = "QuranVerses", Action = "Index" },

@@ -13,12 +13,10 @@ namespace QuranX.DataMigration.Services
 		private readonly XmlData XmlData;
 		public Document Document => XmlData.Document;
 
-		public XmlDocumentProvider(IXmlSettings settings, ILogger logger)
+		public XmlDocumentProvider(IConfiguration configuration, ILogger logger)
 		{
 			logger.Debug("Loading XML data");
-			XmlData = new XmlData(settings.XmlDataPath, logger);
+			XmlData = new XmlData(configuration.XmlDataPath, logger);
 		}
-
-
 	}
 }
