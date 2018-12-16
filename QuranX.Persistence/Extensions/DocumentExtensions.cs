@@ -45,15 +45,22 @@ namespace QuranX.Persistence.Extensions
 			return document;
 		}
 
+		public static Document IndexArray(
+			this Document document,
+			string name, IEnumerable<string> values)
+		{
+			foreach (string value in values)
+				Add(document, name, value, IndexKind.Index);
+			return document;
+		}
+
 		public static Document IndexArray<TObj>(
 			this Document document,
 			TObj instance,
 			Expression<Func<TObj, IEnumerable<string>>> expression)
 		{
 			expression.GetIndexNameAndPropertyValue(instance, out string name, out IEnumerable<string> values);
-			foreach (string value in values)
-				Add(document, name, value, IndexKind.Index);
-			return document;
+			return document.IndexArray(name, values);
 		}
 
 		public static Document StoreAndIndex<TObj>(

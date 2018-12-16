@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Lucene.Net.Search;
 using QuranX.Persistence.Extensions;
 using QuranX.Persistence.Models;
@@ -17,6 +14,7 @@ namespace QuranX.Persistence.Services.Repositories
 
 	public class DictionaryEntryRepository : IDictionaryEntryRepository
 	{
+		public const string RootWordsIndexName = nameof(DictionaryEntry) + "_WordIndex";
 		private readonly ILuceneIndexSearcherProvider IndexSearcherProvider;
 
 		public DictionaryEntryRepository(ILuceneIndexSearcherProvider indexSearcherProvider)
@@ -26,10 +24,11 @@ namespace QuranX.Persistence.Services.Repositories
 
 		public IEnumerable<DictionaryEntry> Get(string word)
 		{
+			string indexValue = ArabicWordIndexer.GetIndexForArabic(word);
 			var query = new BooleanQuery(disableCoord: true);
-			query.FilterByType<DictionaryEntry>();
 			query
-				.AddPhraseQuery<DictionaryEntry>(x => x.Word, word, Occur.MUST);
+				.FilterByType<DictionaryEntry>()
+				.AddPhraseQuery(RootWordsIndexName, indexValue, Occur.MUST);
 
 			IndexSearcher searcher = IndexSearcherProvider.GetIndexSearcher();
 			TopDocs docs = searcher.Search(query, 7000);
@@ -41,11 +40,12 @@ namespace QuranX.Persistence.Services.Repositories
 
 		public DictionaryEntry Get(string dictionaryCode, string word)
 		{
+			string indexValue = ArabicWordIndexer.GetIndexForArabic(word);
 			var query = new BooleanQuery(disableCoord: true);
 			query.FilterByType<DictionaryEntry>();
 			query
 				.AddPhraseQuery<DictionaryEntry>(x => x.DictionaryCode, dictionaryCode, Occur.MUST)
-				.AddPhraseQuery<DictionaryEntry>(x => x.Word, word, Occur.MUST);
+				.AddPhraseQuery(RootWordsIndexName, indexValue, Occur.MUST);
 
 			IndexSearcher searcher = IndexSearcherProvider.GetIndexSearcher();
 			TopDocs docs = searcher.Search(query, 1);

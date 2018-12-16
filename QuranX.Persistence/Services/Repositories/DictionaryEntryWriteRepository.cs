@@ -30,10 +30,11 @@ namespace QuranX.Persistence.Services.Repositories
 			if (entry == null)
 				throw new ArgumentNullException(nameof(entry));
 
+			string indexValue = ArabicWordIndexer.GetIndexForArabic(entry.Word);
 			var document = new Document();
 			document.AddObject(entry);
 			document.StoreAndIndex(entry, x => x.DictionaryCode);
-			document.StoreAndIndex(entry, x => x.Word);
+			document.StoreAndIndex(DictionaryEntryRepository.RootWordsIndexName, indexValue);
 
 			IndexWriter indexWriter = IndexWriterProvider.GetIndexWriter();
 			indexWriter.AddDocument(document);

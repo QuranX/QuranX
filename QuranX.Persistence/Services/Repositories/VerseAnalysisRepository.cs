@@ -14,6 +14,7 @@ namespace QuranX.Persistence.Services.Repositories
 
 	public class VerseAnalysisRepository : IVerseAnalysisRepository
 	{
+		public const string RootWordsIndexName = nameof(VerseAnalysis) + "_RootsIndex";
 		private readonly ILuceneIndexSearcherProvider IndexSearcherProvider;
 
 		public VerseAnalysisRepository(
@@ -49,11 +50,11 @@ namespace QuranX.Persistence.Services.Repositories
 
 		public IEnumerable<VerseAnalysis> GetForRoot(string root)
 		{
-			string rootIndex = VerseAnalysis.GetIndexForArabicRoot(root);
+			string rootIndex = ArabicWordIndexer.GetIndexForArabic(root);
 			var query = new BooleanQuery(disableCoord: true);
 			query
 				.FilterByType<VerseAnalysis>()
-				.AddPhraseQuery<VerseAnalysis>(nameof(VerseAnalysis) + "_" + nameof(VerseAnalysis.RootIndexes), rootIndex, Occur.MUST);
+				.AddPhraseQuery(RootWordsIndexName, rootIndex, Occur.MUST);
 
 			IndexSearcher indexSearcher = IndexSearcherProvider.GetIndexSearcher();
 			TopDocs topDocs = indexSearcher.Search(query, 9999);
