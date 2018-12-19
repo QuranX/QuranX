@@ -18,6 +18,7 @@ namespace QuranX.DataMigration.Migrators
 	{
 		private readonly Regex NewLineRegex;
 		private readonly Regex HeaderRegex;
+		private readonly Regex ArabicRegex;
 		private readonly IConfiguration Configuration;
 		private readonly IDictionaryWriteRepository DictionaryWriteRepository;
 		private readonly IDictionaryEntryWriteRepository DictionaryEntryWriteRepository;
@@ -35,6 +36,7 @@ namespace QuranX.DataMigration.Migrators
 			Logger = logger;
 			NewLineRegex = new Regex(@"(\w*\<br.?\>\w*)+");
 			HeaderRegex = new Regex(@"\<h\d\>.*?\</h\d\>");
+			ArabicRegex = new Regex(@"(\p{IsArabic}+)");
 		}
 
 		public void Migrate()
@@ -59,8 +61,9 @@ namespace QuranX.DataMigration.Migrators
 				if (jsonDictionaryMeta.RemoveNewLines)
 				{
 					html = html.Replace("\r\n", " ").Replace("\r", " ").Replace("\n", " ");
-					html = NewLineRegex.Replace(html, "");
+					html = NewLineRegex.Replace(html, " ");
 				}
+				html = ArabicRegex.Replace(html, m => $"<span class=\"arabic\">{m.Value}</span>");
 				string[] htmlLines = html.Split('\r');
 				var dictionaryEntry = new DictionaryEntry(
 					dictionaryCode: code,
