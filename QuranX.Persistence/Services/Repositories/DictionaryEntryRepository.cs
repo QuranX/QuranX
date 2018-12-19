@@ -9,7 +9,7 @@ namespace QuranX.Persistence.Services.Repositories
 	public interface IDictionaryEntryRepository
 	{
 		IEnumerable<DictionaryEntry> Get(string word);
-		DictionaryEntry Get(string dictionaryCode, string word);
+		IEnumerable<DictionaryEntry> Get(string dictionaryCode, string word);
 	}
 
 	public class DictionaryEntryRepository : IDictionaryEntryRepository
@@ -38,7 +38,7 @@ namespace QuranX.Persistence.Services.Repositories
 			return results;
 		}
 
-		public DictionaryEntry Get(string dictionaryCode, string word)
+		public IEnumerable<DictionaryEntry> Get(string dictionaryCode, string word)
 		{
 			string indexValue = ArabicWordIndexer.GetIndexForArabic(word);
 			var query = new BooleanQuery(disableCoord: true);
@@ -48,12 +48,12 @@ namespace QuranX.Persistence.Services.Repositories
 				.AddPhraseQuery(RootWordsIndexName, indexValue, Occur.MUST);
 
 			IndexSearcher searcher = IndexSearcherProvider.GetIndexSearcher();
-			TopDocs docs = searcher.Search(query, 1);
-			DictionaryEntry result = docs.ScoreDocs
+			TopDocs docs = searcher.Search(query, 7000);
+			IEnumerable<DictionaryEntry> results = docs.ScoreDocs
 				.Select(x => searcher.Doc(x.Doc))
 				.Select(x => x.GetObject<DictionaryEntry>())
-				.SingleOrDefault();
-			return result;
+				.OrderBy(x => x.EntryIndex);
+			return results;
 		}
 	}
 }

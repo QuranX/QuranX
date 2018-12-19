@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Web.Mvc;
 using QuranX.Persistence.Models;
 using QuranX.Persistence.Services.Repositories;
@@ -25,14 +26,14 @@ namespace QuranX.Web.Controllers
 			Dictionary dictionary = DictionaryRepository.Get(dictionaryCode);
 			if (dictionary == null)
 				return HttpNotFound();
-			word = ArabicHelper.Substitute(word);
-			DictionaryEntry entry = DictionaryEntryRepository.Get(
+			string indexValue = ArabicHelper.Substitute(word);
+			IEnumerable<DictionaryEntry> entries = DictionaryEntryRepository.Get(
 				dictionaryCode: dictionaryCode, 
-				word: word);
-			if (entry == null)
+				word: indexValue);
+			if (!entries.Any())
 				return HttpNotFound();
 
-			var viewModel = new ViewModel(dictionary, entry);
+			var viewModel = new ViewModel(word, dictionary, entries);
 
 			return View("DictionaryEntry", viewModel);
 		}

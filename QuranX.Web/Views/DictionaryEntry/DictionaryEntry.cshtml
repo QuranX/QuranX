@@ -1,15 +1,18 @@
 ﻿@model QuranX.Web.Views.DictionaryEntry.ViewModel
 @{
-	ViewBag.Title = $"{Model.Entry.Word} according to {Model.Dictionary.Name}";
+	ViewBag.Title = $"{Model.ArabicWord} according to {Model.Dictionary.Name}";
 }
 <h1>Arabic dictionary</h1>
 <h2>Dictionary @Model.Dictionary.Name</h2>
-<h3>Word <span class="arabic">@Model.Entry.Word</span></h3>
+<h3>Word <span class="arabic">@Model.Entries.First().Word</span></h3>
 <div class="dictionary__details">
-	@foreach (string html in Model.Entry.Html)
+	@foreach (var entry in Model.Entries)
 	{
 		<p>
-			@Html.Raw(html)
+			@foreach (string html in entry.Html)
+			{
+				@Html.Raw(html)
+			}
 		</p>
 	}
 </div>

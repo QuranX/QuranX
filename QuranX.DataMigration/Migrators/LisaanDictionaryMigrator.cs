@@ -1,5 +1,7 @@
 ﻿using System.IO;
+using System.Linq;
 using System.Text.RegularExpressions;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using NLog;
 using QuranX.DataMigration.Services;
@@ -39,46 +41,61 @@ namespace QuranX.DataMigration.Migrators
 
 		public void Migrate()
 		{
-			Migrate("Salmone");
 			Migrate("Lane");
+			Migrate("Salmone");
 		}
 
 		public void Migrate(string code)
 		{
 			string jsonFilePath = Path.Combine(Configuration.DictionariesDirectoryPath, $"{code}.json");
-			string json = File.ReadAllText(jsonFilePath);
-			var jsonDoc = JValue.Parse(json);
-			var firstProperty = (JProperty)jsonDoc.First;
-			string name = firstProperty.Name.Split('<')[0].Trim();
-			WriteDictionary(code, name);
-			var currentRoot = (JProperty)firstProperty.Value.First;
-			int count = 0;
-			while (currentRoot != null)
+			JsonDictionary jsonDictionary;
+			using (StreamReader sr = File.OpenText(jsonFilePath))
+			using (var jsonReader = new JsonTextReader(sr))
 			{
-				string root = ArabicHelper.Substitute(currentRoot.Name);
+				var serializer = new JsonSerializer();
+				jsonDictionary = serializer.Deserialize<JsonDictionary>(jsonReader);
+			}
+			WriteDictionary(code, jsonDictionary.Name);
+			int index = 0;
+			foreach(var entry in jsonDictionary.Entries)
+			{
+				index++;
+				string root = ArabicHelper.Substitute(entry.Name);
 				string rootLetterNames = ArabicHelper.ArabicToLetterNames(root);
-				if (count++ % 100 == 0)
-					Logger.Debug($"{code} {rootLetterNames}");
-				string rootHtml = currentRoot.Value.ToString();
-				string html = currentRoot.Value.ToString().Replace("\r", "").Replace("\n", "");
+				string html = entry.Text.Replace("\r", "").Replace("\n", "");
 				html = HeaderRegex.Replace(html, "");
 				string[] htmlLines = NewLineRegex.Replace(html, "\r").Split('\r');
 				var dictionaryEntry = new DictionaryEntry(
 					dictionaryCode: code,
 					word: root,
+					entryIndex: index,
 					html: htmlLines);
 				DictionaryEntryWriteRepository.Write(dictionaryEntry);
 
-				currentRoot = (JProperty)currentRoot.Next;
+				if (index % 100 == 0)
+					Logger.Debug($"{code} {rootLetterNames}");
 			}
 		}
 
 		void WriteDictionary(string code, string name)
 		{
+			name = name.Split('<')[0].Trim();
 			string copyrightFilePath = Path.Combine(Configuration.DictionariesDirectoryPath, $"{code}-Copyright.txt");
 			string copyright = File.ReadAllText(copyrightFilePath);
 			var dictionary = new Dictionary(code: code, name: name, copyright: copyright);
 			DictionaryWriteRepository.Write(dictionary);
+		}
+
+		private class JsonDictionary
+		{
+			public string Name { get; set; }
+			public JsonDictionaryEntry[] Entries { get; set; }
+		}
+
+		private class JsonDictionaryEntry
+		{
+			public string Name { get; set; }
+			public string Text { get; set; }
 		}
 	}
 }

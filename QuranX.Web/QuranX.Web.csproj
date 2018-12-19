@@ -17942,7 +17942,9 @@
       <BrowseToURL>~/About</BrowseToURL>
     </Content>
     <Content Include="Views\Help\Help.cshtml" />
-    <Content Include="Views\DictionaryEntry\DictionaryEntry.cshtml" />
+    <Content Include="Views\DictionaryEntry\DictionaryEntry.cshtml">
+      <BrowseToURL>~/Dictionary/Lane/مهد</BrowseToURL>
+    </Content>
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
