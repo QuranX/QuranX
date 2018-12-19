@@ -8,12 +8,12 @@
 <div class="dictionary__details">
 	@foreach (var entry in Model.Entries)
 	{
-		<p>
-			@foreach (string html in entry.Html)
+			foreach (string html in entry.Html)
 			{
+			<p>
 				@Html.Raw(html)
+			</p>
 			}
-		</p>
 	}
 </div>
 <div class="dictionary__copyright">

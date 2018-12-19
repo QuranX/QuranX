@@ -1,8 +1,6 @@
 ﻿using System.IO;
-using System.Linq;
 using System.Text.RegularExpressions;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 using NLog;
 using QuranX.DataMigration.Services;
 using QuranX.Persistence.Models;
@@ -47,24 +45,23 @@ namespace QuranX.DataMigration.Migrators
 
 		public void Migrate(string code)
 		{
-			string jsonFilePath = Path.Combine(Configuration.DictionariesDirectoryPath, $"{code}.json");
-			JsonDictionary jsonDictionary;
-			using (StreamReader sr = File.OpenText(jsonFilePath))
-			using (var jsonReader = new JsonTextReader(sr))
-			{
-				var serializer = new JsonSerializer();
-				jsonDictionary = serializer.Deserialize<JsonDictionary>(jsonReader);
-			}
-			WriteDictionary(code, jsonDictionary.Name);
+			string jsonFilePath = Path.Combine(Configuration.DictionariesDirectoryPath, $"{code}");
+			var jsonDictionary = ReadJsonObject<JsonDictionary>(jsonFilePath + ".json");
+			var jsonDictionaryMeta = ReadJsonObject<DictionaryMeta>(jsonFilePath + "-meta.json");
+			WriteDictionary(code, jsonDictionary.Name, jsonDictionaryMeta.Copyright);
 			int index = 0;
-			foreach(var entry in jsonDictionary.Entries)
+			foreach (var entry in jsonDictionary.Entries)
 			{
 				index++;
 				string root = ArabicHelper.Substitute(entry.Name);
 				string rootLetterNames = ArabicHelper.ArabicToLetterNames(root);
-				string html = entry.Text.Replace("\r", "").Replace("\n", "");
-				html = HeaderRegex.Replace(html, "");
-				string[] htmlLines = NewLineRegex.Replace(html, "\r").Split('\r');
+				string html = HeaderRegex.Replace(entry.Text, "");
+				if (jsonDictionaryMeta.RemoveNewLines)
+				{
+					html = html.Replace("\r\n", " ").Replace("\r", " ").Replace("\n", " ");
+					html = NewLineRegex.Replace(html, "");
+				}
+				string[] htmlLines = html.Split('\r');
 				var dictionaryEntry = new DictionaryEntry(
 					dictionaryCode: code,
 					word: root,
@@ -77,11 +74,19 @@ namespace QuranX.DataMigration.Migrators
 			}
 		}
 
-		void WriteDictionary(string code, string name)
+		T ReadJsonObject<T>(string jsonFilePath)
+		{
+			using (StreamReader sr = File.OpenText(jsonFilePath))
+			using (var jsonReader = new JsonTextReader(sr))
+			{
+				var serializer = new JsonSerializer();
+				return serializer.Deserialize<T>(jsonReader);
+			}
+		}
+
+		void WriteDictionary(string code, string name, string copyright)
 		{
 			name = name.Split('<')[0].Trim();
-			string copyrightFilePath = Path.Combine(Configuration.DictionariesDirectoryPath, $"{code}-Copyright.txt");
-			string copyright = File.ReadAllText(copyrightFilePath);
 			var dictionary = new Dictionary(code: code, name: name, copyright: copyright);
 			DictionaryWriteRepository.Write(dictionary);
 		}
@@ -96,6 +101,12 @@ namespace QuranX.DataMigration.Migrators
 		{
 			public string Name { get; set; }
 			public string Text { get; set; }
+		}
+
+		private class DictionaryMeta
+		{
+			public string Copyright { get; set; }
+			public bool RemoveNewLines { get; set; }
 		}
 	}
 }
