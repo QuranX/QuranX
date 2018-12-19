@@ -276,7 +276,7 @@
 	background-color: hsl(0, 0%, 86.77%) !important;
 	padding: 0.5em 1rem;
 	border-radius: 0.25rem;
-	width: 22rem;
+	width: 22em;
 }
 
 	.search__criteria > *:not(:last-child) {
