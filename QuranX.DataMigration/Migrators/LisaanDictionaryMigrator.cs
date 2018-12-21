@@ -19,6 +19,7 @@ namespace QuranX.DataMigration.Migrators
 		private readonly Regex NewLineRegex;
 		private readonly Regex HeaderRegex;
 		private readonly Regex ArabicRegex;
+		private readonly Regex EmptyElementRegex;
 		private readonly IConfiguration Configuration;
 		private readonly IDictionaryWriteRepository DictionaryWriteRepository;
 		private readonly IDictionaryEntryWriteRepository DictionaryEntryWriteRepository;
@@ -34,9 +35,10 @@ namespace QuranX.DataMigration.Migrators
 			DictionaryWriteRepository = dictionaryWriteRepository;
 			DictionaryEntryWriteRepository = dictionaryEntryWriteRepository;
 			Logger = logger;
-			NewLineRegex = new Regex(@"(\w*\<br.?\>\w*)+");
+			NewLineRegex = new Regex(@"(<br.?\/?>)+");
 			HeaderRegex = new Regex(@"\<h\d\>.*?\</h\d\>");
-			ArabicRegex = new Regex(@"(\p{IsArabic}+)");
+			ArabicRegex = new Regex(@"(\p{IsArabic}+\s*)+");
+			EmptyElementRegex = new Regex(@"(<span class=""sub-sense""\>).*?(\</span\>)");
 		}
 
 		public void Migrate()
@@ -57,12 +59,14 @@ namespace QuranX.DataMigration.Migrators
 				index++;
 				string root = ArabicHelper.Substitute(entry.Name);
 				string rootLetterNames = ArabicHelper.ArabicToLetterNames(root);
-				string html = HeaderRegex.Replace(entry.Text, "");
+				string html = entry.Text;
+				html = HeaderRegex.Replace(entry.Text, "");
+				html = EmptyElementRegex.Replace(html, m => m.Groups[1].Value + m.Groups[2].Value);
+				html = html.Replace("\r\n", " ").Replace("\r", " ").Replace("\n", " ");
 				if (jsonDictionaryMeta.RemoveNewLines)
-				{
-					html = html.Replace("\r\n", " ").Replace("\r", " ").Replace("\n", " ");
 					html = NewLineRegex.Replace(html, " ");
-				}
+				else
+					html = NewLineRegex.Replace(html, "\r");
 				html = ArabicRegex.Replace(html, m => $"<span class=\"arabic\">{m.Value}</span>");
 				string[] htmlLines = html.Split('\r');
 				var dictionaryEntry = new DictionaryEntry(

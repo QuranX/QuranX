@@ -773,30 +773,43 @@ dl.boxed > dd {
 	line-height: 3rem;
 }
 
-	.dictionary__details .sense {
-		padding: .5rem;
-		border-radius: 1rem;
-		font-variant: small-caps;
-		/*Col:Title bar shadow*/
-		border: solid 2px hsl(40, 94.7%, 85%);
-		background-color: hsl(40, 94.7%, 92.5%);
+	.dictionary__details > * {
+		float: left;
+		display: inline-block;
 	}
 
-	.dictionary__details .sub-sense {
-		padding: .5rem;
-		border-radius: 1rem;
-		font-variant: small-caps;
-		/*Col:Title bar shadow*/
-		border: solid 2px hsl(40, 94.7%, 85%);
-		background-color: hsl(40, 94.7%, 92.5%);
-	}
+.dictionary__details--Lane .sense {
+	padding: 1rem;
+	border-radius: 1rem;
+	font-variant: small-caps;
+	width: 4em;
+	clear: both;
+	text-align: center;
+	/*Col:Title bar shadow*/
+	border: solid 2px hsl(40, 94.7%, 85%);
+	background-color: hsl(40, 94.7%, 92.5%);
+}
 
-	.dictionary__details abbr {
-		/*Col:H1*/
-		color: hsl(69, 39.2%, 44.5%);
-	}
+.dictionary__details--Lane .sub-sense {
+	padding: 0 .5rem;
+	border-radius: 1rem;
+	font-variant: small-caps;
+	clear: both;
+	display: inline-block;
+	width: 4em;
+	text-align: center;
+	/*Col:Title bar shadow*/
+	border: solid 2px hsl(40, 94.7%, 85%);
+	background-color: hsl(40, 94.7%, 92.5%);
+}
+
+.dictionary__details abbr {
+	/*Col:H1*/
+	color: hsl(69, 39.2%, 44.5%);
+}
 
 .dictionary__copyright {
+	clear: both;
 	border: 1px solid black;
 	border-radius: 0.25rem;
 	margin: 1rem;
