@@ -65,6 +65,8 @@
     padding: 0;
     margin: 0;
     margin-right: 0.5rem;
+    font-weight: 100;
+    color: hsla(0, 0%, 0%, 0.8);
 }
 
 .verse__translation.arabic-container > dd {
@@ -780,13 +782,13 @@ dl.boxed > dd {
 
 .dictionary__details--Lane .sense {
     padding: 0.25rem 1rem;
-    margin: 2rem 0.5rem 0.5rem -.5rem;
+    margin: 0rem 0.5rem 0rem 1rem;
     border-radius: 1rem;
     font-variant: small-caps;
-    display: block;
-    width: 4em;
-    clear: both;
     text-align: center;
+    display:inline-block;
+    min-width: 8em;
+    font-weight: bold;
     /*Col:Title bar shadow*/
     border: solid 2px hsl(40, 94.7%, 85%);
     background-color: hsl(40, 94.7%, 92.5%);

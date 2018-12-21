@@ -67,7 +67,8 @@ namespace QuranX.DataMigration.Migrators
 					html = NewLineRegex.Replace(html, " ");
 				else
 					html = NewLineRegex.Replace(html, "\r");
-				html = ArabicRegex.Replace(html, m => $"<span class=\"arabic\">{m.Value}</span>");
+				//TODO: Not until we know we are not already inside a html element
+				//html = ArabicRegex.Replace(html, m => $"<span class=\"arabic\">{m.Value}</span>");
 				string[] htmlLines = html.Split('\r');
 				var dictionaryEntry = new DictionaryEntry(
 					dictionaryCode: code,
