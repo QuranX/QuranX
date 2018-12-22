@@ -1,6 +1,6 @@
 ﻿using System.IO;
 using System.Text.RegularExpressions;
-using Newtonsoft.Json.Linq;
+using Newtonsoft.Json;
 using NLog;
 using QuranX.DataMigration.Services;
 using QuranX.Persistence.Models;
@@ -18,6 +18,8 @@ namespace QuranX.DataMigration.Migrators
 	{
 		private readonly Regex NewLineRegex;
 		private readonly Regex HeaderRegex;
+		private readonly Regex ArabicRegex;
+		private readonly Regex EmptyElementRegex;
 		private readonly IConfiguration Configuration;
 		private readonly IDictionaryWriteRepository DictionaryWriteRepository;
 		private readonly IDictionaryEntryWriteRepository DictionaryEntryWriteRepository;
@@ -33,52 +35,86 @@ namespace QuranX.DataMigration.Migrators
 			DictionaryWriteRepository = dictionaryWriteRepository;
 			DictionaryEntryWriteRepository = dictionaryEntryWriteRepository;
 			Logger = logger;
-			NewLineRegex = new Regex(@"(\w*\<br.?\>\w*)+");
+			NewLineRegex = new Regex(@"(<br.?\/?>)+");
 			HeaderRegex = new Regex(@"\<h\d\>.*?\</h\d\>");
+			ArabicRegex = new Regex(@"(\p{IsArabic}+\s*)+");
+			EmptyElementRegex = new Regex(@"(<span class=""sub-sense""\>).*?(\</span\>)");
 		}
 
 		public void Migrate()
 		{
-			Migrate("Salmone");
 			Migrate("Lane");
+			Migrate("Salmone");
 		}
 
 		public void Migrate(string code)
 		{
-			string jsonFilePath = Path.Combine(Configuration.DictionariesDirectoryPath, $"{code}.json");
-			string json = File.ReadAllText(jsonFilePath);
-			var jsonDoc = JValue.Parse(json);
-			var firstProperty = (JProperty)jsonDoc.First;
-			string name = firstProperty.Name.Split('<')[0].Trim();
-			WriteDictionary(code, name);
-			var currentRoot = (JProperty)firstProperty.Value.First;
-			int count = 0;
-			while (currentRoot != null)
+			string jsonFilePath = Path.Combine(Configuration.DictionariesDirectoryPath, $"{code}");
+			var jsonDictionary = ReadJsonObject<JsonDictionary>(jsonFilePath + ".json");
+			var jsonDictionaryMeta = ReadJsonObject<DictionaryMeta>(jsonFilePath + "-meta.json");
+			WriteDictionary(code, jsonDictionary.Name, jsonDictionaryMeta.Copyright);
+			int index = 0;
+			foreach (var entry in jsonDictionary.Entries)
 			{
-				string root = ArabicHelper.Substitute(currentRoot.Name);
+				index++;
+				string root = ArabicHelper.Substitute(entry.Name);
 				string rootLetterNames = ArabicHelper.ArabicToLetterNames(root);
-				if (count++ % 100 == 0)
-					Logger.Debug($"{code} {rootLetterNames}");
-				string rootHtml = currentRoot.Value.ToString();
-				string html = currentRoot.Value.ToString().Replace("\r", "").Replace("\n", "");
-				html = HeaderRegex.Replace(html, "");
-				string[] htmlLines = NewLineRegex.Replace(html, "\r").Split('\r');
+				string html = entry.Text;
+				html = HeaderRegex.Replace(entry.Text, "");
+				html = EmptyElementRegex.Replace(html, m => m.Groups[1].Value + m.Groups[2].Value);
+				html = html.Replace("\r\n", " ").Replace("\r", " ").Replace("\n", " ");
+				if (jsonDictionaryMeta.RemoveNewLines)
+					html = NewLineRegex.Replace(html, " ");
+				else
+					html = NewLineRegex.Replace(html, "\r");
+				//TODO: Not until we know we are not already inside a html element
+				//html = ArabicRegex.Replace(html, m => $"<span class=\"arabic\">{m.Value}</span>");
+				string[] htmlLines = html.Split('\r');
 				var dictionaryEntry = new DictionaryEntry(
 					dictionaryCode: code,
 					word: root,
+					entryIndex: index,
 					html: htmlLines);
 				DictionaryEntryWriteRepository.Write(dictionaryEntry);
 
-				currentRoot = (JProperty)currentRoot.Next;
+				if (index % 100 == 0)
+					Logger.Debug($"{code} {rootLetterNames}");
 			}
 		}
 
-		void WriteDictionary(string code, string name)
+		T ReadJsonObject<T>(string jsonFilePath)
 		{
-			string copyrightFilePath = Path.Combine(Configuration.DictionariesDirectoryPath, $"{code}-Copyright.txt");
-			string copyright = File.ReadAllText(copyrightFilePath);
+			using (StreamReader sr = File.OpenText(jsonFilePath))
+			using (var jsonReader = new JsonTextReader(sr))
+			{
+				var serializer = new JsonSerializer();
+				return serializer.Deserialize<T>(jsonReader);
+			}
+		}
+
+		void WriteDictionary(string code, string name, string copyright)
+		{
+			name = name.Split('<')[0].Trim();
 			var dictionary = new Dictionary(code: code, name: name, copyright: copyright);
 			DictionaryWriteRepository.Write(dictionary);
+		}
+
+		private class JsonDictionary
+		{
+			public string Name { get; set; }
+			public JsonDictionaryEntry[] Entries { get; set; }
+		}
+
+		private class JsonDictionaryEntry
+		{
+			public string Name { get; set; }
+			public string Text { get; set; }
+		}
+
+		private class DictionaryMeta
+		{
+			public string Copyright { get; set; }
+			public bool RemoveNewLines { get; set; }
 		}
 	}
 }

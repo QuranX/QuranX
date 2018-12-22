@@ -13,16 +13,16 @@ namespace QuranX.DataMigration.Migrators
 
 	public class DictionariesMigrator : IDictionariesMigrator
 	{
-		private readonly ILisaanDictionaryMigrator LanesLexiconMigrator;
+		private readonly ILisaanDictionaryMigrator LisaanDictionaryMigrator;
 
 		public DictionariesMigrator(ILisaanDictionaryMigrator lanesLexiconMigrator)
 		{
-			LanesLexiconMigrator = lanesLexiconMigrator;
+			LisaanDictionaryMigrator = lanesLexiconMigrator;
 		}
 
 		public void Migrate()
 		{
-			LanesLexiconMigrator.Migrate();
+			LisaanDictionaryMigrator.Migrate();
 		}
 	}
 }
