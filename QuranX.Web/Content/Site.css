@@ -471,7 +471,7 @@ dl.boxed > dd {
     background-color: hsl(40, 94.7%, 92.5%);
     padding: 0.25em 0.5rem;
     border-radius: 0.5rem;
-    font-size: 1.25rem;
+    font-size: 2rem;
     font-weight: bold;
     box-shadow: 2px 2px rgba(0, 0, 0, 0.1);
 }
