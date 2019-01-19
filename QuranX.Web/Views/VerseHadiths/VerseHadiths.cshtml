@@ -14,7 +14,7 @@
 <h3>@Model.Chapter.EnglishName - @Model.Chapter.ArabicName</h3>
 @if (Model.Hadiths.Count() != 1)
 {
-	<h4>@Model.Hadiths.Count() @hadithsTitle</h4>
+	<h4 class="hadith__reference-count">@Model.Hadiths.Count() @hadithsTitle</h4>
 }
 @foreach (HadithViewModel hadithVM in Model.Hadiths)
 {
