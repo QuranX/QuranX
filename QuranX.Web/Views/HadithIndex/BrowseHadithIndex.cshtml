@@ -2,17 +2,18 @@
 @model BrowseHadithIndexViewModel
 
 @{
-	ViewBag.Title = $"{Model.HadithIndexHeaderViewModel.Collection.Name} Hadiths";
+    ViewBag.Title = $"{Model.HadithIndexHeaderViewModel.Collection.Name} Hadiths";
 }
 
-@Html.Partial("HadithIndexHeader", Model.HadithIndexHeaderViewModel)
+@{ Html.RenderPartial("HadithIndexHeader", Model.HadithIndexHeaderViewModel); }
 <ul class="hadith-index__list">
-	@foreach (string nextValue in Model.NextReferencePartValueSelection)
-	{
-		<li>
-			<a href="@Model.HadithIndexHeaderViewModel.UrlSoFar/@Model.NextReferencePartName-@nextValue/">
-				@Model.NextReferencePartName @nextValue
-			</a>
-	 </li>
-	}
+    @foreach (string nextValue in Model.NextReferencePartValueSelection)
+    {
+        <li>
+            <a href="@Model.HadithIndexHeaderViewModel.UrlSoFar/@Model.NextReferencePartName-@nextValue/">
+                @Model.NextReferencePartName @nextValue
+            </a>
+        </li>
+    }
 </ul>
+@{ Html.RenderPartial("Adverts"); }

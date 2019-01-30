@@ -4,78 +4,78 @@
 @model ViewModel
 
 @{
-	ViewBag.Title = "The Qur'an";
+    ViewBag.Title = "The Qur'an";
 }
 
 <h1>@ViewBag.Title</h1>
 @{ Html.RenderPartial("SelectChapterAndVerse", Model.SelectChapterAndVerse); }
-
 <div class="dropdown">
-	<button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-		Translations
-	</button>
-	<div class="dropdown-menu verse__translation-hidden-items" aria-labelledby="dropdownMenuButton">
-		@foreach (Translator translator in Model.Translators)
-		{
-			<button class="verse__translation-hidden-item btn" data-translator-code="@translator.Code">
-				@translator.Name
-			</button>
-		}
-	</div>
+    <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        Translations
+    </button>
+    <div class="dropdown-menu verse__translation-hidden-items" aria-labelledby="dropdownMenuButton">
+        @foreach (Translator translator in Model.Translators)
+        {
+            <button class="verse__translation-hidden-item btn" data-translator-code="@translator.Code">
+                @translator.Name
+            </button>
+        }
+    </div>
 </div>
 
 @foreach (ChapterAndVerseSelection group in Model.DisplayVerses)
 {
-	<h2>@group.Chapter.EnglishName - @group.Chapter.ArabicName</h2>
-	foreach (Verse verse in group.Verses)
-	{
-		if (Model.AutoScrollToSelectedVerse
-			&& verse.ChapterNumber == Model.SelectChapterAndVerse.SelectedChapterNumber
-			&& verse.VerseNumber == Model.SelectChapterAndVerse.SelectedVerseNumber)
-		{
-			<a name="focal-point"></a>
-		}
-		<div class="row verse__statistics">
-			<span class="verse__reference">@verse.ChapterNumber.@verse.VerseNumber</span>
-			<a href="analysis/@verse.ChapterNumber.@verse.VerseNumber">
-				<dl class="count-and-label">
-					<dd>@verse.RootWordCount</dd>
-					<dt>Roots</dt>
-				</dl>
-			</a>
-			@if (verse.CommentaryCount > 0)
-			{
-				<a href="tafsirs/@verse.ChapterNumber.@verse.VerseNumber">
-					<dl class="count-and-label">
-						<dd>@verse.CommentaryCount</dd>
-						<dt>Tafsirs</dt>
-					</dl>
-				</a>
-			}
-			@if (verse.HadithCount > 0)
-			{
-				<a href="hadiths/@verse.ChapterNumber.@verse.VerseNumber">
-					<dl class="count-and-label">
-						<dd>@verse.HadithCount</dd>
-						<dt>Hadiths</dt>
-					</dl>
-				</a>
-			}
-		</div>
+    <h2>@group.Chapter.EnglishName - @group.Chapter.ArabicName</h2>
+    foreach (Verse verse in group.Verses)
+    {
+        if (Model.AutoScrollToSelectedVerse
+            && verse.ChapterNumber == Model.SelectChapterAndVerse.SelectedChapterNumber
+            && verse.VerseNumber == Model.SelectChapterAndVerse.SelectedVerseNumber)
+        {
+            <a name="focal-point"></a>
+        }
+        <div class="row verse__statistics">
+            <span class="verse__reference">@verse.ChapterNumber.@verse.VerseNumber</span>
+            <a href="analysis/@verse.ChapterNumber.@verse.VerseNumber">
+                <dl class="count-and-label">
+                    <dd>@verse.RootWordCount</dd>
+                    <dt>Roots</dt>
+                </dl>
+            </a>
+            @if (verse.CommentaryCount > 0)
+            {
+                <a href="tafsirs/@verse.ChapterNumber.@verse.VerseNumber">
+                    <dl class="count-and-label">
+                        <dd>@verse.CommentaryCount</dd>
+                        <dt>Tafsirs</dt>
+                    </dl>
+                </a>
+            }
+            @if (verse.HadithCount > 0)
+            {
+                <a href="hadiths/@verse.ChapterNumber.@verse.VerseNumber">
+                    <dl class="count-and-label">
+                        <dd>@verse.HadithCount</dd>
+                        <dt>Hadiths</dt>
+                    </dl>
+                </a>
+            }
+        </div>
 
-		<div class="verse__translations boxed">
-			@foreach (VerseText translation in verse.VerseTexts)
-			{
-				string arabicCss = translation.TranslatorCode == "AR" ? "arabic" : "";
-				string containerPaddingCss = arabicCss != "" ? "arabic-container" : "";
-				<dl class="verse__translation @containerPaddingCss" data-translator-code="@translation.TranslatorCode">
-					<dt>@translation.TranslatorName</dt>
-					<dd class="@arabicCss highlightable">@translation.Text</dd>
-				</dl>
-			}
-		</div>
-	}
+        <div class="verse__translations boxed">
+            @foreach (VerseText translation in verse.VerseTexts)
+            {
+                string arabicCss = translation.TranslatorCode == "AR" ? "arabic" : "";
+                string containerPaddingCss = arabicCss != "" ? "arabic-container" : "";
+                <dl class="verse__translation @containerPaddingCss" data-translator-code="@translation.TranslatorCode">
+                    <dt>@translation.TranslatorName</dt>
+                    <dd class="@arabicCss highlightable">@translation.Text</dd>
+                </dl>
+            }
+        </div>
+    }
 }
+@{ Html.RenderPartial("Adverts"); }
 @section scripts {
-	@Scripts.Render("~/bundles/verse-view")
+    @Scripts.Render("~/bundles/verse-view")
 }

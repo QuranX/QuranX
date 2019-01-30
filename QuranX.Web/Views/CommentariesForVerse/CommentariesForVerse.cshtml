@@ -2,7 +2,7 @@
 @model CommentariesForVerse
 
 @{
-	ViewBag.Title = $"Commentaries for {Model.Chapter.ChapterNumber}.{Model.VerseNumber}";
+    ViewBag.Title = $"Commentaries for {Model.Chapter.ChapterNumber}.{Model.VerseNumber}";
 }
 
 <h1>The Quran</h1>
@@ -12,8 +12,11 @@
 	</a>
 </h2>
 <h3>@Model.Chapter.EnglishName - @Model.Chapter.ArabicName</h3>
-@Html.Partial("SelectChapterAndVerse", Model.SelectChapterAndVerse)
-@foreach (CommentatorAndCommentary commentatorAndCommentary in Model.Commentaries)
-{
-	@Html.Partial("CommentaryView", commentatorAndCommentary)
+@{
+    Html.RenderPartial("SelectChapterAndVerse", Model.SelectChapterAndVerse);
+    foreach (CommentatorAndCommentary commentatorAndCommentary in Model.Commentaries)
+    {
+        Html.RenderPartial("CommentaryView", commentatorAndCommentary);
+    }
 }
+@{ Html.RenderPartial("Adverts"); }

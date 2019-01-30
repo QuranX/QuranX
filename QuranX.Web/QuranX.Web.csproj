@@ -17908,7 +17908,7 @@
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\QuranVerses\QuranVerses.cshtml">
-      <BrowseToURL>~/1/1</BrowseToURL>
+      <BrowseToURL>~/1.1</BrowseToURL>
     </Content>
     <Content Include="Views\Commentators\Commentators.cshtml">
       <BrowseToURL>~/tafsirs</BrowseToURL>
@@ -17944,6 +17944,7 @@
     <Content Include="Views\DictionaryEntry\DictionaryEntry.cshtml">
       <BrowseToURL>~/Dictionary/Lane/مهد</BrowseToURL>
     </Content>
+    <Content Include="Views\Shared\Adverts.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

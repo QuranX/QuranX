@@ -786,7 +786,7 @@ dl.boxed > dd {
     border-radius: 1rem;
     font-variant: small-caps;
     text-align: center;
-    display:inline-block;
+    display: inline-block;
     min-width: 8em;
     font-weight: bold;
     /*Col:Title bar shadow*/
@@ -925,3 +925,11 @@ dl.about > dd {
         text-shadow: 2px 2px rgba(0, 0, 0, 0.1);
         border: 1px solid black;
     }
+
+.adverts {
+    margin: 2rem 0 1rem 0;
+    border: 1px solid black;
+    border-radius: 1rem;
+    background-color: hsl(0, 0%, 93.3%);
+    text-align: center;
+}

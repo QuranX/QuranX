@@ -3,11 +3,14 @@
 @model ViewModel
 
 @{
-	var verse = new VerseRangeReference(Model.CommentatorAndCommentary.Commentary.ChapterNumber, Model.CommentatorAndCommentary.Commentary.FirstVerseNumber, Model.CommentatorAndCommentary.Commentary.LastVerseNumber);
-	string verseCaption = verse.IsMultipleVerses() ? "verses" : "verse";
-	ViewBag.Title = Model.CommentatorAndCommentary.Commentator.Description + $" commentary for {verseCaption} {verse}";
+    var verse = new VerseRangeReference(Model.CommentatorAndCommentary.Commentary.ChapterNumber, Model.CommentatorAndCommentary.Commentary.FirstVerseNumber, Model.CommentatorAndCommentary.Commentary.LastVerseNumber);
+    string verseCaption = verse.IsMultipleVerses() ? "verses" : "verse";
+    ViewBag.Title = Model.CommentatorAndCommentary.Commentator.Description + $" commentary for {verseCaption} {verse}";
 }
 <h1>The Qur'an</h1>
 <h2>Verse commentary</h2>
-@Html.Partial("SelectChapterAndVerse", Model.SelectChapterAndVerse)
-@Html.Partial("CommentaryView", Model.CommentatorAndCommentary)
+@{ 
+    Html.RenderPartial("SelectChapterAndVerse", Model.SelectChapterAndVerse);
+    Html.RenderPartial("CommentaryView", Model.CommentatorAndCommentary);
+    Html.RenderPartial("Adverts");
+}
