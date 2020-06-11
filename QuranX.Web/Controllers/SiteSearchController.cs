@@ -41,16 +41,25 @@ namespace QuranX.Web.Controllers
 			}
 
 			int totalResults = 0;
+			bool badQuery = false;
 			IEnumerable<SearchResultWithLink> searchResultsWithLink = null;
-			if (!string.IsNullOrWhiteSpace(q))
+			try
 			{
-				IEnumerable<SearchResult> searchResults =
-					SearchEngine.Search(q, context, subContext, out totalResults);
-				searchResultsWithLink =
-					searchResults.Select(SearchResultWithLinkFactory.Create);
+				if (!string.IsNullOrWhiteSpace(q))
+				{
+					IEnumerable<SearchResult> searchResults =
+						SearchEngine.Search(q, context, subContext, out totalResults);
+					searchResultsWithLink =
+						searchResults.Select(SearchResultWithLinkFactory.Create);
+				}
+			}
+			catch (Lucene.Net.QueryParsers.ParseException)
+			{
+				searchResultsWithLink = new List<SearchResultWithLink>();
+				badQuery = true;
 			}
 			List<SelectListItem> contextItems = CreateContextItems(context);
-			var viewModel = new ViewModel(q, contextItems, searchResultsWithLink, totalResults);
+			var viewModel = new ViewModel(q, contextItems, searchResultsWithLink, totalResults, badQuery);
 			return View("SiteSearch", viewModel);
 		}
 

@@ -49,7 +49,7 @@ namespace QuranX.Web.Controllers
 			if (referenceDefinition == null && referenceCode.Contains("-"))
 				return RedirectForMissingIndexCode(collectionCode, referenceCode, collection, referencePartNamesAndValues, referencePartNames, ref referenceDefinition);
 
-			if (referenceDefinition == null || !referenceDefinition.PatternMatch(referencePartNames))
+			if (referenceDefinition == null ||	!referenceDefinition.PatternMatch(referencePartNames))
 				return HttpNotFound();
 
 			IEnumerable<(int value, string suffix)> referenceValues =

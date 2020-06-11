@@ -19,7 +19,15 @@
         </div>
     </div>
 }
-@if (Model.SearchResults != null)
+@if (Model.BadQuery)
+{
+    <h2>Error</h2>
+    <h3>
+      Sorry, we were unable to understand your query. This could be because you have an opening &quot; without a closing
+      &quot; or an opening bracket without a closing bracket.
+    </h3>
+}
+@if (!Model.BadQuery && Model.SearchResults != null)
 {
     int resultNumber = 0;
     if (Model.TotalResults == 0)
