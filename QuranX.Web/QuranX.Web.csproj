@@ -216,6 +216,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="ads.txt" />
     <Content Include="apple-touch-icon.png" />
     <Content Include="App_Data\segments.gen" />
     <Content Include="App_Data\segments_2" />
