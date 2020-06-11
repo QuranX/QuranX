@@ -38,10 +38,9 @@ namespace QuranX.Web.Controllers
 			{
 				foreach (VerseAnalysisWord analysisWord in verseAnalysis.Words)
 				{
-					VerseAnalysisWordPart wordPart =
-						analysisWord.WordParts
-						.SingleOrDefault(x => x.Root == root);
-					if (wordPart != null)
+					IEnumerable<VerseAnalysisWordPart> wordParts =
+						analysisWord.WordParts.Where(x => x.Root == root);
+					foreach(VerseAnalysisWordPart wordPart in wordParts)
 					{
 						VerseViewModel extract =
 							CreateVerseViewModel(verseAnalysis, analysisWord, wordPart);
