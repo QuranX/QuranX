@@ -1,10 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
+using System.Security.Cryptography.X509Certificates;
 using System.Web.Mvc;
 using QuranX.Persistence.Models;
 using QuranX.Persistence.Services.Repositories;
 using QuranX.Shared;
+using QuranX.Web.Helpers;
 using QuranX.Web.Views.RootAnalysis;
 
 namespace QuranX.Web.Controllers
@@ -81,7 +84,9 @@ namespace QuranX.Web.Controllers
 				DictionaryEntryRepository.Get(root);
 			IEnumerable<Dictionary> dictionaries =
 				dictionaryEntries
-				.Select(x => DictionaryRepository.Get(x.DictionaryCode))
+				.Select(x => x.DictionaryCode)
+				.Distinct()
+				.Select(DictionaryRepository.Get)
 				.OrderBy(x => x.Name);
 
 			var viewModel = new ViewModel(

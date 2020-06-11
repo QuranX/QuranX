@@ -184,6 +184,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\ObjectEqualityComparer.cs" />
     <Compile Include="Models\ChapterAndVerseReferenceSelection.cs" />
     <Compile Include="Models\ChapterAndVerseSelection.cs" />
     <Compile Include="Models\CommentariesForVerse.cs" />
