@@ -7,12 +7,19 @@
     ViewBag.Title = $"{Model.HadithIndexHeaderViewModel.Collection.Name} Hadiths";
 }
 
+<<<<<<< HEAD
 @{
     Html.RenderPartial("HadithIndexHeader", Model.HadithIndexHeaderViewModel);
     if (@Model.Hadiths.Count() != 1)
     {
-	<h4 class="hadith__reference-count">@Model.Hadiths.Count() @hadithsTitle</h4>
+        <h4>@Model.Hadiths.Count() @hadithsTitle</h4>
     }
+=======
+@Html.Partial("HadithIndexHeader", Model.HadithIndexHeaderViewModel)
+@if (@Model.Hadiths.Count() != 1)
+{
+	<h4 class="hadith__reference-count">@Model.Hadiths.Count() @hadithsTitle</h4>
+>>>>>>> f65b24df07f10615bf82891159f68be718c5120a
 }
 @{
     foreach (HadithViewModel hadithVM in Model.Hadiths)

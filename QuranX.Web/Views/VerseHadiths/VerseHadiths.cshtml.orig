@@ -12,14 +12,20 @@
     </a>
 </h2>
 <h3>@Model.Chapter.EnglishName - @Model.Chapter.ArabicName</h3>
+<<<<<<< HEAD
 @{
     if (Model.Hadiths.Count() != 1)
     {
-	<h4 class="hadith__reference-count">@Model.Hadiths.Count() @hadithsTitle</h4>
+        <h4>@Model.Hadiths.Count() @hadithsTitle</h4>
     }
     foreach (HadithViewModel hadithVM in Model.Hadiths)
     {
         Html.RenderPartial("HadithView", hadithVM);
     }
+=======
+@if (Model.Hadiths.Count() != 1)
+{
+	<h4 class="hadith__reference-count">@Model.Hadiths.Count() @hadithsTitle</h4>
+>>>>>>> f65b24df07f10615bf82891159f68be718c5120a
 }
 @{ Html.RenderPartial("Adverts"); }

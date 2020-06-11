@@ -611,6 +611,12 @@ dl.boxed > dd {
     padding: 2px;
 }
 
+.hadith__reference-count {
+	/*Col:H1*/
+	color: hsl(69, 39.2%, 44.5%);
+	font-weight: bold;
+}
+
 .hadith__text {
     padding: 0.25rem;
     margin: 0px;
