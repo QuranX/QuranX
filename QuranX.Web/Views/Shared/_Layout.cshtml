@@ -6,8 +6,6 @@
 	<title>@ViewBag.Title</title>
 	@Styles.Render("~/Content/css")
 	@Scripts.Render("~/bundles/jquery")
-	@Scripts.Render("~/bundles/modernizr")
-	@Scripts.Render("~/bundles/site")
 	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-42308840-1"></script>
 	<script>
 		window.dataLayer = window.dataLayer || [];
@@ -53,8 +51,9 @@
 		@RenderBody()
 	</div>
 
-	@Scripts.Render("~/bundles/jquery")
 	@Scripts.Render("~/bundles/bootstrap")
+	@Scripts.Render("~/bundles/modernizr")
+	@Scripts.Render("~/bundles/site")
 	@RenderSection("scripts", required: false)
 </body>
 </html>
