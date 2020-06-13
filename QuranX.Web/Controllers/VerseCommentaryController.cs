@@ -29,7 +29,10 @@ namespace QuranX.Web.Controllers
 
 		public ActionResult Index(string commentatorCode, int chapterNumber, int verseNumber)
 		{
-			Commentator commentator = CommentatorRepository.Get(commentatorCode);
+
+			if (!CommentatorRepository.TryGet(commentatorCode, out Commentator commentator))
+				return HttpNotFound();
+
 			Commentary commentary = CommentaryRepository.GetForVerse(
 				commentatorCode: commentatorCode,
 				chapterNumber: chapterNumber,
@@ -40,7 +43,8 @@ namespace QuranX.Web.Controllers
 					chapterNumber: chapterNumber,
 					firstVerseNumber: verseNumber,
 					lastVerseNumber: verseNumber,
-					text: new [] { new TextContent("No tafsir found for this verse", false)});
+					text: new[] { new TextContent("No tafsir found for this verse", false) });
+
 			var commentatorAndCommentary = new CommentatorAndCommentary(
 				commentator: commentator,
 				commentary: commentary);

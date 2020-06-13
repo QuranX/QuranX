@@ -10,7 +10,7 @@ namespace QuranX.Persistence.Services.Repositories
 	public interface ICommentatorRepository
 	{
 		IEnumerable<Commentator> GetAll();
-		Commentator Get(string commentatorCode);
+		bool TryGet(string commentatorCode, out Commentator commentator);
 	}
 
 	public class CommentatorRepository : ICommentatorRepository
@@ -25,10 +25,10 @@ namespace QuranX.Persistence.Services.Repositories
 			IndexSearcherProvider = indexSearcherProvider;
 		}
 
-		public Commentator Get(string commentatorCode)
+		public bool TryGet(string commentatorCode, out Commentator commentator)
 		{
 			EnsureData();
-			return CommentatorByCode[commentatorCode];
+			return CommentatorByCode.TryGetValue(commentatorCode, out commentator);
 		}
 
 		public IEnumerable<Commentator> GetAll()
