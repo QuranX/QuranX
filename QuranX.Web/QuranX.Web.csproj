@@ -218,6 +218,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="ads.txt" />
+    <Content Include="android-chrome-192x192.png" />
+    <Content Include="android-chrome-256x256.png" />
     <Content Include="apple-touch-icon.png" />
     <Content Include="App_Data\segments.gen" />
     <Content Include="App_Data\segments_2" />
@@ -233,6 +235,7 @@
     <Content Include="App_Data\_5.prx" />
     <Content Include="App_Data\_5.tii" />
     <Content Include="App_Data\_5.tis" />
+    <Content Include="browserconfig.xml" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
@@ -17855,12 +17858,16 @@
     <Content Include="Content\Images\HeaderRepeat.jpg" />
     <Content Include="Content\Images\QuranX.png" />
     <Content Include="Content\Images\QuranXSocialIcon.png" />
+    <Content Include="favicon-16x16.png" />
+    <Content Include="favicon-32x32.png" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="googled30b8dc6eaddea95.html" />
+    <Content Include="mstile-150x150.png" />
     <Content Include="robots.txt" />
+    <Content Include="safari-pinned-tab.svg" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="ApplicationInsights.config">
@@ -17947,6 +17954,7 @@
       <BrowseToURL>~/Dictionary/Lane/مهد</BrowseToURL>
     </Content>
     <Content Include="Views\Shared\Adverts.cshtml" />
+    <Content Include="site.webmanifest" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

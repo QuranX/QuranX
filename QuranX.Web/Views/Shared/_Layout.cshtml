@@ -1,52 +1,60 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title</title>
-    @Styles.Render("~/Content/css")
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/modernizr")
-    @Scripts.Render("~/bundles/site")
-    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-42308840-1"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag() { dataLayer.push(arguments); }
-        gtag('js', new Date());
-        gtag('config', 'UA-42308840-1');
-    </script>
-    <meta property="og:image" content="https://QuranX.com/Content/Images/QuranXSocialIcon.png" />
-    <meta property="og:title" content="QuranX.com The most complete Quran / Hadith / Tafsir collection available!" />
-    <meta property="og:url" content="https://QuranX.com@(Request.RawUrl)" />
-    <meta property="og:type" content="website" />
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>@ViewBag.Title</title>
+	@Styles.Render("~/Content/css")
+	@Scripts.Render("~/bundles/jquery")
+	@Scripts.Render("~/bundles/modernizr")
+	@Scripts.Render("~/bundles/site")
+	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-42308840-1"></script>
+	<script>
+		window.dataLayer = window.dataLayer || [];
+		function gtag() { dataLayer.push(arguments); }
+		gtag('js', new Date());
+		gtag('config', 'UA-42308840-1');
+	</script>
+	<meta property="og:image" content="https://QuranX.com/Content/Images/QuranXSocialIcon.png" />
+	<meta property="og:title" content="QuranX.com The most complete Quran / Hadith / Tafsir collection available!" />
+	<meta property="og:url" content="https://QuranX.com@(Request.RawUrl)" />
+	<meta property="og:type" content="website" />
+
+	<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+	<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+	<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+	<link rel="manifest" href="/site.webmanifest">
+	<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+	<meta name="msapplication-TileColor" content="#da532c">
+	<meta name="theme-color" content="#ffffff">
 </head>
 <body>
-    <div class="quranx navbar navbar-inverse navbar-fixed-top">
-        <div>
-            <div class="quranx navbar-header">
-                <button type="button" class="quranx navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    MENU
-                </button>
-                <a href="https://www.patreon.com/QuranX" class="quranx navbar-brand">Donate</a>
-            </div>
-            <div class="quranx navbar-collapse collapse">
-                <ul class="quranx nav navbar-nav">
-                    <li><a href="/1.1">Quran</a></li>
-                    <li>@Html.RouteLink("Commentaries", "Commentators")</li>
-                    <li>@Html.RouteLink("Hadiths", "HadithCollections")</li>
-                    <li>@Html.RouteLink("Search", "SiteSearch")</li>
-                    <li>@Html.RouteLink("Help", "Help")</li>
-                    <li>@Html.RouteLink("About", "About")</li>
-                </ul>
-            </div>
-        </div>
-    </div>
-    <div class="container-fluid body-content">
-        @RenderBody()
-    </div>
+	<div class="quranx navbar navbar-inverse navbar-fixed-top">
+		<div>
+			<div class="quranx navbar-header">
+				<button type="button" class="quranx navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+					MENU
+				</button>
+				<a href="https://www.patreon.com/QuranX" class="quranx navbar-brand">Donate</a>
+			</div>
+			<div class="quranx navbar-collapse collapse">
+				<ul class="quranx nav navbar-nav">
+					<li><a href="/1.1">Quran</a></li>
+					<li>@Html.RouteLink("Commentaries", "Commentators")</li>
+					<li>@Html.RouteLink("Hadiths", "HadithCollections")</li>
+					<li>@Html.RouteLink("Search", "SiteSearch")</li>
+					<li>@Html.RouteLink("Help", "Help")</li>
+					<li>@Html.RouteLink("About", "About")</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<div class="container-fluid body-content">
+		@RenderBody()
+	</div>
 
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
-    @RenderSection("scripts", required: false)
+	@Scripts.Render("~/bundles/jquery")
+	@Scripts.Render("~/bundles/bootstrap")
+	@RenderSection("scripts", required: false)
 </body>
 </html>
