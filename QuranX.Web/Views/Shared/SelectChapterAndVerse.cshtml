@@ -439,8 +439,12 @@
 				.remove()
 				.end();
 			var versesToInclude = versesForChapter[selectedChapterNumber];
-			for (var index = 0; index < versesToInclude.length; index++) {
-				verseNumberElement.append('<option>' + versesToInclude[index] + '</option>');
+			if (!versesToInclude) {
+				selectedVerseNumber = null;
+			} else {
+				for (var index = 0; index < versesToInclude.length; index++) {
+					verseNumberElement.append('<option>' + versesToInclude[index] + '</option>');
+				}
 			}
 			verseNumberElement.val(selectedVerseNumber);
 			selectedVerseNumber = null;
