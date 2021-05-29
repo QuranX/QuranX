@@ -58,6 +58,79 @@
     padding: 4px 0px;
 }
 
+#zakat-container {
+    position: fixed;
+    top: 0;
+    right: calc(50% - 4em);
+    width: 8em;
+    height: 8em;
+    display: flex;
+    padding: 0;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    background-color: hsl(67, 45.7%, 61.0%);
+    border-radius: 50%;
+    border: 4px solid white;
+    overflow: hidden;
+}
+
+@media (min-width: 768px) {
+    #zakat-container {
+        right: 0;
+    }
+}
+
+#zakat-container a {
+    text-decoration: none;
+}
+
+#zakat-container .subhan-Allah {
+    position: absolute;
+    margin-left: -40%;
+    margin-top: -40%;
+    opacity: 0.2;
+    top: 50%;
+    left: 50%;
+    height: 80%;
+    z-index: -1;
+    animation-name: pulse-subhan-Allah;
+    animation-duration: 3s;
+    animation-iteration-count: infinite;
+}
+
+@keyframes pulse-subhan-Allah {
+    0% {
+        opacity:0.7;
+        transform: scale(1);
+    }
+    50% {
+        opacity: 0.7;
+        transform: scale(1);
+    }
+    60% {
+        opacity: 1;
+        transform: scale(1.025);
+    }
+    90% {
+        opacity: 1;
+        transform: scale(1.025);
+    }
+    100% {
+        opacity: 0.7;
+        transform: scale(1);
+    }
+}
+
+#zakat-container .donate-text {
+    color: white;
+    text-align: center;
+    font-size : 1.5em;
+    font-weight: bold;
+    text-shadow: 2px 2px 2px black;
+}
+
+
 .arabic {
     font-size: 2.5rem;
     vertical-align: bottom;
@@ -839,7 +912,16 @@ body {
 .body-content {
     padding-left: 15px;
     padding-right: 15px;
+    margin-bottom: 8em;
+    padding-top: 4em;
 }
+
+@media (min-width: 768px) {
+    .body-content {
+        padding-top: 0em;
+    }
+}
+
 
 /* Override the default bootstrap behavior where horizontal description lists 
    will truncate terms that are too long to fit in the left column 
