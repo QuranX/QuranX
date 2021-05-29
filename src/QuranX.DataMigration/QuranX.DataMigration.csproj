@@ -154,7 +154,7 @@
       <Name>QuranX.DocumentModel</Name>
     </ProjectReference>
     <ProjectReference Include="..\QuranX.Persistence\QuranX.Persistence.csproj">
-      <Project>{0b2f8e4b-1fbf-4639-9b18-9f441c9a5ccc}</Project>
+      <Project>{8d1dc2cd-c47f-4176-b473-3817cdcb3330}</Project>
       <Name>QuranX.Persistence</Name>
     </ProjectReference>
     <ProjectReference Include="..\QuranX.Shared\QuranX.Shared.csproj">
