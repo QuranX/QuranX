@@ -58,7 +58,7 @@
     padding: 4px 0px;
 }
 
-#zakat-container {
+#donate-container {
     position: fixed;
     top: 0;
     right: calc(50% - 4em);
@@ -76,16 +76,16 @@
 }
 
 @media (min-width: 768px) {
-    #zakat-container {
+    #donate-container {
         right: 0;
     }
 }
 
-#zakat-container a {
+#donate-container a {
     text-decoration: none;
 }
 
-#zakat-container .subhan-Allah {
+#donate-container .subhan-Allah {
     position: absolute;
     margin-left: -40%;
     margin-top: -40%;
@@ -122,7 +122,7 @@
     }
 }
 
-#zakat-container .donate-text {
+#donate-container .donate-text {
     color: white;
     text-align: center;
     font-size : 1.5em;
