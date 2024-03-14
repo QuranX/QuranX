@@ -10,6 +10,9 @@ allow: *
 User-agent: Googlebot
 allow: *
 
+User-agent: ChatGPTBrowser
+Allow: /
+
 User-agent: Mediapartners-Google
 allow: *
 
