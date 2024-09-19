@@ -22,7 +22,7 @@ namespace QuranX.Persistence.Extensions
 			Expression<Func<TObj, string>> expression)
 		{
 			string name = ExpressionExtensions.GetIndexName(expression);
-			string value = document.GetField(name)?.StringValue;
+			string value = document.GetField(name)?.GetStringValue();
 			return value;
 		}
 
@@ -31,18 +31,18 @@ namespace QuranX.Persistence.Extensions
 			Expression<Func<TObj, int>> expression)
 		{
 			string name = ExpressionExtensions.GetIndexName(expression);
-			string value = document.GetField(name)?.StringValue ?? "0";
+			string value = document.GetField(name)?.GetStringValue() ?? "0";
 			return int.Parse(value);
 		}
 
-		public static Document Index<TObj>(
+		public static Field Index<TObj>(
 			this Document document,
 			TObj instance,
 			Expression<Func<TObj, string>> expression)
 		{
 			expression.GetIndexNameAndPropertyValue(instance, out string name, out string value);
-			Add(document, name, value, IndexKind.Index);
-			return document;
+			Field field = Add(document, name, value, IndexKind.Index);
+			return field;
 		}
 
 		public static Document IndexArray(
@@ -63,7 +63,7 @@ namespace QuranX.Persistence.Extensions
 			return document.IndexArray(name, values);
 		}
 
-		public static Document StoreAndIndex<TObj>(
+		public static Field StoreAndIndex<TObj>(
 			this Document document,
 			TObj instance,
 			Expression<Func<TObj, string>> expression,
@@ -72,8 +72,11 @@ namespace QuranX.Persistence.Extensions
 			expression.GetIndexNameAndPropertyValue(instance, out string name, out string value);
 			transform = transform ?? new Func<string, string>(x => x);
 			if (value != null)
-				Add(document, name, transform(value), IndexKind.StoreAndIndex);
-			return document;
+			{
+				Field field = Add(document, name, transform(value), IndexKind.StoreAndIndex);
+				return field;
+			}
+			return null;
 		}
 
 		public static Document StoreAndIndex<TObj>(
@@ -102,13 +105,16 @@ namespace QuranX.Persistence.Extensions
 			string indexName,
 			int value)
 		{
-			var field =
-				new NumericField(
-					name: indexName,
-					precisionStep: 1,
-					store: Field.Store.YES,
-					index: true)
-				.SetIntValue(value);
+			var fieldType = new FieldType {
+				IsStored = true,
+				IsIndexed = true,
+				IsTokenized = false,
+				NumericType = NumericType.INT32,
+				NumericPrecisionStep = 1 // Set precision step to 1
+			};
+			fieldType.Freeze();
+
+			Field field = new Int32Field(indexName, value, fieldType);
 			document.Add(field);
 			return document;
 		}
@@ -122,23 +128,23 @@ namespace QuranX.Persistence.Extensions
 			return document;
 		}
 
-		public static Document AddSearchableText(this Document document, string text)
+		public static Document AddSearchableText(this Document document, string text, float boostValue)
 		{
 			if (text == null)
 				throw new ArgumentNullException(nameof(text));
 
-			Add(document, Consts.FullTextFieldName, text, IndexKind.FullText);
+			Add(document, Consts.FullTextFieldName, text, IndexKind.FullText, boostValue);
 			return document;
 		}
 
-		public static Document AddSearchableText(this Document document, IEnumerable<string> texts)
+		public static Document AddSearchableText(this Document document, IEnumerable<string> texts, float boostValue)
 		{
 			if (texts == null)
 				throw new ArgumentNullException(nameof(texts));
 
 			foreach (string text in texts)
 			{
-				AddSearchableText(document, text);
+				document.AddSearchableText(text, boostValue);
 			}
 
 			return document;
@@ -159,21 +165,51 @@ namespace QuranX.Persistence.Extensions
 			return result;
 		}
 
-		private static void Add(Document document, string fieldName, string value, IndexKind indexKind)
+		private static Field Add(Document document, string fieldName, string value, IndexKind indexKind, float boostValue = 1.0f)
 		{
 			if (value == null)
-				return;
+				return null;
 
 			bool fullText = indexKind.HasFlag(IndexKind.FullText);
 			bool store = fullText || indexKind.HasFlag(IndexKind.Store);
 			bool index = fullText || indexKind.HasFlag(IndexKind.Index);
-			var field = new Field(
-				name: fieldName,
-				value: value,
-				store: store ? Field.Store.YES : Field.Store.NO,
-				index: index ? Field.Index.ANALYZED : Field.Index.NO,
-				termVector: fullText ? Field.TermVector.WITH_POSITIONS_OFFSETS : Field.TermVector.NO);
+
+			Field field;
+
+			if (fullText)
+			{
+				// For full-text fields, use TextField and enable term vectors
+				var fieldType = new FieldType(TextField.TYPE_NOT_STORED) {
+					IsStored = store,
+					IsIndexed = index,
+					IsTokenized = true,
+					StoreTermVectors = true,
+					StoreTermVectorPositions = true,
+					StoreTermVectorOffsets = true
+				};
+				fieldType.Freeze();
+
+				field = new Field(fieldName, value, fieldType) {
+					Boost = boostValue
+				};
+			}
+			else
+			{
+				// For other fields, use StringField or TextField based on whether tokenization is needed
+				if (index)
+				{
+					field = new TextField(fieldName, value, store ? Field.Store.YES : Field.Store.NO) {
+						Boost = boostValue
+					};
+				}
+				else
+				{
+					field = new StringField(fieldName, value, store ? Field.Store.YES : Field.Store.NO);
+				}
+			}
+
 			document.Add(field);
+			return field;
 		}
 	}
 }

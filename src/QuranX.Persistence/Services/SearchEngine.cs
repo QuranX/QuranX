@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Lucene.Net.QueryParsers;
+using Lucene.Net.Analysis;
+using Lucene.Net.QueryParsers.Classic;
 using Lucene.Net.Search;
-using Lucene.Net.Search.Vectorhighlight;
+using Lucene.Net.Search.VectorHighlight;
+using Lucene.Net.Util;
 using QuranX.Persistence.Models;
 
 namespace QuranX.Persistence.Services
@@ -27,7 +29,6 @@ namespace QuranX.Persistence.Services
 			ILuceneAnalyzerProvider analyzerProvider,
 			ILuceneIndexSearcherProvider searcherProvider)
 		{
-			SimpleFragListBuilder.MARGIN = 32;
 			AnalyzerProvider = analyzerProvider;
 			SearcherProvider = searcherProvider;
 		}
@@ -47,30 +48,26 @@ namespace QuranX.Persistence.Services
 			queryString = AddContextCriteria(queryString, context, subContext);
 
 			IndexSearcher indexSearcher = SearcherProvider.GetIndexSearcher();
-			var analyser = AnalyzerProvider.GetAnalyzer();
-			var queryParser = new QueryParser(
-				Lucene.Net.Util.Version.LUCENE_30,
-				Consts.FullTextFieldName,
-				analyser);
-			queryParser.AllowLeadingWildcard = true;
-			queryParser.DefaultOperator = QueryParser.Operator.AND;
+			Analyzer analyzer = AnalyzerProvider.GetAnalyzer();
 
-			var query = queryParser.Parse(queryString);
+			var queryParser = new QueryParser(Consts.LuceneVersion, Consts.FullTextFieldName, analyzer) {
+				AllowLeadingWildcard = true,
+				DefaultOperator = Operator.AND
+			};
 
-			var resultsCollector = TopScoreDocCollector.Create(
-				numHits: 9999,
-				docsScoredInOrder: true
-			);
-			indexSearcher.Search(
-				query: query,
-				results: resultsCollector
-			);
-			totalResults = resultsCollector.TotalHits;
+			Query query = queryParser.Parse(queryString);
+
+			// Perform the search and get the top documents
+			TopDocs topDocs = indexSearcher.Search(query, 9999);
+			totalResults = topDocs.TotalHits;
+
 			var result = new List<SearchResult>();
 
+			// Initialize the highlighter
 			var highlighter = new FastVectorHighlighter();
-			var fieldQuery = highlighter.GetFieldQuery(query);
-			foreach (var scoreDoc in resultsCollector.TopDocs().ScoreDocs.Take(maxResults))
+			FieldQuery fieldQuery = highlighter.GetFieldQuery(query);
+
+			foreach (var scoreDoc in topDocs.ScoreDocs.Take(maxResults))
 			{
 				string[] fragments = highlighter.GetBestFragments(
 					fieldQuery: fieldQuery,
@@ -79,6 +76,7 @@ namespace QuranX.Persistence.Services
 					fieldName: Consts.FullTextFieldName,
 					fragCharSize: 100,
 					maxNumFragments: 5);
+
 				var doc = indexSearcher.Doc(scoreDoc.Doc);
 				var searchResult = new SearchResult(
 					type: doc.Get(Consts.SerializedObjectTypeFieldName),
@@ -87,6 +85,7 @@ namespace QuranX.Persistence.Services
 				);
 				result.Add(searchResult);
 			}
+
 			return result;
 		}
 

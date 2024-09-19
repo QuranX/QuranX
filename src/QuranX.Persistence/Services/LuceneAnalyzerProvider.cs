@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using Lucene.Net.Analysis;
-using Lucene.Net.Analysis.AR;
+﻿using Lucene.Net.Analysis;
 using QuranX.Persistence.LuceneSupport;
 
 namespace QuranX.Persistence.Services
