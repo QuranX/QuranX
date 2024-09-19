@@ -37,8 +37,6 @@ namespace QuranX.Persistence.Extensions
 		{
 			if (value != null)
 			{
-				value = value.ToUpperInvariant();
-
 				var term = new Term(indexName, value);
 				var subQuery = new TermQuery(term);
 				instance.Add(subQuery, occur);
