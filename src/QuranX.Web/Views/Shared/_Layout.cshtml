@@ -10,6 +10,8 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title</title>
+    <link rel="stylesheet" href="/bootstrap.css" />
+    <link rel="stylesheet" href="/site.css" />
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-680HEFB03Z"></script>
     <script>
@@ -19,7 +21,7 @@
  
       gtag('config', 'G-680HEFB03Z');
     </script>
-    <meta property="og:image" content="https://QuranX.com/Content/Images/QuranXSocialIcon.png" />
+    <meta property="og:image" content="https://QuranX.com/Images/QuranXSocialIcon.png" />
     <meta property="og:title" content="QuranX.com The most complete Quran / Hadith / Tafsir collection available!" />
     <meta property="og:url" content="https://QuranX.com@(currentUrl)" />
     <meta property="og:type" content="website" />
@@ -35,7 +37,7 @@
 <body>
     <div id="donate-container" href="https://www.patreon.com/QuranX">
         <a href="https://www.patreon.com/QuranX" class="quranx navbar-brand">
-            <img class="subhan-Allah" src="~/Content/Images/SubhanAllah.png" />
+            <img class="subhan-Allah" src="~/Images/SubhanAllah.png" />
             <div class="donate-text">
                 Donate
             </div>
@@ -64,6 +66,14 @@
         @RenderBody()
     </div>
 
-    @RenderSection("scripts", required: false)
+    <script src="~/Scripts/jquery-3.3.1.js"></script>
+    <script src="~/Scripts/jquery.validate.js"></script>
+    <script src="~/Scripts/jquery.highlight.js"></script>
+    <script src="~/Scripts/bootstrap.js"></script>
+    <script src="~/Scripts/modernizr-2.8.3.js"></script>
+    <script src="~/Scripts/quranx.autohighlight.js"></script>
+    <script src="~/Scripts/quranx.hash-url-fixer.js"></script>
+    <script src="~/Scripts/quranx.verse-counts.js"></script>
+    <script src="~/Scripts/quranx.verse-translations.js"></script>
 </body>
 </html>
