@@ -2,7 +2,6 @@
 using System.Linq.Expressions;
 using Lucene.Net.Analysis.Standard;
 using Lucene.Net.Index;
-using Lucene.Net.QueryParsers;
 using Lucene.Net.QueryParsers.Classic;
 using Lucene.Net.Search;
 using QuranX.Persistence.Services;
@@ -13,7 +12,7 @@ namespace QuranX.Persistence.Extensions
 	{
 		public static BooleanQuery FilterByType<T>(this BooleanQuery instance)
 		{
-			var term = new Term(Consts.SerializedObjectTypeFieldName, typeof(T).Name.ToLowerInvariant());
+			var term = new Term(Consts.SerializedObjectTypeFieldName, typeof(T).Name);
 			var query = new PhraseQuery();
 			query.Add(term);
 			instance.Add(query, Occur.MUST);
