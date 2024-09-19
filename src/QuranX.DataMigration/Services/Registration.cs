@@ -53,8 +53,8 @@ namespace QuranX.DataMigration.Services
 		private static string GetAppDirectory()
 		{
 			string xmlDataPath = Assembly.GetExecutingAssembly().Location;
-			string appName = Path.GetFileNameWithoutExtension(xmlDataPath).ToLowerInvariant();
-			int index = xmlDataPath.ToLowerInvariant().IndexOf(appName);
+			string appName = Path.GetFileNameWithoutExtension(xmlDataPath).ToUpperInvariant();
+			int index = xmlDataPath.ToUpperInvariant().IndexOf(appName);
 			xmlDataPath = xmlDataPath.Substring(0, index + appName.Length);
 			return xmlDataPath;
 		}

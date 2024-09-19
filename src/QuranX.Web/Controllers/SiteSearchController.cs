@@ -31,7 +31,7 @@ namespace QuranX.Web.Controllers
 
 		public ActionResult Index(string q, string context)
 		{
-			context = (context ?? "").ToLowerInvariant();
+			context = (context ?? "").ToUpperInvariant();
 			string subContext = null;
 
 			string[] contextParts = context.Split('-');

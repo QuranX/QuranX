@@ -150,7 +150,7 @@ namespace QuranX.DocumentModel
 
 		public override int GetHashCode()
 		{
-			string fullKey = (Code + ToString()).ToLower();
+			string fullKey = (Code + ToString()).ToUpperInvariant();
 			int result = fullKey.GetHashCode();
 			return result;
 		}

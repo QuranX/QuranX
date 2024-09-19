@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace QuranX.DocumentModel.Factories
+﻿namespace QuranX.DocumentModel.Factories
 {
-    public class LexiconDocumentFactory
+	public class LexiconDocumentFactory
     {
         public LexiconDocument Create(string generatedLexiconsXmlDirectory)
         {
