@@ -63,7 +63,7 @@ namespace QuranX.Persistence.Extensions
 			return document.IndexArray(name, values);
 		}
 
-		public static Field StoreAndIndex<TObj>(
+		public static Document StoreAndIndex<TObj>(
 			this Document document,
 			TObj instance,
 			Expression<Func<TObj, string>> expression,
@@ -74,7 +74,7 @@ namespace QuranX.Persistence.Extensions
 			if (value != null)
 			{
 				Field field = Add(document, name, transform(value), IndexKind.StoreAndIndex);
-				return field;
+				return document;
 			}
 			return null;
 		}
