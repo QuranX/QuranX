@@ -74,9 +74,8 @@ namespace QuranX.Persistence.Extensions
 			if (value != null)
 			{
 				Field field = Add(document, name, transform(value), IndexKind.StoreAndIndex);
-				return document;
 			}
-			return null;
+			return document;
 		}
 
 		public static Document StoreAndIndex<TObj>(
@@ -193,23 +192,22 @@ namespace QuranX.Persistence.Extensions
 					Boost = boostValue
 				};
 			}
+			else if (index)
+			{
+				// Indexed but not full-text (not tokenized)
+				field = new StringField(fieldName, value, store ? Field.Store.YES : Field.Store.NO) {
+					Boost = boostValue
+				};
+			}
 			else
 			{
-				// For other fields, use StringField or TextField based on whether tokenization is needed
-				if (index)
-				{
-					field = new TextField(fieldName, value, store ? Field.Store.YES : Field.Store.NO) {
-						Boost = boostValue
-					};
-				}
-				else
-				{
-					field = new StringField(fieldName, value, store ? Field.Store.YES : Field.Store.NO);
-				}
+				// Stored but not indexed
+				field = new StoredField(fieldName, value);
 			}
 
 			document.Add(field);
 			return field;
 		}
+
 	}
 }
