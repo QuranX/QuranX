@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Lucene.Net.Analysis;
+using Lucene.Net.Index;
 using Lucene.Net.QueryParsers.Classic;
 using Lucene.Net.Search;
 using Lucene.Net.Search.VectorHighlight;
@@ -45,8 +46,6 @@ namespace QuranX.Persistence.Services
 			if (string.IsNullOrWhiteSpace(queryString))
 				return new List<SearchResult>();
 
-			queryString = AddContextCriteria(queryString, context, subContext);
-
 			IndexSearcher indexSearcher = SearcherProvider.GetIndexSearcher();
 			Analyzer analyzer = AnalyzerProvider.GetAnalyzer();
 
@@ -55,17 +54,18 @@ namespace QuranX.Persistence.Services
 				DefaultOperator = Operator.AND
 			};
 
-			Query query = queryParser.Parse(queryString);
+			Query mainQuery = queryParser.Parse(queryString);
+			BooleanQuery contextQuery = AddContextCriteria(mainQuery, context, subContext);
 
 			// Perform the search and get the top documents
-			TopDocs topDocs = indexSearcher.Search(query, 9999);
+			TopDocs topDocs = indexSearcher.Search(contextQuery, 9999);
 			totalResults = topDocs.TotalHits;
 
 			var result = new List<SearchResult>();
 
 			// Initialize the highlighter
 			var highlighter = new FastVectorHighlighter();
-			FieldQuery fieldQuery = highlighter.GetFieldQuery(query);
+			FieldQuery fieldQuery = highlighter.GetFieldQuery(contextQuery);
 
 			foreach (var scoreDoc in topDocs.ScoreDocs.Take(maxResults))
 			{
@@ -89,32 +89,52 @@ namespace QuranX.Persistence.Services
 			return result;
 		}
 
-		private string AddContextCriteria(string queryString, string context, string subContext)
+
+		private BooleanQuery AddContextCriteria(Query mainQuery, string context, string subContext)
 		{
+			BooleanQuery booleanQuery = new BooleanQuery
+			{
+				{ mainQuery, Occur.MUST }
+			};
+
 			if (string.IsNullOrWhiteSpace(context))
-				return queryString;
+				return booleanQuery;
 
 			switch (context)
 			{
 				case SearchContexts.Quran:
-					string quranCriteria = $"{Consts.SerializedObjectTypeFieldName}:{nameof(Verse)}";
-					return $"{quranCriteria} AND {queryString}";
+					var quranCriteria = new TermQuery(new Term(Consts.SerializedObjectTypeFieldName, nameof(Verse)));
+					booleanQuery.Add(quranCriteria, Occur.MUST);
+					break;
 
 				case SearchContexts.Commentaries:
-					string commentariesCriteria = $"{Consts.SerializedObjectTypeFieldName}:{nameof(Commentary)}";
+					var commentariesCriteria = new TermQuery(new Term(Consts.SerializedObjectTypeFieldName, nameof(Commentary)));
+					booleanQuery.Add(commentariesCriteria, Occur.MUST);
+
 					if (!string.IsNullOrWhiteSpace(subContext))
-						queryString += $" AND {nameof(Commentary)}_{nameof(Commentary.CommentatorCode)}:{subContext}";
-					return $"{commentariesCriteria} AND {queryString}";
+					{
+						var subContextCriteria = new TermQuery(new Term($"{nameof(Commentary)}_{nameof(Commentary.CommentatorCode)}", subContext));
+						booleanQuery.Add(subContextCriteria, Occur.MUST);
+					}
+					break;
 
 				case SearchContexts.Hadiths:
-					string hadithsCriteria = $"{Consts.SerializedObjectTypeFieldName}:{nameof(Hadith)}";
+					var hadithsCriteria = new TermQuery(new Term(Consts.SerializedObjectTypeFieldName, nameof(Hadith)));
+					booleanQuery.Add(hadithsCriteria, Occur.MUST);
+
 					if (!string.IsNullOrWhiteSpace(subContext))
-						queryString += $" AND {nameof(Hadith)}_{nameof(Hadith.CollectionCode)}:{subContext}";
-					return $"{hadithsCriteria} AND {queryString}";
+					{
+						var subContextCriteria = new TermQuery(new Term($"{nameof(Hadith)}_{nameof(Hadith.CollectionCode)}", subContext));
+						booleanQuery.Add(subContextCriteria, Occur.MUST);
+					}
+					break;
 
 				default:
 					throw new ArgumentException($"Unknown context {context} {subContext}", nameof(context));
 			}
+
+			return booleanQuery;
 		}
+
 	}
 }
