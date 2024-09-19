@@ -1,12 +1,12 @@
 ﻿using System.Text;
 using Microsoft.AspNetCore.Html;
-using Microsoft.AspNetCore.Mvc.ViewFeatures;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace QuranX.Web.Extensions
 {
 	public static class HtmlHelperExtensions
 	{
-		public static string GetHexValues<TModel>(this HtmlHelper<TModel> instance, string value)
+		public static string GetHexValues<TModel>(this IHtmlHelper<TModel> instance, string value)
 		{
 			byte[] bytes = Encoding.UTF8.GetBytes(value);
 			var result = new StringBuilder();
@@ -15,7 +15,7 @@ namespace QuranX.Web.Extensions
 			return result.ToString();
 		}
 
-		public static HtmlString Highlight<TModel>(this HtmlHelper<TModel> instance, string text)
+		public static HtmlString Highlight<TModel>(this IHtmlHelper<TModel> instance, string text)
 		{
 			string result = instance.Encode(text)
 				.Replace("&lt;b&gt;", "<strong>")

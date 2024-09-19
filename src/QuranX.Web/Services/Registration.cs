@@ -1,4 +1,7 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using System.IO;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting.Internal;
 using QuranX.Persistence.Services;
 using QuranX.Web.Factories;
 
@@ -6,10 +9,9 @@ namespace QuranX.Web.Services
 {
 	public static class Registration
 	{
-		public static void Register(IServiceCollection services)
+		public static void Register(IWebHostEnvironment environment, IServiceCollection services)
 		{
-			// TODO: Get correct data path HostingEnvironment.MapPath("~/App_Data");
-			string dataPath = "";
+			string dataPath = Path.Combine(environment.ContentRootPath, "App_Data");
 			var settings = new Settings(dataPath);
 			services.AddSingleton<ISettings>(settings);
 			RegisterServices(services);
