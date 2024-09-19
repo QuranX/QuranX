@@ -50,7 +50,7 @@ namespace QuranX.DataMigration.Migrators
 
 			IndexWriter indexWriter = IndexWriterProvider.GetIndexWriter();
 			indexWriter.Commit();
-			indexWriter.Optimize(doWait: true);
+			indexWriter.ForceMerge(1, doWait: true);
 		}
 	}
 }

@@ -1,6 +1,6 @@
 ﻿using System;
+using Microsoft.Extensions.DependencyInjection;
 using QuranX.DataMigration.Migrators;
-using Unity;
 
 namespace QuranX.DataMigration
 {
@@ -8,10 +8,12 @@ namespace QuranX.DataMigration
 	{
 		static void Main(string[] args)
 		{
-			var container = new UnityContainer();
-			Services.Registration.Register(container);
-			Persistence.Services.Registration.Register(container);
-			var dataMigrator = container.Resolve<IDataMigrator>();
+			var services = new ServiceCollection();
+			Services.Registration.Register(services);
+			Persistence.Services.Registration.Register(services);
+
+			var serviceProvider = services.BuildServiceProvider();
+			var dataMigrator = serviceProvider.GetRequiredService<IDataMigrator>();
 			dataMigrator.Migrate();
 			Console.WriteLine("Done");
 			Console.ReadLine();
