@@ -3,8 +3,8 @@
 	public static class SearchContexts
 	{
 		public const string WholeSite = "";
-		public const string Quran = "QURAN";
-		public const string Commentaries = "TAFSIR";
-		public const string Hadiths = "HADITH";
+		public const string Quran = "Quran";
+		public const string Commentaries = "Tafsir";
+		public const string Hadiths = "Hadith";
 	}
 }

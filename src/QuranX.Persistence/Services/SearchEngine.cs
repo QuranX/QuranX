@@ -94,7 +94,7 @@ namespace QuranX.Persistence.Services
 			if (string.IsNullOrWhiteSpace(context))
 				return queryString;
 
-			switch (context.ToUpperInvariant())
+			switch (context)
 			{
 				case SearchContexts.Quran:
 					string quranCriteria = $"{Consts.SerializedObjectTypeFieldName}:{nameof(Verse)}";
