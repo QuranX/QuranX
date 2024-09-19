@@ -8,7 +8,7 @@
 }
 
 @{
-    Html.RenderPartial("HadithIndexHeader", Model.HadithIndexHeaderViewModel);
+    await Html.RenderPartialAsync("HadithIndexHeader", Model.HadithIndexHeaderViewModel);
     if (@Model.Hadiths.Count() != 1)
     {
 	<h4 class="hadith__reference-count">@Model.Hadiths.Count() @hadithsTitle</h4>
@@ -17,7 +17,7 @@
 @{
     foreach (HadithViewModel hadithVM in Model.Hadiths)
     {
-        Html.RenderPartial("HadithView", hadithVM);
+        await Html.RenderPartialAsync("HadithView", hadithVM);
     }
 }
-@{ Html.RenderPartial("Adverts"); }
+@{ await Html.RenderPartialAsync("Adverts"); }

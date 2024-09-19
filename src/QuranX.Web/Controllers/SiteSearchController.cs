@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using System.Web.Mvc;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using QuranX.Persistence.Models;
 using QuranX.Persistence.Services;
 using QuranX.Persistence.Services.Repositories;
@@ -53,7 +54,7 @@ namespace QuranX.Web.Controllers
 						searchResults.Select(SearchResultWithLinkFactory.Create);
 				}
 			}
-			catch (Lucene.Net.QueryParsers.ParseException)
+			catch (Lucene.Net.QueryParsers.Classic.ParseException)
 			{
 				searchResultsWithLink = new List<SearchResultWithLink>();
 				badQuery = true;

@@ -1,16 +1,13 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
-	<PropertyGroup>
-		<TargetFramework>net8.0</TargetFramework>
-		<AssemblyName>QuranX.Web</AssemblyName>
-		<RootNamespace>QuranX.Web</RootNamespace>
-	</PropertyGroup>
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+  </PropertyGroup>
 
-
-	<ItemGroup>
-		<!-- Project References -->
-		<ProjectReference Include="..\QuranX.Persistence\QuranX.Persistence.csproj" />
-		<ProjectReference Include="..\QuranX.Shared\QuranX.Shared.csproj" />
-	</ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\QuranX.DocumentModel\QuranX.DocumentModel.csproj" />
+    <ProjectReference Include="..\QuranX.Persistence\QuranX.Persistence.csproj" />
+    <ProjectReference Include="..\QuranX.Shared\QuranX.Shared.csproj" />
+  </ItemGroup>
 
 </Project>

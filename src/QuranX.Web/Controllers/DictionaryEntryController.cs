@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using System.Web.Mvc;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.OutputCaching;
 using QuranX.Persistence.Models;
 using QuranX.Persistence.Services.Repositories;
 using QuranX.Shared;
@@ -25,13 +26,13 @@ namespace QuranX.Web.Controllers
 		{
 			Dictionary dictionary = DictionaryRepository.Get(dictionaryCode);
 			if (dictionary == null)
-				return HttpNotFound();
+				return NotFound();
 			string indexValue = ArabicHelper.Substitute(word);
 			IEnumerable<DictionaryEntry> entries = DictionaryEntryRepository.Get(
 				dictionaryCode: dictionaryCode, 
 				word: indexValue);
 			if (!entries.Any())
-				return HttpNotFound();
+				return NotFound();
 
 			var viewModel = new ViewModel(word, dictionary, entries);
 

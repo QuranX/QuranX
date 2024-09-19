@@ -13,15 +13,15 @@
 <h3>
     @Model.Chapter.EnglishName - @Model.Chapter.ArabicName
 </h3>
-@{ Html.RenderPartial("SelectChapterAndVerse", Model.SelectChapterAndVerse); }
+@{ await Html.RenderPartialAsync("SelectChapterAndVerse", Model.SelectChapterAndVerse); }
 <div class="row">
     <ul class="verse-analysis__word-list col-sm-11 col-md-10 col-lg-9 center striped">
         @foreach (var word in Model.VerseAnalysis.Words)
         {
             <li class="verse-analysis__word row">
                 <div class="col-xs-4 col-sm-5 col-md-4 col-lg-2">
+                    <a name="word_@word.WordNumber"></a>
                     <a href="/@Model.Chapter.ChapterNumber.@Model.VerseNumber">
-                        <a name="word_@word.WordNumber"></a>
                         <span class="verse__reference">
                             @Model.Chapter.ChapterNumber.@Model.VerseNumber.@word.WordNumber
                         </span>
@@ -75,4 +75,4 @@
         }
     </ul>
 </div>
-@{ Html.RenderPartial("Adverts"); }
+@{ await Html.RenderPartialAsync("Adverts"); }

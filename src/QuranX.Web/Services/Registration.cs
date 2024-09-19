@@ -1,26 +1,26 @@
-﻿using System.Web.Hosting;
+﻿using Microsoft.Extensions.DependencyInjection;
 using QuranX.Persistence.Services;
 using QuranX.Web.Factories;
-using Unity;
 
 namespace QuranX.Web.Services
 {
 	public static class Registration
 	{
-		public static void Register(IUnityContainer container)
+		public static void Register(IServiceCollection services)
 		{
-			string dataPath = HostingEnvironment.MapPath("~/App_Data");
+			// TODO: Get correct data path HostingEnvironment.MapPath("~/App_Data");
+			string dataPath = "";
 			var settings = new Settings(dataPath);
-			container.RegisterInstance<ISettings>(settings);
-			RegisterServices(container);
+			services.AddSingleton<ISettings>(settings);
+			RegisterServices(services);
 		}
 
-		private static void RegisterServices(IUnityContainer container)
+		private static void RegisterServices(IServiceCollection services)
 		{
-			container.RegisterSingleton<ICommentariesForVerseFactory, CommentariesForVerseFactory>();
-			container.RegisterSingleton<ISelectChapterAndVerseFactory, SelectChapterAndVerseFactory>();
-			container.RegisterSingleton<IHadithViewModelFactory, HadithViewModelFactory>();
-			container.RegisterSingleton<ISearchResultWithLinkFactory, SearchResultWithLinkMapper>();
+			services.AddSingleton<ICommentariesForVerseFactory, CommentariesForVerseFactory>();
+			services.AddSingleton<ISelectChapterAndVerseFactory, SelectChapterAndVerseFactory>();
+			services.AddSingleton<IHadithViewModelFactory, HadithViewModelFactory>();
+			services.AddSingleton<ISearchResultWithLinkFactory, SearchResultWithLinkMapper>();
 		}
 
 	}
