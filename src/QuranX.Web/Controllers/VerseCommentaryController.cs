@@ -1,4 +1,5 @@
-﻿using System.Web.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.OutputCaching;
 using QuranX.Persistence.Models;
 using QuranX.Persistence.Services.Repositories;
 using QuranX.Web.Factories;
@@ -31,7 +32,7 @@ namespace QuranX.Web.Controllers
 		{
 
 			if (!CommentatorRepository.TryGet(commentatorCode, out Commentator commentator))
-				return HttpNotFound();
+				return NotFound();
 
 			Commentary commentary = CommentaryRepository.GetForVerse(
 				commentatorCode: commentatorCode,

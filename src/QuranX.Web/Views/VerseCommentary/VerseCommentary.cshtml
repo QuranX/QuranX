@@ -10,7 +10,8 @@
 <h1>The Qur'an</h1>
 <h2>Verse commentary</h2>
 @{ 
-    Html.RenderPartial("SelectChapterAndVerse", Model.SelectChapterAndVerse);
-    Html.RenderPartial("CommentaryView", Model.CommentatorAndCommentary);
-    Html.RenderPartial("Adverts");
+
+    await Html.RenderPartialAsync("SelectChapterAndVerse", Model.SelectChapterAndVerse);
+    await Html.RenderPartialAsync("CommentaryView", Model.CommentatorAndCommentary);
+    await Html.RenderPartialAsync("Adverts");
 }

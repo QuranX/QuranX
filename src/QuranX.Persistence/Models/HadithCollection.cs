@@ -31,7 +31,7 @@ namespace QuranX.Persistence.Models
 
 		public IEnumerable<HadithReferenceDefinition> GetPossibleReferenceDefinitionsByPartNames(IEnumerable<string> referencePartNames)
 		{
-			string requiredValues = string.Join(":", referencePartNames).ToLowerInvariant();
+			string requiredValues = string.Join(":", referencePartNames).ToUpperInvariant();
 			var result = new List<HadithReferenceDefinition>();
 
 			foreach(var reference in ReferenceDefinitions.OrderBy(x => x.IsPrimary))

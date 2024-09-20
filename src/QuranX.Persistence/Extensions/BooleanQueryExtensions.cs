@@ -2,7 +2,7 @@
 using System.Linq.Expressions;
 using Lucene.Net.Analysis.Standard;
 using Lucene.Net.Index;
-using Lucene.Net.QueryParsers;
+using Lucene.Net.QueryParsers.Classic;
 using Lucene.Net.Search;
 using QuranX.Persistence.Services;
 
@@ -12,7 +12,7 @@ namespace QuranX.Persistence.Extensions
 	{
 		public static BooleanQuery FilterByType<T>(this BooleanQuery instance)
 		{
-			var term = new Term(Consts.SerializedObjectTypeFieldName, typeof(T).Name.ToLowerInvariant());
+			var term = new Term(Consts.SerializedObjectTypeFieldName, typeof(T).Name);
 			var query = new PhraseQuery();
 			query.Add(term);
 			instance.Add(query, Occur.MUST);
@@ -37,15 +37,13 @@ namespace QuranX.Persistence.Extensions
 		{
 			if (value != null)
 			{
-				value = value.ToLowerInvariant();
-
 				var term = new Term(indexName, value);
 				var subQuery = new TermQuery(term);
 				instance.Add(subQuery, occur);
 			}
 			else
 			{
-				var parser = new QueryParser(Lucene.Net.Util.Version.LUCENE_30, indexName, new StandardAnalyzer(Lucene.Net.Util.Version.LUCENE_30));
+				var parser = new QueryParser(Consts.LuceneVersion, indexName, new StandardAnalyzer(Consts.LuceneVersion));
 				var query = parser.Parse($"ISNULL:{indexName}");
 			}
 			return instance;
@@ -59,7 +57,7 @@ namespace QuranX.Persistence.Extensions
 			Occur occur)
 		{
 			string indexName = ExpressionExtensions.GetIndexName(expression);
-			var query = NumericRangeQuery.NewIntRange(indexName, lowerInclusive, upperInclusive, true, true);
+			var query = NumericRangeQuery.NewInt32Range(indexName, lowerInclusive, upperInclusive, true, true);
 			instance.Add(query, occur);
 			return instance;
 		}
@@ -72,7 +70,7 @@ namespace QuranX.Persistence.Extensions
 			Occur occur)
 		{
 			string indexName = ExpressionExtensions.GetIndexName(expression);
-			var query = NumericRangeQuery.NewIntRange(indexName, lowerInclusive, upperInclusive, true, true);
+			var query = NumericRangeQuery.NewInt32Range(indexName, lowerInclusive, upperInclusive, true, true);
 			instance.Add(query, occur);
 			return instance;
 		}

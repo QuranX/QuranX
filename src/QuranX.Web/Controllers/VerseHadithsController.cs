@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using System.Web.Mvc;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.OutputCaching;
 using QuranX.Persistence.Services.Repositories;
 using QuranX.Shared.Models;
 using QuranX.Web.Factories;
@@ -29,7 +30,7 @@ namespace QuranX.Web.Controllers
 		public ActionResult Index(int chapterNumber, int verseNumber)
 		{
 			if (!QuranStructure.TryValidateChapterAndVerse(chapterNumber, verseNumber))
-				return HttpNotFound();
+				return NotFound();
 
 			Chapter chapter = ChapterRepository.Get(chapterNumber);
 			var verseReference = new VerseReference(chapterNumber, verseNumber);

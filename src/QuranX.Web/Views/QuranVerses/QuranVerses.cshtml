@@ -8,7 +8,7 @@
 }
 
 <h1>@ViewBag.Title</h1>
-@{ Html.RenderPartial("SelectChapterAndVerse", Model.SelectChapterAndVerse); }
+@{ await Html.RenderPartialAsync("SelectChapterAndVerse", Model.SelectChapterAndVerse); }
 <div class="dropdown">
     <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
         Translations
@@ -75,7 +75,4 @@
         </div>
     }
 }
-@{ Html.RenderPartial("Adverts"); }
-@section scripts {
-    @Scripts.Render("~/bundles/verse-view")
-}
+@{ await Html.RenderPartialAsync("Adverts"); }

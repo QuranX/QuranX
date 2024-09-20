@@ -1,13 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Security.Cryptography.X509Certificates;
-using System.Web.Mvc;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.OutputCaching;
 using QuranX.Persistence.Models;
 using QuranX.Persistence.Services.Repositories;
 using QuranX.Shared;
-using QuranX.Web.Helpers;
 using QuranX.Web.Views.RootAnalysis;
 
 namespace QuranX.Web.Controllers

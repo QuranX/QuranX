@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Web.Mvc;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.OutputCaching;
 using QuranX.Persistence.Models;
 using QuranX.Persistence.Services.Repositories;
 using QuranX.Web.Factories;
@@ -33,7 +34,7 @@ namespace QuranX.Web.Controllers
 		{
 			HadithCollection collection = HadithCollectionRepository.Get(collectionCode);
 			if (collection == null)
-				return HttpNotFound();
+				return NotFound();
 
 			var referencePartNamesAndValues = new List<(string referencePartName, int value, string suffix)>();
 			if (!string.IsNullOrWhiteSpace(referenceValue1))
@@ -50,7 +51,7 @@ namespace QuranX.Web.Controllers
 				return RedirectForMissingIndexCode(collectionCode, referenceCode, collection, referencePartNamesAndValues, referencePartNames, ref referenceDefinition);
 
 			if (referenceDefinition == null ||	!referenceDefinition.PatternMatch(referencePartNames))
-				return HttpNotFound();
+				return NotFound();
 
 			IEnumerable<(int value, string suffix)> referenceValues =
 				referencePartNamesAndValues.Select(x => (x.value, x.suffix));
@@ -153,7 +154,7 @@ namespace QuranX.Web.Controllers
 					return Redirect(urlBuilder.ToString());
 				}
 			}
-			return HttpNotFound();
+			return NotFound();
 		}
 	}
 }

@@ -158,17 +158,17 @@
     }
 
 .quranx.navbar {
-    background-image: url(/Content/Images/HeaderRepeat.jpg);
+    background-image: url(/Images/HeaderRepeat.jpg);
     font-weight: bold;
     border: none;
 }
 
 .quranx.navbar-header {
-    background-image: url(/Content/Images/HeaderRepeat.jpg);
+    background-image: url(/Images/HeaderRepeat.jpg);
 }
 
 .quranx.navbar-collapse {
-    background-image: url(/Content/Images/HeaderRepeat.jpg);
+    background-image: url(/Images/HeaderRepeat.jpg);
     border: none;
 }
 

@@ -13,22 +13,22 @@
 <h3>
     @Model.Chapter.EnglishName - @Model.Chapter.ArabicName
 </h3>
-@{ Html.RenderPartial("SelectChapterAndVerse", Model.SelectChapterAndVerse); }
+@{ await Html.RenderPartialAsync("SelectChapterAndVerse", Model.SelectChapterAndVerse); }
 <div class="row">
     <ul class="verse-analysis__word-list col-sm-11 col-md-10 col-lg-9 center striped">
         @foreach (var word in Model.VerseAnalysis.Words)
         {
             <li class="verse-analysis__word row">
                 <div class="col-xs-4 col-sm-5 col-md-4 col-lg-2">
+                    <a name="word_@word.WordNumber"></a>
                     <a href="/@Model.Chapter.ChapterNumber.@Model.VerseNumber">
-                        <a name="word_@word.WordNumber"></a>
                         <span class="verse__reference">
                             @Model.Chapter.ChapterNumber.@Model.VerseNumber.@word.WordNumber
                         </span>
                     </a>
                 </div>
                 <div class="col-xs-8 col-sm-7 col-md-8 col-lg-10 verse-analysis__word-image">
-                    <img src="~/Content/Images/ArabicWords/@(Html.GetHexValues(word.Buckwalter)).png" alt="@word.Buckwalter" />
+                    <img src="/Images/ArabicWords/@(Html.GetHexValues(word.Buckwalter)).png" alt="@word.Buckwalter" />
                 </div>
                 <div class="col-xs-12 col-sm-5 col-md-4 col-lg-2 verse-analysis__word-text">
                     <div class="verse-analysis__word-text-buckwalter">
@@ -75,4 +75,4 @@
         }
     </ul>
 </div>
-@{ Html.RenderPartial("Adverts"); }
+@{ await Html.RenderPartialAsync("Adverts"); }

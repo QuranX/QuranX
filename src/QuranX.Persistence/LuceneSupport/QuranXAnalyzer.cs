@@ -1,16 +1,21 @@
 ﻿using System.IO;
 using Lucene.Net.Analysis;
-using Lucene.Net.Analysis.AR;
+using Lucene.Net.Analysis.Ar;
+using Lucene.Net.Analysis.Core;
+using QuranX.Persistence.Services;
 
 namespace QuranX.Persistence.LuceneSupport
 {
 	public class QuranXAnalyzer : Analyzer
 	{
-		public override TokenStream TokenStream(string fieldName, TextReader reader)
+		protected override TokenStreamComponents CreateComponents(string fieldName, TextReader reader)
 		{
-			TokenStream @in = new QuranXLetterTokenizer(reader);
-			@in = new LowerCaseFilter(@in);
-			return new ArabicStemFilter(new ArabicNormalizationFilter(@in));
+			Tokenizer tokenizer = new QuranXLetterTokenizer(reader);
+			TokenStream tokenStream = tokenizer;
+			tokenStream = new LowerCaseFilter(Consts.LuceneVersion, tokenStream);
+			tokenStream = new ArabicNormalizationFilter(tokenStream);
+			tokenStream = new ArabicStemFilter(tokenStream);
+			return new TokenStreamComponents(tokenizer, tokenStream);
 		}
 	}
 }

@@ -1,4 +1,5 @@
-﻿using System.Web.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.OutputCaching;
 using QuranX.Shared.Models;
 using QuranX.Web.Factories;
 using QuranX.Web.Models;
@@ -18,7 +19,7 @@ namespace QuranX.Web.Controllers
 		public ActionResult Index(string commentatorCode, int chapterNumber, int verseNumber)
 		{
 			if (!QuranStructure.TryValidateChapterAndVerse(chapterNumber, verseNumber))
-				return HttpNotFound();
+				return NotFound();
 
 			CommentariesForVerse viewModel = CommentariesForVerseBuilder.Create(
 				commentatorCode: commentatorCode,

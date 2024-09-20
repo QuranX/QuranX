@@ -1,60 +1,60 @@
 ﻿using System.IO;
 using System.Reflection;
+using Microsoft.Extensions.DependencyInjection;
 using NLog;
 using QuranX.DataMigration.Migrators;
 using QuranX.Persistence.Services;
-using Unity;
 
 namespace QuranX.DataMigration.Services
 {
 	public static class Registration
 	{
-		public static void Register(IUnityContainer container)
+		public static void Register(IServiceCollection services)
 		{
-			RegisterConfiguration(container);
-			RegisterWebSettings(container);
-			RegisterLogger(container);
-			container.RegisterSingleton<IXmlDocumentProvider, XmlDocumentProvider>();
-			container.RegisterSingleton<IDataMigrator, DataMigrator>();
-			container.RegisterSingleton<IQuranMigrator, QuranMigrator>();
-			container.RegisterSingleton<ICommentaryMigrator, CommentaryMigrator>();
-			container.RegisterSingleton<IHadithMigrator, HadithMigrator>();
-			container.RegisterSingleton<ICorpusMigrator, CorpusMigrator>();
-			container.RegisterSingleton<IDictionariesMigrator, DictionariesMigrator>();
-			container.RegisterSingleton<ILisaanDictionaryMigrator, LisaanDictionaryMigrator>();
+			RegisterConfiguration(services);
+			RegisterWebSettings(services);
+			RegisterLogger(services);
+			services.AddSingleton<IXmlDocumentProvider, XmlDocumentProvider>();
+			services.AddSingleton<IDataMigrator, DataMigrator>();
+			services.AddSingleton<IQuranMigrator, QuranMigrator>();
+			services.AddSingleton<ICommentaryMigrator, CommentaryMigrator>();
+			services.AddSingleton<IHadithMigrator, HadithMigrator>();
+			services.AddSingleton<ICorpusMigrator, CorpusMigrator>();
+			services.AddSingleton<IDictionariesMigrator, DictionariesMigrator>();
+			services.AddSingleton<ILisaanDictionaryMigrator, LisaanDictionaryMigrator>();
 		}
 
-		private static void RegisterConfiguration(IUnityContainer container)
+		private static void RegisterConfiguration(IServiceCollection services)
 		{
 			string appDataPath = Path.Combine(GetAppDirectory(), "App_Data");
 
 			var configuration = new Configuration(appDataPath);
-			container.RegisterInstance<IConfiguration>(configuration);
+			services.AddSingleton<IConfiguration>(configuration);
 		}
 
-		private static void RegisterWebSettings(IUnityContainer container)
+		private static void RegisterWebSettings(IServiceCollection services)
 		{
 			string webDataPath = Path.Combine(GetAppDirectory(), "..", "QuranX.Web", "App_Data");
 
 			var webSettings = new Settings(webDataPath);
-			container.RegisterInstance<ISettings>(webSettings);
+			services.AddSingleton<ISettings>(webSettings);
 		}
 
-		private static void RegisterLogger(IUnityContainer container)
+		private static void RegisterLogger(IServiceCollection services)
 		{
 			var config = new NLog.Config.LoggingConfiguration();
 			var logConsole = new NLog.Targets.ColoredConsoleTarget("logconsole");
 			config.AddRule(LogLevel.Trace, LogLevel.Fatal, logConsole);
 			LogManager.Configuration = config;
 			ILogger logger = NLog.LogManager.GetCurrentClassLogger();
-			container.RegisterInstance<ILogger>(logger);
+			services.AddSingleton<ILogger>(logger);
 		}
 
 		private static string GetAppDirectory()
 		{
 			string xmlDataPath = Assembly.GetExecutingAssembly().Location;
-			string appName = Path.GetFileNameWithoutExtension(xmlDataPath).ToLowerInvariant();
-			int index = xmlDataPath.ToLowerInvariant().IndexOf(appName);
+			string appName = Path.GetFileNameWithoutExtension(xmlDataPath);
+			int index = xmlDataPath.IndexOf(appName);
 			xmlDataPath = xmlDataPath.Substring(0, index + appName.Length);
 			return xmlDataPath;
 		}

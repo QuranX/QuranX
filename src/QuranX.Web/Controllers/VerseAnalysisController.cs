@@ -1,4 +1,5 @@
-﻿using System.Web.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.OutputCaching;
 using QuranX.Persistence.Models;
 using QuranX.Persistence.Services.Repositories;
 using QuranX.Shared.Models;
@@ -24,7 +25,7 @@ namespace QuranX.Web.Controllers
 		public ActionResult Index(int chapterNumber, int verseNumber)
 		{
 			if (!QuranStructure.TryValidateChapterAndVerse(chapterNumber, verseNumber))
-				return HttpNotFound();
+				return NotFound();
 
 			Chapter chapter = ChapterRepository.Get(chapterNumber);
 			VerseAnalysis analysis =

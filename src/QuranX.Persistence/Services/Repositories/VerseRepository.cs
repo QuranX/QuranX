@@ -1,6 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using Lucene.Net.Index;
 using Lucene.Net.Search;
+using Lucene.Net.Store;
 using QuranX.Persistence.Extensions;
 using QuranX.Persistence.Models;
 using QuranX.Shared.Models;
