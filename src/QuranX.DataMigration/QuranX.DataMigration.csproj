@@ -1,22 +1,24 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-
-	<PropertyGroup>
-		<OutputType>Exe</OutputType>
-		<TargetFramework>net8.0</TargetFramework>
-		<RootNamespace>QuranX.DataMigration</RootNamespace>
-		<AssemblyName>QuranX.DataMigration</AssemblyName>
-		<Deterministic>true</Deterministic>
-	</PropertyGroup>
-
-	<ItemGroup>
-	  <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="8.0.0" />
-	</ItemGroup>
-
-	<ItemGroup>
-		<!-- Project References -->
-		<ProjectReference Include="..\QuranX.DocumentModel\QuranX.DocumentModel.csproj" />
-		<ProjectReference Include="..\QuranX.Persistence\QuranX.Persistence.csproj" />
-		<ProjectReference Include="..\QuranX.Shared\QuranX.Shared.csproj" />
-	</ItemGroup>
-
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net8.0</TargetFramework>
+    <RootNamespace>QuranX.DataMigration</RootNamespace>
+    <AssemblyName>QuranX.DataMigration</AssemblyName>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="8.0.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <!-- Project References -->
+    <ProjectReference Include="..\QuranX.DocumentModel\QuranX.DocumentModel.csproj" />
+    <ProjectReference Include="..\QuranX.Persistence\QuranX.Persistence.csproj" />
+    <ProjectReference Include="..\QuranX.Shared\QuranX.Shared.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed">
+      <HintPath>..\packages\Newtonsoft.Json.13.0.1\lib\netstandard2.0\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+  </ItemGroup>
 </Project>
