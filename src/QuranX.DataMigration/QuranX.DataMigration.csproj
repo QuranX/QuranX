@@ -1,22 +1,24 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-
-	<PropertyGroup>
-		<OutputType>Exe</OutputType>
-		<TargetFramework>net8.0</TargetFramework>
-		<RootNamespace>QuranX.DataMigration</RootNamespace>
-		<AssemblyName>QuranX.DataMigration</AssemblyName>
-		<Deterministic>true</Deterministic>
-	</PropertyGroup>
-
-	<ItemGroup>
-	  <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="8.0.0" />
-	</ItemGroup>
-
-	<ItemGroup>
-		<!-- Project References -->
-		<ProjectReference Include="..\QuranX.DocumentModel\QuranX.DocumentModel.csproj" />
-		<ProjectReference Include="..\QuranX.Persistence\QuranX.Persistence.csproj" />
-		<ProjectReference Include="..\QuranX.Shared\QuranX.Shared.csproj" />
-	</ItemGroup>
-
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net8.0</TargetFramework>
+    <RootNamespace>QuranX.DataMigration</RootNamespace>
+    <AssemblyName>QuranX.DataMigration</AssemblyName>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="8.0.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <!-- Project References -->
+    <ProjectReference Include="..\QuranX.DocumentModel\QuranX.DocumentModel.csproj" />
+    <ProjectReference Include="..\QuranX.Persistence\QuranX.Persistence.csproj" />
+    <ProjectReference Include="..\QuranX.Shared\QuranX.Shared.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="ICSharpCode.SharpZipLib, Version=1.3.3.11, Culture=neutral, PublicKeyToken=1b03e6acf1164f73">
+      <HintPath>..\packages\SharpZipLib.1.3.3\lib\netstandard2.1\ICSharpCode.SharpZipLib.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+  </ItemGroup>
 </Project>
