@@ -2,11 +2,20 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Routing.Constraints;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using OpenTelemetry.Trace;
 
 var builder = WebApplication.CreateBuilder(args);
 
 QuranX.Persistence.Services.Registration.Register(builder.Services);
 QuranX.Web.Services.Registration.Register(builder.Environment, builder.Services);
+
+if (!builder.Environment.IsDevelopment())
+{
+	builder.Services.AddOpenTelemetry().WithTracing(builder => builder
+	.AddAspNetCoreInstrumentation()
+	.AddHttpClientInstrumentation()
+	.AddOtlpExporter());
+}
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
