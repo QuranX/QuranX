@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.Json;
 using Lucene.Net.Analysis;
 using Lucene.Net.Index;
 using Lucene.Net.QueryParsers.Classic;
@@ -54,18 +55,21 @@ namespace QuranX.Persistence.Services
 				DefaultOperator = Operator.AND
 			};
 
-			Query mainQuery = queryParser.Parse(queryString);
-			BooleanQuery contextQuery = AddContextCriteria(mainQuery, context, subContext);
+
+			Query userQuery = queryString.Contains("*") || queryString.Contains("?")
+				? ExpandWildcardQuery(Consts.FullTextFieldName, queryString, indexSearcher.IndexReader)
+				: queryParser.Parse(queryString);
+			
+			BooleanQuery mainQuery = CreateFromContextAndSearchQuery(context, subContext, userQuery);
 
 			// Perform the search and get the top documents
-			TopDocs topDocs = indexSearcher.Search(contextQuery, 9999);
+			TopDocs topDocs = indexSearcher.Search(mainQuery, 9999);
 			totalResults = topDocs.TotalHits;
 
 			var result = new List<SearchResult>();
 
-			// Initialize the highlighter
 			var highlighter = new FastVectorHighlighter();
-			FieldQuery fieldQuery = highlighter.GetFieldQuery(contextQuery);
+			FieldQuery fieldQuery = highlighter.GetFieldQuery(mainQuery);
 
 			foreach (var scoreDoc in topDocs.ScoreDocs.Take(maxResults))
 			{
@@ -90,11 +94,11 @@ namespace QuranX.Persistence.Services
 		}
 
 
-		private BooleanQuery AddContextCriteria(Query mainQuery, string context, string subContext)
+		private BooleanQuery CreateFromContextAndSearchQuery(string context, string subContext, Query userQuery)
 		{
 			BooleanQuery booleanQuery = new BooleanQuery
 			{
-				{ mainQuery, Occur.MUST }
+				{ userQuery, Occur.MUST }
 			};
 
 			if (string.IsNullOrWhiteSpace(context))
@@ -134,6 +138,37 @@ namespace QuranX.Persistence.Services
 			}
 
 			return booleanQuery;
+		}
+
+		private bool MatchesWildcard(string pattern, string term)
+		{
+			// Replace * and ? with their regex equivalents
+			var regexPattern = "^" + System.Text.RegularExpressions.Regex.Escape(pattern)
+								.Replace("\\*", ".*")
+								.Replace("\\?", ".") + "$";
+
+			return System.Text.RegularExpressions.Regex.IsMatch(term, regexPattern);
+		}
+
+		private BooleanQuery ExpandWildcardQuery(string fieldName, string wildcardTerm, IndexReader reader)
+		{
+			BooleanQuery expandedQuery = new BooleanQuery();
+
+			// Get the terms from the index that match the wildcard
+			Terms terms = MultiFields.GetTerms(reader, fieldName);
+			if (terms == null) return expandedQuery; // If there are no terms, return empty query
+
+			TermsEnum termsEnum = terms.GetEnumerator();
+			while (termsEnum.MoveNext())
+			{
+				var term = termsEnum.Term.Utf8ToString();
+				if (MatchesWildcard(wildcardTerm, term))
+				{
+					expandedQuery.Add(new TermQuery(new Term(fieldName, term)), Occur.SHOULD);
+				}
+			}
+
+			return expandedQuery;
 		}
 
 	}
