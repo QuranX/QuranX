@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Routing.Constraints;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using OpenTelemetry.Trace;
+using QuranX.Web.Middlewares;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,6 +12,7 @@ QuranX.Web.Services.Registration.Register(builder.Environment, builder.Services)
 
 if (!builder.Environment.IsDevelopment())
 {
+
 	builder.Services.AddOpenTelemetry().WithTracing(builder => builder
 	.AddAspNetCoreInstrumentation()
 	.AddHttpClientInstrumentation()
@@ -35,6 +37,8 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
+app.UseMiddleware<OpenTelemetryEnrichmentMiddleware>();
+
 
 app.UseAuthorization();
 
