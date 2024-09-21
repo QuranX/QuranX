@@ -128,7 +128,7 @@ namespace QuranX.Persistence.Services
 					break;
 
 				default:
-					throw new ArgumentException($"Unknown context {context} {subContext}", nameof(context));
+					return booleanQuery;
 			}
 
 			return booleanQuery;
