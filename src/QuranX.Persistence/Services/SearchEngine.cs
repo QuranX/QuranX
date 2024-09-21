@@ -98,7 +98,7 @@ namespace QuranX.Persistence.Services
 			if (string.IsNullOrWhiteSpace(context))
 				return booleanQuery;
 
-			switch (context)
+			switch (context.ToUpperInvariant())
 			{
 				case SearchContexts.Quran:
 					var quranCriteria = new TermQuery(new Term(Consts.SerializedObjectTypeFieldName, nameof(Verse)));
