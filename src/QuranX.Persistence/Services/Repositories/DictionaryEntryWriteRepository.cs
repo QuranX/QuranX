@@ -1,12 +1,8 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Lucene.Net.Documents;
 using Lucene.Net.Index;
 using QuranX.Persistence.Extensions;
+using QuranX.Shared;
 
 namespace QuranX.Persistence.Services.Repositories
 {
@@ -24,7 +20,6 @@ namespace QuranX.Persistence.Services.Repositories
 			IndexWriterProvider = indexWriterProvider;
 		}
 
-
 		public void Write(Models.DictionaryEntry entry)
 		{
 			if (entry == null)
@@ -34,6 +29,7 @@ namespace QuranX.Persistence.Services.Repositories
 			var document = new Document();
 			document.AddObject(entry);
 			document.StoreAndIndex(entry, x => x.DictionaryCode);
+			document.StoreAndIndex(entry, x => x.Word, ArabicHelper.SubstituteAndOmit);
 			document.StoreAndIndex(DictionaryEntryRepository.RootWordsIndexName, indexValue);
 
 			IndexWriter indexWriter = IndexWriterProvider.GetIndexWriter();

@@ -10,6 +10,7 @@ namespace QuranX.Persistence.Services.Repositories
 	{
 		IEnumerable<DictionaryEntry> Get(string word);
 		IEnumerable<DictionaryEntry> Get(string dictionaryCode, string word);
+		IEnumerable<string> GetNextRoots(string parentRoot);
 	}
 
 	public class DictionaryEntryRepository : IDictionaryEntryRepository
@@ -28,7 +29,7 @@ namespace QuranX.Persistence.Services.Repositories
 			var query = new BooleanQuery(disableCoord: true);
 			query
 				.FilterByType<DictionaryEntry>()
-				.AddPhraseQuery(RootWordsIndexName, indexValue, Occur.MUST);
+				.AddStringEqualsQuery(RootWordsIndexName, indexValue, Occur.MUST);
 
 			IndexSearcher searcher = IndexSearcherProvider.GetIndexSearcher();
 			TopDocs docs = searcher.Search(query, 7000);
@@ -44,8 +45,8 @@ namespace QuranX.Persistence.Services.Repositories
 			var query = new BooleanQuery(disableCoord: true);
 			query.FilterByType<DictionaryEntry>();
 			query
-				.AddPhraseQuery<DictionaryEntry>(x => x.DictionaryCode, dictionaryCode, Occur.MUST)
-				.AddPhraseQuery(RootWordsIndexName, indexValue, Occur.MUST);
+				.AddStringEqualsQuery<DictionaryEntry>(x => x.DictionaryCode, dictionaryCode, Occur.MUST)
+				.AddStringEqualsQuery(RootWordsIndexName, indexValue, Occur.MUST);
 
 			IndexSearcher searcher = IndexSearcherProvider.GetIndexSearcher();
 			TopDocs docs = searcher.Search(query, 7000);
@@ -54,6 +55,35 @@ namespace QuranX.Persistence.Services.Repositories
 				.Select(x => x.GetObject<DictionaryEntry>())
 				.OrderBy(x => x.EntryIndex);
 			return results;
+		}
+
+		public IEnumerable<string> GetNextRoots(string root)
+		{
+			string[] roots;
+			if (string.IsNullOrWhiteSpace(root))
+			{
+				roots = ArabicAlphabet.Letters.Select(x => x.ToString()).ToArray();
+			}
+			else
+			{
+				var query = new BooleanQuery(disableCoord: true);
+				query
+					.FilterByType<DictionaryEntry>()
+					.AddStringStartsWithQuery<DictionaryEntry>(x => x.Word, root, Occur.MUST);
+
+				int nextRootLength = root.Length + 1;
+				IndexSearcher searcher = IndexSearcherProvider.GetIndexSearcher();
+				TopDocs docs = searcher.Search(query, 7000);
+				roots = docs.ScoreDocs
+					.Select(x => searcher.Doc(x.Doc))
+					.Select(x => x.GetStoredValue<DictionaryEntry>(x => x.Word))
+					.Where(x => x.Length >= nextRootLength)
+					.Select(x => x.Substring(0, nextRootLength))
+					.Distinct()
+					.OrderBy(x => x)
+					.ToArray();
+			}
+			return roots;
 		}
 	}
 }

@@ -19,17 +19,17 @@ namespace QuranX.Persistence.Extensions
 			return instance;
 		}
 
-		public static BooleanQuery AddPhraseQuery<TObj>(
+		public static BooleanQuery AddStringEqualsQuery<TObj>(
 			this BooleanQuery instance,
 			Expression<Func<TObj, string>> expression,
 			string value,
 			Occur occur)
 		{
 			string indexName = ExpressionExtensions.GetIndexName(expression);
-			return instance.AddPhraseQuery(indexName, value, occur);
+			return instance.AddStringEqualsQuery(indexName, value, occur);
 		}
 
-		public static BooleanQuery AddPhraseQuery(
+		public static BooleanQuery AddStringEqualsQuery(
 			this BooleanQuery instance,
 			string indexName,
 			string value,
@@ -48,6 +48,37 @@ namespace QuranX.Persistence.Extensions
 			}
 			return instance;
 		}
+
+		public static BooleanQuery AddStringStartsWithQuery<TObj>(
+			this BooleanQuery instance,
+			Expression<Func<TObj, string>> expression,
+			string value,
+			Occur occur)
+		{
+			string indexName = ExpressionExtensions.GetIndexName(expression);
+			return instance.AddStringStartsWithQuery(indexName, value, occur);
+		}
+
+		public static BooleanQuery AddStringStartsWithQuery(
+			this BooleanQuery instance,
+			string indexName,
+			string value,
+			Occur occur)
+		{
+			if (value != null)
+			{
+				var term = new Term(indexName, value);
+				var subQuery = new PrefixQuery(term);
+				instance.Add(subQuery, occur);
+			}
+			else
+			{
+				var parser = new QueryParser(Consts.LuceneVersion, indexName, new StandardAnalyzer(Consts.LuceneVersion));
+				var query = parser.Parse($"ISNULL:{indexName}");
+			}
+			return instance;
+		}
+
 
 		public static BooleanQuery AddNumericRangeQuery<TObj>(
 			this BooleanQuery instance,

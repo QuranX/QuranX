@@ -101,7 +101,7 @@ namespace QuranX.Persistence.Services.Repositories
 			query.FilterByType<Commentary>();
 
 			if (commentatorCode != null)
-				query.AddPhraseQuery<Commentary>(x => x.CommentatorCode, commentatorCode, Occur.MUST);
+				query.AddStringEqualsQuery<Commentary>(x => x.CommentatorCode, commentatorCode, Occur.MUST);
 
 			if (chapterNumber != null)
 			{

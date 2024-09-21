@@ -1,3 +1,4 @@
+using System.Reflection.Metadata.Ecma335;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Routing.Constraints;
 using Microsoft.Extensions.DependencyInjection;
@@ -140,6 +141,11 @@ app.MapControllerRoute(
 	{
 		Verses = new RegexRouteConstraint(@"^(\d+\.\d+(-\d+)?)(,(\d+\.\d+(-\d+)?))*$")
 	});
+
+app.MapControllerRoute(
+	name: "Dictionaries",
+	pattern: "Dictionaries/{Root?}",
+	defaults: new { controller = "Dictionaries", action = "Index" });
 
 app.MapControllerRoute(
 	name: "Home",

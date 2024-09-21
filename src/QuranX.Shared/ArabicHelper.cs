@@ -63,7 +63,7 @@ namespace QuranX.Shared
 			foreach (char c in arabicText.ToCharArray())
 			{
 				char alternateChar = GetArabicSubstituteChar(c);
-				if (PermittedChars.Contains(alternateChar))
+				if (PermittedChars.Contains(alternateChar) && alternateChar != '\0')
 					resultBuilder.Append(alternateChar);
 			}
 			return resultBuilder.ToString();
@@ -87,6 +87,7 @@ namespace QuranX.Shared
 			AlternateChars['ة'] = 'ت';
 			AlternateChars['ى'] = 'ي';
 			AlternateChars['ئ'] = 'ي';
+			AlternateChars['ء'] = '\0';
 		}
 
 		static char GetArabicSubstituteChar(char c)

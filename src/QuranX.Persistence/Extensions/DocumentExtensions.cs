@@ -22,7 +22,14 @@ namespace QuranX.Persistence.Extensions
 			Expression<Func<TObj, string>> expression)
 		{
 			string name = ExpressionExtensions.GetIndexName(expression);
-			string value = document.GetField(name)?.GetStringValue();
+			return GetStoredStringValue(document, name);
+		}
+
+		public static string GetStoredStringValue(
+			this Document document,
+			string indexName)
+		{
+			string value = document.GetField(indexName)?.GetStringValue();
 			return value;
 		}
 
@@ -31,7 +38,14 @@ namespace QuranX.Persistence.Extensions
 			Expression<Func<TObj, int>> expression)
 		{
 			string name = ExpressionExtensions.GetIndexName(expression);
-			string value = document.GetField(name)?.GetStringValue() ?? "0";
+			return GetStoredIntValue(document, name);
+		}
+
+		public static int GetStoredIntValue(
+			this Document document,
+			string indexName)
+		{
+			string value = document.GetField(indexName)?.GetStringValue() ?? "0";
 			return int.Parse(value);
 		}
 

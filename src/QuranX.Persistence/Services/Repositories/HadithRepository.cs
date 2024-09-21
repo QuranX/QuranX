@@ -101,8 +101,8 @@ namespace QuranX.Persistence.Services.Repositories
 			var query = new BooleanQuery(disableCoord: true);
 			query
 				.FilterByType<HadithReference>()
-				.AddPhraseQuery<HadithReference>(x => x.CollectionCode, collectionCode, Occur.MUST)
-				.AddPhraseQuery<HadithReference>(x => x.ReferenceCode, referenceCode.Replace("-", ""), Occur.MUST);
+				.AddStringEqualsQuery<HadithReference>(x => x.CollectionCode, collectionCode, Occur.MUST)
+				.AddStringEqualsQuery<HadithReference>(x => x.ReferenceCode, referenceCode.Replace("-", ""), Occur.MUST);
 			(int value, string suffix)[] valuesArray = values.ToArray();
 
 			Func<int, bool> shouldFilterOnSuffix = referencePartNumber =>
@@ -125,7 +125,7 @@ namespace QuranX.Persistence.Services.Repositories
 					Occur.MUST);
 				if (shouldFilterOnSuffix(1))
 				{
-					query.AddPhraseQuery<HadithReference>(x =>
+					query.AddStringEqualsQuery<HadithReference>(x =>
 						x.ReferenceValue1Suffix,
 						valuesArray[0].suffix.AsNullIfWhiteSpace(),
 						Occur.MUST);
@@ -140,7 +140,7 @@ namespace QuranX.Persistence.Services.Repositories
 					Occur.MUST);
 				if (shouldFilterOnSuffix(2))
 				{
-					query.AddPhraseQuery<HadithReference>(x =>
+					query.AddStringEqualsQuery<HadithReference>(x =>
 					x.ReferenceValue2Suffix,
 					valuesArray[1].suffix.AsNullIfWhiteSpace(),
 					Occur.MUST);
@@ -155,7 +155,7 @@ namespace QuranX.Persistence.Services.Repositories
 					Occur.MUST);
 				if (shouldFilterOnSuffix(3))
 				{
-					query.AddPhraseQuery<HadithReference>(x =>
+					query.AddStringEqualsQuery<HadithReference>(x =>
 					x.ReferenceValue3Suffix,
 					valuesArray[2].suffix.AsNullIfWhiteSpace(),
 					Occur.MUST);

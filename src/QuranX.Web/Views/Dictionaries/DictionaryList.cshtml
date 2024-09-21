@@ -1,0 +1,37 @@
+﻿@using QuranX.Shared
+@model QuranX.Web.Views.Dictionaries.DictionaryListViewModel
+@{
+    ViewBag.Title = "Dictionaries";
+}
+<h1>Dictionary lookup</h1>
+@if (!string.IsNullOrWhiteSpace(Model.CurrentRoot))
+{
+    <h2>Current root <span class="arabic">@Model.CurrentRoot</span> - @ArabicHelper.ArabicToLetterNames(Model.CurrentRoot)</h2>
+}
+@if (!string.IsNullOrWhiteSpace(Model.ParentRoot))
+{
+    <div>
+        Go back to
+        <a href=@($"/Dictionaries/{Model.ParentRoot}")>
+            <span class="arabic">@Model.ParentRoot</span> - @ArabicHelper.ArabicToLetterNames(Model.ParentRoot)
+        </a>
+    </div>
+}
+<table>
+
+    @foreach (string nextRoot in Model.ChildRoots)
+    {
+        <tr>
+            <td>
+                <a href=@($"/Dictionaries/{nextRoot}")>
+                    <span class="arabic">@nextRoot</span>
+                </a>
+            </td>
+            <td>
+                <a href=@($"/Dictionaries/{nextRoot}")>
+                    @ArabicHelper.ArabicToLetterNames(nextRoot)
+                </a>
+            </td>
+        </tr>
+    }
+</table>

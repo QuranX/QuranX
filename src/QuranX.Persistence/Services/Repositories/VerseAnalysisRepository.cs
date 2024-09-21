@@ -54,7 +54,7 @@ namespace QuranX.Persistence.Services.Repositories
 			var query = new BooleanQuery(disableCoord: true);
 			query
 				.FilterByType<VerseAnalysis>()
-				.AddPhraseQuery(RootWordsIndexName, rootIndex, Occur.MUST);
+				.AddStringEqualsQuery(RootWordsIndexName, rootIndex, Occur.MUST);
 
 			IndexSearcher indexSearcher = IndexSearcherProvider.GetIndexSearcher();
 			TopDocs topDocs = indexSearcher.Search(query, 9999);
