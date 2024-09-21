@@ -35,7 +35,9 @@ namespace QuranX.Persistence.Services.Repositories
 			TopDocs docs = searcher.Search(query, 7000);
 			IEnumerable<DictionaryEntry> results = docs.ScoreDocs
 				.Select(x => searcher.Doc(x.Doc))
-				.Select(x => x.GetObject<DictionaryEntry>());
+				.Select(x => x.GetObject<DictionaryEntry>())
+				.OrderBy(x => x.Word)
+				.ToArray();
 			return results;
 		}
 
@@ -53,7 +55,8 @@ namespace QuranX.Persistence.Services.Repositories
 			IEnumerable<DictionaryEntry> results = docs.ScoreDocs
 				.Select(x => searcher.Doc(x.Doc))
 				.Select(x => x.GetObject<DictionaryEntry>())
-				.OrderBy(x => x.EntryIndex);
+				.OrderBy(x => x.Word)
+				.ToArray();
 			return results;
 		}
 

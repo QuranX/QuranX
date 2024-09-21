@@ -23,10 +23,15 @@ namespace QuranX.Web.Controllers
 		{
 			IEnumerable<Persistence.Models.Dictionary> dictionaries = DictionaryRepository.GetAll();
 			IEnumerable<string> nextRoots = DictionaryEntryRepository.GetNextRoots(root);
+			IEnumerable<Persistence.Models.DictionaryEntry> dictionaryEntries = 
+				string.IsNullOrWhiteSpace(root)
+				? []
+				: DictionaryEntryRepository.Get(root);
 			var viewModel = new DictionaryListViewModel(
 				currentRoot: root,
 				childRoots: nextRoots,
-				dictionaries: dictionaries);
+				dictionaries: dictionaries,
+				dictionaryEntries: dictionaryEntries);
 			return View("DictionaryList", viewModel);
 		}
 	}

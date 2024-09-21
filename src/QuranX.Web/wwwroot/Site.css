@@ -49,6 +49,11 @@
     box-sizing: inherit;
 }
 
+.flex-row {
+   display: flex;
+   flex-direction: row;
+}
+
 .highlight {
     /*Col:Highlight*/
     background-color: hsl(69, 99.2%, 54.5%);

@@ -17,21 +17,28 @@
         </a>
     </div>
 }
-<table>
-
-    @foreach (string nextRoot in Model.ChildRoots)
-    {
-        <tr>
-            <td>
-                <a href=@($"/Dictionaries/{nextRoot}")>
-                    <span class="arabic">@nextRoot</span>
-                </a>
-            </td>
-            <td>
-                <a href=@($"/Dictionaries/{nextRoot}")>
-                    @ArabicHelper.ArabicToLetterNames(nextRoot)
-                </a>
-            </td>
-        </tr>
-    }
-</table>
+<div class="flex-row">
+    <table>
+        @foreach (string nextRoot in Model.ChildRoots)
+        {
+            <tr>
+                <td>
+                    <a href=@($"/Dictionaries/{nextRoot}")>
+                        <span class="arabic">@nextRoot</span>
+                    </a>
+                </td>
+                <td>
+                    <a href=@($"/Dictionaries/{nextRoot}")>
+                        @ArabicHelper.ArabicToLetterNames(nextRoot)
+                    </a>
+                </td>
+            </tr>
+        }
+    </table>
+    <div>
+       @foreach(var entry in Model.DictionaryEntries)
+        {
+            @entry.Word
+        }
+    </div>
+</div>
