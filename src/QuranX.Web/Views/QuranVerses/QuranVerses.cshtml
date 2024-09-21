@@ -25,7 +25,7 @@
 
 @foreach (ChapterAndVerseSelection group in Model.DisplayVerses)
 {
-    <h2>@group.Chapter.EnglishName - @group.Chapter.ArabicName</h2>
+    <h2>@group.Chapter.EnglishName - <span dir="rtl">@group.Chapter.ArabicName</span></h2>
     foreach (Verse verse in group.Verses)
     {
         if (Model.AutoScrollToSelectedVerse

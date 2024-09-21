@@ -11,7 +11,7 @@
         @Model.Chapter.ChapterNumber.@Model.VerseNumber
     </a>
 </h2>
-<h3>@Model.Chapter.EnglishName - @Model.Chapter.ArabicName</h3>
+<h3>@Model.Chapter.EnglishName - <span dir="rtl">@Model.Chapter.ArabicName</span></h3>
 @{
     if (Model.Hadiths.Count() != 1)
     {
