@@ -3,42 +3,57 @@
 @{
     ViewBag.Title = "Dictionaries";
 }
-<h1>Dictionary lookup</h1>
-@if (!string.IsNullOrWhiteSpace(Model.CurrentRoot))
-{
-    <h2>Current root <span class="arabic">@Model.CurrentRoot</span> - @ArabicHelper.ArabicToLetterNames(Model.CurrentRoot)</h2>
-}
-@if (!string.IsNullOrWhiteSpace(Model.ParentRoot))
-{
-    <div>
-        Go back to
-        <a href=@($"/Dictionaries/{Model.ParentRoot}")>
-            <span class="arabic">@Model.ParentRoot</span> - @ArabicHelper.ArabicToLetterNames(Model.ParentRoot)
-        </a>
-    </div>
-}
-<div class="flex-row">
-    <table>
-        @foreach (string nextRoot in Model.ChildRoots)
+<div class="dictionary-entries__main-container">
+    <div class="dictionary-entries__words-container striped">
+        @if (!string.IsNullOrWhiteSpace(Model.ParentRoot))
         {
-            <tr>
-                <td>
-                    <a href=@($"/Dictionaries/{nextRoot}")>
-                        <span class="arabic">@nextRoot</span>
-                    </a>
-                </td>
-                <td>
-                    <a href=@($"/Dictionaries/{nextRoot}")>
-                        @ArabicHelper.ArabicToLetterNames(nextRoot)
-                    </a>
-                </td>
-            </tr>
+            <a href=@($"/Dictionaries/{Model.ParentRoot}") class="dictionary-entries__word">
+                <div class="arabic">@Model.ParentRoot &#8598;</div>
+                <div>@ArabicHelper.ArabicToLetterNames(Model.ParentRoot)</div>
+            </a>
+
         }
-    </table>
-    <div>
-       @foreach(var entry in Model.DictionaryEntries)
+        @foreach (string childRoot in Model.ChildRoots)
         {
-            @entry.Word
+            <a href=@($"/Dictionaries/{childRoot}") class="dictionary-entries__word">
+                <div class="arabic">@childRoot</div>
+                <div>@ArabicHelper.ArabicToLetterNames(childRoot)</div>
+            </a>
+        }
+    </div>
+
+    <div class="dictionary-entries__entries-container">
+        <h1>Dictionary entries</h1>
+        @if (!Model.DictionaryEntries.Any())
+        {
+            @if (string.IsNullOrWhiteSpace(Model.CurrentRoot))
+            {
+                <h2>
+                    Choose a root from the selection on the left.
+                </h2>
+            }
+            else
+            {
+                <h2>
+                    There are no entries for this root.
+                </h2>
+            }
+            @if (!string.IsNullOrWhiteSpace(Model.ParentRoot))
+            {
+                <h3>
+                    Try the <a href=@($"/Dictionaries/{Model.ParentRoot}")>parent root</a>
+                    @if (Model.ChildRoots.Any())
+                    {
+                        <Text>- or select one of the child roots.</Text>
+                    }
+                </h3>
+            }
+        }
+        @foreach (var entry in Model.DictionaryEntries)
+        {
+            <div class="dictionary-entries__entry">
+                <partial name="DictionaryEntryView" model=entry />
+            </div>
         }
     </div>
 </div>

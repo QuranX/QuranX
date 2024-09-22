@@ -1,0 +1,18 @@
+﻿@model QuranX.Web.Views.DictionaryEntry.ViewModel
+<h2>Dictionary @Model.Dictionary.Name</h2>
+<h3>Entry <span class="arabic">@Model.Entries.First().Word</span></h3>
+<div class="dictionary__details dictionary__details--@Model.Dictionary.Code">
+	@foreach (var entry in Model.Entries)
+	{
+		foreach (string html in entry.Html)
+		{
+			<p>
+				@Html.Raw(html)
+			</p>
+		}
+	}
+</div>
+<div class="dictionary__copyright">
+	@Model.Dictionary.Copyright
+</div>
+

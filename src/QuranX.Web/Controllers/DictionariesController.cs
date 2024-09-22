@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.OutputCaching;
 using QuranX.Persistence.Services.Repositories;
@@ -31,7 +32,7 @@ namespace QuranX.Web.Controllers
 				currentRoot: root,
 				childRoots: nextRoots,
 				dictionaries: dictionaries,
-				dictionaryEntries: dictionaryEntries);
+				dictionaryEntries: dictionaryEntries.OrderBy(x => x.DictionaryCode));
 			return View("DictionaryList", viewModel);
 		}
 	}

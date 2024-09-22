@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using QuranX.Persistence.Models;
 
 namespace QuranX.Web.Views.Dictionaries
@@ -10,7 +11,7 @@ namespace QuranX.Web.Views.Dictionaries
 		public string ParentRoot { get; }
 		public IEnumerable<string> ChildRoots { get; }
 		public IEnumerable<Persistence.Models.Dictionary> Dictionaries { get; }
-		public IEnumerable<Persistence.Models.DictionaryEntry> DictionaryEntries { get; }
+		public IEnumerable<QuranX.Web.Views.DictionaryEntry.ViewModel> DictionaryEntries { get; }
 
 		public DictionaryListViewModel(
 			string currentRoot,
@@ -18,6 +19,8 @@ namespace QuranX.Web.Views.Dictionaries
 			IEnumerable<Dictionary> dictionaries,
 			IEnumerable<Persistence.Models.DictionaryEntry> dictionaryEntries)
 		{
+			ArgumentNullException.ThrowIfNull(dictionaryEntries);
+
 			CurrentRoot = currentRoot;
 			if (!string.IsNullOrEmpty(CurrentRoot) && CurrentRoot.Length > 1)
 			{
@@ -25,7 +28,12 @@ namespace QuranX.Web.Views.Dictionaries
 			}
 			ChildRoots = childRoots ?? throw new ArgumentNullException(nameof(childRoots));
 			Dictionaries = dictionaries ?? throw new ArgumentNullException(nameof(dictionaries));
-			DictionaryEntries = dictionaryEntries ?? throw new ArgumentNullException(nameof(dictionaryEntries));
+			DictionaryEntries = dictionaryEntries
+				.Select(x => new QuranX.Web.Views.DictionaryEntry.ViewModel(
+					arabicWord: x.Word,
+					dictionary: dictionaries.Single(d => d.Code == x.DictionaryCode),
+					entries: [x]
+					));
 		}
 	}
 }
