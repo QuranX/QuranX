@@ -11,8 +11,17 @@
                 <div class="arabic">@Model.ParentRoot &#8598;</div>
                 <div>@ArabicHelper.ArabicToLetterNames(Model.ParentRoot)</div>
             </a>
-
         }
+        else
+        {
+           if (!string.IsNullOrWhiteSpace(Model.CurrentRoot))
+           {
+            <a href=@($"/Dictionaries/") class="dictionary-entries__word">
+                <div class="arabic">All &#8598;</div>
+            </a>
+           }
+        }
+
         @foreach (string childRoot in Model.ChildRoots)
         {
             <a href=@($"/Dictionaries/{childRoot}") class="dictionary-entries__word">

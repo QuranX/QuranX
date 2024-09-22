@@ -1,4 +1,6 @@
 ﻿using System.IO;
+using System.Linq;
+using System.Net.Http;
 using System.Text.RegularExpressions;
 using Newtonsoft.Json;
 using NLog;
@@ -49,6 +51,7 @@ namespace QuranX.DataMigration.Migrators
 
 		public void Migrate(string code)
 		{
+			const string wordSeparatorPattern = @"(?=<span.*?class=""sense"".*?>|<span.*?class=""sub-sense"".*?>)";
 			string jsonFilePath = Path.Combine(Configuration.DictionariesDirectoryPath, $"{code}");
 			var jsonDictionary = ReadJsonObject<JsonDictionary>(jsonFilePath + ".json");
 			var jsonDictionaryMeta = ReadJsonObject<DictionaryMeta>(jsonFilePath + "-meta.json");
@@ -69,7 +72,11 @@ namespace QuranX.DataMigration.Migrators
 					html = NewLineRegex.Replace(html, "\r");
 				//TODO: Not until we know we are not already inside a html element
 				//html = ArabicRegex.Replace(html, m => $"<span class=\"arabic\">{m.Value}</span>");
-				string[] htmlLines = html.Split('\r');
+
+				string[] htmlLines = Regex.Split(html, wordSeparatorPattern, RegexOptions.IgnoreCase)
+					.Select(x => x.Trim())
+					.Where(x => !string.IsNullOrWhiteSpace(x))
+					.ToArray();
 				var dictionaryEntry = new DictionaryEntry(
 					dictionaryCode: code,
 					word: root,

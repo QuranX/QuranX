@@ -889,6 +889,7 @@ dl.boxed > dd {
 	clear: both;
 	display: inline-block;
 	width: 4em;
+	margin-left: 2em;
 	text-align: center;
 	/*Col:Title bar shadow*/
 	border: solid 2px hsl(40, 94.7%, 85%);
