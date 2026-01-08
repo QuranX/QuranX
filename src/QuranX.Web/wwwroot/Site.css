@@ -1129,3 +1129,7 @@ dl.about > dd {
 	padding: 2em;
 	border-radius: 2em;
 }
+
+.adsbygoogle {
+	margin: 0.5rem 0;
+}
