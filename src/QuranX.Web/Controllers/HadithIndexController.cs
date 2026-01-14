@@ -79,6 +79,12 @@ namespace QuranX.Web.Controllers
 				IEnumerable<Hadith> hadiths = HadithRepository.GetHadiths(hadithIds);
 				IEnumerable<HadithViewModel> hadithViewModels = HadithViewModelFactory.Create(hadiths);
 				var viewModel = new HadithsViewModel(headerViewModel, hadithViewModels);
+				var first = hadiths.FirstOrDefault();
+				if (first != null)
+				{
+					string url = $"Hadith/{collectionCode}/{first.PrimaryReferenceCode}/{first.PrimaryReferencePath}";
+					ViewBag.Canonical = url;
+				}
 				return View("Hadiths", viewModel);
 			}
 			else

@@ -12,6 +12,10 @@
     <title>@ViewBag.Title</title>
     <link rel="stylesheet" href="/bootstrap.css" />
     <link rel="stylesheet" href="/site.css" />
+    @if (ViewBag.Canonical != null)
+    {
+        <link rel="canonical" href="https://quranx.com/@ViewBag.Canonical" />
+    }
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-680HEFB03Z"></script>
     <script>
