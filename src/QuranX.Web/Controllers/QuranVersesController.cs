@@ -25,6 +25,9 @@ namespace QuranX.Web.Controllers
 
 		public ActionResult Index(string verses, int? context)
 		{
+			if (verses == "1.1")
+				ViewBag.Canonical = "";
+
 			IEnumerable<VerseRangeReference> verseRangeReferences = verses.Split(',')
 				.ToList()
 				.ConvertAll(x => VerseRangeReference.Parse(x));
