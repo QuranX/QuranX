@@ -150,7 +150,7 @@ app.MapControllerRoute(
 app.MapControllerRoute(
 	name: "Home",
 	pattern: "",
-	defaults: new { controller = "RedirectToUrl", action = "Index", url = "/1.1" });
+	defaults: new { controller = "QuranVerses", action = "Index", Verses = "1.1" });
 
 // Optional: Default route at the end
 app.MapControllerRoute(
