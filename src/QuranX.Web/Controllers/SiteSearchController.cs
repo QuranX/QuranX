@@ -31,6 +31,7 @@ namespace QuranX.Web.Controllers
 
 		public ActionResult Index(string q, string context)
 		{
+			ViewBag.PageHeaders = "<meta name=\"robots\" content=\"noindex, nofollow\">";
 			context ??= "";
 			string subContext = null;
 

@@ -14,6 +14,7 @@
             urlSoFar += urlPart + "/";
             <span> / </span><a href="@urlSoFar">@urlPart.Replace("-", " ")</a>
         }
+        urlSoFar = Html.RemoveTrailingSlash(urlSoFar);
     }
 </h2>
 <div class="hadith-reference-list btn-group" role="group" aria-label="Indexes">
@@ -24,5 +25,4 @@
             @referenceDefinition.Name
         </a>
     }
-
 </div>

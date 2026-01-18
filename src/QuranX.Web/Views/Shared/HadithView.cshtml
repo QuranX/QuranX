@@ -3,60 +3,71 @@
 @using QuranX.Shared.Models
 
 <div class="hadith">
-	<div class="hadith__references">
-		<div class="hadith__reference">
-			<div class="hadith__reference-name">
-				Collection
-			</div>
-			<div class="hadith__reference-value">
-				@Model.CollectionName
-			</div>
-		</div>
-		@foreach (HadithReferenceViewModel reference in @Model.References)
-		{
-			<div class="hadith__reference">
-				<div class="hadith__reference-name">
-					@reference.IndexName
-				</div>
-				<div class="hadith__reference-value">
-					<a href="/Hadith/@reference.CollectionCode/@reference.IndexCode/@reference.ToUrlPath()">
-						@reference.ToString()
-					</a>
-				</div>
-			</div>
-		}
-		@if (Model.Hadith.VerseRangeReferences.Any())
-		{
-			<div class="hadith__verse-references">
-				<div class="hadith__reference-verse-caption">
-					Related Qur'an verses
-				</div>
-				<ul class="hadith__reference-verse-numbers">
-					@foreach (VerseRangeReference verse in Model.Hadith.VerseRangeReferences)
-					{
-						string verseAsString = verse.Chapter + "." + verse.FirstVerse;
-						if (verse.IsMultipleVerses())
-						{
-							verseAsString += "-" + verse.LastVerse;
-						}
-						<li>
-							<a href="/@verseAsString">@verseAsString</a>
-						</li>
-					}
-				</ul>
-			</div>
-		}
-	</div>
-	<div class="hadith__text">
-		@foreach (string text in @Model.Hadith.EnglishText)
-		{
-			<p class="highlightable">@text</p>
-		}
-	</div>
-	<div class="hadith__text arabic">
-		@foreach (string text in @Model.Hadith.ArabicText)
-		{
-			<p class="highlightable">@text</p>
-		}
-	</div>
+    <div class="hadith__references" role="list" aria-label="Hadith references">
+        <h2 class="sr-only">References</h2>
+
+        <div class="hadith__reference" role="listitem" itemscope itemtype="https://schema.org/PropertyValue">
+            <div class="hadith__reference-name" itemprop="name">
+                Collection
+            </div>
+            <div class="hadith__reference-value" itemprop="value">
+                @Model.CollectionName
+            </div>
+        </div>
+
+        @foreach (HadithReferenceViewModel reference in Model.References)
+        {
+            <div class="hadith__reference" role="listitem" itemscope itemtype="https://schema.org/PropertyValue">
+                <div class="hadith__reference-name" itemprop="name">
+                    @reference.IndexName
+                </div>
+                <div class="hadith__reference-value" itemprop="value">
+                    <a href="@Url.Content($"/Hadith/{reference.CollectionCode}/{reference.IndexCode}/{reference.ToUrlPath()}")"
+                       itemprop="url">
+                        @reference.ToString()
+                    </a>
+                </div>
+            </div>
+        }
+
+        @if (Model.Hadith.VerseRangeReferences.Any())
+        {
+            <div class="hadith__verse-references" role="group" aria-label="Related Quran verses">
+                <div class="hadith__reference-verse-caption">
+                    Related Qur'an verses
+                </div>
+
+                <ul class="hadith__reference-verse-numbers" role="list">
+                    @foreach (VerseRangeReference verse in Model.Hadith.VerseRangeReferences)
+                    {
+                        var verseAsString = $"{verse.Chapter}.{verse.FirstVerse}";
+                        if (verse.IsMultipleVerses())
+                        {
+                            verseAsString += $"-{verse.LastVerse}";
+                        }
+
+                        <li role="listitem">
+                            <a href="@Url.Content($"/{verseAsString}")">
+                                @verseAsString
+                            </a>
+                        </li>
+                    }
+                </ul>
+            </div>
+        }
+    </div>
+
+    <div class="hadith__text" role="region" aria-label="Hadith text (English)">
+        @foreach (string text in Model.Hadith.EnglishText)
+        {
+            <p class="highlightable">@text</p>
+        }
+    </div>
+
+    <div class="hadith__text arabic" role="region" aria-label="Hadith text (Arabic)" lang="ar" dir="rtl">
+        @foreach (string text in Model.Hadith.ArabicText)
+        {
+            <p class="highlightable">@text</p>
+        }
+    </div>
 </div>

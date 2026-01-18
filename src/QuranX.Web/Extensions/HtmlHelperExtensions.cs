@@ -22,5 +22,11 @@ namespace QuranX.Web.Extensions
 				.Replace("&lt;/b&gt;", "</strong>");
 			return new HtmlString(result);
 		}
+
+		public static string RemoveTrailingSlash(this IHtmlHelper instance, string value)
+		{
+			if (value == null) return null;
+			return value.TrimEnd('/');
+		}
 	}
 }

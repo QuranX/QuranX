@@ -82,7 +82,7 @@ namespace QuranX.Web.Controllers
 				var first = hadiths.FirstOrDefault();
 				if (first != null)
 				{
-					string url = $"Hadith/{collectionCode}/{first.PrimaryReferenceCode}/{first.PrimaryReferencePath}";
+					string url = $"/Hadith/{collectionCode}/{first.PrimaryReferenceCode}/{first.PrimaryReferencePath}";
 					ViewBag.Canonical = url;
 				}
 				return View("Hadiths", viewModel);

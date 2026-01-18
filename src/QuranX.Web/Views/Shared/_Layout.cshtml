@@ -1,8 +1,19 @@
 ﻿@inject Microsoft.AspNetCore.Http.IHttpContextAccessor httpContextAccessor
+@using Microsoft.AspNetCore.Html
+@using QuranX.Web.Extensions
 
 @{
     var request = httpContextAccessor.HttpContext.Request;
-    string currentUrl = $"{request.Scheme}://{request.Host}{request.Path}{request.QueryString}";
+    string currentUrl = $"{request.Scheme}://{request.Host}{request.Path}";
+    if (ViewBag.Canonical == null)
+    {
+        ViewBag.Canonical = currentUrl;
+    }
+    else
+    {
+        ViewBag.Canonical = $"{request.Scheme}://{request.Host}{ViewBag.Canonical}";
+    }
+    ViewBag.Canonical = Html.RemoveTrailingSlash((string)ViewBag.Canonical);
 }
 <!DOCTYPE html>
 <html>
@@ -12,10 +23,8 @@
     <title>@ViewBag.Title</title>
     <link rel="stylesheet" href="/bootstrap.css" />
     <link rel="stylesheet" href="/site.css" />
-    @if (ViewBag.Canonical != null)
-    {
-        <link rel="canonical" href="https://quranx.com/@ViewBag.Canonical" />
-    }
+    <link rel="canonical" href="@ViewBag.Canonical" />
+    @(new HtmlString(ViewBag.PageHeaders))
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-680HEFB03Z"></script>
     <script>
@@ -33,7 +42,7 @@
     <script src="/Scripts/quranx.verse-counts.js"></script>
     <meta property="og:image" content="https://QuranX.com/Images/QuranXSocialIcon.png" />
     <meta property="og:title" content="QuranX.com The most complete Quran / Hadith / Tafsir collection available!" />
-    <meta property="og:url" content="https://QuranX.com@(currentUrl)" />
+    <meta property="og:url" content="@currentUrl" />
     <meta property="og:type" content="website" />
 
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
