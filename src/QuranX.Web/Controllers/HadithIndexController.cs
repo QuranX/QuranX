@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Policy;
 using System.Text;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.OutputCaching;
@@ -53,6 +54,15 @@ namespace QuranX.Web.Controllers
 			if (referenceDefinition == null ||	!referenceDefinition.PatternMatch(referencePartNames))
 				return NotFound();
 
+			// Ensure keys match, because they are case sensitive
+			referenceCode = referenceDefinition.Code;
+			for(int i = 0; i < referencePartNamesAndValues.Count; i++)
+			{
+				var item = referencePartNamesAndValues[i];
+				item.referencePartName = referenceDefinition.PartNames[i];
+			}
+
+
 			IEnumerable<(int value, string suffix)> referenceValues =
 				referencePartNamesAndValues.Select(x => (x.value, x.suffix));
 			IEnumerable<HadithReference> hadithReferences =
@@ -65,9 +75,11 @@ namespace QuranX.Web.Controllers
 				.Select(x => x.value + x.suffix)
 				.Select((value, i) => referenceDefinition.PartNames[i] + "-" + value);
 			string partsAsUrl = string.Join("/", urlReferenceParts);
-			string urlSoFar = $"/hadith/{collectionCode}/{referenceCode}/{partsAsUrl}";
+			string urlSoFar = $"/Hadith/{collectionCode}/{referenceCode}/{partsAsUrl}";
 			if (urlSoFar.EndsWith("/"))
 				urlSoFar = urlSoFar.Substring(0, urlSoFar.Length - 1);
+			ViewBag.Canonical = urlSoFar;
+
 			var headerViewModel = new HadithIndexHeaderViewModel(
 				selectedReferenceCode: referenceCode,
 				urlSoFar: urlSoFar,
@@ -79,12 +91,6 @@ namespace QuranX.Web.Controllers
 				IEnumerable<Hadith> hadiths = HadithRepository.GetHadiths(hadithIds);
 				IEnumerable<HadithViewModel> hadithViewModels = HadithViewModelFactory.Create(hadiths);
 				var viewModel = new HadithsViewModel(headerViewModel, hadithViewModels);
-				var first = hadiths.FirstOrDefault();
-				if (first != null)
-				{
-					string url = $"/Hadith/{collectionCode}/{first.PrimaryReferenceCode}/{first.PrimaryReferencePath}";
-					ViewBag.Canonical = url;
-				}
 				return View("Hadiths", viewModel);
 			}
 			else
