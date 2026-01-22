@@ -70,7 +70,7 @@ namespace QuranX.Web.Services
 			int chapterNumber = document.GetStoredValue<Commentary>(x => x.ChapterNumber);
 			int verseNumber = document.GetStoredValue<Commentary>(x => x.FirstVerseNumber);
 			string commentatorCode = document.GetStoredValue<Commentary>(x => x.CommentatorCode);
-			CommentatorRepository.TryGet(commentatorCode, out Commentator commentator);
+			CommentatorRepository.TryGet(ref commentatorCode, out Commentator commentator);
 			string commentatorDescription = commentator?.Description;
 			url = $"/Tafsir/{commentatorCode}/{chapterNumber}.{verseNumber}";
 			caption = $"Commentary by {commentatorDescription} for {chapterNumber}.{verseNumber}";

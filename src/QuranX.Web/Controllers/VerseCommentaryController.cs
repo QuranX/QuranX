@@ -30,8 +30,7 @@ namespace QuranX.Web.Controllers
 
 		public ActionResult Index(string commentatorCode, int chapterNumber, int verseNumber)
 		{
-
-			if (!CommentatorRepository.TryGet(commentatorCode, out Commentator commentator))
+			if (!CommentatorRepository.TryGet(ref commentatorCode, out Commentator commentator))
 				return NotFound();
 
 			Commentary commentary = CommentaryRepository.GetForVerse(
@@ -56,6 +55,8 @@ namespace QuranX.Web.Controllers
 				selectedChapterNumber: chapterNumber,
 				selectedVerseNumber: verseNumber,
 				url: url);
+
+			ViewBag.Canonical = $"{url}{chapterNumber}.{verseNumber}";
 
 			var viewModel = new ViewModel(
 				commentatorAndCommentary: commentatorAndCommentary,
