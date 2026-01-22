@@ -8,6 +8,7 @@ namespace QuranX.Web.Controllers
 	{
 		public ActionResult Index()
 		{
+			ViewBag.Canonical = "/About";
 			return View("About");
 		}
 	}
