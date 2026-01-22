@@ -27,6 +27,8 @@ namespace QuranX.Web.Controllers
 			if (!QuranStructure.TryValidateChapterAndVerse(chapterNumber, verseNumber))
 				return NotFound();
 
+			ViewBag.Canonical = $"/Analysis/{chapterNumber}.{verseNumber}";
+
 			Chapter chapter = ChapterRepository.Get(chapterNumber);
 			VerseAnalysis analysis =
 				VerseAnalysisRepository.GetForVerse(chapterNumber, verseNumber);
