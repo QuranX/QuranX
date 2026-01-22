@@ -31,7 +31,11 @@ namespace QuranX.Web.Controllers
 
 		public ActionResult Index(string q, string context)
 		{
-			ViewBag.PageHeaders = "<meta name=\"robots\" content=\"noindex, nofollow\">";
+			ViewBag.Canonical = "/Search";
+			if (q != null)
+			{
+				ViewBag.PageHeaders = "<meta name=\"robots\" content=\"noindex, nofollow\">";
+			}
 			context ??= "";
 			string subContext = null;
 
