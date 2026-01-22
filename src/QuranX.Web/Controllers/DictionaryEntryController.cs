@@ -28,7 +28,10 @@ namespace QuranX.Web.Controllers
 			Dictionary dictionary = DictionaryRepository.Get(ref dictionaryCode);
 			if (dictionary == null)
 				return NotFound();
-			string indexValue = ArabicHelper.Substitute(word);
+			string indexValue = ArabicHelper.SubstituteAndOmit(word);
+			if (indexValue.Length != word.Length)
+				return NotFound();
+
 			IEnumerable<DictionaryEntry> entries = DictionaryEntryRepository.Get(
 				dictionaryCode: dictionaryCode, 
 				word: indexValue);
