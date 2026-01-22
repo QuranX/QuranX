@@ -38,12 +38,7 @@ namespace QuranX.Web.Controllers
 				chapterNumber: chapterNumber,
 				verseNumber: verseNumber);
 			if (commentary == null)
-				commentary = new Commentary(
-					commentatorCode: commentatorCode,
-					chapterNumber: chapterNumber,
-					firstVerseNumber: verseNumber,
-					lastVerseNumber: verseNumber,
-					text: new[] { new TextContent("No tafsir found for this verse", false) });
+				return NotFound();
 
 			var commentatorAndCommentary = new CommentatorAndCommentary(
 				commentator: commentator,
@@ -56,7 +51,7 @@ namespace QuranX.Web.Controllers
 				selectedVerseNumber: verseNumber,
 				url: url);
 
-			ViewBag.Canonical = $"{url}{chapterNumber}.{verseNumber}";
+			ViewBag.Canonical = $"{url}{chapterNumber}.{commentary.FirstVerseNumber}";
 
 			var viewModel = new ViewModel(
 				commentatorAndCommentary: commentatorAndCommentary,
