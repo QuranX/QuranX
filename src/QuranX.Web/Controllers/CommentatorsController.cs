@@ -17,6 +17,7 @@ namespace QuranX.Web.Controllers
 		public ActionResult Index()
 		{
 			var viewModel = CommentatorRepository.GetAll();
+			ViewBag.Canonical = "/Tafsirs";
 			return View("Commentators", viewModel);
 		}
 	}
