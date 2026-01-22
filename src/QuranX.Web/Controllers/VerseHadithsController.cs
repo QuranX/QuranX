@@ -32,6 +32,8 @@ namespace QuranX.Web.Controllers
 			if (!QuranStructure.TryValidateChapterAndVerse(chapterNumber, verseNumber))
 				return NotFound();
 
+			ViewBag.Canonical = $"/Hadiths/{chapterNumber}.{verseNumber}";
+
 			Chapter chapter = ChapterRepository.Get(chapterNumber);
 			var verseReference = new VerseReference(chapterNumber, verseNumber);
 			IEnumerable<Persistence.Models.Hadith> hadiths =
@@ -39,6 +41,9 @@ namespace QuranX.Web.Controllers
 				.OrderBy(x => x.References[0]);
 
 			IEnumerable<HadithViewModel> hadithViewModels = HadithViewModelFactory.Create(hadiths);
+			if (!hadithViewModels.Any())
+				return NotFound();
+
 			var viewModel = new ViewModel(
 				chapter: chapter,
 				verseNumber: verseNumber,
