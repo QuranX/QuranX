@@ -29,6 +29,7 @@ namespace QuranX.Web.Controllers
 
 		public ActionResult Index(string rootLetterNames)
 		{
+			rootLetterNames = rootLetterNames?.ToLowerInvariant();
 			string root = ArabicHelper.LetterNamesToArabic(rootLetterNames);
 			if (root == null)
 				return NotFound();
@@ -38,6 +39,11 @@ namespace QuranX.Web.Controllers
 				.GetForRoot(root)
 				.OrderBy(x => x.ChapterNumber)
 				.ThenBy(x => x.VerseNumber);
+
+			if (!verses.Any())
+				return NotFound();
+
+			ViewBag.Canonical = $"/Analysis/Root/{rootLetterNames}";
 			var extracts = new List<VerseViewModel>();
 			foreach (VerseAnalysis verseAnalysis in verses)
 			{

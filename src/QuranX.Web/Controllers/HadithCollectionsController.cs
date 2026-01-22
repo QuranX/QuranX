@@ -18,6 +18,7 @@ namespace QuranX.Web.Controllers
 
 		public ActionResult Index()
 		{
+			ViewBag.Canonical = "/Hadiths";
 			IEnumerable<HadithCollection> viewModel = HadithCollectionRepository.GetAll();
 			return View("HadithCollections", viewModel);
 		}
