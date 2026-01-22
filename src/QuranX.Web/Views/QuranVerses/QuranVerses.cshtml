@@ -36,7 +36,7 @@
         }
         <div class="row verse__statistics">
             <span class="verse__reference">@verse.ChapterNumber.@verse.VerseNumber</span>
-            <a href="analysis/@verse.ChapterNumber.@verse.VerseNumber">
+            <a href="/Analysis/@verse.ChapterNumber.@verse.VerseNumber">
                 <dl class="count-and-label">
                     <dd>@verse.RootWordCount</dd>
                     <dt>Roots</dt>
@@ -44,7 +44,7 @@
             </a>
             @if (verse.CommentaryCount > 0)
             {
-                <a href="tafsirs/@verse.ChapterNumber.@verse.VerseNumber">
+                <a href="/Tafsirs/@verse.ChapterNumber.@verse.VerseNumber">
                     <dl class="count-and-label">
                         <dd>@verse.CommentaryCount</dd>
                         <dt>Tafsirs</dt>
@@ -53,7 +53,7 @@
             }
             @if (verse.HadithCount > 0)
             {
-                <a href="hadiths/@verse.ChapterNumber.@verse.VerseNumber">
+                <a href="/Hadiths/@verse.ChapterNumber.@verse.VerseNumber">
                     <dl class="count-and-label">
                         <dd>@verse.HadithCount</dd>
                         <dt>Hadiths</dt>

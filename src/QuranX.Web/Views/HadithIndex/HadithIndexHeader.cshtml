@@ -21,7 +21,7 @@
     @foreach (HadithReferenceDefinition referenceDefinition in Model.Collection.ReferenceDefinitions.OrderBy(x => x.Name))
     {
         string cssClass = string.Compare(referenceDefinition.Code, Model.SelectedReferenceCode, true) == 0 ? "selected" : "";
-        <a href="/hadith/@Model.Collection.Code/@referenceDefinition.Code" class="btn btn-primary hadith-reference-list__item @cssClass">
+        <a href="/Hadith/@Model.Collection.Code/@referenceDefinition.Code" class="btn btn-primary hadith-reference-list__item @cssClass">
             @referenceDefinition.Name
         </a>
     }

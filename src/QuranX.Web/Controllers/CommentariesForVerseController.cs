@@ -21,6 +21,7 @@ namespace QuranX.Web.Controllers
 			if (!QuranStructure.TryValidateChapterAndVerse(chapterNumber, verseNumber))
 				return NotFound();
 
+			ViewBag.Canonical = $"/Tafsirs/{chapterNumber}.{verseNumber}";
 			CommentariesForVerse viewModel = CommentariesForVerseBuilder.Create(
 				commentatorCode: commentatorCode,
 				chapterNumber: chapterNumber,
