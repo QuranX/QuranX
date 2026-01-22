@@ -50,11 +50,15 @@
             @if (!string.IsNullOrWhiteSpace(Model.ParentRoot))
             {
                 <h3>
-                    Try the <a href=@($"/Dictionaries/{Model.ParentRoot}")>parent root</a>
                     @if (Model.ChildRoots.Any())
                     {
-                        <Text>- or select one of the child roots.</Text>
+                        <Text>Select a child root, or go</Text>
                     }
+                    else
+                    {
+                        <text>Go</text>
+                    }
+                    back to the <a href=@($"/Dictionaries/{Model.ParentRoot}")>parent root</a>.
                 </h3>
             }
         }

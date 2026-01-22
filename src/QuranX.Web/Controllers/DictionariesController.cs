@@ -22,12 +22,19 @@ namespace QuranX.Web.Controllers
 
 		public ActionResult Index(string root)
 		{
+			ViewBag.Canonical = "/Dictionaries";
+			if (!string.IsNullOrWhiteSpace(root))
+				ViewBag.Canonical += $"/{root}";
+
 			IEnumerable<Persistence.Models.Dictionary> dictionaries = DictionaryRepository.GetAll();
 			IEnumerable<string> nextRoots = DictionaryEntryRepository.GetNextRoots(root);
 			IEnumerable<Persistence.Models.DictionaryEntry> dictionaryEntries = 
 				string.IsNullOrWhiteSpace(root)
 				? []
 				: DictionaryEntryRepository.Get(root);
+			if (!dictionaryEntries.Any() && !nextRoots.Any())
+				return NotFound();
+
 			var viewModel = new DictionaryListViewModel(
 				currentRoot: root,
 				childRoots: nextRoots,
