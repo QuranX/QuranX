@@ -82,7 +82,7 @@ namespace QuranX.Web.Services
 			string primaryReferenceCode = document.GetStoredValue<Hadith>(x => x.PrimaryReferenceCode);
 			string primaryReferencePath = document.GetStoredValue<Hadith>(x => x.PrimaryReferencePath);
 
-			HadithCollection collection = HadithCollectionRepository.Get(collectionCode);
+			HadithCollection collection = HadithCollectionRepository.Get(ref collectionCode);
 			url = $"/Hadith/{collectionCode}/{primaryReferenceCode}/{primaryReferencePath}";
 			caption = $"{collection.Name} {primaryReferencePath.Replace("/", ", ").Replace("-", " ")}";
 		}

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Security.Policy;
 using System.Text;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.OutputCaching;
@@ -33,7 +32,7 @@ namespace QuranX.Web.Controllers
 		public ActionResult Index(string collectionCode, string referenceCode,
 			string referenceValue1, string referenceValue2, string referenceValue3)
 		{
-			HadithCollection collection = HadithCollectionRepository.Get(collectionCode);
+			HadithCollection collection = HadithCollectionRepository.Get(ref collectionCode);
 			if (collection == null)
 				return NotFound();
 
@@ -61,7 +60,6 @@ namespace QuranX.Web.Controllers
 				var item = referencePartNamesAndValues[i];
 				item.referencePartName = referenceDefinition.PartNames[i];
 			}
-
 
 			IEnumerable<(int value, string suffix)> referenceValues =
 				referencePartNamesAndValues.Select(x => (x.value, x.suffix));

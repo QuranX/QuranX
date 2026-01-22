@@ -10,7 +10,7 @@ namespace QuranX.Persistence.Services.Repositories
 	public interface IHadithCollectionRepository
 	{
 		IEnumerable<HadithCollection> GetAll();
-		HadithCollection Get(string collectionCode);
+		HadithCollection Get(ref string collectionCode);
 	}
 
 	public class HadithCollectionRepository : IHadithCollectionRepository
@@ -25,10 +25,11 @@ namespace QuranX.Persistence.Services.Repositories
 			IndexSearcherProvider = indexSearcherProvider;
 		}
 
-		public HadithCollection Get(string collectionCode)
+		public HadithCollection Get(ref string collectionCode)
 		{
 			EnsureData();
 			HadithCollectionByCode.TryGetValue(collectionCode, out HadithCollection collection);
+			collectionCode = collection?.Code ?? collectionCode;
 			return collection;
 		}
 

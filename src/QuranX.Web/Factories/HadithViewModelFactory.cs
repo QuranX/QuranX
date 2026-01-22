@@ -27,7 +27,7 @@ namespace QuranX.Web.Factories
 			foreach (Hadith hadith in hadiths)
 			{
 				string collectionCode = hadith.References[0].CollectionCode;
-				HadithCollection collection = HadithCollectionRepository.Get(collectionCode);
+				HadithCollection collection = HadithCollectionRepository.Get(ref collectionCode);
 				var references = new List<HadithReferenceViewModel>();
 				foreach (HadithReference reference in hadith.References)
 				{

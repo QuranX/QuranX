@@ -95,7 +95,7 @@ namespace QuranX.Persistence.Services.Repositories
 			IEnumerable<(int value, string suffix)> values)
 		{
 			values = values ?? Array.Empty<(int value, string suffix)>();
-			HadithCollection collection = HadithCollectionRepository.Get(collectionCode);
+			HadithCollection collection = HadithCollectionRepository.Get(ref collectionCode);
 			HadithReferenceDefinition referenceDefinition = collection.GetReferenceDefinition(referenceCode);
 			// Get the actual code, because it is case sensitive
 			referenceCode = referenceDefinition.Code;
