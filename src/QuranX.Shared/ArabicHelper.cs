@@ -17,7 +17,7 @@ namespace QuranX.Shared
 		{
 			LetterNames = new Dictionary<char, string>();
 			PopulateLetterNames();
-			LettersByName = LetterNames.ToDictionary(x => x.Value, x => x.Key);
+			LettersByName = LetterNames.ToDictionary(x => x.Value, x => x.Key, StringComparer.OrdinalIgnoreCase);
 			PermittedChars = new HashSet<char>(ArabicAlphabet.ToCharArray().Distinct());
 			AlternateChars = new Dictionary<char, char>();
 			PopulateAlternateChars();
@@ -50,7 +50,11 @@ namespace QuranX.Shared
 			var builder = new StringBuilder();
 			string[] parts = source.Split('-');
 			foreach (string letterName in parts)
-				builder.Append(LettersByName[letterName]);
+			{
+				if (!LettersByName.TryGetValue(letterName, out char arabicLetter))
+					return null;
+				builder.Append(arabicLetter);
+			}
 			return builder.ToString();
 		}
 

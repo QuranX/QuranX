@@ -30,8 +30,12 @@ namespace QuranX.Web.Controllers
 		public ActionResult Index(string rootLetterNames)
 		{
 			string root = ArabicHelper.LetterNamesToArabic(rootLetterNames);
+			if (root == null)
+				return NotFound();
+
 			IEnumerable<VerseAnalysis> verses =
-				VerseAnalysisRepository.GetForRoot(root)
+				VerseAnalysisRepository
+				.GetForRoot(root)
 				.OrderBy(x => x.ChapterNumber)
 				.ThenBy(x => x.VerseNumber);
 			var extracts = new List<VerseViewModel>();
