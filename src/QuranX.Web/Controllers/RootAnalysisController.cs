@@ -84,7 +84,7 @@ namespace QuranX.Web.Controllers
 				dictionaryEntries
 				.Select(x => x.DictionaryCode)
 				.Distinct()
-				.Select(DictionaryRepository.Get)
+				.Select(x => DictionaryRepository.Get(ref x))
 				.OrderBy(x => x.Name);
 
 			var viewModel = new ViewModel(

@@ -10,7 +10,7 @@ namespace QuranX.Persistence.Services.Repositories
 	public interface IDictionaryRepository
 	{
 		IEnumerable<Dictionary> GetAll();
-		Dictionary Get(string dictionaryCode);
+		Dictionary Get(ref string dictionaryCode);
 	}
 
 	public class DictionaryRepository : IDictionaryRepository
@@ -25,11 +25,12 @@ namespace QuranX.Persistence.Services.Repositories
 			IndexSearcherProvider = indexSearcherProvider;
 		}
 
-		public Dictionary Get(string dictionaryCode)
+		public Dictionary Get(ref string dictionaryCode)
 		{
 			EnsureData();
 			Dictionary result;
 			DictionariesByCode.TryGetValue(dictionaryCode, out result);
+			dictionaryCode = result?.Code ?? dictionaryCode;
 			return result;
 		}
 

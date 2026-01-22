@@ -9,6 +9,7 @@ using QuranX.Web.Views.DictionaryEntry;
 
 namespace QuranX.Web.Controllers
 {
+	[OutputCache(Duration = Consts.CacheTimeInSeconds, NoStore = Consts.CacheTimeInSeconds == 0)]
 	public class DictionaryEntryController : Controller
 	{
 		private readonly IDictionaryRepository DictionaryRepository;
@@ -24,7 +25,7 @@ namespace QuranX.Web.Controllers
 
 		public ActionResult Index(string dictionaryCode, string word)
 		{
-			Dictionary dictionary = DictionaryRepository.Get(dictionaryCode);
+			Dictionary dictionary = DictionaryRepository.Get(ref dictionaryCode);
 			if (dictionary == null)
 				return NotFound();
 			string indexValue = ArabicHelper.Substitute(word);
@@ -34,8 +35,8 @@ namespace QuranX.Web.Controllers
 			if (!entries.Any())
 				return NotFound();
 
+			ViewBag.Canonical = $"/Dictionary/{dictionaryCode}/{word}";
 			var viewModel = new ViewModel(word, dictionary, entries);
-
 			return View("DictionaryEntry", viewModel);
 		}
 	}
