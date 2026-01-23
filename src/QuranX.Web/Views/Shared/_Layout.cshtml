@@ -24,6 +24,7 @@
     <link rel="stylesheet" href="/bootstrap.css" />
     <link rel="stylesheet" href="/site.css" />
     <link rel="canonical" href="@ViewBag.Canonical" />
+    <meta name="description" content="@ViewBag.Title - QuranX.com The most complete Quran / Hadith / Tafsir collection available!">
     @(new HtmlString(ViewBag.PageHeaders))
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-680HEFB03Z"></script>
@@ -42,7 +43,7 @@
     <script src="/Scripts/quranx.verse-counts.js"></script>
     <meta property="og:image" content="https://QuranX.com/Images/QuranXSocialIcon.png" />
     <meta property="og:title" content="QuranX.com The most complete Quran / Hadith / Tafsir collection available!" />
-    <meta property="og:url" content="@currentUrl" />
+    <meta property="og:url" content="@(currentUrl.TrimEnd('/'))" />
     <meta property="og:type" content="website" />
 
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
@@ -72,7 +73,7 @@
             </div>
             <div class="quranx navbar-collapse collapse">
                 <ul class="quranx nav navbar-nav">
-                    <li>@Html.RouteLink("Commentaries", "Commentators")</li>
+                    <li>@Html.RouteLink("Tafsirs", "Commentators")</li>
                     <li>@Html.RouteLink("Hadiths", "HadithCollections")</li>
                     <li>@Html.RouteLink("Search", "SiteSearch")</li>
                     <li>@Html.RouteLink("Dictionaries", "Dictionaries", new { Root = (string)null })</li>

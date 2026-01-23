@@ -2,7 +2,7 @@
 @using QuranX.Web.Views.Shared
 
 @{
-    ViewBag.Title = $"Hadiths for {Model.Chapter.ChapterNumber}.{Model.VerseNumber}";
+    ViewBag.Title = $"Hadiths for {Model.Chapter.ChapterNumber}.{Model.VerseNumber} {Model.Chapter.EnglishName} {Model.Chapter.ArabicName}";
     string hadithsTitle = Model.Hadiths.Count() == 1 ? "hadith" : "hadiths";
 }
 <h1>The Qur'an</h1>

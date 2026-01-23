@@ -2,12 +2,12 @@
 @model CommentariesForVerse
 
 @{
-    ViewBag.Title = $"Commentaries for {Model.Chapter.ChapterNumber}.{Model.VerseNumber}";
+    ViewBag.Title = $"Tafsirs for Qur'an {Model.Chapter.ChapterNumber}.{Model.VerseNumber} {Model.Chapter.EnglishName} {Model.Chapter.ArabicName}";
 }
 
 <h1>The Quran</h1>
 <h2>
-	Commentaries for <a href="/@Model.Chapter.ChapterNumber.@Model.VerseNumber">
+	Tafsirs for <a href="/@Model.Chapter.ChapterNumber.@Model.VerseNumber">
 		@Model.Chapter.ChapterNumber.@Model.VerseNumber
 	</a>
 </h2>
