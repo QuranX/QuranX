@@ -1,27 +1,6 @@
-User-agent: AdsBot-Google
-Allow: /
-
-User-agent: bingbot
-Allow: /
-
-User-agent: DuckDuckBot
-Allow: /
-
-User-agent: Googlebot
-Allow: /
-
-User-agent: ChatGPTBrowser
-Allow: /
-
-User-agent: OpenAI-GPTBot
-Allow: /
-
-User-agent: Mediapartners-Google
-Allow: /
-
 User-agent: SemrushBot
 Disallow: /
 
 # General rule for all other bots
 User-agent: *
-Disallow: /
+Disallow:
