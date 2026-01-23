@@ -4,7 +4,7 @@
 
 @{
     var request = httpContextAccessor.HttpContext.Request;
-    string currentUrl = $"{request.Scheme}://{request.Host}{request.Path}";
+    string currentUrl = $"https://quranx.com{request.Path}";
     if (ViewBag.Canonical == null)
     {
         ViewBag.Canonical = currentUrl;
@@ -14,6 +14,8 @@
         ViewBag.Canonical = $"{request.Scheme}://{request.Host}{ViewBag.Canonical}";
     }
     ViewBag.Canonical = Html.RemoveTrailingSlash((string)ViewBag.Canonical);
+
+    string metaDescription = $"{ViewBag.MetaDescription ?? ViewBag.Title} - QuranX.com The most complete Quran / Hadith / Tafsir collection available!";
 }
 <!DOCTYPE html>
 <html>
@@ -24,16 +26,16 @@
     <link rel="stylesheet" href="/bootstrap.css" />
     <link rel="stylesheet" href="/site.css" />
     <link rel="canonical" href="@ViewBag.Canonical" />
-    <meta name="description" content="@(ViewBag.MetaDescription ?? ViewBag.Title) - QuranX.com The most complete Quran / Hadith / Tafsir collection available!">
+    <meta name="description" content="@metaDescription">
     @(new HtmlString(ViewBag.PageHeaders))
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-680HEFB03Z"></script>
     <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
- 
-      gtag('config', 'G-680HEFB03Z');
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'G-680HEFB03Z');
     </script>
     <script src="/Scripts/jquery-3.3.1.js"></script>
     <script src="/Scripts/jquery.highlight.js"></script>
@@ -41,10 +43,17 @@
     <script src="/Scripts/modernizr-2.8.3.js"></script>
     <script src="/Scripts/bootstrap.js"></script>
     <script src="/Scripts/quranx.verse-counts.js"></script>
-    <meta property="og:image" content="https://QuranX.com/Images/QuranXSocialIcon.png" />
-    <meta property="og:title" content="QuranX.com The most complete Quran / Hadith / Tafsir collection available!" />
+
+    <meta property="og:image" content="https://quranx.com/Images/QuranXSocialIcon.png" />
+    <meta property="og:title" content="@ViewBag.Title" />
     <meta property="og:url" content="@(currentUrl.TrimEnd('/'))" />
-    <meta property="og:type" content="website" />
+    <meta property="og:type" content="article" />
+    <meta property="og:description" content="@metaDescription" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="@ViewBag.Title" />
+    <meta name="twitter:description" content="@metaDescription" />
+    <meta name="twitter:image" content="https://quranx.com/Images/QuranXSocialIcon.png" />
+
 
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
@@ -55,6 +64,9 @@
     <meta name="theme-color" content="#ffffff">
 </head>
 <body>
+    @{
+        await Html.RenderPartialAsync("Socials");
+    }
     <div id="donate-container" href="https://www.patreon.com/QuranX">
         <a href="https://www.patreon.com/QuranX" class="quranx navbar-brand">
             <img class="subhan-Allah" src="/Images/SubhanAllah.png" />

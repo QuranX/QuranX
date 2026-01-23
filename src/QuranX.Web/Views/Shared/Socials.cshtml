@@ -1,0 +1,54 @@
+﻿@using System.Net
+@using Microsoft.AspNetCore.Http.Extensions
+@inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
+
+@{
+    var request = HttpContextAccessor.HttpContext.Request;
+
+    string url = request.GetDisplayUrl();
+    string title = ViewBag.Title ?? "QuranX";
+
+    string shareUrl = WebUtility.UrlEncode(url);
+    string shareTitle = WebUtility.UrlEncode(title);
+
+    string facebookHref = $"https://www.facebook.com/sharer/sharer.php?u={shareUrl}";
+    string xHref = $"https://x.com/intent/post?text={shareTitle}%20{shareUrl}";
+    string redditHref = $"https://www.reddit.com/submit?url={shareUrl}&title={shareTitle}";
+    string pinterestHref = $"https://pinterest.com/pin/create/button/?url={shareUrl}&description={shareTitle}";
+}
+
+<div id="quranx-social-share" aria-label="Share this page">
+
+    <!-- Facebook -->
+    <a class="quranx-social-share__btn"
+       target="_blank"
+       href="@facebookHref"
+       aria-label="Share on Facebook">
+        <img src="/images/SocialIcons/Facebook.svg" alt="Share on Facebook" />
+    </a>
+
+    <!-- X -->
+    <a class="quranx-social-share__btn"
+       target="_blank"
+       href="@xHref"
+       aria-label="Share on X">
+        <img src="/images/SocialIcons/X.svg" alt="Share on X" />
+    </a>
+
+    <!-- Reddit -->
+    <a class="quranx-social-share__btn"
+       target="_blank"
+       href="@redditHref"
+       aria-label="Share on Reddit">
+        <img src="/images/SocialIcons/Reddit.svg" alt="Share on Reddit" />
+    </a>
+
+    <!-- Pinterest -->
+    <a class="quranx-social-share__btn"
+       target="_blank"
+       href="@pinterestHref"
+       aria-label="Share on Pinterest">
+        <img src="/images/SocialIcons/Pinterest.svg" alt="Share on Pinterest" />
+    </a>
+
+</div>

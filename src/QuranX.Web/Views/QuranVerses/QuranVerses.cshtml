@@ -5,11 +5,10 @@
 @model ViewModel
 
 @{
-    ViewBag.Title = $"The Qur'an";
-    ViewBag.MetaDescription = $"The Qur'an: {Model.DisplayVerses.ToDisplayText()}";
+    ViewBag.Title = $"The Qur'an: {Model.DisplayVerses.ToDisplayText()}";
 }
 
-<h1>@ViewBag.Title</h1>
+<h1>The Qur'an</h1>
 @{ await Html.RenderPartialAsync("SelectChapterAndVerse", Model.SelectChapterAndVerse); }
 <div class="dropdown">
     <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

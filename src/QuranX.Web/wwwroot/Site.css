@@ -63,6 +63,30 @@
 	padding: 4px 0px;
 }
 
+#quranx-social-share {
+	position: fixed;
+	top: 3.75em;
+	left: 0;
+	z-index: 9999;
+	background-color: white;
+	display: inline-block;
+	padding: 2px;
+	border-radius: 4px;
+}
+
+	#quranx-social-share > .quranx-social-share__btn > img {
+		width: 2em;
+		height: 2em;
+	}
+
+	#quranx-social-share > .quranx-social-share__btn,
+	#quranx-social-share > .quranx-social-share__btn:hover,
+	#quranx-social-share > .quranx-social-share__btn:focus,
+	#quranx-social-share > .quranx-social-share__btn:visited {
+		text-decoration: none;
+	}
+
+
 /* Glint overlay */
 /* Glint overlay: reverse at 80–89%, forward at 90–100% */
 #donate-container::before {
