@@ -1,10 +1,12 @@
 ﻿@using QuranX.Web.Models
 @using QuranX.Persistence.Models
 @using QuranX.Web.Views.QuranVerses
+@using QuranX.Web.Extensions
 @model ViewModel
 
 @{
-    ViewBag.Title = "The Qur'an";
+    ViewBag.Title = $"The Qur'an";
+    ViewBag.MetaDescription = $"The Qur'an: {Model.DisplayVerses.ToDisplayText()}";
 }
 
 <h1>@ViewBag.Title</h1>
