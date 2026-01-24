@@ -79,7 +79,7 @@ namespace QuranX.DataMigration.Services.Sitemaps
 				.ToArray();
 
 			WriteFile(
-				Path.Combine(outputDir, "sitemap.xml"),
+				Path.Combine(outputDir, "..", "sitemap.xml"),
 				BuildSitemapIndexXml(sitemapFileNames.Select(f => SitemapUrlPrefix + f)));
 
 			WriteFile(Path.Combine(outputDir, "static-pages.xml"), BuildUrlSitemapXml(GetStaticUrls()));
