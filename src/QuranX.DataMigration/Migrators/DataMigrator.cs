@@ -17,6 +17,7 @@ namespace QuranX.DataMigration.Migrators
 		private readonly IHadithMigrator HadithMigrator;
 		private readonly ILuceneIndexWriterProvider IndexWriterProvider;
 		private readonly IDictionariesMigrator DictionariesMigrator;
+		private readonly Services.Sitemaps.ISitemapGenerator SitemapGenerator;
 		private readonly ISettings Settings;
 
 		public DataMigrator(
@@ -26,6 +27,7 @@ namespace QuranX.DataMigration.Migrators
 			IHadithMigrator hadithMigrator,
 			ILuceneIndexWriterProvider indexWriterProvider,
 			IDictionariesMigrator dictionariesMigrator,
+			Services.Sitemaps.ISitemapGenerator sitemapGenerator,
 			ISettings settings)
 		{
 			CorpusMigrator = corpusMigrator;
@@ -34,6 +36,7 @@ namespace QuranX.DataMigration.Migrators
 			HadithMigrator = hadithMigrator;
 			IndexWriterProvider = indexWriterProvider;
 			DictionariesMigrator = dictionariesMigrator;
+			SitemapGenerator = sitemapGenerator;
 			Settings = settings;
 		}
 
@@ -51,6 +54,8 @@ namespace QuranX.DataMigration.Migrators
 			IndexWriter indexWriter = IndexWriterProvider.GetIndexWriter();
 			indexWriter.Commit();
 			indexWriter.ForceMerge(1, doWait: true);
+
+			SitemapGenerator.Generate();
 		}
 	}
 }

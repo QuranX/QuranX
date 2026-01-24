@@ -15,6 +15,7 @@ namespace QuranX.DataMigration.Services
 			RegisterWebSettings(services);
 			RegisterLogger(services);
 			services.AddSingleton<IXmlDocumentProvider, XmlDocumentProvider>();
+			services.AddSingleton<Services.Sitemaps.ISitemapGenerator, Services.Sitemaps.SitemapGenerator>();
 			services.AddSingleton<IDataMigrator, DataMigrator>();
 			services.AddSingleton<IQuranMigrator, QuranMigrator>();
 			services.AddSingleton<ICommentaryMigrator, CommentaryMigrator>();
