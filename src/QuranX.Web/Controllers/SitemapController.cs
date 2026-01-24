@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Text;
+using System.IO;
+using System.Threading.Tasks;
 using System.Threading;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.OutputCaching;
 using QuranX.Persistence.Models;
 using QuranX.Persistence.Services.Repositories;
 using QuranX.Shared;
@@ -14,7 +15,6 @@ using QuranX.Shared.Models;
 
 namespace QuranX.Web.Controllers
 {
-	[OutputCache(Duration = Consts.CacheTimeInSeconds, NoStore = Consts.CacheTimeInSeconds == 0)]
 	[Route("sitemap.xml")]
 	public class SitemapController : Controller
 	{
@@ -48,7 +48,7 @@ namespace QuranX.Web.Controllers
 		}
 
 		[HttpGet]
-		public IActionResult Index(CancellationToken cancellationToken)
+		public async Task Index(CancellationToken cancellationToken)
 		{
 			try
 			{
@@ -67,13 +67,76 @@ namespace QuranX.Web.Controllers
 					.Concat(GetDictionaryEntryUrls())
 					.Concat(GetTafsirUrls());
 
-				string xml = BuildSitemapXml(baseUrl, urls, cancellationToken);
-				return Content(xml, "application/xml", Encoding.UTF8);
+				Response.ContentType = "application/xml; charset=utf-8";
+				await WriteSitemapXmlAsync(baseUrl, urls, Response.Body, cancellationToken);
+				return;
 			}
 			catch (OperationCanceledException)
 			{
-				return StatusCode(StatusCodes.Status499ClientClosedRequest);
+				Response.StatusCode = StatusCodes.Status499ClientClosedRequest;
+				return;
 			}
+		}
+
+		private static async Task WriteSitemapXmlAsync(string baseUrl, IEnumerable<SitemapUrl> urls, Stream output, CancellationToken cancellationToken)
+		{
+			static string Escape(string value) => System.Security.SecurityElement.Escape(value);
+
+			var settings = new System.Xml.XmlWriterSettings
+			{
+				Async = true,
+				Encoding = new UTF8Encoding(encoderShouldEmitUTF8Identifier: false),
+				OmitXmlDeclaration = false,
+				CloseOutput = false
+			};
+
+			using var writer = System.Xml.XmlWriter.Create(output, settings);
+			await writer.WriteStartDocumentAsync();
+			await writer.WriteStartElementAsync(prefix: null, localName: "urlset", ns: "http://www.sitemaps.org/schemas/sitemap/0.9");
+
+			string now = DateTime.UtcNow.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture);
+			var usedUrls = new HashSet<string>();
+
+			foreach (SitemapUrl url in urls)
+			{
+				cancellationToken.ThrowIfCancellationRequested();
+				if (!usedUrls.Add(url.Path))
+					continue;
+
+				await writer.WriteStartElementAsync(null, "url", null);
+
+				await writer.WriteStartElementAsync(null, "loc", null);
+				await writer.WriteStringAsync(Escape(baseUrl + url.Path));
+				await writer.WriteEndElementAsync();
+
+				await writer.WriteStartElementAsync(null, "lastmod", null);
+				await writer.WriteStringAsync(now);
+				await writer.WriteEndElementAsync();
+
+				await writer.WriteStartElementAsync(null, "changefreq", null);
+				await writer.WriteStringAsync("monthly");
+				await writer.WriteEndElementAsync();
+
+				if (url.Priority.HasValue)
+				{
+					await writer.WriteStartElementAsync(null, "priority", null);
+					await writer.WriteStringAsync(url.Priority.Value.ToString("0.0", CultureInfo.InvariantCulture));
+					await writer.WriteEndElementAsync();
+				}
+
+				await writer.WriteEndElementAsync();
+
+				if (usedUrls.Count % 500 == 0)
+				{
+					await writer.FlushAsync();
+					await output.FlushAsync(cancellationToken);
+				}
+			}
+
+			await writer.WriteEndElementAsync();
+			await writer.WriteEndDocumentAsync();
+			await writer.FlushAsync();
+			await output.FlushAsync(cancellationToken);
 		}
 
 		private static IEnumerable<SitemapUrl> GetStaticUrls()
