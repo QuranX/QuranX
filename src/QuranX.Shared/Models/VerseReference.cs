@@ -33,7 +33,7 @@ namespace QuranX.Shared.Models
 
 		public override string ToString()
 		{
-			return string.Format("{0}:{1}", Chapter, Verse);
+			return string.Format("{0}.{1}", Chapter, Verse);
 		}
 
 		public override int GetHashCode()

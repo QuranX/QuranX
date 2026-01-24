@@ -15,6 +15,7 @@ namespace QuranX.Persistence.Services.Repositories
 			string collectionCode,
 			string referenceCode,
 			IEnumerable<(int value, string suffix)> values);
+		IEnumerable<HadithReference> GetAllReferences(string collectionCode);
 		IEnumerable<HadithReference> GetReferences(
 			string collectionCode,
 			string referenceCode,
@@ -34,6 +35,23 @@ namespace QuranX.Persistence.Services.Repositories
 		{
 			HadithCollectionRepository = hadithCollectionRepository;
 			IndexSearcherProvider = indexSearcherProvider;
+		}
+
+		public IEnumerable<HadithReference> GetAllReferences(string collectionCode)
+		{
+			HadithCollection collection = HadithCollectionRepository.Get(ref collectionCode);
+
+			var query = new BooleanQuery(disableCoord: true);
+			query
+				.FilterByType<HadithReference>()
+				.AddStringEqualsQuery<HadithReference>(x => x.CollectionCode, collectionCode, Occur.MUST);
+
+			IndexSearcher searcher = IndexSearcherProvider.GetIndexSearcher();
+			TopDocs docs = searcher.Search(query, int.MaxValue);
+			IEnumerable<int> documentIds = docs.ScoreDocs.Select(x => x.Doc);
+			IEnumerable<HadithReference> references = documentIds
+				.Select(x => searcher.Doc(x).GetObject<HadithReference>());
+			return references;
 		}
 
 		public IEnumerable<HadithReference> GetReferences(
@@ -77,7 +95,7 @@ namespace QuranX.Persistence.Services.Repositories
 			query.Add(new BooleanClause(idQuery, Occur.MUST));
 
 			IndexSearcher searcher = IndexSearcherProvider.GetIndexSearcher();
-			TopDocs docs = searcher.Search(query, 99000);
+			TopDocs docs = searcher.Search(query, int.MaxValue);
 			IEnumerable<int> documentIds = docs.ScoreDocs.Select(x => x.Doc);
 			IEnumerable<Document> documents = documentIds.Select(x => searcher.Doc(x));
 			Dictionary<int, Hadith> hadithsById =
@@ -97,8 +115,6 @@ namespace QuranX.Persistence.Services.Repositories
 			values = values ?? Array.Empty<(int value, string suffix)>();
 			HadithCollection collection = HadithCollectionRepository.Get(ref collectionCode);
 			HadithReferenceDefinition referenceDefinition = collection.GetReferenceDefinition(referenceCode);
-			// Get the actual code, because it is case sensitive
-			referenceCode = referenceDefinition.Code;
 
 			var query = new BooleanQuery(disableCoord: true);
 			query

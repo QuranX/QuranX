@@ -174,6 +174,23 @@ namespace QuranX.Persistence.Models
 				hadithId: -1);
 		}
 
+		public string GetPath(HadithReferenceDefinition hadithReferenceDefinition)
+		{
+			var parts = new List<string>(3);
+			string[] values = [
+				$"{ReferenceValue1}{ReferenceValue1Suffix}",
+				$"{ReferenceValue2}{ReferenceValue2Suffix}",
+				$"{ReferenceValue3}{ReferenceValue3Suffix}"];
+			int index = -1;
+			foreach(string partName in hadithReferenceDefinition.PartNames)
+			{
+				index++;
+				parts.Add($"{partName}-{values[index]}");
+			}
+			string result = string.Join('/', parts);
+			return $"{hadithReferenceDefinition.CollectionCode}/{hadithReferenceDefinition.Code}/{result}";
+		}
+
 		public static bool operator ==(HadithReference a, HadithReference b)
 		{
 			if (Object.ReferenceEquals(a, null) && Object.ReferenceEquals(b, null))

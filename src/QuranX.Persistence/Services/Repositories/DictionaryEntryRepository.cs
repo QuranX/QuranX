@@ -10,6 +10,7 @@ namespace QuranX.Persistence.Services.Repositories
 	{
 		IEnumerable<DictionaryEntry> Get(string word);
 		IEnumerable<DictionaryEntry> Get(string dictionaryCode, string word);
+		IEnumerable<string> GetAll();
 		IEnumerable<string> GetNextRoots(string parentRoot);
 	}
 
@@ -58,6 +59,22 @@ namespace QuranX.Persistence.Services.Repositories
 				.OrderBy(x => x.Word)
 				.ToArray();
 			return results;
+		}
+
+		public IEnumerable<string> GetAll()
+		{
+			var query = new BooleanQuery(disableCoord: true);
+			query.FilterByType<DictionaryEntry>();
+			IndexSearcher searcher = IndexSearcherProvider.GetIndexSearcher();
+			TopDocs docs = searcher.Search(query, int.MaxValue);
+			string[] roots = docs
+				.ScoreDocs
+				.Select(x => searcher.Doc(x.Doc))
+				.Select(x => x.GetStoredValue<DictionaryEntry>(x => x.Word))
+				.Distinct()
+				.OrderBy(x => x)
+				.ToArray();
+			return roots;
 		}
 
 		public IEnumerable<string> GetNextRoots(string root)
