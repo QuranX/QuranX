@@ -4,8 +4,8 @@ using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.IO;
-using System.Threading.Tasks;
 using System.Threading;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using QuranX.Persistence.Models;
@@ -15,7 +15,7 @@ using QuranX.Shared.Models;
 
 namespace QuranX.Web.Controllers
 {
-	[Route("sitemap.xml")]
+	[Route("")]
 	public class SitemapController : Controller
 	{
 		private readonly IVerseRepository VerseRepository;
@@ -47,25 +47,173 @@ namespace QuranX.Web.Controllers
 			HadithCollectionRepository = hadithCollectionRepository;
 		}
 
-		[HttpGet]
+		// =========================================================
+		// Sitemap Index (sitemap.xml)
+		// =========================================================
+
+		[HttpGet("Sitemap.xml")]
 		public async Task Index(CancellationToken cancellationToken)
 		{
 			try
 			{
 				string baseUrl = $"{Request.Scheme}://{Request.Host}";
 
-				IEnumerable<SitemapUrl> urls =
-					Enumerable.Empty<SitemapUrl>()
-					.Concat(GetHadithUrls())
-					.Concat(GetVerseHadithUrls())
-					.Concat(GetStaticUrls())
-					.Concat(GetVerseUrls())
+				IEnumerable<string> sitemapPaths =
+					Enumerable.Empty<string>()
+					.Concat(GetHadithSitemapPaths())
+					.Concat(new[]
+					{
+						"/Sitemap_VerseHadiths.xml",
+						"/Sitemap_StaticPages.xml",
+						"/Sitemap_Verses.xml",
+						"/Sitemap_VerseTafsirs.xml",
+						"/Sitemap_VerseAnalyses.xml",
+						"/Sitemap_RootWords.xml",
+						"/Sitemap_Dictionaries.xml",
+						"/Sitemap_DictionaryEntries.xml"
+					});
+
+				Response.ContentType = "application/xml; charset=utf-8";
+				await WriteSitemapIndexXmlAsync(baseUrl, sitemapPaths, Response.Body, cancellationToken);
+				return;
+			}
+			catch (OperationCanceledException)
+			{
+				Response.StatusCode = StatusCodes.Status499ClientClosedRequest;
+				return;
+			}
+		}
+
+		private IEnumerable<string> GetHadithSitemapPaths()
+		{
+			IEnumerable<HadithCollection> collections = HadithCollectionRepository.GetAll();
+
+			foreach (HadithCollection collection in collections)
+			{
+				// "Reference" dimension: HadithReference.ReferenceCode
+				IEnumerable<string> referenceCodes =
+					HadithRepository
+						.GetAllReferences(collection.Code)
+						.Select(r => r.ReferenceCode)
+						.Where(code => !string.IsNullOrWhiteSpace(code))
+						.Distinct(StringComparer.OrdinalIgnoreCase)
+						.OrderBy(code => code, StringComparer.OrdinalIgnoreCase);
+
+				foreach (string referenceCode in referenceCodes)
+					yield return $"/Sitemap_Hadiths_{collection.Code}_{referenceCode}.xml";
+			}
+		}
+
+		private static async Task WriteSitemapIndexXmlAsync(string baseUrl, IEnumerable<string> sitemapPaths, Stream output, CancellationToken cancellationToken)
+		{
+			static string Escape(string value) => System.Security.SecurityElement.Escape(value);
+
+			var settings = new System.Xml.XmlWriterSettings {
+				Async = true,
+				Encoding = new UTF8Encoding(encoderShouldEmitUTF8Identifier: false),
+				OmitXmlDeclaration = false,
+				CloseOutput = false
+			};
+
+			using var writer = System.Xml.XmlWriter.Create(output, settings);
+			await writer.WriteStartDocumentAsync();
+			await writer.WriteStartElementAsync(prefix: null, localName: "sitemapindex", ns: "http://www.sitemaps.org/schemas/sitemap/0.9");
+
+			string now = DateTime.UtcNow.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture);
+
+			foreach (string path in sitemapPaths.Distinct(StringComparer.OrdinalIgnoreCase))
+			{
+				cancellationToken.ThrowIfCancellationRequested();
+
+				await writer.WriteStartElementAsync(null, "sitemap", null);
+
+				await writer.WriteStartElementAsync(null, "loc", null);
+				await writer.WriteStringAsync(Escape(baseUrl + path));
+				await writer.WriteEndElementAsync();
+
+				await writer.WriteStartElementAsync(null, "lastmod", null);
+				await writer.WriteStringAsync(now);
+				await writer.WriteEndElementAsync();
+
+				await writer.WriteEndElementAsync();
+			}
+
+			await writer.WriteEndElementAsync();
+			await writer.WriteEndDocumentAsync();
+
+			await writer.FlushAsync();
+			await output.FlushAsync(cancellationToken);
+		}
+
+		// =========================================================
+		// Child sitemaps
+		// =========================================================
+
+		[HttpGet("Sitemap_StaticPages.xml")]
+		public async Task StaticPages(CancellationToken cancellationToken)
+			=> await WriteUrlSitemapAsync(GetStaticUrls(), cancellationToken);
+
+		[HttpGet("Sitemap_Verses.xml")]
+		public async Task Verses(CancellationToken cancellationToken)
+			=> await WriteUrlSitemapAsync(GetVerseUrls(), cancellationToken);
+
+		[HttpGet("Sitemap_VerseAnalyses.xml")]
+		public async Task VerseAnalyses(CancellationToken cancellationToken)
+			=> await WriteUrlSitemapAsync(GetVerseAnalysisUrls(), cancellationToken);
+
+		[HttpGet("Sitemap_RootWords.xml")]
+		public async Task RootWords(CancellationToken cancellationToken)
+			=> await WriteUrlSitemapAsync(GetRootWordUrls(), cancellationToken);
+
+		[HttpGet("Sitemap_Dictionaries.xml")]
+		public async Task Dictionaries(CancellationToken cancellationToken)
+			=> await WriteUrlSitemapAsync(GetDictionaryUrls(), cancellationToken);
+
+		[HttpGet("Sitemap_DictionaryEntries.xml")]
+		public async Task DictionaryEntries(CancellationToken cancellationToken)
+			=> await WriteUrlSitemapAsync(GetDictionaryEntryUrls(), cancellationToken);
+
+		[HttpGet("Sitemap_VerseHadiths.xml")]
+		public async Task VerseHadiths(CancellationToken cancellationToken)
+			=> await WriteUrlSitemapAsync(GetVerseHadithUrls(), cancellationToken);
+
+		// Per your request: both GetVerseTafsirUrls() and GetTafsirUrls() go into Sitemap_VerseTafsirs.xml
+		[HttpGet("Sitemap_VerseTafsirs.xml")]
+		public async Task VerseTafsirs(CancellationToken cancellationToken)
+			=> await WriteUrlSitemapAsync(
+				Enumerable.Empty<SitemapUrl>()
 					.Concat(GetVerseTafsirUrls())
-					.Concat(GetVerseAnalysisUrls())
-					.Concat(GetRootWordUrls())
-					.Concat(GetDictionaryUrls())
-					.Concat(GetDictionaryEntryUrls())
-					.Concat(GetTafsirUrls());
+					.Concat(GetTafsirUrls()),
+				cancellationToken);
+
+		// Hadith split: Sitemap_Hadiths_{Collection.Code}_{ReferenceCode}.xml
+		[HttpGet("Sitemap_Hadiths_{collectionCode}_{referenceCode}.xml")]
+		public async Task Hadiths(string collectionCode, string referenceCode, CancellationToken cancellationToken)
+		{
+			try
+			{
+				string baseUrl = $"{Request.Scheme}://{Request.Host}";
+
+				IEnumerable<HadithCollection> collections = HadithCollectionRepository.GetAll();
+				HadithCollection collection =
+					collections.FirstOrDefault(c => string.Equals(c.Code, collectionCode, StringComparison.OrdinalIgnoreCase));
+
+				if (collection == null)
+				{
+					Response.StatusCode = StatusCodes.Status404NotFound;
+					return;
+				}
+
+				IEnumerable<SitemapUrl> urls =
+					HadithRepository
+						.GetAllReferences(collection.Code)
+						.Where(r => string.Equals(r.ReferenceCode, referenceCode, StringComparison.OrdinalIgnoreCase))
+						.Select(reference =>
+						{
+							HadithReferenceDefinition referenceDefinition = collection.GetReferenceDefinition(reference.ReferenceCode);
+							string referencePath = reference.GetPath(referenceDefinition);
+							return new SitemapUrl($"/Hadith/{referencePath}", Priority: 0.4m);
+						});
 
 				Response.ContentType = "application/xml; charset=utf-8";
 				await WriteSitemapXmlAsync(baseUrl, urls, Response.Body, cancellationToken);
@@ -78,12 +226,31 @@ namespace QuranX.Web.Controllers
 			}
 		}
 
+		private async Task WriteUrlSitemapAsync(IEnumerable<SitemapUrl> urls, CancellationToken cancellationToken)
+		{
+			try
+			{
+				string baseUrl = $"{Request.Scheme}://{Request.Host}";
+				Response.ContentType = "application/xml; charset=utf-8";
+				await WriteSitemapXmlAsync(baseUrl, urls, Response.Body, cancellationToken);
+				return;
+			}
+			catch (OperationCanceledException)
+			{
+				Response.StatusCode = StatusCodes.Status499ClientClosedRequest;
+				return;
+			}
+		}
+
+		// =========================================================
+		// Writers
+		// =========================================================
+
 		private static async Task WriteSitemapXmlAsync(string baseUrl, IEnumerable<SitemapUrl> urls, Stream output, CancellationToken cancellationToken)
 		{
 			static string Escape(string value) => System.Security.SecurityElement.Escape(value);
 
-			var settings = new System.Xml.XmlWriterSettings
-			{
+			var settings = new System.Xml.XmlWriterSettings {
 				Async = true,
 				Encoding = new UTF8Encoding(encoderShouldEmitUTF8Identifier: false),
 				OmitXmlDeclaration = false,
@@ -95,11 +262,12 @@ namespace QuranX.Web.Controllers
 			await writer.WriteStartElementAsync(prefix: null, localName: "urlset", ns: "http://www.sitemaps.org/schemas/sitemap/0.9");
 
 			string now = DateTime.UtcNow.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture);
-			var usedUrls = new HashSet<string>();
+			var usedUrls = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
 
 			foreach (SitemapUrl url in urls)
 			{
 				cancellationToken.ThrowIfCancellationRequested();
+
 				if (!usedUrls.Add(url.Path))
 					continue;
 
@@ -135,9 +303,14 @@ namespace QuranX.Web.Controllers
 
 			await writer.WriteEndElementAsync();
 			await writer.WriteEndDocumentAsync();
+
 			await writer.FlushAsync();
 			await output.FlushAsync(cancellationToken);
 		}
+
+		// =========================================================
+		// URL generators
+		// =========================================================
 
 		private static IEnumerable<SitemapUrl> GetStaticUrls()
 		{
@@ -176,8 +349,6 @@ namespace QuranX.Web.Controllers
 
 		private IEnumerable<SitemapUrl> GetDictionaryEntryUrls()
 		{
-			IEnumerable<Dictionary> dictionaries = DictionaryRepository.GetAll();
-
 			foreach (string root in DictionaryEntryRepository.GetAll())
 				yield return new SitemapUrl($"/Dictionaries/{root}", Priority: 0.3m);
 		}
@@ -203,13 +374,6 @@ namespace QuranX.Web.Controllers
 				foreach (VerseRangeReference range in ranges)
 					yield return new SitemapUrl($"/Tafsir/{commentator.Code}/{range.Chapter}.{range.FirstVerse}", Priority: 0.4m);
 			}
-
-			foreach (VerseReference reference in VerseRepository.GetVerseReferences())
-			{
-				string verse = $"{reference.Chapter}.{reference.Verse}";
-				if (CommentaryRepository.GetForVerse(reference.Chapter, reference.Verse).Any())
-					yield return new SitemapUrl($"/Tafsirs/{verse}", Priority: 0.75m);
-			}
 		}
 
 		private IEnumerable<SitemapUrl> GetVerseTafsirUrls()
@@ -219,22 +383,6 @@ namespace QuranX.Web.Controllers
 				string verse = $"{reference.Chapter}.{reference.Verse}";
 				if (CommentaryRepository.GetForVerse(reference.Chapter, reference.Verse).Any())
 					yield return new SitemapUrl($"/Tafsirs/{verse}", Priority: 0.75m);
-			}
-		}
-
-		private IEnumerable<SitemapUrl> GetHadithUrls()
-		{
-			IEnumerable<HadithCollection> collections = HadithCollectionRepository.GetAll();
-			foreach (HadithCollection collection in collections)
-			{
-				IEnumerable<HadithReference> hadithReferences = HadithRepository.GetAllReferences(collection.Code);
-				foreach (HadithReference reference in hadithReferences)
-				{
-					HadithReferenceDefinition referenceDefinition = collection.GetReferenceDefinition(reference.ReferenceCode);
-					string referencePath = reference.GetPath(referenceDefinition);
-					string url = $"/Hadith/{referencePath}";
-					yield return new SitemapUrl(url, Priority: 0.4m);
-				}
 			}
 		}
 
@@ -248,46 +396,6 @@ namespace QuranX.Web.Controllers
 					yield return new SitemapUrl($"/Hadiths/{verse}", Priority: 0.75m);
 				}
 			}
-		}
-
-
-		private static string BuildSitemapXml(string baseUrl, IEnumerable<SitemapUrl> urls, CancellationToken cancellationToken)
-		{
-			static string Escape(string value) => System.Security.SecurityElement.Escape(value);
-
-			var result = new StringBuilder();
-			result.Append("<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
-			result.Append("<urlset xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\">");
-
-			string now = DateTime.UtcNow.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture);
-			var usedUrls = new HashSet<string>();
-			foreach (SitemapUrl url in urls)
-			{
-				cancellationToken.ThrowIfCancellationRequested();
-				if (usedUrls.Contains(url.Path))
-					continue;
-
-				usedUrls.Add(url.Path);
-				result.Append("<url>");
-				result.Append("<loc>");
-				result.Append(Escape(baseUrl + url.Path));
-				result.Append("</loc>");
-				result.Append("<lastmod>");
-				result.Append(now);
-				result.Append("</lastmod>");
-				result.Append("<changefreq>");
-				result.Append("monthly");
-				result.Append("</changefreq>");
-				if (url.Priority.HasValue)
-				{
-					result.Append("<priority>");
-					result.Append(url.Priority.Value.ToString("0.0", CultureInfo.InvariantCulture));
-					result.Append("</priority>");
-				}
-				result.Append("</url>");
-			}
-			result.Append("</urlset>");
-			return result.ToString();
 		}
 
 		private sealed record SitemapUrl(string Path, decimal? Priority = null);
