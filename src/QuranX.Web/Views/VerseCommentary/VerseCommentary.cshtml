@@ -5,10 +5,10 @@
 @{
     var verse = new VerseRangeReference(Model.CommentatorAndCommentary.Commentary.ChapterNumber, Model.CommentatorAndCommentary.Commentary.FirstVerseNumber, Model.CommentatorAndCommentary.Commentary.LastVerseNumber);
     string verseCaption = verse.IsMultipleVerses() ? "verses" : "verse";
-    ViewBag.Title = Model.CommentatorAndCommentary.Commentator.Description + $" commentary for {verseCaption} {verse}";
+    ViewBag.Title = Model.CommentatorAndCommentary.Commentator.Description + $" Tafsir for {verseCaption} {verse}";
 }
 <h1>The Qur'an</h1>
-<h2>Verse commentary</h2>
+<h2>Verse Tafsir</h2>
 @{ 
 
     await Html.RenderPartialAsync("SelectChapterAndVerse", Model.SelectChapterAndVerse);
