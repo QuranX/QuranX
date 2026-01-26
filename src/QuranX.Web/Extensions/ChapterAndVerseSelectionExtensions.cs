@@ -16,7 +16,7 @@ namespace QuranX.Web.Extensions
 				string lastVerseText = null;
 				if (firstVerse != lastVerse)
 					lastVerseText = $"-{lastVerse}";
-				string text = $"{selection.Chapter.EnglishName} {selection.Chapter.ChapterNumber}.{firstVerse}{lastVerseText}";
+				string text = $"{selection.Chapter.ChapterNumber}.{firstVerse}{lastVerseText} {selection.Chapter.EnglishName} ";
 				items.Add(text);
 			}
 			return string.Join(", ", items);
