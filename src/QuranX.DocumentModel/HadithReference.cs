@@ -159,16 +159,12 @@ namespace QuranX.DocumentModel
 		{
 			string[] values = hadithNumber.Split('.');
 			string lastValue = values[values.Length - 1];
-			string[] lastValueAndSuffix = lastValue.Split('-');
-			string suffix;
-			if (lastValueAndSuffix.Length == 1)
-				suffix = null;
+			char? suffix = lastValue[^1];
+			if (char.IsLetter(suffix.Value))
+				values[^1] = lastValue[..^1];
 			else
-			{
-				suffix = lastValueAndSuffix[1];
-				values[values.Length - 1] = lastValueAndSuffix[0];
-			}
-			var result = new HadithReference(code, values, suffix);
+				suffix = null;
+			var result = new HadithReference(code, values, suffix?.ToString());
 			return result;
 		}
 
