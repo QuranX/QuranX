@@ -124,7 +124,7 @@ namespace QuranX.Shared
 			LetterNames['ع'] = "ayn";
 			LetterNames['غ'] = "ghayn";
 			LetterNames['ف'] = "fa";
-			LetterNames['ق'] = "gaf";
+			LetterNames['ق'] = "qaf";
 			LetterNames['ك'] = "kaf";
 			LetterNames['ل'] = "lam";
 			LetterNames['م'] = "mim";
