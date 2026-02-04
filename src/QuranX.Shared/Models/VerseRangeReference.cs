@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Xml.Linq;
 using System.Collections.Generic;
+using System.Linq;
+using System.Xml.XPath;
 
 namespace QuranX.Shared.Models
 {
@@ -98,7 +100,7 @@ namespace QuranX.Shared.Models
 
 		public static bool operator !=(VerseRangeReference left, VerseRangeReference right)
 		{
-			return (!left.Equals(right));
+			return (!left?.Equals(right) == true);
 		}
 
 		public int CompareTo(VerseRangeReference other)
@@ -123,6 +125,46 @@ namespace QuranX.Shared.Models
 			if (!(obj is VerseRangeReference))
 				throw new ArgumentException();
 			return CompareTo((VerseRangeReference)obj);
+		}
+
+		public static IEnumerable<VerseRangeReference> Simplify(IEnumerable<VerseRangeReference> verseReferences)
+		{
+			if (!verseReferences.Any()) return Enumerable.Empty<VerseRangeReference>();
+
+			var hashSet = new HashSet<(int Chapter, int Verse)>();
+			foreach (VerseRangeReference reference in verseReferences)
+			{
+				for (int verse = reference.FirstVerse; verse <= reference.LastVerse; verse++)
+					hashSet.Add((reference.Chapter, verse));
+			}
+
+			var ordered = hashSet.OrderBy(x => x.Chapter).ThenBy(x => x.Verse);
+
+			var result = new List<VerseRangeReference>();
+			int currentChapter = ordered.First().Chapter;
+			int currentFirstVerse = ordered.First().Verse;
+			int previousVerse = currentFirstVerse;
+
+			VerseRangeReference currentRef = null;
+			foreach (var item in ordered)
+			{
+				if (item.Chapter != currentChapter || item.Verse != previousVerse + 1)
+				{
+					if (currentRef != null)
+						result.Add(currentRef);
+
+					currentChapter = item.Chapter;
+					currentFirstVerse = item.Verse;
+					currentRef = new VerseRangeReference(currentChapter, currentFirstVerse, currentFirstVerse);
+				}
+				previousVerse = item.Verse;
+			}
+			if (currentRef != null)
+			{
+				currentRef = new VerseRangeReference(currentRef.Chapter, currentRef.FirstVerse, previousVerse);
+				result.Add(currentRef);
+			}
+			return result;
 		}
 	}
 }
