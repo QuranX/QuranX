@@ -151,7 +151,10 @@ namespace QuranX.Shared.Models
 				if (item.Chapter != currentChapter || item.Verse != previousVerse + 1)
 				{
 					if (currentRef != null)
+					{
+						currentRef = new VerseRangeReference(currentChapter, currentFirstVerse, previousVerse);
 						result.Add(currentRef);
+					}
 
 					currentChapter = item.Chapter;
 					currentFirstVerse = item.Verse;
