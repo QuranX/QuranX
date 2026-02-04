@@ -1,109 +1,103 @@
 DarusSalam/4872	54.17	54.22	54.32	54.40
-USC-MSA/5.58.234	65.4
-USC-MSA/5.58.236	65.4
+DarusSalam/3894	65.4
+DarusSalam/3896	65.4
 USC-MSA/7.62.64	65.4
 USC-MSA/7.62.65	65.4
 USC-MSA/7.62.88	65.4
-In-Book/1.3	96.1-3
-In-Book/1.4	74.1-5
-In-Book/1.5	75.16-19
-In-Book/1.7	3.64
-In-Book/2.18	9.29
-In-Book/2.25	6.83	31.13
-In-Book/2.33	2.143
-In-Book/2.38	5.3
-In-Book/2.43	31.34
-In-Book/3.16	18.54-82
-In-Book/3.20	18.54-82
-In-Book/3.28	54.1-2
-In-Book/3.45	84.8
-In-Book/3.60	2.159-160
-In-Book/3.64	18.60-82
-In-Book/3.67	17.85
-In-Book/4.4	37.102
-In-Book/4.12	33.59
-In-Book/4.26	2.159
-In-Book/4.50	54.1-2
-In-Book/4.100	5.33
-In-Book/4.109	2.219	4.43	5.90
-In-Book/5.21	33.50-51
-In-Book/5.36	33.50-51
-In-Book/6.5	2.222
-In-Book/6.9	2.282
-In-Book/6.27	2.222
-In-Book/6.28	2.222
-In-Book/7.1	4.34	4.43	5.6
-In-Book/7.2	8.41
-In-Book/8.21	9.28
-In-Book/8.23	2.234	4.24
-In-Book/8.44	9.29
-In-Book/8.45	6.151
-In-Book/8.50	2.141-144
-In-Book/8.53	2.125	66.5
-In-Book/8.55	2.141-144
-In-Book/8.81	54.1-2
-In-Book/8.87	8.41
-In-Book/8.107	2.275
-In-Book/8.109	38.35
-In-Book/9.5	11.114
-In-Book/9.31	50.39
-In-Book/9.49	50.39
-In-Book/9.73	20.14
-In-Book/10.45	17.18
-In-Book/10.50	36.12
-In-Book/10.167	72.1
-In-Book/10.169	33.21
-In-Book/10.250	37.102
-In-Book/11.60	62.11
-In-Book/13.28	60.12
-In-Book/15.3	44.10-16	30.1-4
-In-Book/15.15	44.10-16
-In-Book/16.1	54.1
-In-Book/16.4	54.1
-In-Book/16.5	54.1
-In-Book/16.10	54.1
-In-Book/16.12	54.1	4.34
-In-Book/16.14	54.1
-In-Book/16.15	54.1
-In-Book/16.18	54.1	75.6-9
-In-Book/16.99	2.234	4.24
-In-Book/16.102	2.234	4.24
-In-Book/16.104	2.234	4.24
-In-Book/16.147	4.24	23.5-6	70.29-30
-In-Book/17.4	2.256
-In-Book/18.21	33.21
-In-Book/18.80	2.234	4.24
-In-Book/19.5	93.1-3
-In-Book/19.7	18.54
-In-Book/21.4	2.238
-In-Book/21.14	38.35
-In-Book/22.21	2.222
-In-Book/23.5	3.144
-In-Book/23.31	9.80	9.84
-In-Book/23.42	2.234
-In-Book/23.47	35.18
-In-Book/23.85	24.2
-In-Book/23.112	30.30
-In-Book/23.114	9.113
-In-Book/23.116	92.5-6
-In-Book/23.119	9.84
-In-Book/23.122	14.27
-In-Book/23.124	27.80
-In-Book/23.149	111.1
-In-Book/24.8	3.180
-In-Book/24.9	9.34
-In-Book/24.11	9.34
-In-Book/24.19	9.79
-In-Book/24.65	4.34	2.282
-In-Book/24.66	23.5-6
-In-Book/24.71	9.29
-In-Book/24.77	75.6-9	81.1
-In-Book/24.79	5.101
-In-Book/24.94	5.89
-In-Book/24.102	5.32
-In-Book/25.11	2.197
-In-Book/25.45	2.196
-In-Book/25.58	2.196
+DarusSalam/3	96.1-3
+DarusSalam/4	74.1-5
+DarusSalam/5	75.16-19
+DarusSalam/7	3.64
+DarusSalam/25	9.29
+DarusSalam/32	6.83	31.13
+DarusSalam/40	2.143
+DarusSalam/45	5.3
+DarusSalam/50	31.34
+DarusSalam/74	18.54-82
+DarusSalam/78	18.54-82
+DarusSalam/86	54.1-2
+DarusSalam/103	84.8
+DarusSalam/118	2.159-160
+DarusSalam/122	18.60-82
+DarusSalam/125	17.85
+DarusSalam/138	37.102
+DarusSalam/146	33.59
+DarusSalam/160	2.159
+DarusSalam/184	54.1-2
+DarusSalam/233	5.33
+DarusSalam/242	2.219	4.43	5.90
+DarusSalam/268	33.50-51
+DarusSalam/284	33.50-51
+DarusSalam/298	2.222
+DarusSalam/304	2.282
+DarusSalam/322	2.222
+DarusSalam/323	2.222
+DarusSalam/334	4.34	4.43	5.6
+DarusSalam/335	8.41
+DarusSalam/369	9.28
+DarusSalam/371	2.234	4.24
+DarusSalam/392	9.29
+DarusSalam/393	6.151
+DarusSalam/399	2.141-144
+DarusSalam/402	2.125	66.5
+DarusSalam/403	2.141-144
+DarusSalam/431	54.1-2
+DarusSalam/438	8.41
+DarusSalam/459	2.275
+DarusSalam/461	38.35
+DarusSalam/526	11.114
+DarusSalam/554	50.39
+DarusSalam/573	50.39
+DarusSalam/597	20.14
+DarusSalam/648	17.18
+DarusSalam/655	36.12
+DarusSalam/773	72.1
+DarusSalam/774	33.21
+DarusSalam/859	37.102
+DarusSalam/936	62.11
+DarusSalam/979	60.12
+DarusSalam/1007	44.10-16	30.1-4
+DarusSalam/1020	44.10-16
+DarusSalam/1040	54.1
+DarusSalam/1043	54.1
+DarusSalam/1044	54.1
+DarusSalam/1049	54.1
+DarusSalam/1052	54.1	4.34
+DarusSalam/1054	54.1
+DarusSalam/1055	54.1
+DarusSalam/1059	54.1	75.6-9
+DarusSalam/1070	2.256
+DarusSalam/1101	33.21
+DarusSalam/1125	93.1-3
+DarusSalam/1127	18.54
+DarusSalam/1200	2.238
+DarusSalam/1210	38.35
+DarusSalam/1241	3.144
+DarusSalam/1269	9.80	9.84
+DarusSalam/1280	2.234
+DarusSalam/1286	35.18
+DarusSalam/1329	24.2
+DarusSalam/1358	30.30
+DarusSalam/1360	9.113
+DarusSalam/1362	92.5-6
+DarusSalam/1366	9.84
+DarusSalam/1369	14.27
+DarusSalam/1371	27.80
+DarusSalam/1394	111.1
+DarusSalam/1403	3.180
+DarusSalam/1404	9.34
+DarusSalam/1406	9.34
+DarusSalam/1415	9.79
+DarusSalam/1462	4.34	2.282
+DarusSalam/1463	23.5-6
+DarusSalam/1468	9.29
+DarusSalam/1474	75.6-9	81.1
+DarusSalam/1477	5.101
+DarusSalam/1493	5.89
+DarusSalam/1501	5.32
+DarusSalam/1523	2.197
+DarusSalam/1559	2.196
+DarusSalam/1572	2.196
 In-Book/25.74	8.72
 In-Book/25.79	18.94-99
 In-Book/25.83	22.26
