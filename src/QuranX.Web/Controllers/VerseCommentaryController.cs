@@ -6,57 +6,56 @@ using QuranX.Web.Factories;
 using QuranX.Web.Models;
 using QuranX.Web.Views.VerseCommentary;
 
-namespace QuranX.Web.Controllers
+namespace QuranX.Web.Controllers;
+
+[OutputCache(Duration = Consts.CacheTimeInSeconds, NoStore = Consts.CacheTimeInSeconds == 0)]
+public class VerseCommentaryController : Controller
 {
-	[OutputCache(Duration = Consts.CacheTimeInSeconds, NoStore = Consts.CacheTimeInSeconds == 0)]
-	public class VerseCommentaryController : Controller
-	{
-		private readonly ICommentatorRepository CommentatorRepository;
-		private readonly ICommentaryRepository CommentaryRepository;
-		private readonly ICommentariesForVerseFactory CommentariesForVerseFactory;
-		private readonly ISelectChapterAndVerseFactory SelectChapterAndVerseFactory;
+    private readonly ICommentatorRepository CommentatorRepository;
+    private readonly ICommentaryRepository CommentaryRepository;
+    private readonly ICommentariesForVerseFactory CommentariesForVerseFactory;
+    private readonly ISelectChapterAndVerseFactory SelectChapterAndVerseFactory;
 
-		public VerseCommentaryController(
-			ICommentatorRepository commentatorRepository,
-			ICommentaryRepository commentaryRepository,
-			ICommentariesForVerseFactory commentariesForVerseFactory,
-			ISelectChapterAndVerseFactory selectChapterAndVerseFactory)
-		{
-			CommentatorRepository = commentatorRepository;
-			CommentaryRepository = commentaryRepository;
-			CommentariesForVerseFactory = commentariesForVerseFactory;
-			SelectChapterAndVerseFactory = selectChapterAndVerseFactory;
-		}
+    public VerseCommentaryController(
+        ICommentatorRepository commentatorRepository,
+        ICommentaryRepository commentaryRepository,
+        ICommentariesForVerseFactory commentariesForVerseFactory,
+        ISelectChapterAndVerseFactory selectChapterAndVerseFactory)
+    {
+        CommentatorRepository = commentatorRepository;
+        CommentaryRepository = commentaryRepository;
+        CommentariesForVerseFactory = commentariesForVerseFactory;
+        SelectChapterAndVerseFactory = selectChapterAndVerseFactory;
+    }
 
-		public ActionResult Index(string commentatorCode, int chapterNumber, int verseNumber)
-		{
-			if (!CommentatorRepository.TryGet(ref commentatorCode, out Commentator commentator))
-				return NotFound();
+    public ActionResult Index(string commentatorCode, int chapterNumber, int verseNumber)
+    {
+        if (!CommentatorRepository.TryGet(ref commentatorCode, out Commentator commentator))
+            return NotFound();
 
-			Commentary commentary = CommentaryRepository.GetForVerse(
-				commentatorCode: commentatorCode,
-				chapterNumber: chapterNumber,
-				verseNumber: verseNumber);
-			if (commentary == null)
-				return NotFound();
+        Commentary commentary = CommentaryRepository.GetForVerse(
+            commentatorCode: commentatorCode,
+            chapterNumber: chapterNumber,
+            verseNumber: verseNumber);
+        if (commentary == null)
+            return NotFound();
 
-			var commentatorAndCommentary = new CommentatorAndCommentary(
-				commentator: commentator,
-				commentary: commentary);
+        var commentatorAndCommentary = new CommentatorAndCommentary(
+            commentator: commentator,
+            commentary: commentary);
 
-			string url = $"/Tafsir/{commentatorCode}/";
-			var selectChapterAndVerse = SelectChapterAndVerseFactory.CreateForCommentary(
-				commentatorCode: commentatorCode,
-				selectedChapterNumber: chapterNumber,
-				selectedVerseNumber: verseNumber,
-				url: url);
+        string url = $"/Tafsir/{commentatorCode}/";
+        var selectChapterAndVerse = SelectChapterAndVerseFactory.CreateForCommentary(
+            commentatorCode: commentatorCode,
+            selectedChapterNumber: chapterNumber,
+            selectedVerseNumber: verseNumber,
+            url: url);
 
-			ViewBag.Canonical = $"{url}{chapterNumber}.{commentary.FirstVerseNumber}";
+        ViewBag.Canonical = $"{url}{chapterNumber}.{commentary.FirstVerseNumber}";
 
-			var viewModel = new ViewModel(
-				commentatorAndCommentary: commentatorAndCommentary,
-				selectChapterAndVerse: selectChapterAndVerse);
-			return View("VerseCommentary", viewModel);
-		}
-	}
+        var viewModel = new ViewModel(
+            commentatorAndCommentary: commentatorAndCommentary,
+            selectChapterAndVerse: selectChapterAndVerse);
+        return View("VerseCommentary", viewModel);
+    }
 }

@@ -1,61 +1,61 @@
-﻿using System.IO;
-using Lucene.Net.Index;
+﻿using Lucene.Net.Index;
+using QuranX.DataMigration.Services;
 using QuranX.Persistence.Services;
+using System.IO;
 
-namespace QuranX.DataMigration.Migrators
+namespace QuranX.DataMigration.Migrators;
+
+public interface IDataMigrator
 {
-	public interface IDataMigrator
-	{
-		void Migrate();
-	}
+    void Migrate();
+}
 
-	public class DataMigrator : IDataMigrator
-	{
-		private readonly ICorpusMigrator CorpusMigrator;
-		private readonly IQuranMigrator QuranMigrator;
-		private readonly ICommentaryMigrator CommentaryMigrator;
-		private readonly IHadithMigrator HadithMigrator;
-		private readonly ILuceneIndexWriterProvider IndexWriterProvider;
-		private readonly IDictionariesMigrator DictionariesMigrator;
-		private readonly Services.Sitemaps.ISitemapGenerator SitemapGenerator;
-		private readonly ISettings Settings;
+public class DataMigrator : IDataMigrator
+{
+    private readonly ICorpusMigrator CorpusMigrator;
+    private readonly IQuranMigrator QuranMigrator;
+    private readonly ICommentaryMigrator CommentaryMigrator;
+    private readonly IHadithMigrator HadithMigrator;
+    private readonly ILuceneIndexWriterProvider IndexWriterProvider;
+    private readonly IDictionariesMigrator DictionariesMigrator;
+    private readonly ISitemapGenerator SitemapGenerator;
+    private readonly ISettings Settings;
 
-		public DataMigrator(
-			ICorpusMigrator corpusMigrator,
-			IQuranMigrator quranMigrator, 
-			ICommentaryMigrator commentaryMigrator, 
-			IHadithMigrator hadithMigrator,
-			ILuceneIndexWriterProvider indexWriterProvider,
-			IDictionariesMigrator dictionariesMigrator,
-			Services.Sitemaps.ISitemapGenerator sitemapGenerator,
-			ISettings settings)
-		{
-			CorpusMigrator = corpusMigrator;
-			QuranMigrator = quranMigrator;
-			CommentaryMigrator = commentaryMigrator;
-			HadithMigrator = hadithMigrator;
-			IndexWriterProvider = indexWriterProvider;
-			DictionariesMigrator = dictionariesMigrator;
-			SitemapGenerator = sitemapGenerator;
-			Settings = settings;
-		}
+    public DataMigrator(
+        ICorpusMigrator corpusMigrator,
+        IQuranMigrator quranMigrator,
+        ICommentaryMigrator commentaryMigrator,
+        IHadithMigrator hadithMigrator,
+        ILuceneIndexWriterProvider indexWriterProvider,
+        IDictionariesMigrator dictionariesMigrator,
+        ISitemapGenerator sitemapGenerator,
+        ISettings settings)
+    {
+        CorpusMigrator = corpusMigrator;
+        QuranMigrator = quranMigrator;
+        CommentaryMigrator = commentaryMigrator;
+        HadithMigrator = hadithMigrator;
+        IndexWriterProvider = indexWriterProvider;
+        DictionariesMigrator = dictionariesMigrator;
+        SitemapGenerator = sitemapGenerator;
+        Settings = settings;
+    }
 
-		public void Migrate()
-		{
-			Directory.Delete(Settings.DataPath, true);
-			Directory.CreateDirectory(Settings.DataPath);
+    public void Migrate()
+    {
+        Directory.Delete(Settings.DataPath, true);
+        Directory.CreateDirectory(Settings.DataPath);
 
-			DictionariesMigrator.Migrate();
-			CorpusMigrator.Migrate();
-			QuranMigrator.Migrate();
-			CommentaryMigrator.Migrate();
-			HadithMigrator.Migrate();
+        DictionariesMigrator.Migrate();
+        CorpusMigrator.Migrate();
+        QuranMigrator.Migrate();
+        CommentaryMigrator.Migrate();
+        HadithMigrator.Migrate();
 
-			IndexWriter indexWriter = IndexWriterProvider.GetIndexWriter();
-			indexWriter.Commit();
-			indexWriter.ForceMerge(1, doWait: true);
+        IndexWriter indexWriter = IndexWriterProvider.GetIndexWriter();
+        indexWriter.Commit();
+        indexWriter.ForceMerge(1, doWait: true);
 
-			SitemapGenerator.Generate();
-		}
-	}
+        SitemapGenerator.Generate();
+    }
 }

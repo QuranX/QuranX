@@ -1,28 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿namespace QuranX.DataMigration.Migrators;
 
-namespace QuranX.DataMigration.Migrators
+public interface IDictionariesMigrator
 {
-	public interface IDictionariesMigrator
-	{
-		void Migrate();
-	}
+    void Migrate();
+}
 
-	public class DictionariesMigrator : IDictionariesMigrator
-	{
-		private readonly ILisaanDictionaryMigrator LisaanDictionaryMigrator;
+public class DictionariesMigrator : IDictionariesMigrator
+{
+    private readonly ILisaanDictionaryMigrator LisaanDictionaryMigrator;
 
-		public DictionariesMigrator(ILisaanDictionaryMigrator lisaanDictionaryMigrator)
-		{
-			LisaanDictionaryMigrator = lisaanDictionaryMigrator;
-		}
+    public DictionariesMigrator(ILisaanDictionaryMigrator lisaanDictionaryMigrator)
+    {
+        LisaanDictionaryMigrator = lisaanDictionaryMigrator;
+    }
 
-		public void Migrate()
-		{
-			LisaanDictionaryMigrator.Migrate();
-		}
-	}
+    public void Migrate()
+    {
+        LisaanDictionaryMigrator.Migrate();
+    }
 }

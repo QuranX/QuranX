@@ -1,25 +1,24 @@
 ﻿using Lucene.Net.Analysis;
 using QuranX.Persistence.LuceneSupport;
 
-namespace QuranX.Persistence.Services
+namespace QuranX.Persistence.Services;
+
+public interface ILuceneAnalyzerProvider
 {
-	public interface ILuceneAnalyzerProvider
-	{
-		Analyzer GetAnalyzer();
-	}
+    Analyzer GetAnalyzer();
+}
 
-	public class LuceneAnalyzerProvider : ILuceneAnalyzerProvider
-	{
-		private readonly Analyzer Analyzer;
+public class LuceneAnalyzerProvider : ILuceneAnalyzerProvider
+{
+    private readonly Analyzer Analyzer;
 
-		public LuceneAnalyzerProvider()
-		{
-			Analyzer = new QuranXAnalyzer();
-		}
+    public LuceneAnalyzerProvider()
+    {
+        Analyzer = new QuranXAnalyzer();
+    }
 
-		public Analyzer GetAnalyzer()
-		{
-			return Analyzer;
-		}
-	}
+    public Analyzer GetAnalyzer()
+    {
+        return Analyzer;
+    }
 }

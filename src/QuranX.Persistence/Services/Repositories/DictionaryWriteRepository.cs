@@ -1,35 +1,34 @@
-﻿using System;
-using Lucene.Net.Documents;
+﻿using Lucene.Net.Documents;
 using Lucene.Net.Index;
 using QuranX.Persistence.Extensions;
 using QuranX.Persistence.Models;
+using System;
 
-namespace QuranX.Persistence.Services.Repositories
+namespace QuranX.Persistence.Services.Repositories;
+
+public interface IDictionaryWriteRepository
 {
-	public interface IDictionaryWriteRepository
-	{
-		void Write(Dictionary dictionary);
-	}
+    void Write(Dictionary dictionary);
+}
 
-	public class DictionaryWriteRepository : IDictionaryWriteRepository
-	{
-		private ILuceneIndexWriterProvider IndexWriterProvider;
+public class DictionaryWriteRepository : IDictionaryWriteRepository
+{
+    private ILuceneIndexWriterProvider IndexWriterProvider;
 
-		public DictionaryWriteRepository(ILuceneIndexWriterProvider indexWriterProvider)
-		{
-			IndexWriterProvider = indexWriterProvider;
-		}
+    public DictionaryWriteRepository(ILuceneIndexWriterProvider indexWriterProvider)
+    {
+        IndexWriterProvider = indexWriterProvider;
+    }
 
-		public void Write(Dictionary dictionary)
-		{
-			if (dictionary == null)
-				throw new ArgumentNullException(nameof(dictionary));
+    public void Write(Dictionary dictionary)
+    {
+        if (dictionary == null)
+            throw new ArgumentNullException(nameof(dictionary));
 
-			var document = new Document();
-			document.AddObject(dictionary);
+        var document = new Document();
+        document.AddObject(dictionary);
 
-			IndexWriter indexWriter = IndexWriterProvider.GetIndexWriter();
-			indexWriter.AddDocument(document);
-		}
-	}
+        IndexWriter indexWriter = IndexWriterProvider.GetIndexWriter();
+        indexWriter.AddDocument(document);
+    }
 }

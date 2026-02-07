@@ -1,26 +1,25 @@
-﻿using System;
-using Lucene.Net.Store;
+﻿using Lucene.Net.Store;
+using System;
 
-namespace QuranX.Persistence.Services
+namespace QuranX.Persistence.Services;
+
+public interface ILuceneDirectoryProvider
 {
-	public interface ILuceneDirectoryProvider
-	{
-		Directory GetDirectory();
-	}
+    Directory GetDirectory();
+}
 
-	public class LuceneDirectoryProvider : ILuceneDirectoryProvider
-	{
-		private readonly Lazy<Directory> Directory;
+public class LuceneDirectoryProvider : ILuceneDirectoryProvider
+{
+    private readonly Lazy<Directory> Directory;
 
-		public LuceneDirectoryProvider(ISettings settings)
-		{
-			System.IO.Directory.CreateDirectory(settings.DataPath);
-			Directory = new Lazy<Directory>(() => FSDirectory.Open(settings.DataPath));
-		}
+    public LuceneDirectoryProvider(ISettings settings)
+    {
+        System.IO.Directory.CreateDirectory(settings.DataPath);
+        Directory = new Lazy<Directory>(() => FSDirectory.Open(settings.DataPath));
+    }
 
-		public Directory GetDirectory()
-		{
-			return Directory.Value;
-		}
-	}
+    public Directory GetDirectory()
+    {
+        return Directory.Value;
+    }
 }

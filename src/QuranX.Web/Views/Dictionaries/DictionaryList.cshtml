@@ -14,12 +14,12 @@
         }
         else
         {
-           if (!string.IsNullOrWhiteSpace(Model.CurrentRoot))
-           {
-            <a href=@($"/Dictionaries/") class="dictionary-entries__word">
-                <div class="arabic">All &#8598;</div>
-            </a>
-           }
+            if (!string.IsNullOrWhiteSpace(Model.CurrentRoot))
+            {
+                <a href=@($"/Dictionaries/") class="dictionary-entries__word">
+                    <div class="arabic">All &#8598;</div>
+                </a>
+            }
         }
 
         @foreach (string childRoot in Model.ChildRoots)

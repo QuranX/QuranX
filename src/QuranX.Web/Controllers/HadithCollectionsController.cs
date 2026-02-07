@@ -1,26 +1,25 @@
-﻿using System.Collections.Generic;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.OutputCaching;
 using QuranX.Persistence.Models;
 using QuranX.Persistence.Services.Repositories;
+using System.Collections.Generic;
 
-namespace QuranX.Web.Controllers
+namespace QuranX.Web.Controllers;
+
+[OutputCache(Duration = Consts.CacheTimeInSeconds, NoStore = Consts.CacheTimeInSeconds == 0)]
+public class HadithCollectionsController : Controller
 {
-	[OutputCache(Duration = Consts.CacheTimeInSeconds, NoStore = Consts.CacheTimeInSeconds == 0)]
-	public class HadithCollectionsController : Controller
-	{
-		private readonly IHadithCollectionRepository HadithCollectionRepository;
+    private readonly IHadithCollectionRepository HadithCollectionRepository;
 
-		public HadithCollectionsController(IHadithCollectionRepository hadithCollectionRepository)
-		{
-			HadithCollectionRepository = hadithCollectionRepository;
-		}
+    public HadithCollectionsController(IHadithCollectionRepository hadithCollectionRepository)
+    {
+        HadithCollectionRepository = hadithCollectionRepository;
+    }
 
-		public ActionResult Index()
-		{
-			ViewBag.Canonical = "/Hadiths";
-			IEnumerable<HadithCollection> viewModel = HadithCollectionRepository.GetAll();
-			return View("HadithCollections", viewModel);
-		}
-	}
+    public ActionResult Index()
+    {
+        ViewBag.Canonical = "/Hadiths";
+        IEnumerable<HadithCollection> viewModel = HadithCollectionRepository.GetAll();
+        return View("HadithCollections", viewModel);
+    }
 }

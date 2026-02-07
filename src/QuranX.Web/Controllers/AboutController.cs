@@ -1,15 +1,14 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.OutputCaching;
 
-namespace QuranX.Web.Controllers
+namespace QuranX.Web.Controllers;
+
+[OutputCache(Duration = Consts.CacheTimeInSeconds, NoStore = Consts.CacheTimeInSeconds == 0)]
+public class AboutController : Controller
 {
-	[OutputCache(Duration = Consts.CacheTimeInSeconds, NoStore = Consts.CacheTimeInSeconds == 0)]
-	public class AboutController : Controller
-	{
-		public ActionResult Index()
-		{
-			ViewBag.Canonical = "/About";
-			return View("About");
-		}
-	}
+    public ActionResult Index()
+    {
+        ViewBag.Canonical = "/About";
+        return View("About");
+    }
 }

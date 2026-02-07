@@ -12,7 +12,9 @@
         foreach (string urlPart in Model.ReferencePartNamesAndValues)
         {
             urlSoFar += urlPart + "/";
-            <span> / </span><a href="@urlSoFar">@urlPart.Replace("-", " ")</a>
+            <span> / </span>
+    
+            <a href="@urlSoFar">@urlPart.Replace("-", " ")</a>
         }
         urlSoFar = Html.RemoveTrailingSlash(urlSoFar);
     }

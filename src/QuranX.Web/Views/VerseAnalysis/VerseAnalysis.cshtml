@@ -13,7 +13,9 @@
 <h3>
     @Model.Chapter.EnglishName - <span class="arabic">@Model.Chapter.ArabicName</span>
 </h3>
-@{ await Html.RenderPartialAsync("SelectChapterAndVerse", Model.SelectChapterAndVerse); }
+@{
+    await Html.RenderPartialAsync("SelectChapterAndVerse", Model.SelectChapterAndVerse);
+}
 <div class="row">
     <ul class="verse-analysis__word-list col-sm-11 col-md-10 col-lg-9 center striped">
         @foreach (var word in Model.VerseAnalysis.Words)
@@ -57,17 +59,17 @@
                             {
                                 <span class="arabic">
                                     @Html.RouteLink(
-                                        linkText: wordPart.Root,
-                                        routeName: "RootAnalysis",
-                                        routeValues: new
-                                        {
-                                            RootLetterNames = QuranX.Shared.ArabicHelper
+                                linkText: wordPart.Root,
+                                                routeName: "RootAnalysis",
+                                                routeValues: new
+                                                {
+                                                    RootLetterNames = QuranX.Shared.ArabicHelper
                                                 .ArabicToLetterNames(wordPart.Root)
+                                                }
+                                                )
+                    </span>
+                    <span>(@QuranX.Shared.ArabicHelper.ArabicToLetterNames(wordPart.Root))</span>
                                         }
-                                    )
-                                </span>
-                                <span>(@QuranX.Shared.ArabicHelper.ArabicToLetterNames(wordPart.Root))</span>
-                            }
                         </li>
                     }
                 </ol>
@@ -75,4 +77,6 @@
         }
     </ul>
 </div>
-@{ await Html.RenderPartialAsync("Adverts"); }
+@{
+    await Html.RenderPartialAsync("Adverts");
+}

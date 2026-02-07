@@ -9,7 +9,9 @@
 }
 
 <h1>The Qur'an</h1>
-@{ await Html.RenderPartialAsync("SelectChapterAndVerse", Model.SelectChapterAndVerse); }
+@{
+    await Html.RenderPartialAsync("SelectChapterAndVerse", Model.SelectChapterAndVerse);
+}
 <div class="dropdown">
     <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
         Translations
@@ -76,4 +78,6 @@
         </div>
     }
 }
-@{ await Html.RenderPartialAsync("Adverts"); }
+@{
+    await Html.RenderPartialAsync("Adverts");
+}

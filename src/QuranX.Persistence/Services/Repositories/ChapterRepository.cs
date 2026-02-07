@@ -1,17 +1,16 @@
-﻿using System.Collections.Generic;
-using QuranX.Shared.Models;
+﻿using QuranX.Shared.Models;
+using System.Collections.Generic;
 
-namespace QuranX.Persistence.Services.Repositories
+namespace QuranX.Persistence.Services.Repositories;
+
+public interface IChapterRepository
 {
-	public interface IChapterRepository
-	{
-		Chapter Get(int chapterNumber);
-		IEnumerable<Chapter> GetAll();
-	}
+    Chapter Get(int chapterNumber);
+    IEnumerable<Chapter> GetAll();
+}
 
-	public class ChapterRepository : IChapterRepository
-	{
-		public Chapter Get(int chapterNumber) => QuranStructure.Chapter(chapterNumber);
-		public IEnumerable<Chapter> GetAll() => QuranStructure.Chapters;
-	}
+public class ChapterRepository : IChapterRepository
+{
+    public Chapter Get(int chapterNumber) => QuranStructure.Chapter(chapterNumber);
+    public IEnumerable<Chapter> GetAll() => QuranStructure.Chapters;
 }

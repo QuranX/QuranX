@@ -5,7 +5,9 @@
     ViewBag.Title = $"{Model.HadithIndexHeaderViewModel.Collection.Name} Hadiths";
 }
 
-@{ await Html.RenderPartialAsync("HadithIndexHeader", Model.HadithIndexHeaderViewModel); }
+@{
+    await Html.RenderPartialAsync("HadithIndexHeader", Model.HadithIndexHeaderViewModel);
+}
 <ul class="hadith-index__list">
     @foreach (string nextValue in Model.NextReferencePartValueSelection)
     {
@@ -16,4 +18,6 @@
         </li>
     }
 </ul>
-@{ await Html.RenderPartialAsync("Adverts"); }
+@{
+    await Html.RenderPartialAsync("Adverts");
+}

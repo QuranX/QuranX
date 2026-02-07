@@ -1,18 +1,17 @@
 ﻿using QuranX.Web.Models;
 
-namespace QuranX.Web.Views.VerseCommentary
-{
-	public class ViewModel
-	{
-		public readonly CommentatorAndCommentary CommentatorAndCommentary;
-		public readonly SelectChapterAndVerse SelectChapterAndVerse;
+namespace QuranX.Web.Views.VerseCommentary;
 
-		public ViewModel(
-			CommentatorAndCommentary commentatorAndCommentary,
-			SelectChapterAndVerse selectChapterAndVerse)
-		{
-			CommentatorAndCommentary = commentatorAndCommentary;
-			SelectChapterAndVerse = selectChapterAndVerse;
-		}
-	}
+public class ViewModel
+{
+    public readonly CommentatorAndCommentary CommentatorAndCommentary;
+    public readonly SelectChapterAndVerse SelectChapterAndVerse;
+
+    public ViewModel(
+        CommentatorAndCommentary commentatorAndCommentary,
+        SelectChapterAndVerse selectChapterAndVerse)
+    {
+        CommentatorAndCommentary = commentatorAndCommentary;
+        SelectChapterAndVerse = selectChapterAndVerse;
+    }
 }

@@ -1,11 +1,10 @@
-﻿namespace QuranX.DocumentModel.Factories
+﻿namespace QuranX.DocumentModel.Factories;
+
+public class LexiconDocumentFactory
 {
-	public class LexiconDocumentFactory
+    public LexiconDocument Create(string generatedLexiconsXmlDirectory)
     {
-        public LexiconDocument Create(string generatedLexiconsXmlDirectory)
-        {
-            //TODO: Read from files
-            return new LexiconDocument();
-        }
+        //TODO: Read from files
+        return new LexiconDocument();
     }
 }

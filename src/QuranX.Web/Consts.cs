@@ -1,7 +1,6 @@
-﻿namespace QuranX.Web
+﻿namespace QuranX.Web;
+
+public static class Consts
 {
-	public static class Consts
-	{
-		public const int CacheTimeInSeconds = 86400; // One day
-	}
+    public const int CacheTimeInSeconds = 86400; // One day
 }

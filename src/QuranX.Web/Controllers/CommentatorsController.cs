@@ -2,23 +2,22 @@
 using Microsoft.AspNetCore.OutputCaching;
 using QuranX.Persistence.Services.Repositories;
 
-namespace QuranX.Web.Controllers
+namespace QuranX.Web.Controllers;
+
+[OutputCache(Duration = Consts.CacheTimeInSeconds, NoStore = Consts.CacheTimeInSeconds == 0)]
+public class CommentatorsController : Controller
 {
-	[OutputCache(Duration = Consts.CacheTimeInSeconds, NoStore = Consts.CacheTimeInSeconds == 0)]
-	public class CommentatorsController : Controller
-	{
-		private readonly ICommentatorRepository CommentatorRepository;
+    private readonly ICommentatorRepository CommentatorRepository;
 
-		public CommentatorsController(ICommentatorRepository commentatorRepository)
-		{
-			CommentatorRepository = commentatorRepository;
-		}
+    public CommentatorsController(ICommentatorRepository commentatorRepository)
+    {
+        CommentatorRepository = commentatorRepository;
+    }
 
-		public ActionResult Index()
-		{
-			var viewModel = CommentatorRepository.GetAll();
-			ViewBag.Canonical = "/Tafsirs";
-			return View("Commentators", viewModel);
-		}
-	}
+    public ActionResult Index()
+    {
+        var viewModel = CommentatorRepository.GetAll();
+        ViewBag.Canonical = "/Tafsirs";
+        return View("Commentators", viewModel);
+    }
 }

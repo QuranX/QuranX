@@ -7,9 +7,9 @@
 
 <h1>The Quran</h1>
 <h2>
-	Tafsirs for <a href="/@Model.Chapter.ChapterNumber.@Model.VerseNumber">
-		@Model.Chapter.ChapterNumber.@Model.VerseNumber
-	</a>
+    Tafsirs for <a href="/@Model.Chapter.ChapterNumber.@Model.VerseNumber">
+        @Model.Chapter.ChapterNumber.@Model.VerseNumber
+    </a>
 </h2>
 <h3>@Model.Chapter.EnglishName - <span class="arabic">@Model.Chapter.ArabicName</span></h3>
 @{
@@ -19,4 +19,6 @@
         await Html.RenderPartialAsync("CommentaryView", commentatorAndCommentary);
     }
 }
-@{ await Html.RenderPartialAsync("Adverts"); }
+@{
+    await Html.RenderPartialAsync("Adverts");
+}

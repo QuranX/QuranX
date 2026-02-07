@@ -1,9 +1,8 @@
-﻿namespace QuranX.Persistence.Services
+﻿namespace QuranX.Persistence.Services;
+
+public class SearchContextGroupNames
 {
-	public class SearchContextGroupNames
-	{
-		public const string Sections = "Sections";
-		public const string Commentaries = "Commentaries";
-		public const string Hadiths = "Hadiths";
-	}
+    public const string Sections = "Sections";
+    public const string Commentaries = "Commentaries";
+    public const string Hadiths = "Hadiths";
 }

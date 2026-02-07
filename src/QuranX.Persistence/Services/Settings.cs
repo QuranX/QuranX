@@ -1,17 +1,16 @@
-﻿namespace QuranX.Persistence.Services
+﻿namespace QuranX.Persistence.Services;
+
+public interface ISettings
 {
-	public interface ISettings
-	{
-		string DataPath { get; }
-	}
+    string DataPath { get; }
+}
 
-	public class Settings : ISettings
-	{
-		public string DataPath { get; private set; }
+public class Settings : ISettings
+{
+    public string DataPath { get; private set; }
 
-		public Settings(string dataPath)
-		{
-			DataPath = dataPath;
-		}
-	}
+    public Settings(string dataPath)
+    {
+        DataPath = dataPath;
+    }
 }

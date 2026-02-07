@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace QuranX.Persistence.Models
-{
+namespace QuranX.Persistence.Models;
+
 	public class VerseAnalysisWord
 	{
 		public int WordNumber { get; }
@@ -26,4 +26,3 @@ namespace QuranX.Persistence.Models
 			WordParts = wordParts.ToList().AsReadOnly();
 		}
 	}
-}

@@ -1,32 +1,31 @@
-﻿using System.Text;
-using Microsoft.AspNetCore.Html;
+﻿using Microsoft.AspNetCore.Html;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using System.Text;
 
-namespace QuranX.Web.Extensions
+namespace QuranX.Web.Extensions;
+
+public static class HtmlHelperExtensions
 {
-	public static class HtmlHelperExtensions
-	{
-		public static string GetHexValues<TModel>(this IHtmlHelper<TModel> instance, string value)
-		{
-			byte[] bytes = Encoding.UTF8.GetBytes(value);
-			var result = new StringBuilder();
-			foreach (byte @byte in bytes)
-				result.AppendFormat("{0:x2}", @byte);
-			return result.ToString();
-		}
+    public static string GetHexValues<TModel>(this IHtmlHelper<TModel> instance, string value)
+    {
+        byte[] bytes = Encoding.UTF8.GetBytes(value);
+        var result = new StringBuilder();
+        foreach (byte @byte in bytes)
+            result.AppendFormat("{0:x2}", @byte);
+        return result.ToString();
+    }
 
-		public static HtmlString Highlight<TModel>(this IHtmlHelper<TModel> instance, string text)
-		{
-			string result = instance.Encode(text)
-				.Replace("&lt;b&gt;", "<strong>")
-				.Replace("&lt;/b&gt;", "</strong>");
-			return new HtmlString(result);
-		}
+    public static HtmlString Highlight<TModel>(this IHtmlHelper<TModel> instance, string text)
+    {
+        string result = instance.Encode(text)
+            .Replace("&lt;b&gt;", "<strong>")
+            .Replace("&lt;/b&gt;", "</strong>");
+        return new HtmlString(result);
+    }
 
-		public static string RemoveTrailingSlash(this IHtmlHelper instance, string value)
-		{
-			if (value == null) return null;
-			return value.TrimEnd('/');
-		}
-	}
+    public static string RemoveTrailingSlash(this IHtmlHelper instance, string value)
+    {
+        if (value == null) return null;
+        return value.TrimEnd('/');
+    }
 }

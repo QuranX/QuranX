@@ -1,33 +1,27 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using QuranX.DocumentModel;
-using System.IO;
+﻿using System.IO;
 
-namespace QuranX.DocumentModel.Factories
+namespace QuranX.DocumentModel.Factories;
+
+public class TafsirDocumentFactory
 {
-	public class TafsirDocumentFactory
-	{
-		TafsirDocument Document;
-		string GeneratedTafsirsDirectory;
+    TafsirDocument Document;
+    string GeneratedTafsirsDirectory;
 
-		public TafsirDocument Create(string generatedTafsirsDirectory)
-		{
-			Document = new TafsirDocument();
-			GeneratedTafsirsDirectory = generatedTafsirsDirectory;
-			ReadTafsirs();
-			return Document;
-		}
+    public TafsirDocument Create(string generatedTafsirsDirectory)
+    {
+        Document = new TafsirDocument();
+        GeneratedTafsirsDirectory = generatedTafsirsDirectory;
+        ReadTafsirs();
+        return Document;
+    }
 
-		void ReadTafsirs()
-		{
-			foreach (string tafsirFilePath in Directory.GetFiles(GeneratedTafsirsDirectory, "*.xml"))
-			{
-				var tafsir = new TafsirFactory().Create(tafsirFilePath);
-				Document.AddTafsir(tafsir);
-			}
-		}
+    void ReadTafsirs()
+    {
+        foreach (string tafsirFilePath in Directory.GetFiles(GeneratedTafsirsDirectory, "*.xml"))
+        {
+            var tafsir = new TafsirFactory().Create(tafsirFilePath);
+            Document.AddTafsir(tafsir);
+        }
+    }
 
-	}
 }

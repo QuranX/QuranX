@@ -2,14 +2,13 @@
 using System;
 using System.Xml;
 
-namespace QuranX.DocumentModel
+namespace QuranX.DocumentModel;
+
+public static class XmlWriterExtensions
 {
-    public static class XmlWriterExtensions
+    public static IDisposable WriteElement(this XmlWriter writer, string name)
     {
-        public static IDisposable WriteElement(this XmlWriter writer, string name)
-        {
-            writer.WriteStartElement(name);
-            return new DisposableAction(() => writer.WriteEndElement());
-        }
+        writer.WriteStartElement(name);
+        return new DisposableAction(() => writer.WriteEndElement());
     }
 }

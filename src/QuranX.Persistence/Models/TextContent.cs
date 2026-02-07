@@ -1,29 +1,28 @@
 ﻿using System.Text.RegularExpressions;
 
-namespace QuranX.Persistence.Models
+namespace QuranX.Persistence.Models;
+
+public class TextContent
 {
-	public class TextContent
-	{
-		public bool IsArabic { get; }
-		public string Text { get; }
+    public bool IsArabic { get; }
+    public string Text { get; }
 
-		public TextContent(string text, bool isArabic)
-		{
-			IsArabic = isArabic;
-			Text = text;
-		}
+    public TextContent(string text, bool isArabic)
+    {
+        IsArabic = isArabic;
+        Text = text;
+    }
 
-		public static TextContent Create(string text)
-		{
-			return new TextContent(text, ContainsOnlyArabic(text));
-		}
+    public static TextContent Create(string text)
+    {
+        return new TextContent(text, ContainsOnlyArabic(text));
+    }
 
-		public static bool ContainsOnlyArabic(string text)
-		{
-			if (!Regex.IsMatch(text, @"\p{IsArabic}"))
-				return false;
-			return !Regex.IsMatch(text, "[a-z]", RegexOptions.IgnoreCase);
-		}
+    public static bool ContainsOnlyArabic(string text)
+    {
+        if (!Regex.IsMatch(text, @"\p{IsArabic}"))
+            return false;
+        return !Regex.IsMatch(text, "[a-z]", RegexOptions.IgnoreCase);
+    }
 
-	}
 }

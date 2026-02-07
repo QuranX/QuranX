@@ -4,20 +4,20 @@
 @model CommentatorAndCommentary
 
 @{
-	var verse = new VerseRangeReference(Model.Commentary.ChapterNumber, Model.Commentary.FirstVerseNumber, Model.Commentary.LastVerseNumber);
-	string verseCaption = verse.IsMultipleVerses() ? "verses" : "verse";
+    var verse = new VerseRangeReference(Model.Commentary.ChapterNumber, Model.Commentary.FirstVerseNumber, Model.Commentary.LastVerseNumber);
+    string verseCaption = verse.IsMultipleVerses() ? "verses" : "verse";
 }
 <div>
-	<dl class="boxed">
-		<dt>
-			<a href="/@verse"><span class="verse__reference">@verse</span></a>
-			@Model.Commentator.Code - @Model.Commentator.Description
-		</dt>
-		@foreach (TextContent content in Model.Commentary.Text)
-		{
-			string arabicCss = content.IsArabic ? "arabic" : "";
-			<dd class="@arabicCss highlightable">@content.Text</dd>
-		}
-	</dl>
+    <dl class="boxed">
+        <dt>
+            <a href="/@verse"><span class="verse__reference">@verse</span></a>
+            @Model.Commentator.Code - @Model.Commentator.Description
+        </dt>
+        @foreach (TextContent content in Model.Commentary.Text)
+        {
+            string arabicCss = content.IsArabic ? "arabic" : "";
+            <dd class="@arabicCss highlightable">@content.Text</dd>
+        }
+    </dl>
 </div>
 
