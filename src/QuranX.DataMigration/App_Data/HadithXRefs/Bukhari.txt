@@ -236,6 +236,7 @@ DarusSalam/4201	2.234	4.24
 DarusSalam/4211	2.234	4.24
 DarusSalam/4212	2.234	4.24
 DarusSalam/4213	2.234	4.24
+DarusSalam/4557	3.110
 DarusSalam/4635	4.95
 DarusSalam/4872	54.17	54.22	54.32	54.40
 DarusSalam/5085	2.234	4.24
