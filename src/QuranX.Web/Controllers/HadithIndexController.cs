@@ -77,6 +77,8 @@ public class HadithIndexController : Controller
         if (urlSoFar.EndsWith("/"))
             urlSoFar = urlSoFar.Substring(0, urlSoFar.Length - 1);
         ViewBag.Canonical = urlSoFar;
+        string titleReference = string.Join(", ", referencePartNamesAndValues.Select(x => $"{x.referencePartName} {x.value}{x.suffix}"));
+        ViewBag.Title = $"Hadith {collection.Name} {referenceDefinition.Code} {titleReference}";
 
         var headerViewModel = new HadithIndexHeaderViewModel(
             selectedReferenceCode: referenceCode,

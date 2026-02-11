@@ -3,15 +3,10 @@
 @model HadithsViewModel
 
 @{
-    string hadithsTitle = Model.Hadiths.Count == 1 ? "hadith" : "hadiths";
-    ViewBag.Title = $"{Model.HadithIndexHeaderViewModel.Collection.Name} Hadiths";
-}
-
-@{
     await Html.RenderPartialAsync("HadithIndexHeader", Model.HadithIndexHeaderViewModel);
     if (@Model.Hadiths.Count() != 1)
     {
-        <h4 class="hadith__reference-count">@Model.Hadiths.Count() @hadithsTitle</h4>
+        <h4 class="hadith__reference-count">@Model.Hadiths.Count() @ViewBag.Title</h4>
     }
 }
 @{
