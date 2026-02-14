@@ -1,4 +1,5 @@
 ﻿using QuranX.Shared.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,11 +10,18 @@ namespace QuranX.DocumentModel.XmlStreaming;
 public class HadithCollectionXmlWriter
 {
     HadithCollection Collection;
+    HadithComparer HadithComparer;
+    Dictionary<string, int> ReferencePriority;
     XmlWriter Xml;
 
     public HadithCollectionXmlWriter(HadithCollection collection)
     {
-        this.Collection = collection;
+        Collection = collection;
+        HadithComparer = new HadithComparer(collection.ReferenceDefinitions);
+        ReferencePriority = HadithComparer
+            .CollectionCodesInPriorityOrder
+            .Select((code, index) => new { Code = code, Index = index })
+            .ToDictionary(x => x.Code, x => x.Index, StringComparer.OrdinalIgnoreCase);
     }
 
     public void WriteXml(string filePath)
@@ -42,7 +50,7 @@ public class HadithCollectionXmlWriter
     {
         using (Xml.WriteElement("referenceDefinitions"))
         {
-            foreach (var definition in Collection.ReferenceDefinitions)
+            foreach (var definition in Collection.ReferenceDefinitions.OrderBy(x => ReferencePriority[x.Code]))
                 WriteHadithReferenceDefinition(definition);
         }
     }
@@ -66,7 +74,7 @@ public class HadithCollectionXmlWriter
     void WriteHadiths()
     {
         using (Xml.WriteElement("hadiths"))
-            foreach (Hadith hadith in Collection.Hadiths.OrderBy(x => x.PrimaryReference))
+            foreach (Hadith hadith in Collection.Hadiths.OrderBy(x => x, HadithComparer))
                 WriteHadith(hadith);
     }
 

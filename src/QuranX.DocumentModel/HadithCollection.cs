@@ -22,11 +22,14 @@ public class HadithCollection
         string copyright,
         IEnumerable<HadithReferenceDefinition> referenceDefinitions)
     {
-        referenceDefinitions = referenceDefinitions ?? new HadithReferenceDefinition[0];
+        referenceDefinitions ??= [];
         this.Code = code;
         this.Name = name;
         this.Copyright = copyright;
-        this.ReferenceDefinitions = referenceDefinitions.ToArray();
+        this.ReferenceDefinitions = [
+            referenceDefinitions.Single(x => x.IsPrimary),
+            ..referenceDefinitions.Where(x => !x.IsPrimary)
+            ];
         _Hadiths = new List<Hadith>();
         HadithsByVerse = new Dictionary<VerseReference, List<Hadith>>();
         ReferenceDefinitionsByCode = referenceDefinitions.ToDictionary(x => x.Code, StringComparer.InvariantCultureIgnoreCase);
@@ -49,30 +52,9 @@ public class HadithCollection
         return result;
     }
 
-    public HadithReferenceDefinition PrimaryReferenceDefinition
-    {
-        get
-        {
-            if (_PrimaryReferenceDefinition == null)
-            {
-                var result = ReferenceDefinitions.Where(x => x.IsPrimary).ToArray();
-                if (result.Length < 1)
-                    throw new InvalidOperationException("Collection " + Code + " has no primary reference definition");
-                else if (result.Length > 1)
-                    throw new InvalidOperationException("Collection " + Code + " has more than one primary reference definition");
-                _PrimaryReferenceDefinition = result[0];
-            }
-            return _PrimaryReferenceDefinition;
-        }
-    }
+    public HadithReferenceDefinition PrimaryReferenceDefinition => ReferenceDefinitions.First();
 
-    public IEnumerable<Hadith> Hadiths
-    {
-        get
-        {
-            return _Hadiths;
-        }
-    }
+    public IEnumerable<Hadith> Hadiths => _Hadiths;
 
     public void AddHadith(Hadith hadith)
     {
