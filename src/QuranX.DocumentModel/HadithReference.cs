@@ -20,9 +20,9 @@ public class HadithReference :
         if (values == null || values.Count() == 0 || values.Any(x => string.IsNullOrWhiteSpace(x)))
             throw new ArgumentException(nameof(values), "Must be an array of non-empty values");
 
-        this.Code = code;
-        this.Values = values.ToArray();
-        this.Suffix = suffix;
+        Code = code;
+        Values = values.ToArray();
+        Suffix = suffix?.ToLowerInvariant();
     }
 
     public int Length
@@ -72,7 +72,8 @@ public class HadithReference :
 
     public override string ToString()
     {
-        return string.Join(
+        return Code + " " +
+            string.Join(
                 separator: ".",
                 values: (IEnumerable<string>)Values
             ) + Suffix;
@@ -159,12 +160,16 @@ public class HadithReference :
     {
         string[] values = hadithNumber.Split('.');
         string lastValue = values[values.Length - 1];
-        char? suffix = lastValue[^1];
-        if (char.IsLetter(suffix.Value))
-            values[^1] = lastValue[..^1];
-        else
+        string[] lastValueAndSuffix = lastValue.Split('-');
+        string suffix;
+        if (lastValueAndSuffix.Length == 1)
             suffix = null;
-        var result = new HadithReference(code, values, suffix?.ToString());
+        else
+        {
+            suffix = lastValueAndSuffix[1];
+            values[values.Length - 1] = lastValueAndSuffix[0];
+        }
+        var result = new HadithReference(code, values, suffix);
         return result;
     }
 
