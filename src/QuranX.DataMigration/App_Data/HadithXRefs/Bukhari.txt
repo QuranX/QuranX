@@ -229,6 +229,7 @@ DarusSalam/3180	9.29
 DarusSalam/3334	86.6-7
 DarusSalam/4015	9.29
 DarusSalam/3617	16.103
+DarusSalam/3855	remove:5.327
 DarusSalam/3894	65.4
 DarusSalam/3896	65.4
 DarusSalam/4200	2.234	4.24
@@ -240,6 +241,7 @@ DarusSalam/4557	3.110
 DarusSalam/4635	4.95
 DarusSalam/4870	54.20-21
 DarusSalam/4872	54.17	54.22	54.32	54.38-40
+DarusSalam/5037-b	remove:6.556
 DarusSalam/5085	2.234	4.24
 DarusSalam/5133	65.4
 DarusSalam/5134	65.4
