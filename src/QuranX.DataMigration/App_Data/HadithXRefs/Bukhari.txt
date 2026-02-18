@@ -166,7 +166,7 @@ DarusSalam/2441	11.18
 DarusSalam/2450	4.128	4.34
 DarusSalam/2464	5.93
 DarusSalam/2468	66.1-5	90.13	33.51
-DarusSalam/2494	4.3 4.127
+DarusSalam/2494	4.3	4.127
 DarusSalam/2499	9.29
 DarusSalam/2510	5.32
 DarusSalam/2515	3.77
@@ -181,7 +181,7 @@ DarusSalam/2542	4.24
 DarusSalam/2543	90.13
 DarusSalam/2544	4.24	90.13
 DarusSalam/2559	4.34
-DarusSalam/2581	4.3 4.129
+DarusSalam/2581	4.3	4.129
 DarusSalam/2592	90.13
 DarusSalam/2624	3.28
 DarusSalam/2637	24.11-14
@@ -201,13 +201,13 @@ DarusSalam/2728	18.72-77
 DarusSalam/2731	48.24-26	60.10
 DarusSalam/2733	60.11
 DarusSalam/2746	5.45
-DarusSalam/2747	4.11-12 4.176
+DarusSalam/2747	4.11-12	4.176
 DarusSalam/2752	26.214
 DarusSalam/2753	26.214
 DarusSalam/2758	3.92
 DarusSalam/2763	4.2-3	4.127
 DarusSalam/2765	4.6
-DarusSalam/2766	4.116	2.102	5.32	3.130	4.2 3.166-168	24.4
+DarusSalam/2766	4.116	2.102	5.32	3.130	4.2	3.166-168	24.4
 DarusSalam/2767	2.220
 DarusSalam/2769	3.92
 DarusSalam/2780	5.106
@@ -229,9 +229,9 @@ DarusSalam/3180	9.29
 DarusSalam/3334	86.6-7
 DarusSalam/4015	9.29
 DarusSalam/3617	16.103
-DarusSalam/3855	remove:5.327
 DarusSalam/3894	65.4
 DarusSalam/3896	65.4
+DarusSalam/3994	remove:5.327
 DarusSalam/4200	2.234	4.24
 DarusSalam/4201	2.234	4.24
 DarusSalam/4211	2.234	4.24

@@ -23,8 +23,6 @@ public class HadithMigrator : IHadithMigrator
 {
     private readonly XmlDocument XmlDocument;
     private readonly ILogger Logger;
-    private readonly IVerseRepository VerseRepository;
-    private readonly IVerseWriteRepository VerseWriteRepository;
     private readonly IHadithCollectionWriteRepository HadithCollectionWriteRepository;
     private readonly IHadithWriteRepository HadithWriteRepository;
     private int NextHadithId;
@@ -32,14 +30,10 @@ public class HadithMigrator : IHadithMigrator
     public HadithMigrator(
         ILogger logger,
         IXmlDocumentProvider xmlDocumentProvider,
-        IVerseRepository verseRepository,
-        IVerseWriteRepository verseWriteRepository,
         IHadithCollectionWriteRepository hadithCollectionWriteRepository,
         IHadithWriteRepository hadithWriteRepository)
     {
         Logger = logger;
-        VerseRepository = verseRepository;
-        VerseWriteRepository = verseWriteRepository;
         XmlDocument = xmlDocumentProvider.Document;
         HadithCollectionWriteRepository = hadithCollectionWriteRepository;
         HadithWriteRepository = hadithWriteRepository;

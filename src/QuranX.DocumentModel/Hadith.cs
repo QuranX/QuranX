@@ -38,7 +38,7 @@ public class Hadith
         this.ArabicText = arabicText.ToArray();
         this.EnglishText = englishText.ToArray();
         this.VerseReferences = verseReferences.Distinct().OrderBy(x => x).ToArray();
-        ReferencesByCode = references.ToDictionary(x => x.Code, StringComparer.InvariantCultureIgnoreCase);
+        ReferencesByCode = references.ToDictionary(x => x.Code, StringComparer.OrdinalIgnoreCase);
         PrimaryReference = GetReference(collection.PrimaryReferenceDefinition.Code) ?? References.First();
     }
 

@@ -126,18 +126,26 @@ public class VerseRangeReference : IComparable, IComparable<VerseRangeReference>
         return CompareTo((VerseRangeReference)obj);
     }
 
-    public static IEnumerable<VerseRangeReference> Simplify(IEnumerable<VerseRangeReference> verseReferences)
+    public static IEnumerable<VerseRangeReference> Simplify(IEnumerable<VerseRangeReference> verseReferences, IEnumerable<VerseRangeReference> excludedVerseReferences = null)
     {
-        if (!verseReferences.Any()) return Enumerable.Empty<VerseRangeReference>();
-
-        var hashSet = new HashSet<(int Chapter, int Verse)>();
-        foreach (VerseRangeReference reference in verseReferences)
+        HashSet<(int Chapter, int Verse)> convertToHashSet(IEnumerable<VerseRangeReference> verseReferences)
         {
-            for (int verse = reference.FirstVerse; verse <= reference.LastVerse; verse++)
-                hashSet.Add((reference.Chapter, verse));
+            if (verseReferences == null) return [];
+
+            var result = new HashSet<(int Chapter, int Verse)>();
+            foreach (VerseRangeReference reference in verseReferences)
+            {
+                for (int verse = reference.FirstVerse; verse <= reference.LastVerse; verse++)
+                    result.Add((reference.Chapter, verse));
+            }
+            return result;
         }
 
-        var ordered = hashSet.OrderBy(x => x.Chapter).ThenBy(x => x.Verse);
+        if (!verseReferences.Any()) return Enumerable.Empty<VerseRangeReference>();
+
+        var verses = convertToHashSet(verseReferences).Except(convertToHashSet(excludedVerseReferences));
+        var ordered =  verses.OrderBy(x => x.Chapter).ThenBy(x => x.Verse);
+        if (!ordered.Any()) return [];
 
         var result = new List<VerseRangeReference>();
         int currentChapter = ordered.First().Chapter;

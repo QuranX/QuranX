@@ -9,6 +9,7 @@ namespace QuranX.DocumentModel.Factories;
 public class HadithCollectionFactory
 {
     HadithCollection Collection;
+    Dictionary<HadithReference, HashSet<VerseRangeReference>> ExcludedVersesByHadith;
     Dictionary<HadithReference, HashSet<VerseRangeReference>> VersesByHadith;
 
     public HadithCollection Create(string hadithFilePath, string additionalHadithXRefsDirectory)
@@ -39,6 +40,7 @@ public class HadithCollectionFactory
 
     void CreateAdditionalHadithXRefs(string tafsirCode, string xrefsDirectory)
     {
+        ExcludedVersesByHadith = new Dictionary<HadithReference, HashSet<VerseRangeReference>>();
         VersesByHadith = new Dictionary<HadithReference, HashSet<VerseRangeReference>>();
         string xrefsFilePath = Path.Combine(xrefsDirectory, tafsirCode + ".txt");
         if (!File.Exists(xrefsFilePath))
@@ -57,33 +59,41 @@ public class HadithCollectionFactory
                 hadithReference = new HadithReference(Collection.PrimaryReferenceDefinition.Code, lineValues[0].Split('.'), null);
             else
                 hadithReference = new HadithReference(referenceCodeAndValue[0], referenceCodeAndValue[1].Split('.'), null);
-            foreach (string verseRangeReferenceText in lineValues.Skip(1))
+            foreach (string value in lineValues.Skip(1))
             {
-                if (string.IsNullOrWhiteSpace(verseRangeReferenceText))
+                if (string.IsNullOrWhiteSpace(value))
                     continue;
+                string verseRangeReferenceText = value;
+
+                bool isExclusion = verseRangeReferenceText.StartsWith("remove:", System.StringComparison.OrdinalIgnoreCase);
+                if (isExclusion)
+                    verseRangeReferenceText = verseRangeReferenceText[7..];
+
                 AddVerseReference(
                         hadithReference: hadithReference,
-                        verseRangeReferenceText: verseRangeReferenceText
+                        verseRangeReferenceText: verseRangeReferenceText,
+                        isExclusion: isExclusion
                     );
             }
         }
     }
 
-    void AddVerseReference(HadithReference hadithReference, string verseRangeReferenceText)
+    void AddVerseReference(HadithReference hadithReference, string verseRangeReferenceText, bool isExclusion)
     {
         var verseRangeReference = VerseRangeReference.Parse(verseRangeReferenceText);
-        HashSet<VerseRangeReference> verseRangeReferences;
-        if (!VersesByHadith.TryGetValue(hadithReference, out verseRangeReferences))
+
+        Dictionary<HadithReference, HashSet<VerseRangeReference>> hadithLookup = isExclusion ? ExcludedVersesByHadith : VersesByHadith;
+
+        if (!hadithLookup.TryGetValue(hadithReference, out HashSet<VerseRangeReference>  verseRangeReferences))
         {
             verseRangeReferences = new HashSet<VerseRangeReference>();
-            VersesByHadith[hadithReference] = verseRangeReferences;
+            hadithLookup[hadithReference] = verseRangeReferences;
         }
         verseRangeReferences.Add(verseRangeReference);
     }
 
     void ReadHadiths(XElement collectionNode)
     {
-
         foreach (XElement hadithNode in collectionNode.Descendants("hadith"))
         {
             ReadHadith(hadithNode);
@@ -101,13 +111,21 @@ public class HadithCollectionFactory
 
         foreach (HadithReference reference in references)
         {
-            HashSet<VerseRangeReference> additionalVerseReferences;
-            if (VersesByHadith.TryGetValue(reference, out additionalVerseReferences))
+            if (VersesByHadith.TryGetValue(reference, out HashSet<VerseRangeReference> additionalVerseReferences))
             {
                 verseReferences = verseReferences.Concat(additionalVerseReferences);
                 break;
             }
         }
+
+        HashSet<VerseRangeReference> excludedVerseReferences = null;
+        foreach (HadithReference reference in references)
+        {
+            if (ExcludedVersesByHadith.TryGetValue(reference, out excludedVerseReferences))
+                break;
+        }
+
+        verseReferences = VerseRangeReference.Simplify(verseReferences, excludedVerseReferences);
 
         var hadith = new Hadith(
             collection: Collection,
@@ -138,29 +156,10 @@ public class HadithCollectionFactory
         return result;
     }
 
-    IEnumerable<KeyValuePair<string, string>> ReadSecondaryReferences(XElement parentNode)
-    {
-        return parentNode.Elements("secondaryReference")
-            .Select(x => new KeyValuePair<string, string>(
-                        key: x.Element("type").Value,
-                        value: x.Element("value").Value
-                    )
-                );
-    }
-
     IEnumerable<VerseRangeReference> ReadVerseReferences(XElement parentNode)
     {
         return parentNode.Elements("reference")
             .Select(x => VerseRangeReference.ParseXml(x));
-    }
-
-    string[] ReadReferenceDefinition(XElement rootNode)
-    {
-        return rootNode
-            .Element("referenceDefinition")
-            .Elements("definition")
-            .Select(x => x.Value)
-            .ToArray();
     }
 
     HadithReferenceDefinition[] ReadReferenceDefinitions(XElement rootNode)
