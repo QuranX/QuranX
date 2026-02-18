@@ -5,6 +5,7 @@ using System.Xml.Linq;
 
 namespace QuranX.Shared.Models;
 
+// TODO: Ensure chapter + verse are valid
 public class VerseRangeReference : IComparable, IComparable<VerseRangeReference>
 {
     public int Chapter { get; set; }
