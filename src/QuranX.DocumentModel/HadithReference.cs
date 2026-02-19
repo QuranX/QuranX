@@ -87,17 +87,13 @@ public class HadithReference :
         if (codeCompare != 0)
             return codeCompare;
 
-        int length = this.Length < other.Length
-            ? this.Length
-            : other.Length;
+        int length = Math.Min(Length, other.Length);
 
         for (int index = 0; index < length; index++)
         {
             string left = this[index];
             string right = other[index];
-            int leftInt;
-            int rightInt;
-            if (int.TryParse(left, out leftInt) && int.TryParse(right, out rightInt))
+            if (int.TryParse(left, out int leftInt) && int.TryParse(right, out int rightInt))
             {
                 if (leftInt != rightInt)
                     return leftInt.CompareTo(rightInt);
