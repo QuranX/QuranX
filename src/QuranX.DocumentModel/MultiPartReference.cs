@@ -129,10 +129,5 @@ public class MultiPartReference :
         return ((MultiPartReference)obj).CompareTo(this) == 0;
     }
 
-    public override int GetHashCode()
-    {
-        return ToString().GetHashCode();
-    }
-
-
+    public override int GetHashCode() => ToString().GetHashCode();
 }

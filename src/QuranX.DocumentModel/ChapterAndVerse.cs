@@ -47,13 +47,7 @@ public class ChapterAndVerse : IComparable
         return 0;
     }
 
-    public override int GetHashCode()
-    {
-        unchecked
-        {
-            return Chapter.GetHashCode() + Verse.GetHashCode();
-        }
-    }
+    public override int GetHashCode() => HashCode.Combine(Chapter, Verse.GetHashCode);
 
     int IComparable.CompareTo(object obj)
     {

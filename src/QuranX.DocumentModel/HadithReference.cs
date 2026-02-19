@@ -149,12 +149,7 @@ public class HadithReference :
         return ((HadithReference)obj).CompareTo(this) == 0;
     }
 
-    public override int GetHashCode()
-    {
-        string fullKey = (Code + ToString());
-        int result = fullKey.GetHashCode();
-        return result;
-    }
+    public override int GetHashCode() => HashCode.Combine(Code, ToString());
 
     public static HadithReference ParseDottedReference(string code, string hadithNumber)
     {

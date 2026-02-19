@@ -54,10 +54,7 @@ public class HadithReferenceDefinition :
         return string.Compare(Code, other.Code, true) == 0;
     }
 
-    public override int GetHashCode()
-    {
-        return (Code ?? "").GetHashCode();
-    }
+    public override int GetHashCode() => HashCode.Combine(Code);
 
     int IComparable.CompareTo(object obj)
     {

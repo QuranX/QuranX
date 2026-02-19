@@ -42,13 +42,7 @@ public class CollectionAndHadith : IComparable
         return this.Hadith.PrimaryReference.CompareTo(other.Hadith.PrimaryReference);
     }
 
-    public override int GetHashCode()
-    {
-        unchecked
-        {
-            return Collection.Code.GetHashCode() + Hadith.PrimaryReference.GetHashCode();
-        }
-    }
+    public override int GetHashCode() => HashCode.Combine(Collection.Code, Hadith.PrimaryReference);
 
     int IComparable.CompareTo(object obj)
     {

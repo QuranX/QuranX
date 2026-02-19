@@ -76,10 +76,7 @@ public class VerseRangeReference : IComparable, IComparable<VerseRangeReference>
         return string.Format("{0}.{1}-{2}", Chapter, FirstVerse, LastVerse);
     }
 
-    public override int GetHashCode()
-    {
-        return ToString().GetHashCode();
-    }
+    public override int GetHashCode() => ToString().GetHashCode();
 
     public override bool Equals(object obj)
     {
