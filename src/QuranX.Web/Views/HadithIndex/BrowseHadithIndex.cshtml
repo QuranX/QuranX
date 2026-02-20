@@ -8,7 +8,7 @@
 @{
     await Html.RenderPartialAsync("HadithIndexHeader", Model.HadithIndexHeaderViewModel);
 }
-<ul class="hadith-index__list">
+<ol class="hadith-index__list">
     @foreach (string nextValue in Model.NextReferencePartValueSelection)
     {
         <li>
@@ -17,7 +17,7 @@
             </a>
         </li>
     }
-</ul>
+</ol>
 @{
     await Html.RenderPartialAsync("Adverts");
 }

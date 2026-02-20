@@ -291,9 +291,8 @@
 .hadith-index__list {
     padding: 0 2em;
     list-style: none;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(10em, 1fr));
 }
 
     .hadith-index__list.collapsing {
@@ -301,8 +300,6 @@
     }
 
     .hadith-index__list li {
-        width: 18em;
-        white-space: nowrap;
     }
 
 .chapter-and-verse-selector {
