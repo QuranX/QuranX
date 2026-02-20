@@ -1,17 +1,23 @@
-﻿namespace QuranX.Shared.Models;
+﻿using System;
 
-public class Chapter
+namespace QuranX.Shared.Models;
+
+public record Chapter : IComparable<Chapter>
 {
-    public int ChapterNumber { get; set; }
-    public string ArabicName { get; set; }
-    public string EnglishName { get; set; }
-    public string Period { get; set; }
-    public int NumberOfVerses { get; set; }
-    public int RevelationOrder { get; set; }
+    public int ChapterNumber { get; }
+    public string ArabicName { get; }
+    public string EnglishName { get; }
+    public string Period { get; }
+    public int NumberOfVerses { get; }
+    public int RevelationOrder { get; }
 
-    public Chapter() { }
-
-    public Chapter(int chapterNumber, string arabicName, string englishName, string period, int numberOfVerses, int revelationOrder)
+    public Chapter(
+        int chapterNumber,
+        string arabicName,
+        string englishName,
+        string period,
+        int numberOfVerses,
+        int revelationOrder)
     {
         ChapterNumber = chapterNumber;
         ArabicName = arabicName;
@@ -20,4 +26,6 @@ public class Chapter
         NumberOfVerses = numberOfVerses;
         RevelationOrder = revelationOrder;
     }
+
+    int IComparable<Chapter>.CompareTo(Chapter other) => ChapterNumber.CompareTo(other.ChapterNumber);
 }

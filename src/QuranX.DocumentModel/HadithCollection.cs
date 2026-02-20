@@ -13,7 +13,6 @@ public class HadithCollection
     public readonly string Name;
     public readonly string Copyright;
     public readonly HadithReferenceDefinition[] ReferenceDefinitions;
-    HadithReferenceDefinition _PrimaryReferenceDefinition;
     Dictionary<string, HadithReferenceDefinition> ReferenceDefinitionsByCode;
 
     public HadithCollection(

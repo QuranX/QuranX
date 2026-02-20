@@ -41,7 +41,7 @@
                     @foreach (VerseRangeReference verse in Model.Hadith.VerseRangeReferences)
                     {
                         var verseAsString = $"{verse.Chapter}.{verse.FirstVerse}";
-                        if (verse.IsMultipleVerses())
+                        if (verse.IsMultipleVerses)
                         {
                             verseAsString += $"-{verse.LastVerse}";
                         }

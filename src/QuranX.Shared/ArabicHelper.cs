@@ -7,11 +7,12 @@ namespace QuranX.Shared;
 
 public static class ArabicHelper
 {
-    const string ArabicAlphabet = "إ أ آ ا ب ت ة ث ج ح خ د ذ ر ز س ش ص ض ط ظ ع غ ف ق ك ل م ن ه و ي ؤ ء ة ئ ى ي ئ";
-    static HashSet<char> PermittedChars;
     public static readonly Dictionary<char, string> LetterNames;
     public static readonly Dictionary<string, char> LettersByName;
     public static readonly Dictionary<char, char> AlternateChars;
+
+    private const string ArabicAlphabet = "إ أ آ ا ب ت ة ث ج ح خ د ذ ر ز س ش ص ض ط ظ ع غ ف ق ك ل م ن ه و ي ؤ ء ة ئ ى ي ئ";
+    private static HashSet<char> PermittedChars;
 
     static ArabicHelper()
     {

@@ -2,14 +2,10 @@
 
 namespace QuranX.Shared.Models;
 
-public class VerseReference :
-    IComparable,
-    IComparable<VerseReference>
+public record VerseReference : IComparable<VerseReference>
 {
-    public int Chapter { get; set; }
-    public int Verse { get; set; }
-
-    public VerseReference() { }
+    public int Chapter { get; }
+    public int Verse { get; }
 
     public VerseReference(int chapter, int verse)
     {
@@ -17,7 +13,9 @@ public class VerseReference :
         Verse = verse;
     }
 
-    public static int GetIndexValue(int chapterNumber, int verseNumber) => chapterNumber * 1000 + verseNumber;
+    public static int GetIndexValue(int chapterNumber, int verseNumber) =>
+        chapterNumber * 1000 + verseNumber;
+
     public int ToIndexValue() => GetIndexValue(Chapter, Verse);
 
     public static VerseReference Parse(string source)
@@ -26,38 +24,15 @@ public class VerseReference :
         int chapter = int.Parse(chapterVerseParts[0]);
         int verse = int.Parse(chapterVerseParts[1]);
         return new VerseReference(
-                chapter: chapter,
-                verse: verse
-            );
+            chapter: chapter,
+            verse: verse
+        );
     }
 
-    public override string ToString()
-    {
-        return string.Format("{0}.{1}", Chapter, Verse);
-    }
+    public string ToDisplayText() => string.Format("{0}.{1}", Chapter, Verse);
+    public override string ToString() => ToDisplayText();
 
-    public override int GetHashCode() => ToString().GetHashCode();
-
-    public override bool Equals(object obj)
-    {
-        if (!(obj is VerseReference))
-            return false;
-
-        var other = (VerseReference)obj;
-        return Chapter == other.Chapter && Verse == other.Verse;
-    }
-
-    public static bool operator ==(VerseReference left, VerseReference right)
-    {
-        return (left.Equals(right));
-    }
-
-    public static bool operator !=(VerseReference left, VerseReference right)
-    {
-        return (!left.Equals(right));
-    }
-
-    public int CompareTo(VerseReference other)
+    int IComparable<VerseReference>.CompareTo(VerseReference other)
     {
         if (Chapter < other.Chapter)
             return -1;
@@ -68,12 +43,5 @@ public class VerseReference :
         if (Verse > other.Verse)
             return 1;
         return 0;
-    }
-
-    int IComparable.CompareTo(object obj)
-    {
-        if (!(obj is VerseReference))
-            throw new ArgumentException();
-        return CompareTo((VerseReference)obj);
     }
 }
