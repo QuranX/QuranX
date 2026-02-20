@@ -39,8 +39,6 @@ app.UseRouting();
 app.UseMiddleware<OpenTelemetryEnrichmentMiddleware>();
 
 
-app.UseAuthorization();
-
 app.MapControllerRoute(
     name: "About",
     pattern: "About",
