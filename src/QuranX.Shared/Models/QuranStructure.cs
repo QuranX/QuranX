@@ -1,8 +1,5 @@
 ﻿using System.Collections.Frozen;
-using System.Collections.Generic;
 using System.Collections.Immutable;
-using System.ComponentModel;
-using System.Linq;
 
 namespace QuranX.Shared.Models;
 
@@ -18,6 +15,7 @@ public static class QuranStructure
     }
 
     public static ChapterData Chapter(int chapterNumber) => ChapterLookup[chapterNumber];
+    public static int VerseCount(int chapter) => ChapterLookup[chapter].NumberOfVerses;
 
     public static bool TryValidateChapterAndVerse(int chapterNumber, int verseNumber)
     {
@@ -718,4 +716,5 @@ public static class QuranStructure
 
         return result.ToImmutableArray();
     }
+
 }
