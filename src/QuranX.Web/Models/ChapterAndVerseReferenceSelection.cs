@@ -5,10 +5,10 @@ namespace QuranX.Web.Models;
 
 public class ChapterAndVerseReferenceSelection
 {
-    public readonly Chapter Chapter;
+    public readonly ChapterData Chapter;
     public readonly IEnumerable<VerseReference> VerseReferences;
 
-    public ChapterAndVerseReferenceSelection(Chapter chapter, IEnumerable<VerseReference> verseReferences)
+    public ChapterAndVerseReferenceSelection(ChapterData chapter, IEnumerable<VerseReference> verseReferences)
     {
         Chapter = chapter;
         VerseReferences = verseReferences;

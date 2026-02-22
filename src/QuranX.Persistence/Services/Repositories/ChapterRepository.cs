@@ -5,12 +5,12 @@ namespace QuranX.Persistence.Services.Repositories;
 
 public interface IChapterRepository
 {
-    Chapter Get(int chapterNumber);
-    IEnumerable<Chapter> GetAll();
+    ChapterData Get(int chapterNumber);
+    IEnumerable<ChapterData> GetAll();
 }
 
 public class ChapterRepository : IChapterRepository
 {
-    public Chapter Get(int chapterNumber) => QuranStructure.Chapter(chapterNumber);
-    public IEnumerable<Chapter> GetAll() => QuranStructure.Chapters;
+    public ChapterData Get(int chapterNumber) => QuranStructure.Chapter(chapterNumber);
+    public IEnumerable<ChapterData> GetAll() => QuranStructure.Chapters;
 }

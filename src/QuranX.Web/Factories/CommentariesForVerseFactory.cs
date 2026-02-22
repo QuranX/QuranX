@@ -39,7 +39,7 @@ public class CommentariesForVerseFactory : ICommentariesForVerseFactory
             CommentatorRepository.GetAll()
             .ToDictionary(x => x.Code, StringComparer.InvariantCultureIgnoreCase);
 
-        Chapter chapter = ChapterRepository.Get(chapterNumber);
+        ChapterData chapter = ChapterRepository.Get(chapterNumber);
         IEnumerable<Commentary> commentaries;
         if (string.IsNullOrEmpty(commentatorCode))
             commentaries = CommentaryRepository.GetForVerse(chapterNumber, verseNumber);

@@ -6,11 +6,11 @@ namespace QuranX.Web.Views.VerseHadiths;
 
 public class ViewModel
 {
-    public readonly Chapter Chapter;
+    public readonly ChapterData Chapter;
     public readonly int VerseNumber;
     public readonly IEnumerable<HadithViewModel> Hadiths;
 
-    public ViewModel(Chapter chapter, int verseNumber, IEnumerable<HadithViewModel> hadiths)
+    public ViewModel(ChapterData chapter, int verseNumber, IEnumerable<HadithViewModel> hadiths)
     {
         Chapter = chapter;
         VerseNumber = verseNumber;

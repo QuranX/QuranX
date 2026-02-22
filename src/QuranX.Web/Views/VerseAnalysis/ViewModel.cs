@@ -7,13 +7,13 @@ namespace QuranX.Web.Views.VerseAnalysis;
 
 public class ViewModel
 {
-    public readonly Chapter Chapter;
+    public readonly ChapterData Chapter;
     public readonly int VerseNumber;
     public readonly VerseAnalysisVM VerseAnalysis;
     public readonly SelectChapterAndVerse SelectChapterAndVerse;
 
     public ViewModel(
-        Chapter chapter,
+        ChapterData chapter,
         int verseNumber,
         VerseAnalysisVM verseAnalysis,
         SelectChapterAndVerse selectChapterAndVerse)

@@ -34,7 +34,7 @@ public class VerseHadithsController : Controller
 
         ViewBag.Canonical = $"/Hadiths/{chapterNumber}.{verseNumber}";
 
-        Chapter chapter = ChapterRepository.Get(chapterNumber);
+        ChapterData chapter = ChapterRepository.Get(chapterNumber);
         var verseReference = new VerseReference(chapterNumber, verseNumber);
         IEnumerable<Persistence.Models.Hadith> hadiths =
             HadithRepository.GetForVerse(verseReference)

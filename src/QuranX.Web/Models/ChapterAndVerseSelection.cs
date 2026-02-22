@@ -6,10 +6,10 @@ namespace QuranX.Web.Models;
 
 public class ChapterAndVerseSelection
 {
-    public readonly Chapter Chapter;
+    public readonly ChapterData Chapter;
     public readonly IEnumerable<Verse> Verses;
 
-    public ChapterAndVerseSelection(Chapter chapter, IEnumerable<Verse> verses)
+    public ChapterAndVerseSelection(ChapterData chapter, IEnumerable<Verse> verses)
     {
         Chapter = chapter;
         Verses = verses;

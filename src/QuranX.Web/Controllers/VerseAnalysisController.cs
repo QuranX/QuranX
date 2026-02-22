@@ -29,7 +29,7 @@ public class VerseAnalysisController : Controller
 
         ViewBag.Canonical = $"/Analysis/{chapterNumber}.{verseNumber}";
 
-        Chapter chapter = ChapterRepository.Get(chapterNumber);
+        ChapterData chapter = ChapterRepository.Get(chapterNumber);
         VerseAnalysis analysis =
             VerseAnalysisRepository.GetForVerse(chapterNumber, verseNumber);
 

@@ -1,6 +1,6 @@
 ﻿namespace QuranX.Shared.Models;
 
-public class Chapter
+public class ChapterData
 {
     public int ChapterNumber { get; set; }
     public string ArabicName { get; set; }
@@ -8,9 +8,9 @@ public class Chapter
     public int NumberOfVerses { get; set; }
     public int RevelationOrder { get; set; }
 
-    public Chapter() { }
+    public ChapterData() { }
 
-    public Chapter(
+    public ChapterData(
         int chapterNumber,
         string arabicName,
         string englishName,
