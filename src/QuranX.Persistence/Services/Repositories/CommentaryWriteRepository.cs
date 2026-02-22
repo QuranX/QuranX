@@ -23,7 +23,7 @@ public class CommentaryWriteRepository : ICommentaryWriteRepository
 
     public void Write(Commentary commentary)
     {
-        if (commentary == null)
+        if (commentary is null)
             throw new ArgumentNullException(nameof(commentary));
 
         float boostValue = DocumentWeights.Weights["Commentary-" + commentary.CommentatorCode];

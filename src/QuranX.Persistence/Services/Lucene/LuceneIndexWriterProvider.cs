@@ -19,11 +19,11 @@ public class LuceneIndexWriterProvider : ILuceneIndexWriterProvider, IDisposable
 
     public LuceneIndexWriterProvider(ILuceneDirectoryProvider luceneDirectoryProvider, Analyzer analyzer)
     {
-        if (LuceneDirectoryProvider == null)
+        if (LuceneDirectoryProvider is null)
         {
             lock (SyncRoot)
             {
-                if (LuceneDirectoryProvider == null)
+                if (LuceneDirectoryProvider is null)
                 {
                     LuceneDirectoryProvider = luceneDirectoryProvider;
                     Analyzer = analyzer;
@@ -48,12 +48,12 @@ public class LuceneIndexWriterProvider : ILuceneIndexWriterProvider, IDisposable
 
     public void Dispose()
     {
-        if (IndexWriter != null && IndexWriter.IsValueCreated)
+        if (IndexWriter is not null && IndexWriter.IsValueCreated)
         {
             IndexWriter.Value.Dispose();
         }
 
-        if (LuceneDirectoryProvider != null)
+        if (LuceneDirectoryProvider is not null)
         {
             LuceneDirectoryProvider.GetDirectory().Dispose();
         }

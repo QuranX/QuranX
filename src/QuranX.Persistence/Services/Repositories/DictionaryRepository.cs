@@ -42,11 +42,11 @@ public class DictionaryRepository : IDictionaryRepository
 
     private void EnsureData()
     {
-        if (DictionariesByCode == null)
+        if (DictionariesByCode is null)
         {
             lock (SyncRoot)
             {
-                if (DictionariesByCode == null)
+                if (DictionariesByCode is null)
                 {
                     Dictionaries = GetData().OrderBy(x => x.Code).ToArray();
                     DictionariesByCode = Dictionaries.ToDictionary(x => x.Code, StringComparer.InvariantCultureIgnoreCase);

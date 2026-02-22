@@ -85,7 +85,7 @@ public static class DocumentExtensions
     {
         expression.GetIndexNameAndPropertyValue(instance, out string name, out string value);
         transform = transform ?? new Func<string, string>(x => x);
-        if (value != null)
+        if (value is not null)
         {
             Field field = Add(document, name, transform(value), IndexKind.StoreAndIndex);
         }
@@ -144,7 +144,7 @@ public static class DocumentExtensions
 
     public static Document AddSearchableText(this Document document, string text, float boostValue)
     {
-        if (text == null)
+        if (text is null)
             throw new ArgumentNullException(nameof(text));
 
         Add(document, Consts.FullTextFieldName, text, IndexKind.FullText, boostValue);
@@ -153,7 +153,7 @@ public static class DocumentExtensions
 
     public static Document AddSearchableText(this Document document, IEnumerable<string> texts, float boostValue)
     {
-        if (texts == null)
+        if (texts is null)
             throw new ArgumentNullException(nameof(texts));
 
         foreach (string text in texts)
@@ -181,7 +181,7 @@ public static class DocumentExtensions
 
     private static Field Add(Document document, string fieldName, string value, IndexKind indexKind, float boostValue = 1.0f)
     {
-        if (value == null)
+        if (value is null)
             return null;
 
         bool fullText = indexKind.HasFlag(IndexKind.FullText);

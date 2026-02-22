@@ -1,10 +1,14 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFramework>net10.0</TargetFramework>
-    <RootNamespace>QuranX.Shared</RootNamespace>
-    <AssemblyName>QuranX.Shared</AssemblyName>
-    <Deterministic>true</Deterministic>
-  </PropertyGroup>
+    <PropertyGroup>
+        <TargetFramework>net10.0</TargetFramework>
+        <RootNamespace>QuranX.Shared</RootNamespace>
+        <AssemblyName>QuranX.Shared</AssemblyName>
+        <Deterministic>true</Deterministic>
+        <Nullable>enable</Nullable>
+        <IsTrimmable>True</IsTrimmable>
+        <IsAotCompatible>True</IsAotCompatible>
+        <TreatWarningsAsErrors>True</TreatWarningsAsErrors>
+    </PropertyGroup>
 
 </Project>

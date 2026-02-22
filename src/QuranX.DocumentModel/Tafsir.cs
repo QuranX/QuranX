@@ -61,7 +61,7 @@ public class Tafsir
     public IEnumerable<TafsirComment> CommentariesForChapter(int chapterIndex)
     {
         var result = FindCommentariesByChapterEntry(chapter: chapterIndex, createIfNotExists: false);
-        if (result == null)
+        if (result is null)
             return new List<TafsirComment>();
         return result.OrderBy(x => x.VerseReference);
     }

@@ -49,7 +49,7 @@ public class CommentariesForVerseFactory : ICommentariesForVerseFactory
             {
                     CommentaryRepository.GetForVerse(commentatorCode, chapterNumber, verseNumber)
             }
-            .Where(x => x != null);
+            .Where(x => x is not null);
         }
 
         IEnumerable<CommentatorAndCommentary> commentatorsAndCommentaries =

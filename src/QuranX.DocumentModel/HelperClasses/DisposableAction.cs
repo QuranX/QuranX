@@ -9,7 +9,7 @@ public class DisposableAction : IDisposable
 
     public DisposableAction(Action action)
     {
-        if (action == null)
+        if (action is null)
             throw new ArgumentNullException(nameof(action));
         this.Action = action;
     }

@@ -34,7 +34,7 @@ public class SelectChapterAndVerse
             availableChapters: availableChapters,
             url: url)
     {
-        if (availableChapters == null)
+        if (availableChapters is null)
             throw new ArgumentNullException(nameof(availableChapters));
     }
 

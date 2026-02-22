@@ -22,7 +22,7 @@ public class DictionaryEntryWriteRepository : IDictionaryEntryWriteRepository
 
     public void Write(Models.DictionaryEntry entry)
     {
-        if (entry == null)
+        if (entry is null)
             throw new ArgumentNullException(nameof(entry));
 
         string indexValue = ArabicWordIndexer.GetIndexForArabic(entry.Word);

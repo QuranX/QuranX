@@ -45,7 +45,7 @@ public static class ArabicHelper
         return builder.ToString();
     }
 
-    public static string LetterNamesToArabic(string source)
+    public static string? LetterNamesToArabic(string source)
     {
         var builder = new StringBuilder();
         string[] parts = source.Split('-');

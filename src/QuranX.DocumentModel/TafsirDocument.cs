@@ -43,7 +43,7 @@ public class TafsirDocument
         var result =
             from t in Tafsirs
             let c = t.CommentaryForVerse(chapterIndex: chapterIndex, verseIndex: verseIndex)
-            where c != null
+            where c is not null
             select new Tuple<Tafsir, TafsirComment>(t, c);
         return result;
     }

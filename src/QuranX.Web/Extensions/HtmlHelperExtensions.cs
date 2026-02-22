@@ -25,7 +25,7 @@ public static class HtmlHelperExtensions
 
     public static string RemoveTrailingSlash(this IHtmlHelper instance, string value)
     {
-        if (value == null) return null;
+        if (value is null) return null;
         return value.TrimEnd('/');
     }
 }

@@ -41,11 +41,11 @@ public class CommentatorRepository : ICommentatorRepository
 
     private void EnsureData()
     {
-        if (CommentatorByCode == null)
+        if (CommentatorByCode is null)
         {
             lock (SyncRoot)
             {
-                if (CommentatorByCode == null)
+                if (CommentatorByCode is null)
                 {
                     Commentators = GetData().OrderBy(x => x.Code).ToArray();
                     CommentatorByCode = Commentators.ToDictionary(x => x.Code, StringComparer.InvariantCultureIgnoreCase);

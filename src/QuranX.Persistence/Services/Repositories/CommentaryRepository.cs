@@ -47,7 +47,7 @@ public class CommentaryRepository : ICommentaryRepository
 
     public Commentary GetForVerse(string commentatorCode, int chapterNumber, int verseNumber)
     {
-        if (commentatorCode == null)
+        if (commentatorCode is null)
             throw new ArgumentNullException(nameof(commentatorCode));
 
         IEnumerable<int> docIds =
@@ -68,7 +68,7 @@ public class CommentaryRepository : ICommentaryRepository
 
     public IEnumerable<VerseRangeReference> GetVerseRangeReferences(string commentatorCode)
     {
-        if (commentatorCode == null)
+        if (commentatorCode is null)
             throw new ArgumentNullException(nameof(commentatorCode));
 
         VerseRangeReference[] result;
@@ -100,10 +100,10 @@ public class CommentaryRepository : ICommentaryRepository
         var query = new BooleanQuery(disableCoord: true);
         query.FilterByType<Commentary>();
 
-        if (commentatorCode != null)
+        if (commentatorCode is not null)
             query.AddStringEqualsQuery<Commentary>(x => x.CommentatorCode, commentatorCode, Occur.MUST);
 
-        if (chapterNumber != null)
+        if (chapterNumber is not null)
         {
             query.AddNumericRangeQuery<Commentary>(
                 x => x.ChapterNumber,
@@ -111,7 +111,7 @@ public class CommentaryRepository : ICommentaryRepository
                 upperInclusive: chapterNumber.Value,
                 occur: Occur.MUST);
 
-            if (verseNumber != null)
+            if (verseNumber is not null)
             {
                 query
                     .AddNumericRangeQuery<Commentary>(

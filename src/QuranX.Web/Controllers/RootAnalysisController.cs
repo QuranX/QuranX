@@ -31,7 +31,7 @@ public class RootAnalysisController : Controller
     {
         rootLetterNames = rootLetterNames?.ToLowerInvariant();
         string root = ArabicHelper.LetterNamesToArabic(rootLetterNames);
-        if (root == null)
+        if (root is null)
             return NotFound();
 
         IEnumerable<VerseAnalysis> verses =

@@ -79,7 +79,7 @@ public class QuranDocument
 
     public string[] GetAllTranslatorCodes()
     {
-        if (AllTranslationCodes == null)
+        if (AllTranslationCodes is null)
         {
             var codes = this[1, 1].Translations.Select(x => x.TranslatorCode).ToList();
             codes.Add("Arabic");

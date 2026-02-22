@@ -41,7 +41,7 @@ public class HadithReference : IComparable<HadithReference>
 
     public IEnumerable<KeyValuePair<string, string>> ToNameValuePairs(HadithReferenceDefinition definition)
     {
-        if (definition == null)
+        if (definition is null)
             throw new ArgumentNullException(nameof(definition));
         if (string.Compare(definition.CollectionCode, CollectionCode, true) != 0)
             throw new ArgumentException(
@@ -110,7 +110,7 @@ public class HadithReference : IComparable<HadithReference>
     public override bool Equals(object obj)
     {
         HadithReference other = obj as HadithReference;
-        if (other == null)
+        if (other is null)
             return false;
 
         return
@@ -126,7 +126,7 @@ public class HadithReference : IComparable<HadithReference>
 
     public int CompareTo(HadithReference other)
     {
-        if (other == null)
+        if (other is null)
             throw new ArgumentNullException(nameof(other));
         int result;
         if ((result = string.Compare(CollectionCode, other.CollectionCode, true)) != 0)

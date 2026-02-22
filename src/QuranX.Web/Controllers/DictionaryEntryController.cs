@@ -26,7 +26,7 @@ public class DictionaryEntryController : Controller
     public ActionResult Index(string dictionaryCode, string word)
     {
         Dictionary dictionary = DictionaryRepository.Get(ref dictionaryCode);
-        if (dictionary == null)
+        if (dictionary is null)
             return NotFound();
         string indexValue = ArabicHelper.SubstituteAndOmit(word);
         if (indexValue.Length != word.Length)

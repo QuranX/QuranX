@@ -17,7 +17,7 @@ public class LuceneDirectoryProvider : ILuceneDirectoryProvider
 
     public LuceneDirectoryProvider(ISettings settings)
     {
-        if (_settings == null)
+        if (_settings is null)
         {
             lock (_syncRoot)
             {

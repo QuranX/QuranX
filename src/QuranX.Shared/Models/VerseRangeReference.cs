@@ -128,7 +128,7 @@ public class VerseRangeReference : IComparable, IComparable<VerseRangeReference>
     {
         HashSet<(int Chapter, int Verse)> convertToHashSet(IEnumerable<VerseRangeReference> verseReferences)
         {
-            if (verseReferences == null) return [];
+            if (verseReferences is null) return [];
 
             var result = new HashSet<(int Chapter, int Verse)>();
             foreach (VerseRangeReference reference in verseReferences)
@@ -150,12 +150,12 @@ public class VerseRangeReference : IComparable, IComparable<VerseRangeReference>
         int currentFirstVerse = ordered.First().Verse;
         int previousVerse = currentFirstVerse;
 
-        VerseRangeReference currentRef = null;
+        VerseRangeReference? currentRef = null;
         foreach (var item in ordered)
         {
             if (item.Chapter != currentChapter || item.Verse != previousVerse + 1)
             {
-                if (currentRef != null)
+                if (currentRef is not null)
                 {
                     currentRef = new VerseRangeReference(currentChapter, currentFirstVerse, previousVerse);
                     result.Add(currentRef);
@@ -167,7 +167,7 @@ public class VerseRangeReference : IComparable, IComparable<VerseRangeReference>
             }
             previousVerse = item.Verse;
         }
-        if (currentRef != null)
+        if (currentRef is not null)
         {
             currentRef = new VerseRangeReference(currentRef.Chapter, currentRef.FirstVerse, previousVerse);
             result.Add(currentRef);

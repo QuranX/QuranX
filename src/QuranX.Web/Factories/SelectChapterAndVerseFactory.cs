@@ -46,7 +46,7 @@ public class SelectChapterAndVerseFactory : ISelectChapterAndVerseFactory
         int selectedVerseNumber,
         string url)
     {
-        if (ResultForAllChapters == null)
+        if (ResultForAllChapters is null)
         {
             IEnumerable<ChapterAndVerseReferenceSelection> availableChapters =
                 VerseRepository.GetVerseReferences()

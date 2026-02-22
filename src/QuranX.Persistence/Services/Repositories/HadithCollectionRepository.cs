@@ -41,11 +41,11 @@ public class HadithCollectionRepository : IHadithCollectionRepository
 
     private void EnsureData()
     {
-        if (HadithCollectionByCode == null)
+        if (HadithCollectionByCode is null)
         {
             lock (SyncRoot)
             {
-                if (HadithCollectionByCode == null)
+                if (HadithCollectionByCode is null)
                 {
                     HadithCollections = GetData().OrderBy(x => x.Code).ToArray();
                     HadithCollectionByCode = HadithCollections.ToDictionary(x => x.Code, StringComparer.InvariantCultureIgnoreCase);

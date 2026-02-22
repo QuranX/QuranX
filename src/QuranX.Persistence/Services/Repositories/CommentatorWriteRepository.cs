@@ -22,7 +22,7 @@ public class CommentatorWriteRepository : ICommentatorWriteRepository
 
     public void Write(Commentator commentator)
     {
-        if (commentator == null)
+        if (commentator is null)
             throw new ArgumentNullException(nameof(commentator));
 
         var document = new Document();

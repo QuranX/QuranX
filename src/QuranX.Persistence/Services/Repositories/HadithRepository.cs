@@ -82,7 +82,7 @@ public class HadithRepository : IHadithRepository
 
     public IEnumerable<Hadith> GetHadiths(IEnumerable<int> ids)
     {
-        if (ids == null || !ids.Any())
+        if (ids is null || !ids.Any())
             return Array.Empty<Hadith>();
 
         var query = new BooleanQuery(disableCoord: true);
