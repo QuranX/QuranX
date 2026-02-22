@@ -40,7 +40,7 @@ public class QuranMigrator : IQuranMigrator
     {
         foreach (Chapter chapter in XmlDocument.QuranDocument.Chapters)
         {
-            Logger.Debug($"Writing chapter {chapter.Index}");
+            Logger.Debug($"Writing chapter {chapter.Number}");
             foreach (Verse verse in chapter.Verses)
             {
                 WriteVerse(chapter, verse);
@@ -61,11 +61,11 @@ public class QuranMigrator : IQuranMigrator
         }
 
         var verseViewModel = new VerseViewModel(
-            chapterNumber: chapter.Index,
+            chapterNumber: chapter.Number,
             verseNumber: verse.Index,
-            rootWordCount: XmlDocument.CorpusDocument[chapter.Index, verse.Index].Words.Count(),
-            hadithCount: XmlDocument.HadithDocument.GetHadithsForVerse(chapter.Index, verse.Index).Count(),
-            commentaryCount: XmlDocument.TafsirDocument.GetCommentaries(chapter.Index, verse.Index).Count(),
+            rootWordCount: XmlDocument.CorpusDocument[chapter.Number, verse.Index].Words.Count(),
+            hadithCount: XmlDocument.HadithDocument.GetHadithsForVerse(chapter.Number, verse.Index).Count(),
+            commentaryCount: XmlDocument.TafsirDocument.GetCommentaries(chapter.Number, verse.Index).Count(),
             verseTexts: verseTexts);
         VerseWriteRepository.Write(verseViewModel);
     }

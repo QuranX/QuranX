@@ -84,21 +84,5 @@ namespace QuranX.DocumentModel.Properties {
                 return ResourceManager.GetString("quran_uthmani", resourceCulture);
             }
         }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
-        ///&lt;quran&gt;
-        ///  &lt;chapter index=&quot;1&quot; name=&quot;Al Fatiha (The opening)&quot; period=&quot;Makka&quot; verses=&quot;7&quot; /&gt;
-        ///  &lt;chapter index=&quot;2&quot; name=&quot;Al Baqara (The cow)&quot; period=&quot;Madina&quot; verses=&quot;286&quot; /&gt;
-        ///  &lt;chapter index=&quot;3&quot; name=&quot;Al Imran (The family of Imran)&quot; period=&quot;Madina&quot; verses=&quot;200&quot; /&gt;
-        ///  &lt;chapter index=&quot;4&quot; name=&quot;An Nisa (The women)&quot; period=&quot;Madina&quot; verses=&quot;176&quot; /&gt;
-        ///  &lt;chapter index=&quot;5&quot; name=&quot;Al Maida (The food)&quot; period=&quot;Madina&quot; verses=&quot;120&quot; /&gt;
-        ///  &lt;chapter index=&quot;6&quot; name=&quot;Al Anam (Cattle)&quot; p [rest of string was truncated]&quot;;.
-        /// </summary>
-        public static string QuranStructure {
-            get {
-                return ResourceManager.GetString("QuranStructure", resourceCulture);
-            }
-        }
     }
 }

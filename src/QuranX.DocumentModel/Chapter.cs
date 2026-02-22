@@ -6,16 +6,16 @@ namespace QuranX.DocumentModel;
 public class Chapter
 {
     readonly Dictionary<int, Verse> _Verses;
-    public readonly int Index;
+    public readonly int Number;
     public readonly string EnglishName;
     public readonly string ArabicName;
 
-    public Chapter(int index, string englishName, string arabicName)
+    public Chapter(int number, string englishName, string arabicName)
     {
-        this._Verses = new Dictionary<int, Verse>();
-        this.Index = index;
-        this.EnglishName = englishName;
-        this.ArabicName = arabicName;
+        _Verses = new Dictionary<int, Verse>();
+        Number = number;
+        EnglishName = englishName;
+        ArabicName = arabicName;
     }
 
     public string FullName

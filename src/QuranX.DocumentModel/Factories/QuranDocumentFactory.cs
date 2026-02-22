@@ -21,27 +21,22 @@ public class QuranDocumentFactory
 
     void ReadArabic()
     {
-        var structureQuranDoc = XDocument.Parse(QuranX.DocumentModel.Properties.Resources.QuranStructure);
-        var structureQuranNode = structureQuranDoc.Document.Root;
         var tanzilQuranDoc = XDocument.Parse(QuranX.DocumentModel.Properties.Resources.quran_uthmani);
         var tanzilQuranNode = tanzilQuranDoc.Document.Root;
 
         foreach (var arabicChapterNode in tanzilQuranNode.Descendants("sura"))
-            ReadArabicChapter(structureQuranNode, arabicChapterNode);
+            ReadArabicChapter(arabicChapterNode);
     }
 
-    void ReadArabicChapter(XElement structureQuranNode, XElement arabicChapterNode)
+    void ReadArabicChapter(XElement arabicChapterNode)
     {
-        int chapterIndex = int.Parse(arabicChapterNode.Attribute("index").Value);
-        var englishChapterNode = structureQuranNode.Descendants("chapter")
-            .Single(x => int.Parse(x.Attribute("index").Value) == chapterIndex);
-        string arabicName = arabicChapterNode.Attribute("name").Value;
-        string englishName = englishChapterNode.Attribute("name").Value;
+        int chapterNumber = int.Parse(arabicChapterNode.Attribute("index").Value);
+        ChapterData chapterData = QuranStructure.Chapter(chapterNumber);
 
         var chapter = new Chapter(
-                index: chapterIndex,
-                englishName: englishName,
-                arabicName: arabicName
+                number: chapterNumber,
+                englishName: chapterData.EnglishName,
+                arabicName: chapterData.ArabicName
             );
         Document.AddChapter(chapter);
         ReadArabicVerses(

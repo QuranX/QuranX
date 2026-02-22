@@ -20,7 +20,7 @@ public class QuranDocument
         {
             return _Chapters
                 .Select(x => x.Value)
-                .OrderBy(x => x.Index);
+                .OrderBy(x => x.Number);
         }
     }
 
@@ -48,7 +48,7 @@ public class QuranDocument
 
     public void AddChapter(Chapter chapter)
     {
-        _Chapters.Add(chapter.Index, chapter);
+        _Chapters.Add(chapter.Number, chapter);
     }
 
     public IEnumerable<ChapterAndVerse> GetVersesInRange(VerseRangeReference verseRangeReference)

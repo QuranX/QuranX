@@ -20,7 +20,7 @@ public class ChapterAndVerse : IComparable
 
         var other = (ChapterAndVerse)obj;
         return
-            this.Chapter.Index == other.Chapter.Index
+            this.Chapter.Number == other.Chapter.Number
             && this.Verse.Index == other.Verse.Index;
     }
 
@@ -36,9 +36,9 @@ public class ChapterAndVerse : IComparable
 
     public int CompareTo(ChapterAndVerse other)
     {
-        if (this.Chapter.Index < other.Chapter.Index)
+        if (this.Chapter.Number < other.Chapter.Number)
             return -1;
-        if (this.Chapter.Index > other.Chapter.Index)
+        if (this.Chapter.Number > other.Chapter.Number)
             return 1;
         if (this.Verse.Index < other.Verse.Index)
             return -1;
