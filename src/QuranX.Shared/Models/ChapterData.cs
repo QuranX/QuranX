@@ -8,8 +8,6 @@ public class ChapterData
     public int NumberOfVerses { get; set; }
     public int RevelationOrder { get; set; }
 
-    public ChapterData() { }
-
     public ChapterData(
         int chapterNumber,
         string arabicName,

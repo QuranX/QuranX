@@ -38,12 +38,11 @@ public class VerseReference :
 
     public override int GetHashCode() => ToString().GetHashCode();
 
-    public override bool Equals(object obj)
+    public override bool Equals(object? obj)
     {
-        if (!(obj is VerseReference))
+        if (obj is not VerseReference other)
             return false;
 
-        var other = (VerseReference)obj;
         return Chapter == other.Chapter && Verse == other.Verse;
     }
 
@@ -57,8 +56,9 @@ public class VerseReference :
         return (!left.Equals(right));
     }
 
-    public int CompareTo(VerseReference other)
+    public int CompareTo(VerseReference? other)
     {
+        if (other is null) return 1;
         if (Chapter < other.Chapter)
             return -1;
         if (Chapter > other.Chapter)
@@ -70,10 +70,10 @@ public class VerseReference :
         return 0;
     }
 
-    int IComparable.CompareTo(object obj)
+    int IComparable.CompareTo(object? obj)
     {
-        if (!(obj is VerseReference))
+        if (obj is not VerseReference other)
             throw new ArgumentException();
-        return CompareTo((VerseReference)obj);
+        return CompareTo(other);
     }
 }

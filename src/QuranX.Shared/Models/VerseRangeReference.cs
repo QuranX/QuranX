@@ -52,14 +52,14 @@ public class VerseRangeReference : IComparable, IComparable<VerseRangeReference>
 
     public static VerseRangeReference ParseXml(XElement parentNode)
     {
-        int chapter = int.Parse(parentNode.Element("chapter").Value);
-        int firstVerse = int.Parse(parentNode.Element("firstVerse").Value);
-        int lastVerse = int.Parse(parentNode.Element("lastVerse").Value);
+        int chapter = int.Parse(parentNode.Element("chapter")!.Value);
+        int firstVerse = int.Parse(parentNode.Element("firstVerse")!.Value);
+        int lastVerse = int.Parse(parentNode.Element("lastVerse")!.Value);
         return new VerseRangeReference(
-                chapter: chapter,
-                firstVerse: firstVerse,
-                lastVerse: lastVerse
-            );
+            chapter: chapter,
+            firstVerse: firstVerse,
+            lastVerse: lastVerse
+        );
     }
 
     public bool Includes(int chapter, int verse)
@@ -78,30 +78,32 @@ public class VerseRangeReference : IComparable, IComparable<VerseRangeReference>
 
     public override int GetHashCode() => ToString().GetHashCode();
 
-    public override bool Equals(object obj)
+    public override bool Equals(object? obj)
     {
-        if (!(obj is VerseRangeReference))
+        if (obj is not VerseRangeReference other)
             return false;
 
-        var other = (VerseRangeReference)obj;
         return
             Chapter == other.Chapter
             && FirstVerse == other.FirstVerse
             && LastVerse == other.LastVerse;
     }
 
-    public static bool operator ==(VerseRangeReference left, VerseRangeReference right)
+    public static bool operator ==(VerseRangeReference? left, VerseRangeReference? right)
     {
-        return (left.Equals(right));
+        if (left is null && right is null) return true;
+        if (left is null != right is null) return false;
+        return left!.Equals(right);
     }
 
     public static bool operator !=(VerseRangeReference left, VerseRangeReference right)
     {
-        return (!left?.Equals(right) == true);
+        return !(left == right);
     }
 
-    public int CompareTo(VerseRangeReference other)
+    public int CompareTo(VerseRangeReference? other)
     {
+        if (other is null) return 1;
         if (Chapter < other.Chapter)
             return -1;
         if (Chapter > other.Chapter)
@@ -117,16 +119,18 @@ public class VerseRangeReference : IComparable, IComparable<VerseRangeReference>
         return 0;
     }
 
-    int IComparable.CompareTo(object obj)
+    int IComparable.CompareTo(object? obj)
     {
-        if (!(obj is VerseRangeReference))
+        if (obj is not VerseRangeReference other)
             throw new ArgumentException();
-        return CompareTo((VerseRangeReference)obj);
+        return CompareTo(other);
     }
 
-    public static IEnumerable<VerseRangeReference> Simplify(IEnumerable<VerseRangeReference> verseReferences, IEnumerable<VerseRangeReference> excludedVerseReferences = null)
+    public static IEnumerable<VerseRangeReference> Simplify(
+        IEnumerable<VerseRangeReference> verseReferences,
+        IEnumerable<VerseRangeReference>? excludedVerseReferences = null)
     {
-        HashSet<(int Chapter, int Verse)> convertToHashSet(IEnumerable<VerseRangeReference> verseReferences)
+        HashSet<(int Chapter, int Verse)> convertToHashSet(IEnumerable<VerseRangeReference>? verseReferences)
         {
             if (verseReferences is null) return [];
 
