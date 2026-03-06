@@ -19,7 +19,7 @@ public class OpenTelemetryEnrichmentMiddleware
     public async Task InvokeAsync(HttpContext httpContext)
     {
         Activity currentActivity = Activity.Current;
-        if (currentActivity != null)
+        if (currentActivity is not null)
         {
             // Add route data to activity tags
             RouteData routeData = httpContext.GetRouteData();

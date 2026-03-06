@@ -35,7 +35,7 @@ public static class BooleanQueryExtensions
         string value,
         Occur occur)
     {
-        if (value != null)
+        if (value is not null)
         {
             var term = new Term(indexName, value);
             var subQuery = new TermQuery(term);
@@ -65,7 +65,7 @@ public static class BooleanQueryExtensions
         string value,
         Occur occur)
     {
-        if (value != null)
+        if (value is not null)
         {
             var term = new Term(indexName, value);
             var subQuery = new PrefixQuery(term);

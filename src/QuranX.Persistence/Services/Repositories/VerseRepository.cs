@@ -26,7 +26,7 @@ public class VerseRepository : IVerseRepository
 
     public IEnumerable<VerseReference> GetVerseReferences()
     {
-        if (AllReferences == null)
+        if (AllReferences is null)
             AllReferences = QuranStructure.Chapters.Select(x => new VerseRangeReference(
                 chapter: x.ChapterNumber,
                 firstVerse: 1,

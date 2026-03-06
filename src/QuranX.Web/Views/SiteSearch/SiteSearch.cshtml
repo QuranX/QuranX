@@ -27,7 +27,7 @@
         &quot; or an opening bracket without a closing bracket.
     </h3>
 }
-@if (!Model.BadQuery && Model.SearchResults != null)
+@if (!Model.BadQuery && Model.SearchResults is not null)
 {
     int resultNumber = 0;
     if (Model.TotalResults == 0)

@@ -9,7 +9,7 @@ public class ObjectEqualityComparer<T> : IEqualityComparer<T>
 
     public ObjectEqualityComparer(Func<T, T, bool> compare)
     {
-        if (compare == null)
+        if (compare is null)
             throw new ArgumentNullException(nameof(compare));
 
         Compare = compare;

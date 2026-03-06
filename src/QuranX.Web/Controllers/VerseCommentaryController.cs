@@ -37,7 +37,7 @@ public class VerseCommentaryController : Controller
             commentatorCode: commentatorCode,
             chapterNumber: chapterNumber,
             verseNumber: verseNumber);
-        if (commentary == null)
+        if (commentary is null)
             return NotFound();
 
         var commentatorAndCommentary = new CommentatorAndCommentary(

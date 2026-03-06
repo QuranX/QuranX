@@ -30,8 +30,7 @@ public static class ArabicHelper
         var builder = new StringBuilder();
         foreach (char arabicChar in source)
         {
-            string letterName;
-            if (!LetterNames.TryGetValue(arabicChar, out letterName))
+            if (!LetterNames.TryGetValue(arabicChar, out string? letterName))
             {
                 throw new ArgumentException("No letter name for: " + arabicChar);
             }
@@ -45,7 +44,7 @@ public static class ArabicHelper
         return builder.ToString();
     }
 
-    public static string LetterNamesToArabic(string source)
+    public static string? LetterNamesToArabic(string source)
     {
         var builder = new StringBuilder();
         string[] parts = source.Split('-');

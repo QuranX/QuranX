@@ -44,7 +44,7 @@ public class HadithCollection
 
     public bool IsReferenceValid(HadithReference reference)
     {
-        if (reference == null)
+        if (reference is null)
             throw new ArgumentNullException(nameof(reference));
         var referenceDefinition = GetReferenceDefinition(reference.Code);
         bool result = reference.Count(x => !string.IsNullOrEmpty(x)) == referenceDefinition.PartNames.Length;

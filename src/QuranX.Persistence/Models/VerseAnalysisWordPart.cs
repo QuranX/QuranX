@@ -19,7 +19,7 @@ public class VerseAnalysisWordPart
         string description,
         IEnumerable<string> decorators)
     {
-        if (decorators == null)
+        if (decorators is null)
             throw new ArgumentNullException(nameof(decorators));
 
         Root = root;

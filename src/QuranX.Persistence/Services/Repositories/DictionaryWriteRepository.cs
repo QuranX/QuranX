@@ -22,7 +22,7 @@ public class DictionaryWriteRepository : IDictionaryWriteRepository
 
     public void Write(Dictionary dictionary)
     {
-        if (dictionary == null)
+        if (dictionary is null)
             throw new ArgumentNullException(nameof(dictionary));
 
         var document = new Document();

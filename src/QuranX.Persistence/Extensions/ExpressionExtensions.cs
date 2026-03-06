@@ -28,7 +28,7 @@ public static class ExpressionExtensions
     private static MemberExpression GetMemberInfo(Expression method)
     {
         var lambda = method as LambdaExpression;
-        if (lambda == null)
+        if (lambda is null)
             throw new ArgumentNullException(nameof(method));
 
         MemberExpression memberExpr = null;
@@ -43,7 +43,7 @@ public static class ExpressionExtensions
             memberExpr = lambda.Body as MemberExpression;
         }
 
-        if (memberExpr == null)
+        if (memberExpr is null)
             throw new ArgumentException(nameof(method));
 
         return memberExpr;

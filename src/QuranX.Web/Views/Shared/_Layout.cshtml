@@ -6,7 +6,7 @@
 @{
     var request = httpContextAccessor.HttpContext.Request;
     string currentUrl = $"https://quranx.com{request.Path}";
-    if (ViewBag.Canonical == null)
+    if (ViewBag.Canonical is null)
     {
         ViewBag.Canonical = currentUrl;
     }

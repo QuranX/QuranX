@@ -22,15 +22,15 @@ public class Hadith
         IEnumerable<string> englishText,
         IEnumerable<VerseRangeReference> verseReferences)
     {
-        if (collection == null)
+        if (collection is null)
             throw new ArgumentNullException(nameof(collection));
-        if (references == null || !references.Any())
+        if (references is null || !references.Any())
             throw new ArgumentNullException(nameof(references));
-        if (arabicText == null)
+        if (arabicText is null)
             throw new ArgumentNullException(nameof(arabicText));
-        if (englishText == null)
+        if (englishText is null)
             throw new ArgumentNullException(nameof(englishText));
-        if (verseReferences == null)
+        if (verseReferences is null)
             throw new ArgumentNullException(nameof(verseReferences));
 
         this.Collection = collection;

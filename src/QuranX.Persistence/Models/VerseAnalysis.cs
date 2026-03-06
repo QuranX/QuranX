@@ -15,7 +15,7 @@ public class VerseAnalysis
         int verseNumber,
         IReadOnlyList<VerseAnalysisWord> words)
     {
-        if (words == null)
+        if (words is null)
             throw new ArgumentNullException(nameof(words));
 
         ChapterNumber = chapterNumber;

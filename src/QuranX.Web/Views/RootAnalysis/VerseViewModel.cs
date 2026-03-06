@@ -20,7 +20,7 @@ public class VerseViewModel
         VerseAnalysisWordPart selectedWordPart,
         IEnumerable<VerseAnalysisWord> words)
     {
-        if (words == null)
+        if (words is null)
             throw new ArgumentNullException(nameof(words));
 
         ChapterNumber = chapterNumber;

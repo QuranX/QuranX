@@ -17,7 +17,7 @@ namespace QuranX.Persistence.Models;
 			string buckwalter,
 			IEnumerable<VerseAnalysisWordPart> wordParts)
 		{
-			if (wordParts == null)
+			if (wordParts is null)
 				throw new ArgumentNullException(nameof(wordParts));
 
 			WordNumber = wordNumber;

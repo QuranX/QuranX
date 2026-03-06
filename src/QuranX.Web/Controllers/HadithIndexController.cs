@@ -33,7 +33,7 @@ public class HadithIndexController : Controller
         string referenceValue1, string referenceValue2, string referenceValue3)
     {
         HadithCollection collection = HadithCollectionRepository.Get(ref collectionCode);
-        if (collection == null)
+        if (collection is null)
             return NotFound();
 
         var referencePartNamesAndValues = new List<(string referencePartName, int value, string suffix)>();
@@ -47,10 +47,10 @@ public class HadithIndexController : Controller
         IEnumerable<string> referencePartNames = referencePartNamesAndValues
             .Select(x => x.referencePartName);
         HadithReferenceDefinition referenceDefinition = collection.GetReferenceDefinition(referenceCode);
-        if (referenceDefinition == null && referenceCode.Contains("-"))
+        if (referenceDefinition is null && referenceCode.Contains("-"))
             return RedirectForMissingIndexCode(collectionCode, referenceCode, collection, referencePartNamesAndValues, referencePartNames, ref referenceDefinition);
 
-        if (referenceDefinition == null || !referenceDefinition.PatternMatch(referencePartNames))
+        if (referenceDefinition is null || !referenceDefinition.PatternMatch(referencePartNames))
             return NotFound();
 
         // Ensure keys match, because they are case sensitive
@@ -152,7 +152,7 @@ public class HadithIndexController : Controller
                     break;
                 }
             }
-            if (referenceDefinition != null)
+            if (referenceDefinition is not null)
             {
                 var urlBuilder = new StringBuilder($"/hadith/{collectionCode}/{referenceDefinition.Code}");
                 foreach (var referencePartNameAndValue in referencePartNamesAndValues)

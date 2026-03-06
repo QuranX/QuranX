@@ -49,7 +49,7 @@ public class HadithReferenceDefinition :
     public override bool Equals(object obj)
     {
         var other = obj as HadithReferenceDefinition;
-        if (other == null)
+        if (other is null)
             return false;
         return string.Compare(Code, other.Code, true) == 0;
     }

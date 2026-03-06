@@ -24,7 +24,7 @@ public class VerseWriteRepository : IVerseWriteRepository
 
     public void Write(Verse verse)
     {
-        if (verse == null)
+        if (verse is null)
             throw new ArgumentNullException(nameof(verse));
 
         float boostValue = DocumentWeights.Weights["Quran"];

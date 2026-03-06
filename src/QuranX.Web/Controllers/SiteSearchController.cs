@@ -32,7 +32,7 @@ public class SiteSearchController : Controller
     public ActionResult Index(string q, string context)
     {
         ViewBag.Canonical = "/Search";
-        if (q != null)
+        if (q is not null)
         {
             ViewBag.PageHeaders = "<meta name=\"robots\" content=\"noindex, nofollow\">";
         }

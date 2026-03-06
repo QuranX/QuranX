@@ -139,7 +139,7 @@ public class HadithCollectionFactory
     IEnumerable<HadithReference> ReadReferences(XElement referencesNode)
     {
         var result = new List<HadithReference>();
-        if (referencesNode != null)
+        if (referencesNode is not null)
         {
             foreach (XElement referenceNode in referencesNode.Elements("reference"))
             {
@@ -166,7 +166,7 @@ public class HadithCollectionFactory
     {
         var result = new List<HadithReferenceDefinition>();
         var referenceDefinitionsNode = rootNode.Element("referenceDefinitions");
-        if (referenceDefinitionsNode != null)
+        if (referenceDefinitionsNode is not null)
         {
             foreach (XElement referenceDefinitionNode in referenceDefinitionsNode.Elements("referenceDefinition"))
             {

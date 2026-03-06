@@ -98,7 +98,7 @@ public class HadithMigrator : IHadithMigrator
             references.Add(reference);
 
             var referenceDefinition = definitionsByCode[hadithReference.Code];
-            if (primaryReference == null || referenceDefinition.IsPrimary)
+            if (primaryReference is null || referenceDefinition.IsPrimary)
                 primaryReference = reference;
         }
 

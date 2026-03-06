@@ -17,7 +17,7 @@ public class HadithReference :
     {
         if (string.IsNullOrWhiteSpace(code))
             throw new ArgumentNullException(nameof(code));
-        if (values == null || values.Count() == 0 || values.Any(x => string.IsNullOrWhiteSpace(x)))
+        if (values is null || values.Count() == 0 || values.Any(x => string.IsNullOrWhiteSpace(x)))
             throw new ArgumentException(nameof(values), "Must be an array of non-empty values");
 
         Code = code;
@@ -58,7 +58,7 @@ public class HadithReference :
 
     public bool IsPartialMatch(string[] patternValues)
     {
-        if (patternValues == null || patternValues.Length != Values.Length)
+        if (patternValues is null || patternValues.Length != Values.Length)
             return false;
         for (int i = 0; i < patternValues.Length; i++)
         {
