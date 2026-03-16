@@ -1,9 +1,14 @@
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing.Constraints;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using OpenTelemetry.Trace;
+using QuranX.Shared.Models;
 using QuranX.Web.Middlewares;
+using System.Collections;
+using System.Collections.Generic;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -19,8 +24,12 @@ if (!builder.Environment.IsDevelopment())
 }
 
 // Add services to the container.
+builder.Services.AddOpenApi();
 builder.Services.AddControllersWithViews();
 builder.Services.AddHttpContextAccessor();
+
+// Add api endpoints
+builder.Services.AddScoped<QuranX.Web.Api.V1.Endpoints.GetVerses>();
 
 var app = builder.Build();
 
@@ -38,6 +47,15 @@ app.UseStaticFiles();
 app.UseRouting();
 app.UseMiddleware<OpenTelemetryEnrichmentMiddleware>();
 
+var apiV1 = app.MapGroup("/Api/V1/").WithTags("Api V1");
+apiV1.MapPost("/GetVerses", ([FromBody] IEnumerable<VerseRangeReference> verses, QuranX.Web.Api.V1.Endpoints.GetVerses handler) => handler.Execute(verses))
+    .WithName("GetVerses");
+
+app.MapOpenApi();
+app.UseSwaggerUI(options =>
+{
+    options.SwaggerEndpoint("/openapi/v1.json", "v1");
+});
 
 app.MapControllerRoute(
     name: "About",

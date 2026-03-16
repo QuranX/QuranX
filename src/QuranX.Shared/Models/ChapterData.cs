@@ -2,11 +2,11 @@
 
 public class ChapterData
 {
-    public int ChapterNumber { get; set; }
-    public string ArabicName { get; set; }
-    public string EnglishName { get; set; }
-    public int NumberOfVerses { get; set; }
-    public int RevelationOrder { get; set; }
+    public int ChapterNumber { get; }
+    public string ArabicName { get; }
+    public string EnglishName { get; }
+    public int NumberOfVerses { get; }
+    public int RevelationOrder { get; }
 
     public ChapterData(
         int chapterNumber,
