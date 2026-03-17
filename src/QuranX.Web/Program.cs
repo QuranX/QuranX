@@ -7,15 +7,19 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using OpenTelemetry.Trace;
 using QuranX.Web.Api;
-using QuranX.Web.Api.V1.Endpoints;
 using QuranX.Web.Middlewares;
 using System.Collections.Generic;
-using System.Linq;
+using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 
 QuranX.Persistence.Services.Registration.Register(builder.Services);
 QuranX.Web.Services.Registration.Register(builder.Environment, builder.Services);
+
+builder.Services.ConfigureHttpJsonOptions(options =>
+{
+    options.SerializerOptions.Converters.Add(new JsonStringEnumConverter());
+});
 
 if (!builder.Environment.IsDevelopment())
 {
