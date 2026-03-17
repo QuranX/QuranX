@@ -39,7 +39,7 @@ public class QuranVersesController : Controller
         if (autoScrollToSelectedVerse)
             verseRangeReferences = AddSurroundingVerses(context, firstReference);
 
-        IEnumerable<Verse> retrievedVerses = VerseRepository.GetVerses(verseRangeReferences)
+        IEnumerable<Verse> retrievedVerses = VerseRepository.GetVerses(verseRangeReferences, [])
             .OrderBy(x => x.ChapterNumber)
             .ThenBy(x => x.VerseNumber);
 

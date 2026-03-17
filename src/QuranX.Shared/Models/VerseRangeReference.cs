@@ -34,9 +34,14 @@ public class VerseRangeReference : IComparable, IComparable<VerseRangeReference>
         return result;
     }
 
-    public static VerseRangeReference Parse(string source)
+    public static VerseRangeReference? Parse(string source)
     {
+        ArgumentException.ThrowIfNullOrWhiteSpace(source);
+
         string[] chapterVerseParts = source.Split('.');
+        if (chapterVerseParts.Length < 2)
+            return null;
+
         string[] verseRangeParts = chapterVerseParts[1].Split('-');
         int chapter = int.Parse(chapterVerseParts[0]);
         int firstVerse = int.Parse(verseRangeParts[0]);

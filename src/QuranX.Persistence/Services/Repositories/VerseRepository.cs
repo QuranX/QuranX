@@ -1,7 +1,9 @@
-﻿using Lucene.Net.Search;
+﻿#nullable enable
+using Lucene.Net.Search;
 using QuranX.Persistence.Extensions;
 using QuranX.Persistence.Models;
 using QuranX.Shared.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -11,7 +13,7 @@ public interface IVerseRepository
 {
     IEnumerable<VerseReference> GetVerseReferences();
     Verse GetVerse(VerseReference verseReference);
-    IEnumerable<Verse> GetVerses(IEnumerable<VerseRangeReference> verseRangeReferences);
+    IEnumerable<Verse> GetVerses(IEnumerable<VerseRangeReference> verseRangeReferences, IEnumerable<string> translations);
 }
 
 public class VerseRepository : IVerseRepository
@@ -35,13 +37,32 @@ public class VerseRepository : IVerseRepository
         return AllReferences;
     }
 
-    public IEnumerable<Verse> GetVerses(IEnumerable<VerseRangeReference> verseRangeReferences)
+    public IEnumerable<Verse> GetVerses(
+        IEnumerable<VerseRangeReference> verseRangeReferences,
+        IEnumerable<string> translations)
     {
         IEnumerable<int> documentIds = verseRangeReferences.SelectMany(GetVerses).Distinct();
 
         IndexSearcher searcher = IndexSearcherProvider.GetIndexSearcher();
         IEnumerable<Verse> verses = documentIds.Select(x => searcher.Doc(x).GetObject<Verse>());
-        return verses;
+        var translationsSet = (translations ?? []).ToHashSet(StringComparer.OrdinalIgnoreCase);
+        foreach(Verse verse in verses)
+        {
+            IEnumerable<VerseText> verseTexts = 
+                !translations!.Any()
+                ? verse.VerseTexts
+                : verse
+                    .VerseTexts
+                    .Where(x => translationsSet.Contains(x.TranslatorCode));
+
+            yield return new Verse(
+                chapterNumber: verse.ChapterNumber,
+                verseNumber: verse.VerseNumber,
+                rootWordCount: verse.RootWordCount,
+                hadithCount: verse.HadithCount,
+                commentaryCount: verse.CommentaryCount,
+                verseTexts: verseTexts);
+        }
     }
 
     public Verse GetVerse(VerseReference verseReference)
@@ -50,7 +71,7 @@ public class VerseRepository : IVerseRepository
             chapter: verseReference.Chapter,
             firstVerse: verseReference.Verse,
             lastVerse: verseReference.Verse);
-        return GetVerses(new VerseRangeReference[] { verseRangeReference }).Single();
+        return GetVerses(new VerseRangeReference[] { verseRangeReference }, []).Single();
     }
 
     private IEnumerable<int> GetVerses(VerseRangeReference verseRangeReference)
