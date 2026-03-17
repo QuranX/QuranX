@@ -1,16 +1,15 @@
 #nullable enable
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.AspNetCore.Routing.Constraints;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.OpenApi;
 using OpenTelemetry.Trace;
+using QuranX.Web.Api;
 using QuranX.Web.Api.V1.Endpoints;
 using QuranX.Web.Middlewares;
-using System.ComponentModel;
+using System.Collections.Generic;
 using System.Linq;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -32,7 +31,17 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddHttpContextAccessor();
 
 // Add api endpoints
-builder.Services.AddScoped<VersesEndpoint>();
+builder
+    .Services
+    .Scan(x =>
+        x
+            .FromEntryAssembly()
+            .AddClasses(x => x.AssignableTo(typeof(IApiEndpoint)))
+            .AsSelfWithInterfaces()
+            .WithSingletonLifetime()
+        );
+
+
 
 var app = builder.Build();
 
@@ -51,8 +60,10 @@ app.UseRouting();
 app.UseMiddleware<OpenTelemetryEnrichmentMiddleware>();
 app.MapOpenApi();
 
-RouteGroupBuilder apiV1 = app.MapGroup("/Api/V1/").WithTags("Api V1");
-VersesEndpoint.Register(apiV1);
+RouteGroupBuilder apiV1 = app.MapGroup("/api/v1/").WithTags("Api V1");
+IEnumerable<IApiEndpoint> endpoints = app.Services.GetServices<IApiEndpoint>();
+foreach (IApiEndpoint endpoint in endpoints)
+    endpoint.Register(apiV1);
 
 app.UseSwaggerUI(options =>
 {

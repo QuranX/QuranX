@@ -1,33 +1,31 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
-  <PropertyGroup>
-    <TargetFramework>net10.0</TargetFramework>
-  </PropertyGroup>
+    <PropertyGroup>
+        <TargetFramework>net10.0</TargetFramework>
+        <DefaultItemExcludes>$(DefaultItemExcludes);wwwroot\Images\ArabicWords\*.png</DefaultItemExcludes>
+    </PropertyGroup>
 
-  <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="10.0.5" />
-    <PackageReference Include="OpenTelemetry" Version="1.15.0" />
-    <PackageReference Include="OpenTelemetry.Exporter.OpenTelemetryProtocol" Version="1.15.0" />
-    <PackageReference Include="OpenTelemetry.Extensions.Hosting" Version="1.15.0" />
-    <PackageReference Include="OpenTelemetry.Instrumentation.AspNetCore" Version="1.15.0" />
-    <PackageReference Include="OpenTelemetry.Instrumentation.Http" Version="1.15.0" />
-    <PackageReference Include="Swashbuckle.AspNetCore.SwaggerUI" Version="10.1.5" />
-  </ItemGroup>
+    <ItemGroup>
+        <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="10.0.5" />
+        <PackageReference Include="OpenTelemetry" Version="1.15.0" />
+        <PackageReference Include="OpenTelemetry.Exporter.OpenTelemetryProtocol" Version="1.15.0" />
+        <PackageReference Include="OpenTelemetry.Extensions.Hosting" Version="1.15.0" />
+        <PackageReference Include="OpenTelemetry.Instrumentation.AspNetCore" Version="1.15.0" />
+        <PackageReference Include="OpenTelemetry.Instrumentation.Http" Version="1.15.0" />
+        <PackageReference Include="Scrutor" Version="7.0.0" />
+        <PackageReference Include="Swashbuckle.AspNetCore.SwaggerUI" Version="10.1.5" />
+    </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\QuranX.DocumentModel\QuranX.DocumentModel.csproj" />
-    <ProjectReference Include="..\QuranX.Persistence\QuranX.Persistence.csproj" />
-    <ProjectReference Include="..\QuranX.Shared\QuranX.Shared.csproj" />
-  </ItemGroup>
+    <ItemGroup>
+        <ProjectReference Include="..\QuranX.DocumentModel\QuranX.DocumentModel.csproj" />
+        <ProjectReference Include="..\QuranX.Persistence\QuranX.Persistence.csproj" />
+        <ProjectReference Include="..\QuranX.Shared\QuranX.Shared.csproj" />
+    </ItemGroup>
 
-  <ItemGroup>
-    <Content Update="wwwroot\ads.txt">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Api\V1\Contracts\" />
-  </ItemGroup>
+    <ItemGroup>
+        <Content Update="wwwroot\ads.txt">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </Content>
+    </ItemGroup>
 
 </Project>

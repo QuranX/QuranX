@@ -23,7 +23,7 @@ public class QuranVersesController : Controller
         VerseRepository = verseRepository;
     }
 
-    public ActionResult Index(string verses, int? context)
+    public ActionResult Index(string verses, byte? context)
     {
         if (verses == "1.1")
             ViewBag.Canonical = "";

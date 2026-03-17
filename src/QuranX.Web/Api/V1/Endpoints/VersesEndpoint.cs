@@ -18,6 +18,8 @@ namespace QuranX.Web.Api.V1.Endpoints;
 
 public class VersesEndpoint : IApiEndpoint
 {
+    public const string UrlPath = "/verses";
+
     private readonly IChapterRepository ChapterRepository;
     private readonly IVerseRepository VerseRepository;
 
@@ -27,17 +29,18 @@ public class VersesEndpoint : IApiEndpoint
         VerseRepository = verseRepository;
     }
 
-    public static void Register(RouteGroupBuilder builder)
+
+    void IApiEndpoint.Register(RouteGroupBuilder builder)
     {
         builder.MapGet(
-        "/verses",
+        UrlPath,
         (
             [FromQuery(Name = "refs")]
             [Description("Comma-separated verse references such as 1.1,4.34,12.1-7")]
             string refs,
 
             [FromQuery(Name = "translations")]
-            [Description("Optional comma-separated translation codes")]
+            [Description($"Optional comma-separated translation codes (see {TranslationsEndpoint.UrlPath})")]
             string? translations,
 
             [FromServices]
@@ -63,7 +66,9 @@ public class VersesEndpoint : IApiEndpoint
         })
         .WithName("GetVerses")
         .WithSummary("Get one or more verses by reference")
-        .WithDescription("Accepts comma-separated verse references and optional comma-separated translations.");
+        .WithDescription("Accepts comma-separated verse references and optional comma-separated translations")
+        .Produces<VersesEndpointResult>()
+        .ProducesProblem(StatusCodes.Status400BadRequest);
     }
 
     public IEnumerable<ChapterAndVerseSelection> Execute(
@@ -86,5 +91,15 @@ public class VersesEndpoint : IApiEndpoint
         }
 
         return result;
+    }
+
+    public class VersesEndpointResult
+    {
+        public IEnumerable<ChapterAndVerseSelection> ChaptersAndVerses { get; }
+
+        public VersesEndpointResult(IEnumerable<ChapterAndVerseSelection> chaptersAndVerses)
+        {
+            ChaptersAndVerses = chaptersAndVerses ?? throw new ArgumentNullException(nameof(chaptersAndVerses));
+        }
     }
 }
