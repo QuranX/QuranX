@@ -40,7 +40,7 @@ public class VersesEndpoint : IApiEndpoint
             string refs,
 
             [FromQuery(Name = "translations")]
-            [Description($"Optional comma-separated translation codes (see {VerseTranslationsEndpoint.UrlPath})")]
+            [Description($"Optional comma-separated translation codes (see {InterpretationsEndpoint.UrlPath})")]
             string? translations,
 
             [FromServices]
@@ -64,7 +64,7 @@ public class VersesEndpoint : IApiEndpoint
             IEnumerable<ChapterAndVerseSelection> response = handler.Execute(verseReferences, parsedTranslations);
             return Results.Ok(response);
         })
-        .WithName("GetVerses")
+        .WithName("Verses")
         .WithSummary("Get one or more verses by reference")
         .WithDescription("Accepts comma-separated verse references and optional comma-separated translations")
         .Produces<VersesEndpointResult>()
