@@ -40,7 +40,7 @@ public class VersesEndpoint : IApiEndpoint
             string refs,
 
             [FromQuery(Name = "translations")]
-            [Description($"Optional comma-separated translation codes (see {TranslationsEndpoint.UrlPath})")]
+            [Description($"Optional comma-separated translation codes (see {VerseTranslationsEndpoint.UrlPath})")]
             string? translations,
 
             [FromServices]

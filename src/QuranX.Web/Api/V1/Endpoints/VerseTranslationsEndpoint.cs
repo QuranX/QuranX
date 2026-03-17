@@ -8,13 +8,13 @@ using System.Linq;
 
 namespace QuranX.Web.Api.V1.Endpoints;
 
-public class TranslationsEndpoint : IApiEndpoint
+public class VerseTranslationsEndpoint : IApiEndpoint
 {
     public const string UrlPath = "/verses/translations";
 
     private readonly IVerseRepository VerseRepository;
 
-    public TranslationsEndpoint(IVerseRepository verseRepository)
+    public VerseTranslationsEndpoint(IVerseRepository verseRepository)
     {
         VerseRepository = verseRepository;
     }
