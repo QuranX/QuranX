@@ -64,7 +64,7 @@ public class VersesEndpoint : IApiEndpoint
             IEnumerable<ChapterAndVerseSelection> response = handler.Execute(verseReferences, parsedTranslations);
             return Results.Ok(response);
         })
-        .WithName("Verses")
+        .WithName("GetVerses")
         .WithSummary("Get one or more verses by reference")
         .WithDescription("Accepts comma-separated verse references and optional comma-separated translations")
         .Produces<VersesEndpointResult>()

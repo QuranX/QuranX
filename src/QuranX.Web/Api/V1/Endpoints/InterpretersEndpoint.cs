@@ -31,7 +31,7 @@ public class InterpretersEndpoint : IApiEndpoint
                     return Results.Ok(result);
                 }
             )
-            .WithName("Interpreters")
+            .WithName("GetInterpreters")
             .WithSummary("Get interpreters list")
             .WithDescription("Returns the list of available interpreters")
             .Produces<InterpretersEndpointResult>();
