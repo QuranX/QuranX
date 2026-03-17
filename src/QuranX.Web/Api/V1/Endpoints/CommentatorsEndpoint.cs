@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Routing;
 using QuranX.Persistence.Services.Repositories;
+using QuranX.Web.Api.V1.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -56,15 +57,5 @@ public class CommentatorsEndpoint : IApiEndpoint
         }
     }
 
-    public class Commentator
-    {
-        public string Code { get; }
-        public string Description { get; }
 
-        public Commentator(string code, string description)
-        {
-            Code = code;
-            Description = description;
-        }
-    }
 }

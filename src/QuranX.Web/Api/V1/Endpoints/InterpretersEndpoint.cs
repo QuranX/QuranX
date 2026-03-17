@@ -3,13 +3,14 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Routing;
 using QuranX.Persistence.Models;
 using QuranX.Persistence.Services.Repositories;
+using QuranX.Web.Api.V1.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 
 namespace QuranX.Web.Api.V1.Endpoints;
 
-public class InterpretersEndpoint : IApiEndpoint
+public partial class InterpretersEndpoint : IApiEndpoint
 {
     public const string UrlPath = "/interpreters";
 
@@ -43,7 +44,8 @@ public class InterpretersEndpoint : IApiEndpoint
         IEnumerable<Interpreter> interpreters =
             verse
             .VerseTexts
-            .OrderBy(x => x.TranslatorCode)
+            .OrderBy(x => x.TranslatorName)
+            .ThenBy(x => x.TranslatorCode)
             .Select(x => new Interpreter(code: x.TranslatorCode, name: x.TranslatorName));
         return new InterpretersEndpointResult(interpreters);
     }
@@ -55,18 +57,6 @@ public class InterpretersEndpoint : IApiEndpoint
         public InterpretersEndpointResult(IEnumerable<Interpreter> interpreters)
         {
             Interpreters = interpreters ?? throw new ArgumentNullException(nameof(interpreters));
-        }
-    }
-
-    public class Interpreter
-    {
-        public string Code { get; }
-        public string Name { get; }
-
-        public Interpreter(string code, string name)
-        {
-            Code = code;
-            Name = name;
         }
     }
 }
