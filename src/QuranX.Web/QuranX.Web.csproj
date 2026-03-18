@@ -3,6 +3,7 @@
     <PropertyGroup>
         <TargetFramework>net10.0</TargetFramework>
         <DefaultItemExcludes>$(DefaultItemExcludes);wwwroot\Images\ArabicWords\**</DefaultItemExcludes>
+        <UserSecretsId>eedf04e5-11db-4155-84a9-4747518f5c71</UserSecretsId>
     </PropertyGroup>
 
     <ItemGroup>
