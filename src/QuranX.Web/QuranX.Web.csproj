@@ -1,27 +1,29 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
-  <PropertyGroup>
-    <TargetFramework>net10.0</TargetFramework>
-  </PropertyGroup>
+    <PropertyGroup>
+        <TargetFramework>net10.0</TargetFramework>
+        <DefaultItemExcludes>$(DefaultItemExcludes);wwwroot\Images\ArabicWords\**</DefaultItemExcludes>
+    </PropertyGroup>
 
-  <ItemGroup>
-    <PackageReference Include="OpenTelemetry" Version="1.15.0" />
-    <PackageReference Include="OpenTelemetry.Exporter.OpenTelemetryProtocol" Version="1.15.0" />
-    <PackageReference Include="OpenTelemetry.Extensions.Hosting" Version="1.15.0" />
-    <PackageReference Include="OpenTelemetry.Instrumentation.AspNetCore" Version="1.15.0" />
-    <PackageReference Include="OpenTelemetry.Instrumentation.Http" Version="1.15.0" />
-  </ItemGroup>
+    <ItemGroup>
+        <PackageReference Include="ModelContextProtocol.AspNetCore" Version="1.1.0" />
+        <PackageReference Include="OpenTelemetry" Version="1.15.0" />
+        <PackageReference Include="OpenTelemetry.Exporter.OpenTelemetryProtocol" Version="1.15.0" />
+        <PackageReference Include="OpenTelemetry.Extensions.Hosting" Version="1.15.0" />
+        <PackageReference Include="OpenTelemetry.Instrumentation.AspNetCore" Version="1.15.0" />
+        <PackageReference Include="OpenTelemetry.Instrumentation.Http" Version="1.15.0" />
+    </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\QuranX.DocumentModel\QuranX.DocumentModel.csproj" />
-    <ProjectReference Include="..\QuranX.Persistence\QuranX.Persistence.csproj" />
-    <ProjectReference Include="..\QuranX.Shared\QuranX.Shared.csproj" />
-  </ItemGroup>
+    <ItemGroup>
+        <ProjectReference Include="..\QuranX.DocumentModel\QuranX.DocumentModel.csproj" />
+        <ProjectReference Include="..\QuranX.Persistence\QuranX.Persistence.csproj" />
+        <ProjectReference Include="..\QuranX.Shared\QuranX.Shared.csproj" />
+    </ItemGroup>
 
-  <ItemGroup>
-    <Content Update="wwwroot\ads.txt">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-  </ItemGroup>
+    <ItemGroup>
+        <Content Update="wwwroot\ads.txt">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </Content>
+    </ItemGroup>
 
 </Project>
