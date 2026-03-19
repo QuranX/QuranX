@@ -22,7 +22,18 @@ if (!builder.Environment.IsDevelopment())
 builder.Services.AddControllersWithViews();
 builder.Services.AddHttpContextAccessor();
 builder.Services
-  .AddMcpServer()
+  .AddMcpServer(options =>
+  {
+      options.ServerInfo.Name = "QuranX";
+      options.ServerInstructions =
+        $$"""
+        QuranX is an encyclopaedia of Islam.
+        It contains the Quran with multiple translations (plus Arabic and Transliteration text),
+        commentaries (tafsirs) by classical scholars, and hadith collections.
+        Use get_available_commentators and get_available_hadith_collections to discover valid codes
+        before filtering searches or fetching content.
+        """;
+  })
   .WithHttpTransport()
   .WithToolsFromAssembly();
 
