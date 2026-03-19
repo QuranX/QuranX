@@ -28,7 +28,7 @@ partial class CommentaryTools
         [Description("Optional collection of commentator codes. If null or empty then commentaries/tafsirs by all commentators will be returned for the specified verse.")]
         string[]? commentatorCodes = null)
     {
-        HashSet<string> commentatorCodesSet = new(commentatorCodes ?? [], StringComparer.OrdinalIgnoreCase);
+        var commentatorCodesSet = new HashSet<string>(commentatorCodes ?? [], StringComparer.OrdinalIgnoreCase);
 
         IEnumerable<Commentary> commentaries = CommentaryRepository.GetForVerse(verseReference.Chapter, verseReference.Verse);
         if (commentatorCodesSet.Any())

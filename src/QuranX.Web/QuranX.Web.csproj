@@ -7,6 +7,10 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <None Include="McpTools\HadithTools.GetHadithsForVerse.cs" />
+    </ItemGroup>
+
+    <ItemGroup>
         <PackageReference Include="ModelContextProtocol.AspNetCore" Version="1.1.0" />
         <PackageReference Include="OpenTelemetry" Version="1.15.0" />
         <PackageReference Include="OpenTelemetry.Exporter.OpenTelemetryProtocol" Version="1.15.0" />

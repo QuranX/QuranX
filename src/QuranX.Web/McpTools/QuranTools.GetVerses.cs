@@ -28,7 +28,7 @@ partial class QuranTools
         [Description("An optional collection of translator codes. If null or empty then all translations will be returned.")]
         string[]? translatorCodes = null)
     {
-        HashSet<string> translatorCodesSet = new(translatorCodes ?? [], StringComparer.OrdinalIgnoreCase);
+        var translatorCodesSet = new HashSet<string>(translatorCodes ?? [], StringComparer.OrdinalIgnoreCase);
 
         IEnumerable<Verse> retrievedVerses = VerseRepository.GetVerses(verseRangeReferences);
 
