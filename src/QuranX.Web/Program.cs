@@ -34,7 +34,7 @@ builder.Services
         before filtering searches or fetching content.
         """;
   })
-  .WithHttpTransport()
+  .WithHttpTransport(options => options.Stateless = true)
   .WithToolsFromAssembly();
 
 var app = builder.Build();
