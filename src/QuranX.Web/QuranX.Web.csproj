@@ -7,7 +7,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <None Include="McpTools\HadithTools.GetHadithsForVerse.cs" />
+        <None Include="McpTools\HadithTools.GetHadithsForVerse.cs" />
     </ItemGroup>
 
     <ItemGroup>
@@ -29,6 +29,9 @@
         <Content Update="wwwroot\ads.txt">
             <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </Content>
+        <None Update="App_Data\**\*">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
     </ItemGroup>
 
 </Project>
