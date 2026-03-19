@@ -10,13 +10,13 @@ partial class CommentaryTools
 {
     [McpServerTool(
         Name = "get_available_commentators",
-        Title = "Get list of Quran commentators",
+        Title = "Get list of Quran commentators (aka Mufassirs/Mufassiroon)",
         UseStructuredContent = true,
         ReadOnly = true,
         Idempotent = true,
         Destructive = false,
         OpenWorld = false)]
-    [Description("Gets a list of available commentators (mufassir)")]
+    [Description("Gets a list of available commentators (aka Mufassirs/Muffasiroon)")]
     public GetAvailableCommentatorsResult GetAvailableCommentators()
     {
         Commentator[] commentators = CommentatorRepository.GetAll().ToArray();

@@ -22,7 +22,7 @@ partial class QuranTools
         OpenWorld = false)]
     [Description("Gets verses by multiple chapter.firstVerse-lastVerse, e.g. '1.1' or '2.34,3.45-47,4.1-7'")]
     public GetVersesResult GetVerses(
-        [Description("Comma-separated chapter.verse refs like '1.1' or '2.1-5' or '1.1,2.1-5'")]
+        [Description("A collection of verse references.")]
         VerseRangeReference[] verseRangeReferences,
 
         [Description("An optional collection of translator codes. If null or empty then all translations will be returned.")]
