@@ -20,7 +20,7 @@ public interface IHadithRepository
         string collectionCode,
         string referenceCode,
         IEnumerable<(int value, string suffix)> values);
-    IEnumerable<Hadith> GetHadiths(IEnumerable<int> ids);
+    IEnumerable<Hadith> GetHadiths(string collectionCode, IEnumerable<string> primaryReferencePaths);
     IEnumerable<Hadith> GetHadiths(IEnumerable<HadithReference> references);
     IEnumerable<Hadith> GetForVerse(VerseReference verseReference);
 }
@@ -81,31 +81,27 @@ public class HadithRepository : IHadithRepository
             values: values).Any();
     }
 
-    public IEnumerable<Hadith> GetHadiths(IEnumerable<int> ids)
+    public IEnumerable<Hadith> GetHadiths(string collectionCode, IEnumerable<string> primaryReferencePaths)
     {
-        if (ids is null || !ids.Any())
+        string[] paths = primaryReferencePaths?.Distinct().ToArray();
+        if (paths is null || paths.Length == 0)
             return Array.Empty<Hadith>();
 
         var query = new BooleanQuery(disableCoord: true);
-        query.FilterByType<Hadith>();
-        var idQuery = new BooleanQuery(disableCoord: true);
-        foreach (int id in ids)
+        query
+            .FilterByType<Hadith>()
+            .AddStringEqualsQuery<Hadith>(x => x.CollectionCode, collectionCode, Occur.MUST);
+        var pathQuery = new BooleanQuery(disableCoord: true);
+        foreach (string path in paths)
         {
-            idQuery.AddNumericRangeQuery<Hadith>(x => x.Id, id, id, Occur.SHOULD);
+            pathQuery.AddStringEqualsQuery<Hadith>(x => x.PrimaryReferencePath, path, Occur.SHOULD);
         }
-        query.Add(new BooleanClause(idQuery, Occur.MUST));
+        query.Add(new BooleanClause(pathQuery, Occur.MUST));
 
         IndexSearcher searcher = IndexSearcherProvider.GetIndexSearcher();
-        TopDocs docs = searcher.Search(query, int.MaxValue);
-        IEnumerable<int> documentIds = docs.ScoreDocs.Select(x => x.Doc);
-        IEnumerable<Document> documents = documentIds.Select(x => searcher.Doc(x));
-        Dictionary<int, Hadith> hadithsById =
-            documents
-            .Select(x => x.GetObject<Hadith>())
-            .ToDictionary(x => x.Id);
-
-        // Return objects in ID order
-        return ids.Select(x => hadithsById[x]);
+        TopDocs docs = searcher.Search(query, paths.Length);
+        return docs.ScoreDocs
+            .Select(x => searcher.Doc(x.Doc).GetObject<Hadith>());
     }
 
     public IEnumerable<Hadith> GetHadiths(IEnumerable<HadithReference> references)
@@ -113,16 +109,14 @@ public class HadithRepository : IHadithRepository
         if (references is null || !references.Any())
             return Array.Empty<Hadith>();
 
-        IEnumerable<int> hadithIds =
-            references.SelectMany(x =>
+        return references
+            .SelectMany(x =>
                 GetReferences(
                     collectionCode: x.CollectionCode,
                     referenceCode: x.ReferenceCode,
-                    values: x.GetValues()
-                )
-                .Select(x => x.HadithId));
-
-        return GetHadiths(hadithIds);
+                    values: x.GetValues()))
+            .GroupBy(x => x.CollectionCode, StringComparer.OrdinalIgnoreCase)
+            .SelectMany(g => GetHadiths(g.Key, g.Select(x => x.PrimaryReferencePath)));
     }
 
     private IEnumerable<int> GetReferencesIds(
@@ -211,19 +205,23 @@ public class HadithRepository : IHadithRepository
             .AddNumericRangeQuery<HadithVerseLink>(x => x.VerseId, verseIndexValue, verseIndexValue, Occur.MUST);
         IndexSearcher searcher = IndexSearcherProvider.GetIndexSearcher();
         TopDocs docs = searcher.Search(query, 99000);
-        IEnumerable<int> hadithIds = docs.ScoreDocs.Select(x => searcher.Doc(x.Doc).GetStoredValue<HadithVerseLink>(i => i.HadithId));
-        return GetHadiths(hadithIds);
+        return docs.ScoreDocs
+            .Select(x => searcher.Doc(x.Doc).GetObject<HadithVerseLink>())
+            .GroupBy(x => x.CollectionCode, StringComparer.OrdinalIgnoreCase)
+            .SelectMany(g => GetHadiths(g.Key, g.Select(x => x.PrimaryReferencePath)));
     }
 }
 
 internal class HadithVerseLink
 {
-    public int HadithId { get; }
+    public string CollectionCode { get; }
+    public string PrimaryReferencePath { get; }
     public int VerseId { get; }
 
-    public HadithVerseLink(int hadithId, int verseId)
+    public HadithVerseLink(string collectionCode, string primaryReferencePath, int verseId)
     {
-        HadithId = hadithId;
+        CollectionCode = collectionCode;
+        PrimaryReferencePath = primaryReferencePath;
         VerseId = verseId;
     }
 }

@@ -87,8 +87,8 @@ public class HadithIndexController : Controller
             referencePartNamesAndValues: urlReferenceParts);
         if (referencePartNames.Count() == referenceDefinition.PartNames.Count)
         {
-            IEnumerable<int> hadithIds = hadithReferences.Select(x => x.HadithId);
-            IEnumerable<Hadith> hadiths = HadithRepository.GetHadiths(hadithIds);
+            IEnumerable<string> primaryReferencePaths = hadithReferences.Select(x => x.PrimaryReferencePath);
+            IEnumerable<Hadith> hadiths = HadithRepository.GetHadiths(collectionCode, primaryReferencePaths);
             IEnumerable<HadithViewModel> hadithViewModels = HadithViewModelFactory.Create(hadiths);
             var viewModel = new HadithsViewModel(headerViewModel, hadithViewModels);
             return View("Hadiths", viewModel);

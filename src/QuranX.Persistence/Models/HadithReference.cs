@@ -15,7 +15,7 @@ public class HadithReference : IComparable<HadithReference>
     public string ReferenceValue2Suffix { get; set;}
     public int? ReferenceValue3 { get; set;}
     public string ReferenceValue3Suffix { get; set;}
-    public int HadithId { get; set; }
+    public string PrimaryReferencePath { get; set; }
 
     public HadithReference() { }
 
@@ -28,7 +28,7 @@ public class HadithReference : IComparable<HadithReference>
         string referenceValue2Suffix,
         int? referenceValue3,
         string referenceValue3Suffix,
-        int hadithId)
+        string primaryReferencePath)
     {
         CollectionCode = collectionCode;
         ReferenceCode = referenceCode;
@@ -38,7 +38,7 @@ public class HadithReference : IComparable<HadithReference>
         ReferenceValue2Suffix = referenceValue2Suffix;
         ReferenceValue3 = referenceValue3;
         ReferenceValue3Suffix = referenceValue3Suffix;
-        HadithId = hadithId;
+        PrimaryReferencePath = primaryReferencePath;
     }
 
     public IEnumerable<(int Value, string Suffix)> GetValues()
@@ -131,7 +131,7 @@ public class HadithReference : IComparable<HadithReference>
             && string.Compare(ReferenceValue1Suffix, other.ReferenceValue1Suffix, true) == 0
             && ReferenceValue2 == other.ReferenceValue2
             && string.Compare(ReferenceValue2Suffix, other.ReferenceValue2Suffix, true) == 0
-            && ReferenceValue1 == other.ReferenceValue3
+            && ReferenceValue3 == other.ReferenceValue3
             && string.Compare(ReferenceValue3Suffix, other.ReferenceValue3Suffix, true) == 0;
     }
 
@@ -182,7 +182,7 @@ public class HadithReference : IComparable<HadithReference>
             referenceValue2Suffix: value2Suffix,
             referenceValue3: value3,
             referenceValue3Suffix: value3Suffix,
-            hadithId: -1);
+            primaryReferencePath: null);
     }
 
     public string GetPath(HadithReferenceDefinition hadithReferenceDefinition)

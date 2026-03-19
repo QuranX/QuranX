@@ -25,7 +25,6 @@ public class HadithMigrator : IHadithMigrator
     private readonly ILogger Logger;
     private readonly IHadithCollectionWriteRepository HadithCollectionWriteRepository;
     private readonly IHadithWriteRepository HadithWriteRepository;
-    private int NextHadithId;
 
     public HadithMigrator(
         ILogger logger,
@@ -41,7 +40,6 @@ public class HadithMigrator : IHadithMigrator
 
     public void Migrate()
     {
-        NextHadithId = 1;
         foreach (HadithCollection collection in XmlDocument.HadithDocument.Collections)
         {
             Logger.Debug($"Hadith collection {collection.Name}");
@@ -74,9 +72,10 @@ public class HadithMigrator : IHadithMigrator
         Dictionary<string, HadithIndexDefinitionViewModel> definitionsByCode =
             referenceDefinitions.ToDictionary(x => x.Code, StringComparer.InvariantCultureIgnoreCase);
 
-        int hadithId = NextHadithId++;
-        var references = new List<HadithReferenceViewModel>();
-        HadithReferenceViewModel primaryReference = null;
+        // First pass: build references and identify primary to compute PrimaryReferencePath
+        var rawReferences = new List<(HadithReference source, (int index, string suffix)[] indexValues)>();
+        HadithReference primarySource = null;
+        (int index, string suffix)[] primaryIndexValues = null;
         foreach (HadithReference hadithReference in hadith.References)
         {
             (int index, string suffix)[] indexValues =
@@ -85,33 +84,42 @@ public class HadithMigrator : IHadithMigrator
                 .ToArray();
             if (!string.IsNullOrWhiteSpace(hadithReference.Suffix))
                 indexValues[indexValues.Length - 1].suffix = hadithReference.Suffix;
+            rawReferences.Add((hadithReference, indexValues));
+
+            var referenceDefinition = definitionsByCode[hadithReference.Code];
+            if (primarySource is null || referenceDefinition.IsPrimary)
+            {
+                primarySource = hadithReference;
+                primaryIndexValues = indexValues;
+            }
+        }
+
+        // Compute primary reference path
+        var primaryDefinition = definitionsByCode[primarySource.Code];
+        string primaryIndexPath = string.Join("/",
+            primaryDefinition.PartNames.Select((partName, i) =>
+                $"{partName}-{primaryIndexValues[i].index}{primaryIndexValues[i].suffix}"));
+
+        // Second pass: create reference view models with the primary reference path
+        var references = new List<HadithReferenceViewModel>();
+        foreach (var (source, indexValues) in rawReferences)
+        {
             var reference = new HadithReferenceViewModel(
                 collectionCode: hadith.Collection.Code,
-                referenceCode: hadithReference.Code,
+                referenceCode: source.Code,
                 referenceValue1: indexValues[0].index,
                 referenceValue1Suffix: indexValues[0].suffix.AsNullIfWhiteSpace(),
                 referenceValue2: indexValues.Length > 1 ? indexValues[1].index : (int?)null,
                 referenceValue2Suffix: indexValues.Length > 1 ? indexValues[1].suffix.AsNullIfWhiteSpace() : null,
                 referenceValue3: indexValues.Length > 2 ? indexValues[2].index : (int?)null,
                 referenceValue3Suffix: indexValues.Length > 2 ? indexValues[2].suffix.AsNullIfWhiteSpace() : null,
-                hadithId: hadithId);
+                primaryReferencePath: primaryIndexPath);
             references.Add(reference);
-
-            var referenceDefinition = definitionsByCode[hadithReference.Code];
-            if (primaryReference is null || referenceDefinition.IsPrimary)
-                primaryReference = reference;
         }
 
-        var primaryDefinition = definitionsByCode[primaryReference.ReferenceCode];
-        string primaryIndexPath = string.Join("/",
-            primaryReference
-                .ToNameValuePairs(primaryDefinition)
-                .Select(x => $"{x.Key}-{x.Value}"));
-
         var hadithViewModel = new HadithViewModel(
-            id: hadithId,
             collectionCode: hadith.Collection.Code,
-            primaryReferenceCode: primaryReference.ReferenceCode,
+            primaryReferenceCode: primarySource.Code,
             primaryReferencePath: primaryIndexPath,
             arabicText: hadith.ArabicText,
             englishText: hadith.EnglishText,
