@@ -1,4 +1,4 @@
-﻿using Lucene.Net.Documents;
+using Lucene.Net.Documents;
 using Lucene.Net.Search;
 using QuranX.Persistence.Extensions;
 using QuranX.Persistence.Models;
@@ -14,12 +14,14 @@ public interface IHadithRepository
     bool HasReferences(
         string collectionCode,
         string referenceCode,
-        IEnumerable<(int value, string suffix)> values);
+        IEnumerable<int> values,
+        string suffix);
     IEnumerable<HadithReference> GetAllReferences(string collectionCode);
     IEnumerable<HadithReference> GetReferences(
         string collectionCode,
         string referenceCode,
-        IEnumerable<(int value, string suffix)> values);
+        IEnumerable<int> values,
+        string suffix);
     IEnumerable<Hadith> GetHadiths(string collectionCode, IEnumerable<string> primaryReferencePaths);
     IEnumerable<Hadith> GetHadiths(IEnumerable<HadithReference> references);
     IEnumerable<Hadith> GetForVerse(VerseReference verseReference);
@@ -58,12 +60,14 @@ public class HadithRepository : IHadithRepository
     public IEnumerable<HadithReference> GetReferences(
         string collectionCode,
         string referenceCode,
-        IEnumerable<(int value, string suffix)> values)
+        IEnumerable<int> values,
+        string suffix)
     {
         IEnumerable<int> docIds = GetReferencesIds(
             collectionCode: collectionCode,
             referenceCode: referenceCode,
-            values: values);
+            values: values,
+            suffix: suffix);
         IndexSearcher searcher = IndexSearcherProvider.GetIndexSearcher();
         IEnumerable<HadithReference> references = docIds
             .Select(x => searcher.Doc(x).GetObject<HadithReference>());
@@ -73,12 +77,14 @@ public class HadithRepository : IHadithRepository
     public bool HasReferences(
         string collectionCode,
         string referenceCode,
-        IEnumerable<(int value, string suffix)> values)
+        IEnumerable<int> values,
+        string suffix)
     {
         return GetReferencesIds(
             collectionCode: collectionCode,
             referenceCode: referenceCode,
-            values: values).Any();
+            values: values,
+            suffix: suffix).Any();
     }
 
     public IEnumerable<Hadith> GetHadiths(string collectionCode, IEnumerable<string> primaryReferencePaths)
@@ -114,7 +120,8 @@ public class HadithRepository : IHadithRepository
                 GetReferences(
                     collectionCode: x.CollectionCode,
                     referenceCode: x.ReferenceCode,
-                    values: x.GetValues()))
+                    values: x.GetValues(),
+                    suffix: x.Suffix))
             .GroupBy(x => x.CollectionCode, StringComparer.OrdinalIgnoreCase)
             .SelectMany(g => GetHadiths(g.Key, g.Select(x => x.PrimaryReferencePath)));
     }
@@ -122,9 +129,10 @@ public class HadithRepository : IHadithRepository
     private IEnumerable<int> GetReferencesIds(
         string collectionCode,
         string referenceCode,
-        IEnumerable<(int value, string suffix)> values)
+        IEnumerable<int> values,
+        string suffix)
     {
-        values = values ?? Array.Empty<(int value, string suffix)>();
+        int[] valuesArray = values?.ToArray() ?? Array.Empty<int>();
         HadithCollection collection = HadithCollectionRepository.Get(ref collectionCode);
         HadithReferenceDefinition referenceDefinition = collection.GetReferenceDefinition(referenceCode);
 
@@ -133,64 +141,42 @@ public class HadithRepository : IHadithRepository
             .FilterByType<HadithReference>()
             .AddStringEqualsQuery<HadithReference>(x => x.CollectionCode, collectionCode, Occur.MUST)
             .AddStringEqualsQuery<HadithReference>(x => x.ReferenceCode, referenceCode.Replace("-", ""), Occur.MUST);
-        (int value, string suffix)[] valuesArray = values.ToArray();
-
-        Func<int, bool> shouldFilterOnSuffix = referencePartNumber =>
-        {
-            // If not the last reference value then we always filter
-            // on the suffix. This includes ensuring the suffix is null.
-            if (referenceDefinition.PartNames.Count != referencePartNumber)
-                return true;
-            // If it is the last reference value then we only filter
-            // on suffix if the value filtering by is not null.
-            return !string.IsNullOrEmpty(valuesArray[referencePartNumber - 1].suffix);
-        };
 
         if (valuesArray.Length > 0)
         {
             query.AddNumericRangeQuery<HadithReference>(x =>
                 x.ReferenceValue1,
-                valuesArray[0].value,
-                valuesArray[0].value,
+                valuesArray[0],
+                valuesArray[0],
                 Occur.MUST);
-            if (shouldFilterOnSuffix(1))
-            {
-                query.AddStringEqualsQuery<HadithReference>(x =>
-                    x.ReferenceValue1Suffix,
-                    valuesArray[0].suffix.AsNullIfWhiteSpace(),
-                    Occur.MUST);
-            }
         }
         if (valuesArray.Length > 1)
         {
             query.AddNumericRangeQuery<HadithReference>(x =>
                 x.ReferenceValue2,
-                valuesArray[1].value,
-                valuesArray[1].value,
+                valuesArray[1],
+                valuesArray[1],
                 Occur.MUST);
-            if (shouldFilterOnSuffix(2))
-            {
-                query.AddStringEqualsQuery<HadithReference>(x =>
-                x.ReferenceValue2Suffix,
-                valuesArray[1].suffix.AsNullIfWhiteSpace(),
-                Occur.MUST);
-            }
         }
         if (valuesArray.Length > 2)
         {
             query.AddNumericRangeQuery<HadithReference>(x =>
                 x.ReferenceValue3,
-                valuesArray[2].value,
-                valuesArray[2].value,
+                valuesArray[2],
+                valuesArray[2],
                 Occur.MUST);
-            if (shouldFilterOnSuffix(3))
-            {
-                query.AddStringEqualsQuery<HadithReference>(x =>
-                x.ReferenceValue3Suffix,
-                valuesArray[2].suffix.AsNullIfWhiteSpace(),
-                Occur.MUST);
-            }
         }
+
+        // Only filter on suffix when all reference parts are specified
+        if (valuesArray.Length == referenceDefinition.PartNames.Count
+            && !string.IsNullOrEmpty(suffix))
+        {
+            query.AddStringEqualsQuery<HadithReference>(x =>
+                x.Suffix,
+                suffix,
+                Occur.MUST);
+        }
+
         IndexSearcher searcher = IndexSearcherProvider.GetIndexSearcher();
         TopDocs docs = searcher.Search(query, 99000);
         IEnumerable<int> hadithReferences = docs.ScoreDocs.Select(x => x.Doc).ToArray();

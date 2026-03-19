@@ -73,24 +73,27 @@ public class HadithMigrator : IHadithMigrator
             referenceDefinitions.ToDictionary(x => x.Code, StringComparer.InvariantCultureIgnoreCase);
 
         // First pass: build references and identify primary to compute PrimaryReferencePath
-        var rawReferences = new List<(HadithReference source, (int index, string suffix)[] indexValues)>();
+        var rawReferences = new List<(HadithReference source, int[] values, string suffix)>();
         HadithReference primarySource = null;
-        (int index, string suffix)[] primaryIndexValues = null;
+        int[] primaryValues = null;
+        string primarySuffix = null;
         foreach (HadithReference hadithReference in hadith.References)
         {
             (int index, string suffix)[] indexValues =
                 hadithReference.Values
                 .Select(x => HadithReferenceViewModel.SplitValue(x))
                 .ToArray();
-            if (!string.IsNullOrWhiteSpace(hadithReference.Suffix))
-                indexValues[indexValues.Length - 1].suffix = hadithReference.Suffix;
-            rawReferences.Add((hadithReference, indexValues));
+            int[] values = indexValues.Select(x => x.index).ToArray();
+            string suffix = hadithReference.Suffix.AsNullIfWhiteSpace()
+                ?? indexValues[indexValues.Length - 1].suffix.AsNullIfWhiteSpace();
+            rawReferences.Add((hadithReference, values, suffix));
 
             var referenceDefinition = definitionsByCode[hadithReference.Code];
             if (primarySource is null || referenceDefinition.IsPrimary)
             {
                 primarySource = hadithReference;
-                primaryIndexValues = indexValues;
+                primaryValues = values;
+                primarySuffix = suffix;
             }
         }
 
@@ -98,21 +101,24 @@ public class HadithMigrator : IHadithMigrator
         var primaryDefinition = definitionsByCode[primarySource.Code];
         string primaryIndexPath = string.Join("/",
             primaryDefinition.PartNames.Select((partName, i) =>
-                $"{partName}-{primaryIndexValues[i].index}{primaryIndexValues[i].suffix}"));
+            {
+                string valueStr = primaryValues[i].ToString();
+                if (i == primaryDefinition.PartNames.Count - 1)
+                    valueStr += primarySuffix;
+                return $"{partName}-{valueStr}";
+            }));
 
         // Second pass: create reference view models with the primary reference path
         var references = new List<HadithReferenceViewModel>();
-        foreach (var (source, indexValues) in rawReferences)
+        foreach (var (source, values, suffix) in rawReferences)
         {
             var reference = new HadithReferenceViewModel(
                 collectionCode: hadith.Collection.Code,
                 referenceCode: source.Code,
-                referenceValue1: indexValues[0].index,
-                referenceValue1Suffix: indexValues[0].suffix.AsNullIfWhiteSpace(),
-                referenceValue2: indexValues.Length > 1 ? indexValues[1].index : (int?)null,
-                referenceValue2Suffix: indexValues.Length > 1 ? indexValues[1].suffix.AsNullIfWhiteSpace() : null,
-                referenceValue3: indexValues.Length > 2 ? indexValues[2].index : (int?)null,
-                referenceValue3Suffix: indexValues.Length > 2 ? indexValues[2].suffix.AsNullIfWhiteSpace() : null,
+                referenceValue1: values[0],
+                referenceValue2: values.Length > 1 ? values[1] : (int?)null,
+                referenceValue3: values.Length > 2 ? values[2] : (int?)null,
+                suffix: suffix,
                 primaryReferencePath: primaryIndexPath);
             references.Add(reference);
         }

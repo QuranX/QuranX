@@ -56,11 +56,9 @@ public class HadithWriteRepository : IHadithWriteRepository
                 .StoreAndIndex(reference, x => x.CollectionCode)
                 .StoreAndIndex(reference, x => x.ReferenceCode, x => x.Replace("-", ""))
                 .StoreAndIndex(reference, x => x.ReferenceValue1)
-                .StoreAndIndex(reference, x => x.ReferenceValue1Suffix)
                 .StoreAndIndex(reference, x => x.ReferenceValue2)
-                .StoreAndIndex(reference, x => x.ReferenceValue2Suffix)
                 .StoreAndIndex(reference, x => x.ReferenceValue3)
-                .StoreAndIndex(reference, x => x.ReferenceValue3Suffix);
+                .StoreAndIndex(reference, x => x.Suffix);
             indexWriter.AddDocument(doc);
         }
     }

@@ -61,13 +61,17 @@ public class HadithIndexController : Controller
             item.referencePartName = referenceDefinition.PartNames[i];
         }
 
-        IEnumerable<(int value, string suffix)> referenceValues =
-            referencePartNamesAndValues.Select(x => (x.value, x.suffix));
+        IEnumerable<int> referenceValues =
+            referencePartNamesAndValues.Select(x => x.value);
+        string suffix = referencePartNamesAndValues.Count > 0
+            ? referencePartNamesAndValues[referencePartNamesAndValues.Count - 1].suffix
+            : null;
         IEnumerable<HadithReference> hadithReferences =
             HadithRepository.GetReferences(
                 collectionCode: collectionCode,
                 referenceCode: referenceCode,
-                values: referenceValues);
+                values: referenceValues,
+                suffix: suffix);
 
         IEnumerable<string> urlReferenceParts = referencePartNamesAndValues
             .Select(x => x.value + x.suffix)
@@ -97,25 +101,26 @@ public class HadithIndexController : Controller
         {
             string nextReferencePartName = referenceDefinition.PartNames[referencePartNames.Count()];
             Func<HadithReference, string> getNextValue;
+            bool nextIsLast = referencePartNames.Count() + 1 == referenceDefinition.PartNames.Count;
             switch (referencePartNames.Count())
             {
                 case 0:
-                    getNextValue = x => x.ReferenceValue1 + x.ReferenceValue1Suffix;
+                    getNextValue = x => x.ReferenceValue1.ToString() + (nextIsLast ? x.Suffix : "");
                     break;
                 case 1:
-                    getNextValue = x => x.ReferenceValue2 + x.ReferenceValue2Suffix;
+                    getNextValue = x => x.ReferenceValue2.ToString() + (nextIsLast ? x.Suffix : "");
                     break;
                 case 2:
-                    getNextValue = x => x.ReferenceValue3 + x.ReferenceValue3Suffix;
+                    getNextValue = x => x.ReferenceValue3.ToString() + (nextIsLast ? x.Suffix : "");
                     break;
                 default:
                     throw new NotImplementedException();
             }
             // If the next level is the final level (the hadith itself) then remove the suffix
-            // from the final part so that all hadiths with the same reference but different
+            // so that all hadiths with the same reference but different
             // suffixes are shown on screen at once.
             hadithReferences = hadithReferences
-                .Select(x => x.ExcludingFinalSuffix())
+                .Select(x => x.ExcludingSuffix())
                 .Distinct()
                 .OrderBy(x => x);
             // Get the next available values
@@ -140,13 +145,17 @@ public class HadithIndexController : Controller
         {
             referencePartNamesAndValues.Insert(0, additionalReferenceValue);
             var possibleReferenceDefinitions = collection.GetPossibleReferenceDefinitionsByPartNames(referencePartNames);
-            var lookupValues = referencePartNamesAndValues.Select(x => (value: x.value, suffix: x.suffix));
+            var lookupValues = referencePartNamesAndValues.Select(x => x.value);
+            string lookupSuffix = referencePartNamesAndValues.Count > 0
+                ? referencePartNamesAndValues[referencePartNamesAndValues.Count - 1].suffix
+                : null;
             foreach (var candidateDefinition in possibleReferenceDefinitions)
             {
                 if (HadithRepository.HasReferences(
                         collectionCode: collectionCode,
                         referenceCode: candidateDefinition.Code,
-                        values: lookupValues))
+                        values: lookupValues,
+                        suffix: lookupSuffix))
                 {
                     referenceDefinition = candidateDefinition;
                     break;
