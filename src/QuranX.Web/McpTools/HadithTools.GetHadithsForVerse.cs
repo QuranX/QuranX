@@ -21,21 +21,22 @@ partial class HadithTools
         OpenWorld = false)]
     [Description("Gets all hadiths for a Quran verse")]
     public GetHadithsForVerseResult GetHadithsForVerse(
-        [Description("Chapter and verse to retrieve hadiths for")]
-        VerseReference verseReference,
+        [Description("Verse reference in the format 'chapter.verse', e.g. '2.255'")]
+        string verseReference,
 
         [Description("Optional collection of hadith collection codes. If null or empty then hadiths from all collections will be returned for the specified verse.")]
         string[]? hadithCollectionCodes = null)
     {
+        VerseReference parsedVerse = VerseReference.Parse(verseReference);
         var hadithCollectionCodesSet = new HashSet<string>(hadithCollectionCodes ?? [], StringComparer.OrdinalIgnoreCase);
 
-        IEnumerable<Hadith> hadiths = HadithRepository.GetForVerse(verseReference);
+        IEnumerable<Hadith> hadiths = HadithRepository.GetForVerse(parsedVerse);
         if (hadithCollectionCodesSet.Any())
             hadiths = hadiths.Where(x => hadithCollectionCodesSet.Contains(x.CollectionCode));
 
         return new GetHadithsForVerseResult
         {
-            RequestedVerse = verseReference,
+            RequestedVerse = parsedVerse,
             RequestedHadithCollectionCodes = hadithCollectionCodes,
             Hadiths = hadiths.ToArray()
         };

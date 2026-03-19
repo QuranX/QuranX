@@ -20,7 +20,7 @@ partial class QuranTools
         Idempotent = true,
         Destructive = false,
         OpenWorld = false)]
-    [Description("Gets verses by multiple chapter.firstVerse-lastVerse, e.g. '1.1' or '2.34,3.45-47,4.1-7'")]
+    [Description("Gets Quran verses with translations")]
     public GetVersesResult GetVerses(
         [Description("A collection of verse range references in the format 'chapter.verse' or 'chapter.firstVerse-lastVerse', e.g. ['1.1', '2.255', '3.45-47']")]
         string[] verseRangeReferenceStrings,

@@ -22,15 +22,16 @@ partial class CommentaryTools
         OpenWorld = false)]
     [Description("Gets commentaries (aka tafsirs) for a specific chapter and verse")]
     public GetCommentariesForVersesResult GetCommentariesForVerses(
-        [Description("Chapter and verse to retrieve commentaries/tafsirs for")]
-        VerseReference verseReference,
+        [Description("Verse reference in the format 'chapter.verse', e.g. '2.255'")]
+        string verseReference,
 
         [Description("Optional collection of commentator codes. If null or empty then commentaries/tafsirs by all commentators will be returned for the specified verse.")]
         string[]? commentatorCodes = null)
     {
+        VerseReference parsedVerse = VerseReference.Parse(verseReference);
         var commentatorCodesSet = new HashSet<string>(commentatorCodes ?? [], StringComparer.OrdinalIgnoreCase);
 
-        IEnumerable<Commentary> commentaries = CommentaryRepository.GetForVerse(verseReference.Chapter, verseReference.Verse);
+        IEnumerable<Commentary> commentaries = CommentaryRepository.GetForVerse(parsedVerse.Chapter, parsedVerse.Verse);
         if (commentatorCodesSet.Any())
         {
             commentaries = commentaries.Where(x => commentatorCodesSet.Contains(x.CommentatorCode));
@@ -38,7 +39,7 @@ partial class CommentaryTools
 
         return new GetCommentariesForVersesResult
         {
-            RequestedVerse = verseReference,
+            RequestedVerse = parsedVerse,
             RequestedCommentatorCodes = commentatorCodes,
             Commentaries = commentaries.ToArray()
         };

@@ -4,6 +4,7 @@ using QuranX.Persistence.Extensions;
 using QuranX.Persistence.Models;
 using QuranX.Persistence.Services;
 using QuranX.Shared.Models;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -12,21 +13,6 @@ namespace QuranX.Web.McpTools;
 
 partial class SearchTools
 {
-    public enum SearchContext
-    {
-        [Description("Search everything")]
-        WholeSite,
-
-        [Description("Search the Quran only")]
-        Quran,
-
-        [Description("Search commentaries (tafsirs). Use subContext to specify a commentator code or leave null to search all.")]
-        Commentaries,
-
-        [Description("Search hadiths. Use subContext to specify a hadith collection code or leave null to search all.")]
-        Hadiths
-    }
-
     [McpServerTool(
         Name = "search",
         Title = "Searches Quran verses, commentaries, and hadiths",
@@ -37,18 +23,18 @@ partial class SearchTools
         OpenWorld = false)]
     [Description("Searches Quran verses, commentaries, and hadiths matching a query")]
     public SearchResult Search(
-        [Description("The search query text - this is a Lucene search engine query")]
-        string luceneSearchQuery,
-        [Description("The scope of the search")]
-        SearchContext context = SearchContext.WholeSite,
-        [Description("A commentator code when context is Commentaries, or a hadith collection code when context is Hadiths. Use get_available_commentators or get_available_hadith_collections to discover valid codes. Leave null to search everything within Context.")]
+        [Description("The search query text")]
+        string query,
+        [Description("The scope of the search. Valid values: 'wholesite' (default, searches everything), 'quran' (Quran verses only), 'commentaries' (tafsirs only), 'hadiths' (hadiths only). Leave null or empty to search the whole site.")]
+        string? context = null,
+        [Description("A commentator code when context is 'commentaries', or a hadith collection code when context is 'hadiths'. Use get_available_commentators or get_available_hadith_collections to discover valid codes. Leave null to search everything within the context.")]
         string? subContext = null)
     {
-        string searchContext = context switch
+        string searchContext = (context ?? "").Trim().ToUpperInvariant() switch
         {
-            SearchContext.Quran => SearchContexts.Quran,
-            SearchContext.Commentaries => SearchContexts.Commentaries,
-            SearchContext.Hadiths => SearchContexts.Hadiths,
+            "QURAN" => SearchContexts.Quran,
+            "COMMENTARIES" => SearchContexts.Commentaries,
+            "HADITHS" => SearchContexts.Hadiths,
             _ => SearchContexts.WholeSite
         };
 
@@ -61,7 +47,7 @@ partial class SearchTools
         {
             IEnumerable<Persistence.Models.SearchResult> searchResults =
                 SearchEngine.Search(
-                    luceneSearchQuery,
+                    query,
                     searchContext,
                     subContext,
                     out _,
@@ -105,7 +91,7 @@ partial class SearchTools
 
         return new SearchResult
         {
-            RequestQuery = luceneSearchQuery,
+            RequestQuery = query,
             RequestContext = context,
             RequestSubContext = subContext,
             BadQuery = badQuery,
@@ -121,7 +107,7 @@ partial class SearchTools
     public sealed class SearchResult
     {
         public required string RequestQuery { get; init; }
-        public required SearchContext RequestContext { get; init; }
+        public required string? RequestContext { get; init; }
         public required string? RequestSubContext { get; init; }
         public required bool BadQuery { get; init; }
         public required VerseReference[] VerseReferences { get; init; }
