@@ -1,0 +1,24 @@
+Privacy
+=======
+
+QuranX.com does not collect, store, or process any information that could identify its users.
+There are no user accounts, no cookies used for tracking, no analytics that record
+individual behaviour, and no personal data shared with third parties. We do not know
+who you are.
+
+
+Terms of Service
+================
+
+QuranX.com is a free service provided for the purposes of education and research.
+
+By using this service you agree to the following:
+
+- Do not send excessive automated requests that could degrade the service for others.
+- Do not attempt to disrupt, overload, or interfere with the operation of the site.
+- Do not use the service for any unlawful purpose.
+
+We reserve the right to block access to any party that abuses the service.
+
+This service is provided as-is, without warranty of any kind. We are not liable for
+any loss or damage arising from your use of the service.
