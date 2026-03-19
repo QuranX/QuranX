@@ -24,7 +24,21 @@ builder.Services.AddHttpContextAccessor();
 builder.Services
   .AddMcpServer(options =>
   {
-      options.ServerInfo.Name = "QuranX";
+      options.ServerInfo = new ModelContextProtocol.Protocol.Implementation
+      {
+          Name = "QuranX",
+          Title = "Qur'an, Tafsirs, and Hadiths",
+          Version = "1.0.0",
+          WebsiteUrl = "https://quranx.com",
+          Description =
+            $"""
+            An encyclopaedia of Islam.
+            Search and explore the Quran, classical commentaries (tafsirs), and hadith collections.
+            Look up verses with multiple English translations, Arabic text, and transliteration.
+            Find scholarly commentary from classical scholars on any verse.
+            Search across major hadith collections by reference or keyword.
+            """,
+      };
       options.ServerInstructions =
         $$"""
         QuranX is an encyclopaedia of Islam.
