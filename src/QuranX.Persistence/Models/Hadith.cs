@@ -6,7 +6,6 @@ namespace QuranX.Persistence.Models;
 
 public class Hadith
 {
-    public int Id { get; }
     public string CollectionCode { get; }
     public IReadOnlyList<string> ArabicText { get; }
     public IReadOnlyList<string> EnglishText { get; }
@@ -16,7 +15,6 @@ public class Hadith
     public string PrimaryReferencePath { get; }
 
     public Hadith(
-        int id,
         string collectionCode,
         IEnumerable<string> arabicText,
         IEnumerable<string> englishText,
@@ -25,7 +23,6 @@ public class Hadith
         string primaryReferenceCode,
         string primaryReferencePath)
     {
-        Id = id;
         CollectionCode = collectionCode;
         PrimaryReferenceCode = primaryReferenceCode;
         ArabicText = arabicText.ToList().AsReadOnly();

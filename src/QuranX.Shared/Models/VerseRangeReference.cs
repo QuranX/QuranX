@@ -10,7 +10,7 @@ public class VerseRangeReference : IComparable, IComparable<VerseRangeReference>
 {
     public int Chapter { get; set; }
     public int FirstVerse { get; set; }
-    public int LastVerse { get; set; }
+    public int LastVerse { set => field = value; get => field == 0 ? FirstVerse : field; }
     public bool IsMultipleVerses() => FirstVerse != LastVerse;
 
     public VerseRangeReference() { }
@@ -42,7 +42,11 @@ public class VerseRangeReference : IComparable, IComparable<VerseRangeReference>
         int firstVerse = int.Parse(verseRangeParts[0]);
         int lastVerse = firstVerse;
         if (verseRangeParts.Length > 1)
+        {
             lastVerse = int.Parse(verseRangeParts[1]);
+            if (lastVerse == 0)
+                lastVerse = firstVerse;
+        }
         return new VerseRangeReference(
                 chapter: chapter,
                 firstVerse: firstVerse,

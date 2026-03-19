@@ -56,6 +56,8 @@ public class DataMigrator : IDataMigrator
         indexWriter.Commit();
         indexWriter.ForceMerge(1, doWait: true);
 
+#if !DEBUG
         SitemapGenerator.Generate();
+#endif
     }
 }

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
@@ -7,36 +7,41 @@ namespace QuranX.Persistence.Models;
 
 public class HadithReference : IComparable<HadithReference>
 {
-    public string CollectionCode { get; }
-    public string ReferenceCode { get; }
-    public int ReferenceValue1 { get; }
-    public string ReferenceValue1Suffix { get; }
-    public int? ReferenceValue2 { get; }
-    public string ReferenceValue2Suffix { get; }
-    public int? ReferenceValue3 { get; }
-    public string ReferenceValue3Suffix { get; }
-    public int HadithId { get; }
+    public string CollectionCode { get; set;}
+    public string ReferenceCode { get; set;}
+    public int ReferenceValue1 { get; set;}
+    public int? ReferenceValue2 { get; set;}
+    public int? ReferenceValue3 { get; set;}
+    public string Suffix { get; set;}
+    public string PrimaryReferencePath { get; set; }
+
+    public HadithReference() { }
 
     public HadithReference(
         string collectionCode,
         string referenceCode,
         int referenceValue1,
-        string referenceValue1Suffix,
         int? referenceValue2,
-        string referenceValue2Suffix,
         int? referenceValue3,
-        string referenceValue3Suffix,
-        int hadithId)
+        string suffix,
+        string primaryReferencePath)
     {
         CollectionCode = collectionCode;
         ReferenceCode = referenceCode;
         ReferenceValue1 = referenceValue1;
-        ReferenceValue1Suffix = referenceValue1Suffix;
         ReferenceValue2 = referenceValue2;
-        ReferenceValue2Suffix = referenceValue2Suffix;
         ReferenceValue3 = referenceValue3;
-        ReferenceValue3Suffix = referenceValue3Suffix;
-        HadithId = hadithId;
+        Suffix = suffix;
+        PrimaryReferencePath = primaryReferencePath;
+    }
+
+    public IEnumerable<int> GetValues()
+    {
+        yield return ReferenceValue1;
+        if (ReferenceValue2 is not null)
+            yield return ReferenceValue2.Value;
+        if (ReferenceValue3 is not null)
+            yield return ReferenceValue3.Value;
     }
 
     public IEnumerable<KeyValuePair<string, string>> ToNameValuePairs(HadithReferenceDefinition definition)
@@ -53,12 +58,14 @@ public class HadithReference : IComparable<HadithReference>
                 $"Hadith reference code {ReferenceCode} is not same as definition " +
                 $"code {definition.Code}",
                 nameof(definition));
-        string[] values = new string[] {
-                ReferenceValue1 + ReferenceValue1Suffix,
-                ReferenceValue2 + ReferenceValue2Suffix,
-                ReferenceValue3 + ReferenceValue3Suffix
-            };
-        return definition.PartNames.Select((v, i) => new KeyValuePair<string, string>(v, values[i]));
+        int?[] values = [ReferenceValue1, ReferenceValue2, ReferenceValue3];
+        return definition.PartNames.Select((partName, i) =>
+        {
+            string valueStr = values[i].ToString();
+            if (i == definition.PartNames.Count - 1)
+                valueStr += Suffix;
+            return new KeyValuePair<string, string>(partName, valueStr);
+        });
     }
 
     public static (int value, string suffix) SplitValue(string value)
@@ -100,9 +107,8 @@ public class HadithReference : IComparable<HadithReference>
     {
         string hashString =
             $"{CollectionCode}/{ReferenceCode}"
-            + $"/{ReferenceValue1}/{ReferenceValue1Suffix}"
-            + $"/{ReferenceValue2}/{ReferenceValue2Suffix}"
-            + $"/{ReferenceValue3}/{ReferenceValue3Suffix}";
+            + $"/{ReferenceValue1}/{ReferenceValue2}/{ReferenceValue3}"
+            + $"/{Suffix}";
         return hashString.GetHashCode();
 
     }
@@ -117,11 +123,9 @@ public class HadithReference : IComparable<HadithReference>
             string.Compare(CollectionCode, other.CollectionCode, true) == 0
             && string.Compare(ReferenceCode, other.ReferenceCode, true) == 0
             && ReferenceValue1 == other.ReferenceValue1
-            && string.Compare(ReferenceValue1Suffix, other.ReferenceValue1Suffix, true) == 0
             && ReferenceValue2 == other.ReferenceValue2
-            && string.Compare(ReferenceValue2Suffix, other.ReferenceValue2Suffix, true) == 0
-            && ReferenceValue1 == other.ReferenceValue3
-            && string.Compare(ReferenceValue3Suffix, other.ReferenceValue3Suffix, true) == 0;
+            && ReferenceValue3 == other.ReferenceValue3
+            && string.Compare(Suffix, other.Suffix, true) == 0;
     }
 
     public int CompareTo(HadithReference other)
@@ -135,57 +139,41 @@ public class HadithReference : IComparable<HadithReference>
             return result;
         if ((result = ReferenceValue1 - other.ReferenceValue1) != 0)
             return result;
-        if ((result = (ReferenceValue1Suffix ?? "").Length - (other.ReferenceValue1Suffix ?? "").Length) != 0)
-            return result;
-        if ((result = string.Compare(ReferenceValue1Suffix, other.ReferenceValue1Suffix, true)) != 0)
-            return result;
         if ((result = (ReferenceValue2 ?? 0) - (other.ReferenceValue2 ?? 0)) != 0)
-            return result;
-        if ((result = (ReferenceValue2Suffix ?? "").Length - (other.ReferenceValue2Suffix ?? "").Length) != 0)
-            return result;
-        if ((result = string.Compare(ReferenceValue2Suffix, other.ReferenceValue2Suffix, true)) != 0)
             return result;
         if ((result = (ReferenceValue3 ?? 0) - (other.ReferenceValue3 ?? 0)) != 0)
             return result;
-        if ((result = (ReferenceValue3Suffix ?? "").Length - (other.ReferenceValue3Suffix ?? "").Length) != 0)
+        if ((result = (Suffix ?? "").Length - (other.Suffix ?? "").Length) != 0)
             return result;
-        if ((result = string.Compare(ReferenceValue3Suffix, other.ReferenceValue3Suffix, true)) != 0)
+        if ((result = string.Compare(Suffix, other.Suffix, true)) != 0)
             return result;
         return 0;
     }
 
-    public HadithReference ExcludingFinalSuffix()
+    public HadithReference ExcludingSuffix()
     {
-        int value1 = ReferenceValue1;
-        string value1Suffix = ReferenceValue2.HasValue ? ReferenceValue1Suffix : null;
-        int? value2 = ReferenceValue2;
-        string value2Suffix = ReferenceValue2.HasValue ? ReferenceValue2Suffix : null;
-        int? value3 = ReferenceValue3;
-        string value3Suffix = null; // This can never be anything other than null
         return new HadithReference(
             collectionCode: CollectionCode,
             referenceCode: ReferenceCode,
-            referenceValue1: value1,
-            referenceValue1Suffix: value1Suffix,
-            referenceValue2: value2,
-            referenceValue2Suffix: value2Suffix,
-            referenceValue3: value3,
-            referenceValue3Suffix: value3Suffix,
-            hadithId: -1);
+            referenceValue1: ReferenceValue1,
+            referenceValue2: ReferenceValue2,
+            referenceValue3: ReferenceValue3,
+            suffix: null,
+            primaryReferencePath: null);
     }
 
     public string GetPath(HadithReferenceDefinition hadithReferenceDefinition)
     {
         var parts = new List<string>(3);
-        string[] values = [
-            $"{ReferenceValue1}{ReferenceValue1Suffix}",
-                $"{ReferenceValue2}{ReferenceValue2Suffix}",
-                $"{ReferenceValue3}{ReferenceValue3Suffix}"];
+        int?[] values = [ReferenceValue1, ReferenceValue2, ReferenceValue3];
         int index = -1;
         foreach (string partName in hadithReferenceDefinition.PartNames)
         {
             index++;
-            parts.Add($"{partName}-{values[index]}");
+            string valueStr = values[index].ToString();
+            if (index == hadithReferenceDefinition.PartNames.Count - 1)
+                valueStr += Suffix;
+            parts.Add($"{partName}-{valueStr}");
         }
         string result = string.Join('/', parts);
         return $"{hadithReferenceDefinition.CollectionCode}/{hadithReferenceDefinition.Code}/{result}";

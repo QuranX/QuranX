@@ -25,12 +25,8 @@ public class HadithWriteRepository : IHadithWriteRepository
 
     public void Write(Hadith hadith)
     {
-        if (hadith.Id <= 0)
-            throw new ArgumentOutOfRangeException(nameof(Hadith.Id));
-
         float boostValue = DocumentWeights.Weights["Hadith-" + hadith.CollectionCode];
         var document = new Document();
-        document.StoreAndIndex(hadith, x => x.Id);
         foreach (VerseRangeReference verseRangeReference in hadith.VerseRangeReferences)
         {
             string indexName = ExpressionExtensions.GetIndexName<Hadith, object>(x => x.VerseRangeReferences);
@@ -60,11 +56,9 @@ public class HadithWriteRepository : IHadithWriteRepository
                 .StoreAndIndex(reference, x => x.CollectionCode)
                 .StoreAndIndex(reference, x => x.ReferenceCode, x => x.Replace("-", ""))
                 .StoreAndIndex(reference, x => x.ReferenceValue1)
-                .StoreAndIndex(reference, x => x.ReferenceValue1Suffix)
                 .StoreAndIndex(reference, x => x.ReferenceValue2)
-                .StoreAndIndex(reference, x => x.ReferenceValue2Suffix)
                 .StoreAndIndex(reference, x => x.ReferenceValue3)
-                .StoreAndIndex(reference, x => x.ReferenceValue3Suffix);
+                .StoreAndIndex(reference, x => x.Suffix);
             indexWriter.AddDocument(doc);
         }
     }
@@ -76,14 +70,16 @@ public class HadithWriteRepository : IHadithWriteRepository
             .SelectMany(x => x.ToVerseReferences())
             .Select(x => x.ToIndexValue())
             .Select(x => new HadithVerseLink(
-                hadithId: hadith.Id,
+                collectionCode: hadith.CollectionCode,
+                primaryReferencePath: hadith.PrimaryReferencePath,
                 verseId: x));
 
         foreach (HadithVerseLink hadithVerseLink in hadithVerseLinks)
         {
             var doc = new Document();
             doc
-                .StoreAndIndex(hadithVerseLink, x => x.HadithId)
+                .StoreAndIndex(hadithVerseLink, x => x.CollectionCode)
+                .StoreAndIndex(hadithVerseLink, x => x.PrimaryReferencePath)
                 .StoreAndIndex(hadithVerseLink, x => x.VerseId)
                 .AddObject(hadithVerseLink);
             indexWriter.AddDocument(doc);

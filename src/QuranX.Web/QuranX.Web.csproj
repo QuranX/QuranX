@@ -1,27 +1,34 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
-  <PropertyGroup>
-    <TargetFramework>net10.0</TargetFramework>
-  </PropertyGroup>
+    <PropertyGroup>
+        <TargetFramework>net10.0</TargetFramework>
+        <DefaultItemExcludes>$(DefaultItemExcludes);wwwroot\Images\ArabicWords\**</DefaultItemExcludes>
+        <UserSecretsId>eedf04e5-11db-4155-84a9-4747518f5c71</UserSecretsId>
+    </PropertyGroup>
 
-  <ItemGroup>
-    <PackageReference Include="OpenTelemetry" Version="1.15.0" />
-    <PackageReference Include="OpenTelemetry.Exporter.OpenTelemetryProtocol" Version="1.15.0" />
-    <PackageReference Include="OpenTelemetry.Extensions.Hosting" Version="1.15.0" />
-    <PackageReference Include="OpenTelemetry.Instrumentation.AspNetCore" Version="1.15.0" />
-    <PackageReference Include="OpenTelemetry.Instrumentation.Http" Version="1.15.0" />
-  </ItemGroup>
+    <ItemGroup>
+      <None Include="McpTools\HadithTools.GetHadithsForVerse.cs" />
+    </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\QuranX.DocumentModel\QuranX.DocumentModel.csproj" />
-    <ProjectReference Include="..\QuranX.Persistence\QuranX.Persistence.csproj" />
-    <ProjectReference Include="..\QuranX.Shared\QuranX.Shared.csproj" />
-  </ItemGroup>
+    <ItemGroup>
+        <PackageReference Include="ModelContextProtocol.AspNetCore" Version="1.1.0" />
+        <PackageReference Include="OpenTelemetry" Version="1.15.0" />
+        <PackageReference Include="OpenTelemetry.Exporter.OpenTelemetryProtocol" Version="1.15.0" />
+        <PackageReference Include="OpenTelemetry.Extensions.Hosting" Version="1.15.0" />
+        <PackageReference Include="OpenTelemetry.Instrumentation.AspNetCore" Version="1.15.0" />
+        <PackageReference Include="OpenTelemetry.Instrumentation.Http" Version="1.15.0" />
+    </ItemGroup>
 
-  <ItemGroup>
-    <Content Update="wwwroot\ads.txt">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-  </ItemGroup>
+    <ItemGroup>
+        <ProjectReference Include="..\QuranX.DocumentModel\QuranX.DocumentModel.csproj" />
+        <ProjectReference Include="..\QuranX.Persistence\QuranX.Persistence.csproj" />
+        <ProjectReference Include="..\QuranX.Shared\QuranX.Shared.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <Content Update="wwwroot\ads.txt">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </Content>
+    </ItemGroup>
 
 </Project>
