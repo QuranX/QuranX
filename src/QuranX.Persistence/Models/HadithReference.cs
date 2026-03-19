@@ -7,15 +7,17 @@ namespace QuranX.Persistence.Models;
 
 public class HadithReference : IComparable<HadithReference>
 {
-    public string CollectionCode { get; }
-    public string ReferenceCode { get; }
-    public int ReferenceValue1 { get; }
-    public string ReferenceValue1Suffix { get; }
-    public int? ReferenceValue2 { get; }
-    public string ReferenceValue2Suffix { get; }
-    public int? ReferenceValue3 { get; }
-    public string ReferenceValue3Suffix { get; }
-    public int HadithId { get; }
+    public string CollectionCode { get; set;}
+    public string ReferenceCode { get; set;}
+    public int ReferenceValue1 { get; set;}
+    public string ReferenceValue1Suffix { get; set;}
+    public int? ReferenceValue2 { get; set;}
+    public string ReferenceValue2Suffix { get; set;}
+    public int? ReferenceValue3 { get; set;}
+    public string ReferenceValue3Suffix { get; set;}
+    public int HadithId { get; set; }
+
+    public HadithReference() { }
 
     public HadithReference(
         string collectionCode,
@@ -37,6 +39,15 @@ public class HadithReference : IComparable<HadithReference>
         ReferenceValue3 = referenceValue3;
         ReferenceValue3Suffix = referenceValue3Suffix;
         HadithId = hadithId;
+    }
+
+    public IEnumerable<(int Value, string Suffix)> GetValues()
+    {
+        yield return (ReferenceValue1,  ReferenceValue1Suffix);
+        if (ReferenceValue2 is not null)
+            yield return (ReferenceValue2.Value, ReferenceValue2Suffix);
+        if (ReferenceValue3 is not null)
+            yield return (ReferenceValue3.Value, ReferenceValue3Suffix);
     }
 
     public IEnumerable<KeyValuePair<string, string>> ToNameValuePairs(HadithReferenceDefinition definition)

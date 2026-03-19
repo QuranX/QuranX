@@ -21,7 +21,7 @@ public interface IHadithRepository
         string referenceCode,
         IEnumerable<(int value, string suffix)> values);
     IEnumerable<Hadith> GetHadiths(IEnumerable<int> ids);
-    IEnumerable<Hadith> GetHadiths(IEnumerable<HadithCitation> citations);
+    IEnumerable<Hadith> GetHadiths(IEnumerable<HadithReference> references);
     IEnumerable<Hadith> GetForVerse(VerseReference verseReference);
 }
 
@@ -108,23 +108,18 @@ public class HadithRepository : IHadithRepository
         return ids.Select(x => hadithsById[x]);
     }
 
-    public IEnumerable<Hadith> GetHadiths(IEnumerable<HadithCitation> citations)
+    public IEnumerable<Hadith> GetHadiths(IEnumerable<HadithReference> references)
     {
-        if (citations is null || !citations.Any())
+        if (references is null || !references.Any())
             return Array.Empty<Hadith>();
 
         IEnumerable<int> hadithIds =
-            citations.SelectMany(citation =>
+            references.SelectMany(x =>
                 GetReferences(
-                    collectionCode: citation.CollectionCode,
-                    referenceCode: citation.ReferenceCode,
-                    values: new (int value, string suffix)[]
-                    {
-                        (citation.ReferenceValue1, citation.ReferenceValue1Suffix),
-                        (citation.ReferenceValue2, citation.ReferenceValue2Suffix),
-                        (citation.ReferenceValue3, citation.ReferenceValue3Suffix)
-                    }
-                    .TakeWhile(x => x.value != 0))
+                    collectionCode: x.CollectionCode,
+                    referenceCode: x.ReferenceCode,
+                    values: x.GetValues()
+                )
                 .Select(x => x.HadithId));
 
         return GetHadiths(hadithIds);
