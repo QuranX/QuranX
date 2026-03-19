@@ -25,7 +25,7 @@ partial class CommentaryTools
         [Description("Verse reference in the format 'chapter.verse', e.g. '2.255'")]
         string verseReference,
 
-        [Description("Optional collection of commentator codes. If null or empty then commentaries/tafsirs by all commentators will be returned for the specified verse.")]
+        [Description("Optional collection of commentator codes. Use get_available_commentators to discover valid codes. If null or empty then commentaries/tafsirs by all commentators will be returned.")]
         string[]? commentatorCodes = null)
     {
         VerseReference parsedVerse = VerseReference.Parse(verseReference);

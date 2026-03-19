@@ -16,7 +16,7 @@ partial class CommentaryTools
         Idempotent = true,
         Destructive = false,
         OpenWorld = false)]
-    [Description("Gets a list of available commentators (aka Mufassirs/Muffasiroon)")]
+    [Description("Gets a list of available commentators (aka Mufassirs/Mufassiroon). Use the returned codes with get_commentaries_for_quran_verses or as subContext in search.")]
     public GetAvailableCommentatorsResult GetAvailableCommentators()
     {
         Commentator[] commentators = CommentatorRepository.GetAll().ToArray();

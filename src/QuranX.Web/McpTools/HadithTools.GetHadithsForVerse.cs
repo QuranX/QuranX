@@ -24,7 +24,7 @@ partial class HadithTools
         [Description("Verse reference in the format 'chapter.verse', e.g. '2.255'")]
         string verseReference,
 
-        [Description("Optional collection of hadith collection codes. If null or empty then hadiths from all collections will be returned for the specified verse.")]
+        [Description("Optional collection of hadith collection codes. Use get_available_hadith_collections to discover valid codes. If null or empty then hadiths from all collections will be returned.")]
         string[]? hadithCollectionCodes = null)
     {
         VerseReference parsedVerse = VerseReference.Parse(verseReference);

@@ -25,7 +25,7 @@ partial class QuranTools
         [Description("A collection of verse range references in the format 'chapter.verse' or 'chapter.firstVerse-lastVerse', e.g. ['1.1', '2.255', '3.45-47']")]
         string[] verseRangeReferenceStrings,
 
-        [Description("An optional collection of translator codes. If null or empty then all translations will be returned.")]
+        [Description("Optional collection of translator codes. Use get_available_translators to discover valid codes. If null or empty then all translations will be returned.")]
         string[]? translatorCodes = null)
     {
         VerseRangeReference[] verseRangeReferences = verseRangeReferenceStrings
