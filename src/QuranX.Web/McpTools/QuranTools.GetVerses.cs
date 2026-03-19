@@ -22,12 +22,15 @@ partial class QuranTools
         OpenWorld = false)]
     [Description("Gets verses by multiple chapter.firstVerse-lastVerse, e.g. '1.1' or '2.34,3.45-47,4.1-7'")]
     public GetVersesResult GetVerses(
-        [Description("A collection of verse references.")]
-        VerseRangeReference[] verseRangeReferences,
+        [Description("A collection of verse range references in the format 'chapter.verse' or 'chapter.firstVerse-lastVerse', e.g. ['1.1', '2.255', '3.45-47']")]
+        string[] verseRangeReferenceStrings,
 
         [Description("An optional collection of translator codes. If null or empty then all translations will be returned.")]
         string[]? translatorCodes = null)
     {
+        VerseRangeReference[] verseRangeReferences = verseRangeReferenceStrings
+            .Select(VerseRangeReference.Parse)
+            .ToArray();
         var translatorCodesSet = new HashSet<string>(translatorCodes ?? [], StringComparer.OrdinalIgnoreCase);
 
         IEnumerable<Verse> retrievedVerses = VerseRepository.GetVerses(verseRangeReferences);
