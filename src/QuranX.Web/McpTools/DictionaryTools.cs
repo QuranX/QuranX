@@ -4,7 +4,6 @@ using QuranX.Persistence.Services.Repositories;
 
 namespace QuranX.Web.McpTools;
 
-#if DEBUG
 [McpServerToolType]
 public sealed partial class DictionaryTools
 {
@@ -19,4 +18,3 @@ public sealed partial class DictionaryTools
         DictionaryEntryRepository = dictionaryEntryRepository;
     }
 }
-#endif
