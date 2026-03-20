@@ -12,13 +12,13 @@ partial class HadithTools
 
     [McpServerTool(
         Name = GetAvailableHadithCollectionsName,
-        Title = "Gets a list of available hadith collections and hadith reference definitions",
+        Title = "Get a list of available hadith collections and hadith reference definitions",
         UseStructuredContent = true,
         ReadOnly = true,
         Idempotent = true,
         Destructive = false,
         OpenWorld = false)]
-    [Description("Gets a list of available hadith collections and hadith reference definitions.")]
+    [Description("Get a list of available hadith collections and hadith reference definitions.")]
     public GetHadithCollectionsResult GetHadithCollections()
     {
         IEnumerable<HadithCollection> collections = HadithCollectionRepository.GetAll();

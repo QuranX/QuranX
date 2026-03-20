@@ -17,7 +17,7 @@ partial class CommentaryTools
         Idempotent = true,
         Destructive = false,
         OpenWorld = false)]
-    [Description("Gets a list of available commentators (aka Mufassir/Mufassiroon).")]
+    [Description("Get a list of available commentators (aka Mufassir/Mufassiroon).")]
     public GetAvailableCommentatorsResult GetAvailableCommentators()
     {
         Commentator[] commentators = CommentatorRepository.GetAll().ToArray();

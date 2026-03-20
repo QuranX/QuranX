@@ -22,7 +22,7 @@ partial class CommentaryTools
         Idempotent = true,
         Destructive = false,
         OpenWorld = false)]
-    [Description("Gets commentaries (aka tafsirs) for a specific chapter and verse.")]
+    [Description("Get commentaries (aka tafsirs) for a specific chapter and verse.")]
     public GetCommentariesForVersesResult GetCommentariesForVerses(
         [Description("Chapter and verse to retrieve commentaries/tafsirs for.")]
         VerseReference verseReference,
