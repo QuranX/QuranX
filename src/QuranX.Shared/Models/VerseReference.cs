@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 
 namespace QuranX.Shared.Models;
 
@@ -6,7 +7,10 @@ public class VerseReference :
     IComparable,
     IComparable<VerseReference>
 {
+    [Description("Quran chapter in the range 1 to 114.")]
     public int Chapter { get; set; }
+
+    [Description("Verse number within the chapter.")]
     public int Verse { get; set; }
 
     public VerseReference() { }

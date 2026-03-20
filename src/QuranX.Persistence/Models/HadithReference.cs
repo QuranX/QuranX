@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text.RegularExpressions;
 
@@ -7,12 +8,25 @@ namespace QuranX.Persistence.Models;
 
 public class HadithReference : IComparable<HadithReference>
 {
+    [Description("The hadith collection code.")]
     public string CollectionCode { get; set;}
+
+    [Description($"The index code by which to look up the hadith (aka {nameof(HadithReferenceDefinition)}).")]
     public string ReferenceCode { get; set;}
+
+    [Description($"The first value of the index. The meaning of this value is defined in the {nameof(HadithReferenceDefinition.PartNames)} of the {nameof(HadithReferenceDefinition)} defined by {nameof(ReferenceCode)}.")]
     public int ReferenceValue1 { get; set;}
+
+    [Description("The second value of the index.")]
     public int? ReferenceValue2 { get; set;}
+
+    [Description("The third value of the index.")]
     public int? ReferenceValue3 { get; set;}
+
+    [Description("If more than one hadith shares the same index, this property acts as a discriminator.")]
     public string Suffix { get; set;}
+
+    [Description("Human readable string representing the index values.")]
     public string PrimaryReferencePath { get; set; }
 
     public HadithReference() { }

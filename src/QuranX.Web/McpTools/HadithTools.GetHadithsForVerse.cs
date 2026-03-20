@@ -11,21 +11,28 @@ namespace QuranX.Web.McpTools;
 
 partial class HadithTools
 {
+    public const string GetHadithsForVerseName = "get_hadiths_for_verse";
+
     [McpServerTool(
-        Name = "get_hadiths_for_verse",
+        Name = GetHadithsForVerseName,
         Title = "Gets all hadiths for a Quran verse",
         UseStructuredContent = true,
         ReadOnly = true,
         Idempotent = true,
         Destructive = false,
         OpenWorld = false)]
-    [Description("Gets all hadiths for a Quran verse")]
+    [Description("Gets all hadiths for a Quran verse.")]
     public GetHadithsForVerseResult GetHadithsForVerse(
-        [Description("Chapter and verse to retrieve hadiths for")]
+        [Description("Chapter and verse to retrieve hadiths for.")]
         VerseReference verseReference,
 
-        [Description("Optional collection of hadith collection codes. If null or empty then hadiths from all collections will be returned for the specified verse.")]
-        string[]? hadithCollectionCodes = null)
+        [Description(
+            $$"""
+            Optional collection of hadith collection codes.
+            If empty then hadiths from all collections will be returned for the specified verse.
+            See {{GetAvailableHadithCollectionsName}} for valid codes.
+            """)]
+        string[] hadithCollectionCodes)
     {
         var hadithCollectionCodesSet = new HashSet<string>(hadithCollectionCodes ?? [], StringComparer.OrdinalIgnoreCase);
 

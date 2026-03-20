@@ -9,15 +9,17 @@ namespace QuranX.Web.McpTools;
 
 partial class QuranTools
 {
+    public const string GetAvailableTranslatorsName = "get_available_translators";
+
     [McpServerTool(
-        Name = "get_available_translators",
+        Name = GetAvailableTranslatorsName,
         Title = "Get Quran available translators",
         UseStructuredContent = true,
         ReadOnly = true,
         Idempotent = true,
         Destructive = false,
         OpenWorld = false)]
-    [Description("Gets a list of available translators")]
+    [Description("Gets a list of available translators.")]
     public GetAvailableTranslatorsResult GetAvailableTranslators()
     {
         Verse firstVerse = VerseRepository.GetVerse(new VerseReference(1, 1));

@@ -1,6 +1,5 @@
 ﻿using ModelContextProtocol.Server;
 using QuranX.Persistence.Models;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 
@@ -8,15 +7,17 @@ namespace QuranX.Web.McpTools;
 
 partial class HadithTools
 {
+    public const string GetHadithsName = "get_hadiths";
+
     [McpServerTool(
-        Name = "get_hadiths",
+        Name = GetHadithsName,
         Title = "Gets specific hadiths from one or more collections",
         UseStructuredContent = true,
         ReadOnly = true,
         Idempotent = true,
         Destructive = false,
         OpenWorld = false)]
-    [Description("Gets specific hadiths from one or more collections")]
+    [Description("Gets specific hadiths from one or more collections.")]
     public GetHadithsResult GetHadiths(
         [Description("One or more hadith references identifying which hadiths to return.")]
         HadithReference[] hadithReferences)

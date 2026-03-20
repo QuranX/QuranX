@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Xml.Linq;
 
@@ -8,9 +9,15 @@ namespace QuranX.Shared.Models;
 // TODO: Ensure chapter + verse are valid
 public class VerseRangeReference : IComparable, IComparable<VerseRangeReference>
 {
+    [Description("Quran chapter in the range 1 to 114.")]
     public int Chapter { get; set; }
+
+    [Description("Number of the first verse of the range within the chapter.")]
     public int FirstVerse { get; set; }
+
+    [Description($"Number of the last verse of the range within the chapter. If 0 then it is assumed to be the same as {nameof(FirstVerse)}.")]
     public int LastVerse { set => field = value; get => field == 0 ? FirstVerse : field; }
+
     public bool IsMultipleVerses() => FirstVerse != LastVerse;
 
     public VerseRangeReference() { }

@@ -12,37 +12,49 @@ namespace QuranX.Web.McpTools;
 
 partial class SearchTools
 {
+    public const string SearchName = "search";
+
     public enum SearchContext
     {
-        [Description("Search everything")]
+        [Description("Search everything.")]
         WholeSite,
 
-        [Description("Search the Quran only")]
+        [Description("Search the Quran only.")]
         Quran,
 
-        [Description("Search commentaries (tafsirs). Use subContext to specify a commentator code or leave null to search all.")]
+        [Description("Search commentaries (tafsirs).")]
         Commentaries,
 
-        [Description("Search hadiths. Use subContext to specify a hadith collection code or leave null to search all.")]
+        [Description("Search hadiths.")]
         Hadiths
     }
 
     [McpServerTool(
-        Name = "search",
+        Name = SearchName,
         Title = "Searches Quran verses, commentaries, and hadiths",
         UseStructuredContent = true,
         ReadOnly = true,
         Idempotent = true,
         Destructive = false,
         OpenWorld = false)]
-    [Description("Searches Quran verses, commentaries, and hadiths matching a query")]
+    [Description("Searches Quran verses, commentaries, and hadiths matching a query.")]
     public SearchResult Search(
-        [Description("The search query text - this is a Lucene search engine query")]
+        [Description("The search query text. Supports all Lucene search engine syntax.")]
         string luceneSearchQuery,
-        [Description("The scope of the search")]
+        [Description("The scope of the search.")]
         SearchContext context = SearchContext.WholeSite,
-        [Description("A commentator code when context is Commentaries, or a hadith collection code when context is Hadiths. Use get_available_commentators or get_available_hadith_collections to discover valid codes. Leave null to search everything within Context.")]
-        string? subContext = null)
+        [Description(
+            $$"""
+            A commentator code when context is Commentaries, or a hadith collection
+            code when context is Hadiths.
+            Pass an empty string to search all subcontexts within the {{nameof(context)}}.
+            * When {{nameof(context)}} is {{nameof(SearchContext.Hadiths)}} you can use
+              {{HadithTools.GetAvailableHadithCollectionsName}} for a list of valid codes.
+            * When {{nameof(context)}} is {{nameof(SearchContext.Commentaries)}} you can use
+              {{CommentaryTools.GetAvailableCommentatorsName}} for a list of valid codes.
+            * Otherwise it should be empty.
+            """)]
+        string subContext = "")
     {
         string searchContext = context switch
         {

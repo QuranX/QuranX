@@ -12,21 +12,28 @@ namespace QuranX.Web.McpTools;
 
 partial class QuranTools
 {
+    public const string GetVersesName = "get_verses";
+
     [McpServerTool(
-        Name = "get_verses",
+        Name = GetVersesName,
         Title = "Get Quran verses",
         UseStructuredContent = true,
         ReadOnly = true,
         Idempotent = true,
         Destructive = false,
         OpenWorld = false)]
-    [Description("Gets verses by multiple chapter.firstVerse-lastVerse, e.g. '1.1' or '2.34,3.45-47,4.1-7'")]
+    [Description("Gets multiple verses by multiple Verse Range References.")]
     public GetVersesResult GetVerses(
         [Description("A collection of verse references.")]
         VerseRangeReference[] verseRangeReferences,
 
-        [Description("An optional collection of translator codes. If null or empty then all translations will be returned.")]
-        string[]? translatorCodes = null)
+        [Description(
+            $$"""
+            An optional collection of translator codes.
+            If empty then all translations will be returned.
+            See {{GetAvailableTranslatorsName}} for valid translator codes.
+            """)]
+        string[] translatorCodes)
     {
         var translatorCodesSet = new HashSet<string>(translatorCodes ?? [], StringComparer.OrdinalIgnoreCase);
 

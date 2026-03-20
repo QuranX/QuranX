@@ -12,21 +12,29 @@ namespace QuranX.Web.McpTools;
 
 partial class CommentaryTools
 {
+    public const string GetCommentariesForVerseName = "get_commentaries_for_quran_verses";
+
     [McpServerTool(
-        Name = "get_commentaries_for_quran_verses",
+        Name = GetCommentariesForVerseName,
         Title = "Get commentaries (aka tafsirs) for Quran verses",
         UseStructuredContent = true,
         ReadOnly = true,
         Idempotent = true,
         Destructive = false,
         OpenWorld = false)]
-    [Description("Gets commentaries (aka tafsirs) for a specific chapter and verse")]
+    [Description("Gets commentaries (aka tafsirs) for a specific chapter and verse.")]
     public GetCommentariesForVersesResult GetCommentariesForVerses(
-        [Description("Chapter and verse to retrieve commentaries/tafsirs for")]
+        [Description("Chapter and verse to retrieve commentaries/tafsirs for.")]
         VerseReference verseReference,
 
-        [Description("Optional collection of commentator codes. If null or empty then commentaries/tafsirs by all commentators will be returned for the specified verse.")]
-        string[]? commentatorCodes = null)
+        [Description(
+            $$"""
+            Optional collection of commentator codes.
+            If empty then all commentaries/tafsirs by all commentators will be returned
+            for the specified verse.
+            See {{GetAvailableCommentatorsName}} for valid commentator codes.
+            """)]
+        string[] commentatorCodes)
     {
         var commentatorCodesSet = new HashSet<string>(commentatorCodes ?? [], StringComparer.OrdinalIgnoreCase);
 

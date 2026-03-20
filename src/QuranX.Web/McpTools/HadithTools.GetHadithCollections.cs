@@ -8,15 +8,17 @@ namespace QuranX.Web.McpTools;
 
 partial class HadithTools
 {
+    public const string GetAvailableHadithCollectionsName = "get_available_hadith_collections";
+
     [McpServerTool(
-        Name = "get_available_hadith_collections",
+        Name = GetAvailableHadithCollectionsName,
         Title = "Gets a list of available hadith collections and hadith reference definitions",
         UseStructuredContent = true,
         ReadOnly = true,
         Idempotent = true,
         Destructive = false,
         OpenWorld = false)]
-    [Description("Gets a list of available hadith collections and hadith reference definitions")]
+    [Description("Gets a list of available hadith collections and hadith reference definitions.")]
     public GetHadithCollectionsResult GetHadithCollections()
     {
         IEnumerable<HadithCollection> collections = HadithCollectionRepository.GetAll();

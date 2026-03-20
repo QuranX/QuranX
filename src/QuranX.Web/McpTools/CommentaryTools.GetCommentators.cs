@@ -8,15 +8,16 @@ namespace QuranX.Web.McpTools;
 
 partial class CommentaryTools
 {
+    public const string GetAvailableCommentatorsName = "get_available_commentators";
     [McpServerTool(
-        Name = "get_available_commentators",
+        Name = GetAvailableCommentatorsName,
         Title = "Get list of Quran commentators (aka Mufassirs/Mufassiroon)",
         UseStructuredContent = true,
         ReadOnly = true,
         Idempotent = true,
         Destructive = false,
         OpenWorld = false)]
-    [Description("Gets a list of available commentators (aka Mufassirs/Muffasiroon)")]
+    [Description("Gets a list of available commentators (aka Mufassir/Mufassiroon).")]
     public GetAvailableCommentatorsResult GetAvailableCommentators()
     {
         Commentator[] commentators = CommentatorRepository.GetAll().ToArray();
