@@ -17,11 +17,17 @@ QuranX.Web.Services.Registration.Register(builder.Environment, builder.Services)
 
 if (!builder.Environment.IsDevelopment())
 {
-    builder.Services.AddOpenTelemetry().WithTracing(builder => builder
-    .AddAspNetCoreInstrumentation()
-    .AddHttpClientInstrumentation()
-    .AddOtlpExporter());
-}
+    builder
+    .Services
+    .AddOpenTelemetry()
+    .WithTracing(builder => builder
+        .AddSource("Experimental.ModelContextProtocol")
+        .AddSource("QuranX.Mcp")
+        .AddAspNetCoreInstrumentation()
+        .AddHttpClientInstrumentation()
+        .AddOtlpExporter()
+     );
+    }
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
@@ -100,6 +106,7 @@ app.UseRouting();
 app.UseMiddleware<OpenTelemetryEnrichmentMiddleware>();
 
 app.UseRateLimiter();
+app.UseMiddleware<McpTelemetryMiddleware>();
 
 app.MapMcp("/mcp").RequireRateLimiting("mcp");
 
