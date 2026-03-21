@@ -28,6 +28,7 @@ public class McpTelemetryMiddleware
 
         string jsonRpcMethod = null;
         string toolName = null;
+        string body = null;
         var toolArgs = new System.Collections.Generic.Dictionary<string, string>();
 
         if (httpContext.Request.Method == "POST"
@@ -41,7 +42,7 @@ public class McpTelemetryMiddleware
                 detectEncodingFromByteOrderMarks: false,
                 leaveOpen: true);
 
-            string body = await reader.ReadToEndAsync();
+            body = await reader.ReadToEndAsync();
             httpContext.Request.Body.Position = 0;
 
             try
@@ -76,9 +77,10 @@ public class McpTelemetryMiddleware
 
         if (activity is not null)
         {
+            activity.SetTag("http.form", body);
             activity.SetTag("http.method", httpContext.Request.Method);
             activity.SetTag("http.path", httpContext.Request.Path.Value);
-
+            activity.SetTag("http.request.content_type", httpContext.Request.ContentType ?? "null");
 
             if (jsonRpcMethod is not null)
                 activity.SetTag("mcp.jsonrpc.method", jsonRpcMethod);
