@@ -59,28 +59,8 @@ builder.Services
         before filtering searches or fetching content.
         """;
   })
-  .WithHttpTransport()
-  //.WithHttpTransport(options => options.Stateless = true)
+  .WithHttpTransport(options => options.Stateless = true)
   .WithToolsFromAssembly();
-
-builder.Services.AddRateLimiter(options =>
-{
-    options.AddPolicy("mcp", httpContext =>
-    {
-        string sessionId = httpContext.Request.Headers["Mcp-Session-Id"].ToString();
-        if (string.IsNullOrEmpty(sessionId))
-            return RateLimitPartition.GetNoLimiter(string.Empty);
-
-        return RateLimitPartition.GetFixedWindowLimiter(sessionId, _ => new FixedWindowRateLimiterOptions
-        {
-            PermitLimit = 5,
-            Window = TimeSpan.FromSeconds(1),
-            QueueProcessingOrder = QueueProcessingOrder.OldestFirst,
-            QueueLimit = 10
-        });
-    });
-    options.RejectionStatusCode = StatusCodes.Status429TooManyRequests;
-});
 
 var app = builder.Build();
 
@@ -108,7 +88,7 @@ app.UseMiddleware<OpenTelemetryEnrichmentMiddleware>();
 app.UseRateLimiter();
 app.UseMiddleware<McpTelemetryMiddleware>();
 
-app.MapMcp("/mcp").RequireRateLimiting("mcp");
+app.MapMcp("/mcp");
 
 app.MapControllerRoute(
     name: "About",
