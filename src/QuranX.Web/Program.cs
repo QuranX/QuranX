@@ -81,7 +81,6 @@ app.UseStaticFiles(new StaticFileOptions
 
 app.UseRouting();
 app.UseMiddleware<OpenTelemetryEnrichmentMiddleware>();
-
 app.UseMiddleware<McpTelemetryMiddleware>();
 
 app.MapMcp("/mcp");

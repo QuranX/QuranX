@@ -51,22 +51,6 @@ public class McpTelemetryMiddleware
                 if (root.TryGetProperty("method", out JsonElement methodElement))
                     jsonRpcMethod = methodElement.GetString();
 
-                if (jsonRpcMethod == "initialize")
-                {
-                    using Activity initActivity = McpActivitySource.StartActivity("mcp.initialize");
-                    if (initActivity is not null
-                        && root.TryGetProperty("params", out JsonElement initParams)
-                        && initParams.TryGetProperty("clientInfo", out JsonElement clientInfo))
-                    {
-                        if (clientInfo.TryGetProperty("name", out JsonElement nameEl))
-                            initActivity.SetTag("mcp.client.name", nameEl.GetString());
-                        if (clientInfo.TryGetProperty("version", out JsonElement versionEl))
-                            initActivity.SetTag("mcp.client.version", versionEl.GetString());
-                    }
-                    await Next(httpContext);
-                    return;
-                }
-
                 if (root.TryGetProperty("params", out JsonElement paramsElement))
                 {
                     if (paramsElement.TryGetProperty("name", out JsonElement nameElement))
@@ -85,13 +69,15 @@ public class McpTelemetryMiddleware
             }
         }
 
-        Activity activity = McpActivitySource
+        using Activity activity =
+            McpActivitySource
             .StartActivity(toolName is not null ? $"mcp.tool.{toolName}" : "mcp.request");
 
         if (activity is not null)
         {
             activity.SetTag("http.method", httpContext.Request.Method);
             activity.SetTag("http.path", httpContext.Request.Path.Value);
+
 
             if (jsonRpcMethod is not null)
                 activity.SetTag("mcp.jsonrpc.method", jsonRpcMethod);
@@ -103,15 +89,7 @@ public class McpTelemetryMiddleware
                 activity.SetTag($"mcp.tool.arg.{arg.Key}", arg.Value);
         }
 
-        try
-        {
-            await Next(httpContext);
-
-        }
-        finally
-        {
-            activity?.Dispose();
-        }
+        await Next(httpContext);
     }
 
     private static void FlattenJsonObject(
