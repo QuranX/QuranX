@@ -1,8 +1,5 @@
-using System;
 using System.IO;
-using System.Threading.RateLimiting;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Routing.Constraints;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.FileProviders;
@@ -85,7 +82,6 @@ app.UseStaticFiles(new StaticFileOptions
 app.UseRouting();
 app.UseMiddleware<OpenTelemetryEnrichmentMiddleware>();
 
-app.UseRateLimiter();
 app.UseMiddleware<McpTelemetryMiddleware>();
 
 app.MapMcp("/mcp");
