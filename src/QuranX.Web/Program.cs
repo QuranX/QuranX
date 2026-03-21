@@ -1,5 +1,8 @@
+using System;
 using System.IO;
+using System.Threading.RateLimiting;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Routing.Constraints;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.FileProviders;
@@ -50,8 +53,28 @@ builder.Services
         before filtering searches or fetching content.
         """;
   })
-  .WithHttpTransport(options => options.Stateless = true)
+  .WithHttpTransport()
+  //.WithHttpTransport(options => options.Stateless = true)
   .WithToolsFromAssembly();
+
+builder.Services.AddRateLimiter(options =>
+{
+    options.AddPolicy("mcp", httpContext =>
+    {
+        string sessionId = httpContext.Request.Headers["Mcp-Session-Id"].ToString();
+        if (string.IsNullOrEmpty(sessionId))
+            return RateLimitPartition.GetNoLimiter(string.Empty);
+
+        return RateLimitPartition.GetFixedWindowLimiter(sessionId, _ => new FixedWindowRateLimiterOptions
+        {
+            PermitLimit = 5,
+            Window = TimeSpan.FromSeconds(1),
+            QueueProcessingOrder = QueueProcessingOrder.OldestFirst,
+            QueueLimit = 10
+        });
+    });
+    options.RejectionStatusCode = StatusCodes.Status429TooManyRequests;
+});
 
 var app = builder.Build();
 
@@ -76,7 +99,9 @@ app.UseStaticFiles(new StaticFileOptions
 app.UseRouting();
 app.UseMiddleware<OpenTelemetryEnrichmentMiddleware>();
 
-app.MapMcp("/mcp");
+app.UseRateLimiter();
+
+app.MapMcp("/mcp").RequireRateLimiting("mcp");
 
 app.MapControllerRoute(
     name: "About",
