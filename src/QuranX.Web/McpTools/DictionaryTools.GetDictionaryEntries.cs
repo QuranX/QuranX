@@ -2,9 +2,11 @@
 using ModelContextProtocol.Server;
 using QuranX.Persistence.Models;
 using QuranX.Shared;
+using QuranX.Shared.Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Linq;
 
 namespace QuranX.Web.McpTools;
@@ -41,6 +43,15 @@ partial class DictionaryTools
     {
         string root = ArabicHelper.SubstituteAndOmit(arabicWordRoot);
         string romanized = ArabicHelper.ArabicToLetterNames(root);
+
+        if (Activity.Current is Activity activity)
+        {
+            activity.SetTag("mcp.tool.arg.ArabicRootWord", arabicWordRoot);
+            activity.SetTag("mcp.tool.arg.RomanizedRootWord", romanized);
+            if (!string.IsNullOrEmpty(dictionaryCode))
+                activity.SetTag("mcp.tool.arg.DictionaryCode", dictionaryCode);
+        }
+
 
         IEnumerable<DictionaryEntry> entries =
             string.IsNullOrWhiteSpace(dictionaryCode)

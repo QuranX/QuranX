@@ -6,7 +6,9 @@ using QuranX.Web.Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Linq;
+using System.Text.Json;
 
 namespace QuranX.Web.McpTools;
 
@@ -36,6 +38,13 @@ partial class QuranTools
         string[] translatorCodes)
     {
         var translatorCodesSet = new HashSet<string>(translatorCodes ?? [], StringComparer.OrdinalIgnoreCase);
+
+        if (Activity.Current is Activity activity)
+        {
+            activity.SetTag("mcp.tool.arg.VerseRangeReferences", JsonSerializer.Serialize(verseRangeReferences));
+            if (translatorCodesSet.Any())
+                activity.SetTag("mcp.tool.arg.TranslatorCodes", string.Join(",", translatorCodesSet));
+        }
 
         IEnumerable<Verse> retrievedVerses = VerseRepository.GetVerses(verseRangeReferences);
 

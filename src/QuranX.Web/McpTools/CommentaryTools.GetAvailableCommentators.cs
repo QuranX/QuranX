@@ -1,7 +1,9 @@
 ﻿#nullable enable
 using ModelContextProtocol.Server;
 using QuranX.Persistence.Models;
+using QuranX.Shared.Models;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Linq;
 
 namespace QuranX.Web.McpTools;

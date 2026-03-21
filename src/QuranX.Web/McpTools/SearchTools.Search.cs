@@ -6,6 +6,7 @@ using QuranX.Persistence.Services;
 using QuranX.Shared.Models;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Linq;
 
 namespace QuranX.Web.McpTools;
@@ -74,6 +75,14 @@ partial class SearchTools
             """)]
         string subContext = "")
     {
+        if (Activity.Current is Activity activity)
+        {
+            activity.SetTag("mcp.tool.arg.LuceneSearchQuery", luceneSearchQuery);
+            activity.SetTag("mcp.tool.arg.Context", context.ToString());
+            if (!string.IsNullOrEmpty(subContext))
+                activity.SetTag("mcp.tool.arg.SubContext", subContext);
+        }
+
         string searchContext = context switch
         {
             SearchContext.Quran => SearchContexts.Quran,

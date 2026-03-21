@@ -6,6 +6,7 @@ using QuranX.Shared.Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Linq;
 
 namespace QuranX.Web.McpTools;
@@ -29,6 +30,12 @@ partial class ArabicAnalysisTools
     {
         string root = ArabicHelper.SubstituteAndOmit(arabicRootWord);
         string romanized = ArabicHelper.ArabicToLetterNames(root);
+
+        if (Activity.Current is Activity activity)
+        {
+            activity.SetTag("mcp.tool.arg.ArabicRootWord", arabicRootWord);
+            activity.SetTag("mcp.tool.arg.RomanizedRootWord", romanized);
+        }
 
         IEnumerable<VerseAnalysis> verses =
             VerseAnalysisRepository

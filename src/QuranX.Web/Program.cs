@@ -23,6 +23,7 @@ if (!builder.Environment.IsDevelopment())
         .AddAspNetCoreInstrumentation()
         .AddHttpClientInstrumentation()
         .AddOtlpExporter()
+        .SetSampler<AlwaysOnSampler>()
      );
     }
 
@@ -81,7 +82,6 @@ app.UseStaticFiles(new StaticFileOptions
 
 app.UseRouting();
 app.UseMiddleware<OpenTelemetryEnrichmentMiddleware>();
-app.UseMiddleware<McpTelemetryMiddleware>();
 
 app.MapMcp("/mcp");
 

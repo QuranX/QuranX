@@ -5,6 +5,7 @@ using QuranX.Shared;
 using QuranX.Shared.Models;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Linq;
 
 namespace QuranX.Web.McpTools;
@@ -32,6 +33,9 @@ partial class ArabicAnalysisTools
                 RequestedVerse = verseReference,
                 Words = []
             };
+
+        if (Activity.Current is Activity activity)
+            activity.SetTag("mcp.tool.arg.VerseReference", verseReference);
 
         VerseAnalysis analysis =
             VerseAnalysisRepository.GetForVerse(verseReference.Chapter, verseReference.Verse);

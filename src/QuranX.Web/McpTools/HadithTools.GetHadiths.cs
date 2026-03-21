@@ -1,7 +1,10 @@
 ﻿using ModelContextProtocol.Server;
 using QuranX.Persistence.Models;
+using QuranX.Shared.Models;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Linq;
+using System.Text.Json;
 
 namespace QuranX.Web.McpTools;
 
@@ -22,6 +25,9 @@ partial class HadithTools
         [Description("One or more hadith references identifying which hadiths to return.")]
         HadithReference[] hadithReferences)
     {
+        if (Activity.Current is Activity activity)
+            activity.SetTag("mcp.tool.arg.HadithReferences", JsonSerializer.Serialize(hadithReferences));
+
         var hadiths = HadithRepository.GetHadiths(hadithReferences);
         return new GetHadithsResult {
             RequestedHadithReferences = hadithReferences,
