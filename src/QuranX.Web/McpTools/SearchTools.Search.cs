@@ -31,15 +31,33 @@ partial class SearchTools
 
     [McpServerTool(
         Name = SearchName,
-        Title = "Searches Quran verses, commentaries, and hadiths",
+        Title = "Search Quran verses, commentaries, and hadiths.",
         UseStructuredContent = true,
         ReadOnly = true,
         Idempotent = true,
         Destructive = false,
         OpenWorld = false)]
-    [Description("Searches Quran verses, commentaries, and hadiths matching a query.")]
+    [Description("Search Quran verses, commentaries, and hadiths.")]
     public SearchResult Search(
-        [Description("The search query text. Supports all Lucene search engine syntax.")]
+        [Description(
+            $$"""
+            The search query text. Supports all Lucene search engine syntax.
+            Lucene examples:
+                * To find a phrase, put consecutive words inside quotes, e.g. "The all knowing"
+                * Spaces imply uppercase AND by default, e.g. benevolent merciful means benevolent AND merciful
+                * To match either of several words, use uppercase OR, e.g. Muhammad OR Mohammed
+                * To exclude a word, use uppercase NOT or prefix it with -, e.g. fight NOT kill or fight -kill
+                * To control operator precedence, use parentheses, e.g. ((Muhammad OR Mohammed) love) OR Allah
+                * Use ? as a single-character wildcard, e.g. M?hamm?d
+                * Use * as a zero-or-more-character wildcard, e.g. Muham*
+                * Do not use * or ? as the first character of a term
+                * To do fuzzy matching, use ~, e.g. Muhammad~
+                * To do phrase proximity search, use ~N after a quoted phrase, e.g. "all knowing"~3
+                * To boost a term or phrase, use ^, e.g. Muhammad^2
+                * To search a range, use [a TO b] for inclusive ranges or {a TO b}
+                * To search for a literal special character, escape it with a backslash
+            """)]
+            
         string luceneSearchQuery,
         [Description("The scope of the search.")]
         SearchContext context = SearchContext.WholeSite,
