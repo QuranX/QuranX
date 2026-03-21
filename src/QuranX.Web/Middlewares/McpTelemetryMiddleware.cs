@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Http;
+using System;
 using System.Diagnostics;
 using System.IO;
 using System.Text;
@@ -89,7 +90,16 @@ public class McpTelemetryMiddleware
                 activity.SetTag($"mcp.tool.arg.{arg.Key}", arg.Value);
         }
 
-        await Next(httpContext);
+        try
+        {
+            await Next(httpContext);
+        }
+        catch (Exception ex)
+        {
+            if (activity is not null)
+                activity.AddException(ex);
+            throw;
+        }
     }
 
     private static void FlattenJsonObject(
