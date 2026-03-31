@@ -38,7 +38,7 @@ partial class SearchTools
         Idempotent = true,
         Destructive = false,
         OpenWorld = false)]
-    [Description("Search Quran verses, commentaries, and hadiths.")]
+    [Description("Search Quran verses, commentaries, and hadiths. Returns top 100 results.")]
     public SearchResult Search(
         [Description(
             $$"""
@@ -95,6 +95,7 @@ partial class SearchTools
         var verseReferences = new List<VerseReference>();
         var commentaryResults = new List<CommentarySearchResult>();
         var hadithReferences = new List<HadithReference>();
+        int totalResults = 0;
 
         try
         {
@@ -103,8 +104,7 @@ partial class SearchTools
                     luceneSearchQuery,
                     searchContext,
                     subContext,
-                    out _,
-                    maxResults: int.MaxValue);
+                    out totalResults);
 
             foreach (Persistence.Models.SearchResult result in searchResults)
             {
@@ -148,6 +148,7 @@ partial class SearchTools
             RequestContext = context,
             RequestSubContext = subContext,
             BadQuery = badQuery,
+            TotalResults = totalResults,
             VerseReferences = verseReferences.Distinct().ToArray(),
             Commentaries = commentaryResults
                 .GroupBy(x => (x.CommentatorCode, x.VerseReference))
@@ -163,6 +164,7 @@ partial class SearchTools
         public required SearchContext RequestContext { get; init; }
         public required string? RequestSubContext { get; init; }
         public required bool BadQuery { get; init; }
+        public required int TotalResults { get; init; }
         public required VerseReference[] VerseReferences { get; init; }
         public required CommentarySearchResult[] Commentaries { get; init; }
         public required HadithReference[] HadithReferences { get; init; }
