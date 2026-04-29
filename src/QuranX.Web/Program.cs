@@ -1,5 +1,9 @@
+using System;
+using System.Diagnostics;
 using System.IO;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Diagnostics;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Routing.Constraints;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.FileProviders;
@@ -22,8 +26,8 @@ if (!builder.Environment.IsDevelopment())
         //.AddSource("Experimental.ModelContextProtocol")
         //.AddSource("QuranX.Mcp")
         .AddSource("*")
-        .AddAspNetCoreInstrumentation()
-        .AddHttpClientInstrumentation()
+        .AddAspNetCoreInstrumentation(options => options.RecordException = true)
+        .AddHttpClientInstrumentation(options => options.RecordException = true)
         .AddOtlpExporter()
         .SetSampler<AlwaysOnSampler>()
      );
@@ -42,8 +46,19 @@ var app = builder.Build();
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
-    app.UseExceptionHandler("/Home/Error");
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
+    app.UseExceptionHandler(errorApp => errorApp.Run(async context =>
+    {
+        IExceptionHandlerFeature? feature = context.Features.Get<IExceptionHandlerFeature>();
+        if (feature?.Error is Exception exception && Activity.Current is Activity activity)
+        {
+            activity.AddException(exception);
+            activity.SetStatus(ActivityStatusCode.Error, exception.Message);
+        }
+
+        context.Response.StatusCode = StatusCodes.Status500InternalServerError;
+        context.Response.ContentType = "text/plain";
+        await context.Response.WriteAsync("An error occurred.");
+    }));
     app.UseHsts();
 }
 

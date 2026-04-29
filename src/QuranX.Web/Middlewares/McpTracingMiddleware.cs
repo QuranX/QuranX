@@ -38,7 +38,9 @@ public class McpTracingMiddleware
             if (arguments is not null)
             {
                 foreach ((string key, string value) in arguments)
+                {
                     activity.SetTag($"mcp.tool.arg.{key}", value);
+                }
             }
         }
 
