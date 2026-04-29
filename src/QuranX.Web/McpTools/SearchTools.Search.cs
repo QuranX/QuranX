@@ -237,7 +237,22 @@ partial class SearchTools
                 .GroupBy(x => (x.CommentatorCode, x.VerseReference))
                 .Select(g => g.First())
                 .ToArray(),
-            HadithReferences = hadithReferences.Distinct().ToArray()
+            HadithReferences = hadithReferences.Distinct().ToArray(),
+            NextSteps =
+                $$"""
+                For each non-empty result array, call the matching content fetcher next:
+                - {{nameof(SearchResult.VerseReferences)}} -> {{QuranTools.GetVersesName}}
+                  for verse text; or {{CommentaryTools.GetCommentariesForVerseName}} per
+                  verse for tafsirs; or {{HadithTools.GetHadithsForVerseName}} per verse
+                  for linked hadiths.
+                - {{nameof(SearchResult.HadithReferences)}} -> {{HadithTools.GetHadithsName}}
+                  for hadith text and narrator chains.
+                - {{nameof(SearchResult.Commentaries)}} -> {{CommentaryTools.GetCommentariesForVerseName}} per entry.
+                If {{nameof(SearchResult.BadQuery)}} is true, fix the query syntax and retry.
+                If {{nameof(SearchResult.TotalResults)}} exceeds the array lengths, results
+                were truncated - tell the user.
+                Do not stop at this search result alone if the user's question requires content.
+                """
         };
     }
 
@@ -246,6 +261,14 @@ partial class SearchTools
         public required string RequestQuery { get; init; }
         public required SearchContext RequestContext { get; init; }
         public required string? RequestSubContext { get; init; }
+
+        [Description(
+            $$"""
+            Server-supplied guidance on what to call next to complete the user's query.
+            Treat as MUST-follow when the user's question requires more than this tool's
+            output alone.
+            """)]
+        public required string NextSteps { get; init; }
 
         [Description(
             $$"""

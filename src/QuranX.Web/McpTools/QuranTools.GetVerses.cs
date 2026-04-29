@@ -102,7 +102,21 @@ partial class QuranTools
         {
             RequestedVerses = verseRangeReferences,
             RequestedTranslatorCodes = translatorCodesSet.ToArray(),
-            ChaptersAndVerses = selections
+            ChaptersAndVerses = selections,
+            NextSteps =
+                $$"""
+                For each returned verse, the {{nameof(Verse.HadithCount)}} and
+                {{nameof(Verse.CommentaryCount)}} fields signal whether more content is
+                available:
+                - If {{nameof(Verse.HadithCount)}} > 0, call {{HadithTools.GetHadithsForVerseName}}
+                  to read hadiths citing the verse.
+                - If {{nameof(Verse.CommentaryCount)}} > 0, call {{CommentaryTools.GetCommentariesForVerseName}}
+                  to read tafsirs on the verse.
+                For word-by-word Arabic analysis (roots, grammar) of any returned verse,
+                call {{ArabicAnalysisTools.GetVerseRootWordAnalysisName}}. Do not stop
+                after this call if the user's question covers tafsirs, hadiths, or word
+                meaning - drill in.
+                """
         };
     }
 
@@ -111,6 +125,14 @@ partial class QuranTools
         public required VerseRangeReference[] RequestedVerses { get; init; }
         public IReadOnlyList<string> RequestedTranslatorCodes { get; init; } = [];
         public IReadOnlyList<ChapterAndVerseSelection> ChaptersAndVerses { get; init; } = [];
+
+        [Description(
+            $$"""
+            Server-supplied guidance on what to call next to complete the user's query.
+            Treat as MUST-follow when the user's question requires more than this tool's
+            output alone.
+            """)]
+        public required string NextSteps { get; init; }
     }
 }
 

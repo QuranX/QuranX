@@ -31,11 +31,31 @@ partial class HadithTools
     public GetHadithCollectionsResult GetHadithCollections()
     {
         IEnumerable<HadithCollection> collections = HadithCollectionRepository.GetAll();
-        return new GetHadithCollectionsResult { HadithCollections = collections.ToArray() };
+        return new GetHadithCollectionsResult
+        {
+            HadithCollections = collections.ToArray(),
+            NextSteps =
+                $$"""
+                Pass any of these collection codes to {{GetHadithsForVerseName}} via
+                hadithCollectionCodes to filter results, or to {{SearchTools.SearchName}}
+                via subContext (with context={{nameof(SearchTools.SearchContext.Hadiths)}})
+                to restrict a hadith search to a single collection. The reference scheme
+                fields describe what a {{nameof(HadithReference)}} of that collection
+                carries when calling {{GetHadithsName}}.
+                """
+        };
     }
 
     public sealed class GetHadithCollectionsResult
     {
         public required HadithCollection[] HadithCollections { get; init; }
+
+        [Description(
+            $$"""
+            Server-supplied guidance on what to call next to complete the user's query.
+            Treat as MUST-follow when the user's question requires more than this tool's
+            output alone.
+            """)]
+        public required string NextSteps { get; init; }
     }
 }

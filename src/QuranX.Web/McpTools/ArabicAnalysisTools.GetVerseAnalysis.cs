@@ -51,7 +51,13 @@ partial class ArabicAnalysisTools
             return new GetVerseAnalysisResult
             {
                 RequestedVerse = verseReference,
-                Words = []
+                Words = [],
+                NextSteps =
+                    $$"""
+                    The verse reference is invalid - confirm chapter and verse numbers
+                    with the user (call {{QuranTools.GetChaptersName}} for chapter sizes
+                    if needed) and retry with a valid verse reference.
+                    """
             };
 
         if (Activity.Current is Activity activity)
@@ -89,7 +95,18 @@ partial class ArabicAnalysisTools
         return new GetVerseAnalysisResult
         {
             RequestedVerse = verseReference,
-            Words = words.ToArray()
+            Words = words.ToArray(),
+            NextSteps =
+                $$"""
+                For every other Quranic occurrence of an Arabic root in this verse, call
+                {{GetArabicRootWordAnalysisName}} with one of the
+                {{nameof(AnalysisWord.Parts)}}[].{{nameof(AnalysisWordPart.ArabicRoot)}} values.
+                For dictionary definitions, call {{DictionaryTools.GetDictionaryEntriesName}}
+                with the same root letters.
+                If the user's question covers BOTH meaning AND usage, CALL BOTH.
+                Do not stop after this call if the user's question requires roots,
+                definitions, or other Quranic occurrences.
+                """
         };
     }
 
@@ -97,6 +114,14 @@ partial class ArabicAnalysisTools
     {
         public required VerseReference RequestedVerse { get; init; }
         public required AnalysisWord[] Words { get; init; }
+
+        [Description(
+            $$"""
+            Server-supplied guidance on what to call next to complete the user's query.
+            Treat as MUST-follow when the user's question requires more than this tool's
+            output alone.
+            """)]
+        public required string NextSteps { get; init; }
     }
 
     public sealed class AnalysisWord

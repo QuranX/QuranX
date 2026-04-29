@@ -134,7 +134,21 @@ partial class ArabicAnalysisTools
             RequestedArabicRootWord = root,
             RomanizedArabicRootWord = romanized,
             TotalOccurrencesInQuran = occurrences.Count,
-            WordTypes = wordTypes
+            WordTypes = wordTypes,
+            NextSteps =
+                $$"""
+                For dictionary definitions of this same root, call
+                {{DictionaryTools.GetDictionaryEntriesName}} with the same root letters -
+                CALL THIS if the user's question covers meaning or definitions.
+                To read each occurrence's verse in full, call {{QuranTools.GetVersesName}}
+                with the {{nameof(ArabicRootWordOccurrence.VerseReference)}}. For tafsirs
+                on those verses, call {{CommentaryTools.GetCommentariesForVerseName}} per
+                {{nameof(ArabicRootWordOccurrence.VerseReference)}}. For citing hadiths,
+                call {{HadithTools.GetHadithsForVerseName}} per
+                {{nameof(ArabicRootWordOccurrence.VerseReference)}}.
+                Do not stop after this call if the user's question covers definitions or
+                in-context reading.
+                """
         };
     }
 
@@ -144,6 +158,14 @@ partial class ArabicAnalysisTools
         public required string RomanizedArabicRootWord { get; init; }
         public required int TotalOccurrencesInQuran { get; init; }
         public required IReadOnlyList<WordTypeResult> WordTypes { get; init; }
+
+        [Description(
+            $$"""
+            Server-supplied guidance on what to call next to complete the user's query.
+            Treat as MUST-follow when the user's question requires more than this tool's
+            output alone.
+            """)]
+        public required string NextSteps { get; init; }
     }
 
     public sealed class WordTypeResult

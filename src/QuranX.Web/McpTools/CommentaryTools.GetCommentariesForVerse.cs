@@ -73,7 +73,18 @@ partial class CommentaryTools
         {
             RequestedVerse = verseReference,
             RequestedCommentatorCodes = commentatorCodes,
-            Commentaries = commentaries.ToArray()
+            Commentaries = commentaries.ToArray(),
+            NextSteps =
+                $$"""
+                Each commentary is anchored to {{nameof(Commentary.ChapterNumber)}},
+                {{nameof(Commentary.FirstVerseNumber)}}, and
+                {{nameof(Commentary.LastVerseNumber)}}. For citing hadiths on the same
+                verse, call {{HadithTools.GetHadithsForVerseName}}. To read the verse
+                text alongside, call {{QuranTools.GetVersesName}}. For word-by-word
+                Arabic analysis, call {{ArabicAnalysisTools.GetVerseRootWordAnalysisName}}.
+                Do not stop after this call if the user's question covers hadiths, verse
+                text, or Arabic analysis on the same verse.
+                """
         };
     }
 
@@ -82,6 +93,14 @@ partial class CommentaryTools
         public required VerseReference RequestedVerse { get; init; }
         public required string[]? RequestedCommentatorCodes { get; init; }
         public required Commentary[] Commentaries { get; init; }
+
+        [Description(
+            $$"""
+            Server-supplied guidance on what to call next to complete the user's query.
+            Treat as MUST-follow when the user's question requires more than this tool's
+            output alone.
+            """)]
+        public required string NextSteps { get; init; }
     }
 }
 

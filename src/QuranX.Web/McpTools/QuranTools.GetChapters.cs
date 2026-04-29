@@ -33,13 +33,30 @@ partial class QuranTools
 
         return new GetChaptersResult
         {
-            Chapters = chapters.ToArray()
+            Chapters = chapters.ToArray(),
+            NextSteps =
+                $$"""
+                Use the chapter numbers to construct verse references for
+                {{GetVersesName}}, {{CommentaryTools.GetCommentariesForVerseName}},
+                {{HadithTools.GetHadithsForVerseName}}, or
+                {{ArabicAnalysisTools.GetVerseRootWordAnalysisName}}. To find verses
+                by topic across all chapters, use {{SearchTools.SearchName}} with
+                context={{nameof(SearchTools.SearchContext.Quran)}}.
+                """
         };
     }
 
     public sealed class GetChaptersResult
     {
         public required ChapterData[] Chapters { get; init; }
+
+        [Description(
+            $$"""
+            Server-supplied guidance on what to call next to complete the user's query.
+            Treat as MUST-follow when the user's question requires more than this tool's
+            output alone.
+            """)]
+        public required string NextSteps { get; init; }
     }
 }
 

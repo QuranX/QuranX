@@ -97,7 +97,16 @@ partial class DictionaryTools
         {
             ArabicWordRoot = root,
             RomanizedWordRoot = romanized,
-            Dictionaries = grouped
+            Dictionaries = grouped,
+            NextSteps =
+                $$"""
+                For every Quranic occurrence of this same root with grammatical context,
+                call {{ArabicAnalysisTools.GetArabicRootWordAnalysisName}} with the same
+                root letters - CALL THIS if the user wants Quranic usage examples
+                alongside the lexical definitions.
+                Do not stop after this call if the user's question covers Quranic usage
+                or where the root appears in the Quran.
+                """
         };
     }
 
@@ -106,6 +115,14 @@ partial class DictionaryTools
         public required string ArabicWordRoot { get; init; }
         public required string RomanizedWordRoot { get; init; }
         public required IReadOnlyList<DictionaryEntryGroup> Dictionaries { get; init; }
+
+        [Description(
+            $$"""
+            Server-supplied guidance on what to call next to complete the user's query.
+            Treat as MUST-follow when the user's question requires more than this tool's
+            output alone.
+            """)]
+        public required string NextSteps { get; init; }
     }
 
     public sealed class DictionaryEntryGroup

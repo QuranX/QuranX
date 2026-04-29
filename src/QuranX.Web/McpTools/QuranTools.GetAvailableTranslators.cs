@@ -43,13 +43,27 @@ partial class QuranTools
 
         return new GetAvailableTranslatorsResult
         {
-            Translators = translators
+            Translators = translators,
+            NextSteps =
+                $$"""
+                Pass any of these {{nameof(Translator.Code)}} values (or an empty array
+                for all translations) to {{GetVersesName}} via the translatorCodes
+                parameter to filter which translations are returned.
+                """
         };
     }
 
     public sealed class GetAvailableTranslatorsResult
     {
         public required Translator[] Translators { get; init; }
+
+        [Description(
+            $$"""
+            Server-supplied guidance on what to call next to complete the user's query.
+            Treat as MUST-follow when the user's question requires more than this tool's
+            output alone.
+            """)]
+        public required string NextSteps { get; init; }
     }
 
     public sealed class Translator

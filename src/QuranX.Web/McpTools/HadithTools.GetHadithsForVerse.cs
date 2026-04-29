@@ -77,7 +77,20 @@ partial class HadithTools
         {
             RequestedVerse = verseReference,
             RequestedHadithCollectionCodes = hadithCollectionCodes,
-            Hadiths = hadiths.ToArray()
+            Hadiths = hadiths.ToArray(),
+            NextSteps =
+                $$"""
+                Each returned hadith carries {{nameof(Hadith.VerseRangeReferences)}} - all
+                verses it cites (often more than the one queried). To read any of those
+                verses, call {{QuranTools.GetVersesName}}. For tafsirs on those verses,
+                call {{CommentaryTools.GetCommentariesForVerseName}} per verse. For
+                hadiths whose narration text matches a keyword (rather than citation-
+                linked), use {{SearchTools.SearchName}} with
+                context={{nameof(SearchTools.SearchContext.Hadiths)}} then
+                {{GetHadithsName}}.
+                Do not stop after this call if the user's question requires the cited
+                verse content or tafsirs.
+                """
         };
     }
 
@@ -86,5 +99,13 @@ partial class HadithTools
         public required VerseReference RequestedVerse{ get; init; }
         public required string[]? RequestedHadithCollectionCodes { get; init; }
         public required Hadith[] Hadiths { get; init; }
+
+        [Description(
+            $$"""
+            Server-supplied guidance on what to call next to complete the user's query.
+            Treat as MUST-follow when the user's question requires more than this tool's
+            output alone.
+            """)]
+        public required string NextSteps { get; init; }
     }
 }

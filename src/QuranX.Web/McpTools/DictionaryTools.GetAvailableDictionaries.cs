@@ -40,13 +40,27 @@ partial class DictionaryTools
 
         return new GetAvailableDictionariesResult
         {
-            Dictionaries = dictionaries
+            Dictionaries = dictionaries,
+            NextSteps =
+                $$"""
+                Pass any of these {{nameof(DictionaryInfo.Code)}} values to
+                {{GetDictionaryEntriesName}} via dictionaryCode to restrict to a specific
+                dictionary. Omit dictionaryCode to get entries from all dictionaries.
+                """
         };
     }
 
     public sealed class GetAvailableDictionariesResult
     {
         public required IReadOnlyList<DictionaryInfo> Dictionaries { get; init; }
+
+        [Description(
+            $$"""
+            Server-supplied guidance on what to call next to complete the user's query.
+            Treat as MUST-follow when the user's question requires more than this tool's
+            output alone.
+            """)]
+        public required string NextSteps { get; init; }
     }
 
     public sealed class DictionaryInfo

@@ -32,13 +32,29 @@ partial class CommentaryTools
 
         return new GetAvailableCommentatorsResult
         {
-            Commentators = commentators
+            Commentators = commentators,
+            NextSteps =
+                $$"""
+                Pass any of these commentator codes to {{GetCommentariesForVerseName}}
+                via commentatorCodes to filter the tafsirs returned, or to
+                {{SearchTools.SearchName}} via subContext (with
+                context={{nameof(SearchTools.SearchContext.Commentaries)}}) to restrict
+                the search to one commentator's work.
+                """
         };
     }
 
     public sealed class GetAvailableCommentatorsResult
     {
         public required Commentator[] Commentators { get; init; }
+
+        [Description(
+            $$"""
+            Server-supplied guidance on what to call next to complete the user's query.
+            Treat as MUST-follow when the user's question requires more than this tool's
+            output alone.
+            """)]
+        public required string NextSteps { get; init; }
     }
 }
 
