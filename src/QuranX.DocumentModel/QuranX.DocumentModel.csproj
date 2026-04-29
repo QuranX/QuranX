@@ -8,8 +8,8 @@
 
     <ItemGroup>
         <!-- NuGet package references -->
-        <PackageReference Include="NLog" Version="6.0.7" />
-        <PackageReference Include="System.Configuration.ConfigurationManager" Version="10.0.2" />
+        <PackageReference Include="NLog" Version="6.1.2" />
+        <PackageReference Include="System.Configuration.ConfigurationManager" Version="10.0.7" />
     </ItemGroup>
 
     <ItemGroup>

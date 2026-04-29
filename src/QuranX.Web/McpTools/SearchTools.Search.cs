@@ -42,21 +42,35 @@ partial class SearchTools
     public SearchResult Search(
         [Description(
             $$"""
-            The search query text. Supports all Lucene search engine syntax.
-            Lucene examples:
-                * To find a phrase, put consecutive words inside quotes, e.g. "The all knowing"
-                * Spaces imply uppercase AND by default, e.g. benevolent merciful means benevolent AND merciful
-                * To match either of several words, use uppercase OR, e.g. Muhammad OR Mohammed
-                * To exclude a word, use uppercase NOT or prefix it with -, e.g. fight NOT kill or fight -kill
-                * To control operator precedence, use parentheses, e.g. ((Muhammad OR Mohammed) love) OR Allah
-                * Use ? as a single-character wildcard, e.g. M?hamm?d
-                * Use * as a zero-or-more-character wildcard, e.g. Muham*
-                * Do not use * or ? as the first character of a term
-                * To do fuzzy matching, use ~, e.g. Muhammad~
-                * To do phrase proximity search, use ~N after a quoted phrase, e.g. "all knowing"~3
-                * To boost a term or phrase, use ^, e.g. Muhammad^2
-                * To search a range, use [a TO b] for inclusive ranges or {a TO b}
-                * To search for a literal special character, escape it with a backslash
+            The Apache Lucene 4.8.0 QueryParser query string used to search indexed text.
+
+            Use uppercase Boolean operators: AND, OR, and NOT. Use parentheses when combining clauses so precedence is unambiguous.
+
+            Supported syntax:
+            - Single term: mercy
+            - Exact phrase: "all knowing"
+            - Required combination: benevolent AND merciful
+            - Alternatives: Muhammad OR Mohammed
+            - Exclusion: fight NOT kill or fight -kill
+            - Grouping: (Muhammad OR Mohammed) AND love
+            - Field search, if fields are supported by this tool: title:"The Right Way"
+            - Single-character wildcard: M?hamm?d
+            - Multiple-character wildcard: Muham*
+            - Regular expression term: /[mb]oat/
+            - Fuzzy term: Muhammad~
+            - Fuzzy term with edit distance: Muhammad~1
+            - Phrase proximity: "all knowing"~3
+            - Boosting: Muhammad^2
+            - Inclusive range: [a TO b]
+            - Exclusive range: {a TO b}
+
+            Rules:
+            - Boolean operators must be uppercase.
+            - Do not use * or ? as the first character of a search term.
+            - Wildcards apply to single terms, not quoted phrases.
+            - NOT cannot be used by itself with only one term.
+            - Escape literal query syntax characters with a backslash.
+            - Prefer simple terms and quoted phrases unless Boolean logic, wildcards, fuzzy matching, proximity, boosting, regex, fields, or ranges are required.
             """)]
             
         string luceneSearchQuery,
