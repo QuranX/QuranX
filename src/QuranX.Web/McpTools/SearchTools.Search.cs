@@ -38,7 +38,10 @@ partial class SearchTools
         Idempotent = true,
         Destructive = false,
         OpenWorld = false)]
-    [Description("Search Quran verses, commentaries, and hadiths. Returns top 100 results.")]
+    [Description(
+        "Search Quran verses, commentaries, and hadiths. Returns up to 100 references " +
+        "ranked by relevance; the full match count is in `TotalResults`. " +
+        "Use get_verses, get_commentaries_for_quran_verses, or get_hadiths to fetch the actual content.")]
     public SearchResult Search(
         [Description(
             $$"""
