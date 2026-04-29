@@ -22,7 +22,10 @@ partial class HadithTools
         Idempotent = true,
         Destructive = false,
         OpenWorld = false)]
-    [Description("Gets all hadiths for a Quran verse.")]
+    [Description(
+        "Returns hadiths that are linked to a specific Quran verse (i.e. hadiths that cite or relate to the verse) — " +
+        "distinct from keyword-searching the hadith corpus. " +
+        "Use after `search` returns verse references to find the hadiths associated with those verses.")]
     public GetHadithsForVerseResult GetHadithsForVerse(
         [Description("Chapter and verse to retrieve hadiths for.")]
         VerseReference verseReference,

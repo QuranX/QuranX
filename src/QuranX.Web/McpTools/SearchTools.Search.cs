@@ -41,7 +41,10 @@ partial class SearchTools
     [Description(
         "Search Quran verses, commentaries, and hadiths. Returns up to 100 references " +
         "ranked by relevance; the full match count is in `TotalResults`. " +
-        "Use get_verses, get_commentaries_for_quran_verses, or get_hadiths to fetch the actual content.")]
+        "Follow up to fetch content: get_verses (verse text), " +
+        "get_commentaries_for_quran_verses (tafsirs of a verse), " +
+        "get_hadiths_for_verse (hadiths linked to a verse), or " +
+        "get_hadiths (specific hadiths by reference).")]
     public SearchResult Search(
         [Description(
             $$"""

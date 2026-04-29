@@ -5,6 +5,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Hosting;
 using OpenTelemetry.Trace;
+using QuranX.Web.McpTools;
 using QuranX.Web.Middlewares;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -31,32 +32,7 @@ if (!builder.Environment.IsDevelopment())
 builder.Services.AddControllersWithViews();
 builder.Services.AddHttpContextAccessor();
 builder.Services
-  .AddMcpServer(options =>
-  {
-      options.ServerInfo = new ModelContextProtocol.Protocol.Implementation
-      {
-          Name = "QuranX",
-          Title = "Qur'an, Tafsirs, and Hadiths",
-          Version = "1.0.0",
-          WebsiteUrl = "https://quranx.com",
-          Description =
-            $"""
-            An encyclopaedia of Islam.
-            Search and explore the Quran, classical commentaries (tafsirs), and hadith collections.
-            Look up verses with multiple English translations, Arabic text, and transliteration.
-            Find scholarly commentary from classical scholars on any verse.
-            Search across major hadith collections by reference or keyword.
-            """,
-      };
-      options.ServerInstructions =
-        $$"""
-        QuranX is an encyclopaedia of Islam.
-        It contains the Quran with multiple translations (plus Arabic and Transliteration text),
-        commentaries (tafsirs) by classical scholars, and hadith collections.
-        Use get_available_commentators and get_available_hadith_collections to discover valid codes
-        before filtering searches or fetching content.
-        """;
-  })
+  .AddMcpServer(McpServerRegistration.Register)
   .WithHttpTransport(options => options.Stateless = true)
   .WithToolsFromAssembly();
 
