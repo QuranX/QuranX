@@ -25,9 +25,23 @@ partial class DictionaryTools
         OpenWorld = false)]
     [Description(
         $$"""
-        Gets dictionary entries for an Arabic word root.
-        The entries contain HTML content.
-        Use {{GetAvailableDictionariesName}} for valid dictionary codes.
+        Fetches Arabic dictionary entries for a root letter string (e.g. كتب). Returns
+        one or more entries per dictionary as HTML.
+
+        ENTRY POINTS: a root supplied by the user; from
+        {{ArabicAnalysisTools.GetVerseRootWordAnalysisName}} via
+        {{nameof(ArabicAnalysisTools.AnalysisWord.Parts)}}[]
+        .{{nameof(ArabicAnalysisTools.AnalysisWordPart.ArabicRoot)}}; or from
+        {{ArabicAnalysisTools.GetArabicRootWordAnalysisName}}.
+
+        FOLLOW-UPS: pair with {{ArabicAnalysisTools.GetArabicRootWordAnalysisName}}(root)
+        to show every Quranic occurrence of the same root alongside its lexical
+        definitions - the standard combined response for "what does this Arabic word
+        mean?".
+
+        Optional dictionaryCode restricts to a specific dictionary; otherwise entries
+        from every dictionary are returned. See {{GetAvailableDictionariesName}} for
+        valid codes.
         """)]
     public GetDictionaryEntriesResult GetDictionaryEntries(
         [Description("The Arabic word root letters (e.g. كتب).")]

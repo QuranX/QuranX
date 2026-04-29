@@ -1,5 +1,4 @@
-﻿
-#nullable enable
+﻿#nullable enable
 using ModelContextProtocol.Server;
 using QuranX.Persistence.Models;
 using QuranX.Shared.Models;
@@ -23,7 +22,25 @@ partial class CommentaryTools
         Idempotent = true,
         Destructive = false,
         OpenWorld = false)]
-    [Description("Get commentaries (aka tafsirs) for a specific chapter and verse.")]
+    [Description(
+        $$"""
+        Fetches the full text of classical commentaries (tafsirs) on a specific Quran
+        verse. Call this AFTER {{SearchTools.SearchName}} returns
+        {{nameof(SearchTools.SearchResult.VerseReferences)}} (run once per
+        {{nameof(VerseReference)}}), or when the user names a specific verse to get
+        scholarly commentary on it. Optionally restrict to one or more commentators via
+        commentatorCodes (see {{GetAvailableCommentatorsName}}).
+
+        Each returned commentary is anchored to a verse range via
+        {{nameof(Commentary.ChapterNumber)}}, {{nameof(Commentary.FirstVerseNumber)}},
+        and {{nameof(Commentary.LastVerseNumber)}} - useful when commentaries arrived via
+        {{SearchTools.SearchName}} and you need the verse coordinates to fetch
+        surrounding context with {{QuranTools.GetVersesName}}.
+
+        This delivers tafsir CONTENT. Pair with {{HadithTools.GetHadithsForVerseName}}
+        for hadiths linked to the same verse, or {{QuranTools.GetVersesName}} to read the
+        verse text alongside.
+        """)]
     public GetCommentariesForVersesResult GetCommentariesForVerses(
         [Description("Chapter and verse to retrieve commentaries/tafsirs for.")]
         VerseReference verseReference,

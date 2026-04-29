@@ -23,9 +23,31 @@ partial class HadithTools
         Destructive = false,
         OpenWorld = false)]
     [Description(
-        "Returns hadiths that are linked to a specific Quran verse (i.e. hadiths that cite or relate to the verse) — " +
-        "distinct from keyword-searching the hadith corpus. " +
-        "Use after `search` returns verse references to find the hadiths associated with those verses.")]
+        $$"""
+        Returns hadiths LINKED by citation to a specific Quran verse - i.e. hadiths that
+        cite or relate to the verse - distinct from hadiths whose own narration text
+        matches a keyword. Call this AFTER
+        {{SearchTools.SearchName}}(context={{nameof(SearchTools.SearchContext.Quran)}})
+        returns {{nameof(SearchTools.SearchResult.VerseReferences)}} (one call per verse)
+        when the user wants to know what the Sunnah says about specific Quranic verses.
+        Also useful after the user names verses, or after
+        {{ArabicAnalysisTools.GetArabicRootWordAnalysisName}} to find hadiths citing
+        root-occurrence verses.
+
+        Each returned hadith carries {{nameof(Hadith.VerseRangeReferences)}} - all the
+        verses it cites (often more than the one you queried for). Use these to fan out
+        to {{QuranTools.GetVersesName}} or {{CommentaryTools.GetCommentariesForVerseName}}
+        on the additional verses without re-running search.
+
+        For breadth on a topic, run BOTH paths:
+        {{SearchTools.SearchName}}(context={{nameof(SearchTools.SearchContext.Quran)}})
+        -> {{GetHadithsForVerseName}} per verse, AND
+        {{SearchTools.SearchName}}(context={{nameof(SearchTools.SearchContext.Hadiths)}})
+        -> {{GetHadithsName}}.
+
+        Optional hadithCollectionCodes filter restricts to specific collections (see
+        {{GetAvailableHadithCollectionsName}}).
+        """)]
     public GetHadithsForVerseResult GetHadithsForVerse(
         [Description("Chapter and verse to retrieve hadiths for.")]
         VerseReference verseReference,

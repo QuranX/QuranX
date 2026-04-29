@@ -20,7 +20,14 @@ partial class HadithTools
         Idempotent = true,
         Destructive = false,
         OpenWorld = false)]
-    [Description("Get a list of available hadith collections and hadith reference definitions.")]
+    [Description(
+        $$"""
+        Lists hadith collections (e.g. Bukhari, Muslim, Tirmidhi) with their codes and
+        reference scheme definitions. Call before passing values to hadithCollectionCodes
+        on {{GetHadithsForVerseName}}, or to subContext on {{SearchTools.SearchName}} when
+        context={{nameof(SearchTools.SearchContext.Hadiths)}}. The reference definitions
+        describe what fields a {{nameof(HadithReference)}} of that collection carries.
+        """)]
     public GetHadithCollectionsResult GetHadithCollections()
     {
         IEnumerable<HadithCollection> collections = HadithCollectionRepository.GetAll();

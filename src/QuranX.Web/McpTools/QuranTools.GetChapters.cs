@@ -19,7 +19,14 @@ partial class QuranTools
         Idempotent = true,
         Destructive = false,
         OpenWorld = false)]
-    [Description("Gets information about chapters of the Quran, including number of verses.")]
+    [Description(
+        $$"""
+        Lists all 114 Quran chapters with numbers, names (Arabic + English), revelation
+        order, place of revelation (Mecca/Medina), and verse counts. Use to map a chapter
+        name supplied by the user (e.g. 'Surah Al-Baqarah') to a chapter number, or to
+        size a verse range correctly before calling {{GetVersesName}}. Verse content
+        itself comes from {{GetVersesName}}.
+        """)]
     public GetChaptersResult GetChapters()
     {
         IEnumerable<ChapterData> chapters = ChapterRepository.GetAll();

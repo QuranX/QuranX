@@ -24,7 +24,27 @@ partial class QuranTools
         Idempotent = true,
         Destructive = false,
         OpenWorld = false)]
-    [Description("Gets multiple verses by multiple Verse Range References.")]
+    [Description(
+        $$"""
+        Fetches Quran verse content - Arabic text, transliteration, and one or more
+        English translations - for one or more verse ranges. This is what to call AFTER
+        {{SearchTools.SearchName}} returns
+        {{nameof(SearchTools.SearchResult.VerseReferences)}}, or when the user names
+        specific chapter/verse coordinates.
+
+        Each returned verse includes {{nameof(Verse.HadithCount)}} and
+        {{nameof(Verse.CommentaryCount)}} - when either is greater than zero, the verse
+        has linked hadiths or tafsirs you can drill into with
+        {{HadithTools.GetHadithsForVerseName}} or
+        {{CommentaryTools.GetCommentariesForVerseName}}.
+
+        For follow-up context on the same verses, also call:
+        {{CommentaryTools.GetCommentariesForVerseName}} (tafsirs),
+        {{HadithTools.GetHadithsForVerseName}} (hadiths linked by citation),
+        {{ArabicAnalysisTools.GetVerseRootWordAnalysisName}} (word-by-word grammar and
+        Arabic roots). Use {{GetAvailableTranslatorsName}} if you want to filter to
+        specific translators.
+        """)]
     public GetVersesResult GetVerses(
         [Description("A collection of verse references.")]
         VerseRangeReference[] verseRangeReferences,

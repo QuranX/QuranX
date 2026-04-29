@@ -22,7 +22,20 @@ partial class ArabicAnalysisTools
         Idempotent = true,
         Destructive = false,
         OpenWorld = false)]
-    [Description("Get the word-by-word grammatical analysis of a Quran verse, including roots, word types, forms, and decorators for each word part.")]
+    [Description(
+        $$"""
+        Returns a word-by-word grammatical breakdown of a Quran verse: each word's
+        Buckwalter transliteration, English gloss, and for each word-part the type, form
+        (I-X), Arabic root (Arabic + romanized), and decorators.
+
+        PIVOT TO ROOT USAGE: each
+        {{nameof(AnalysisWord.Parts)}}[].{{nameof(AnalysisWordPart.ArabicRoot)}} value
+        can be passed straight to {{GetArabicRootWordAnalysisName}}, which finds every
+        other place in the Quran that root appears - the standard follow-up when the
+        user asks about a word's meaning, etymology, or thematic reach. The same root
+        value also feeds {{DictionaryTools.GetDictionaryEntriesName}} for lexicographer
+        definitions.
+        """)]
     public GetVerseAnalysisResult GetVerseAnalysis(
         [Description("The verse to analyse.")]
         VerseReference verseReference)
@@ -82,7 +95,10 @@ partial class ArabicAnalysisTools
     public sealed class AnalysisWord
     {
         public required int WordNumber { get; init; }
+
+        [Description("Buckwalter ASCII transliteration of the Arabic word.")]
         public required string Buckwalter { get; init; }
+
         public required string English { get; init; }
         public required IReadOnlyList<AnalysisWordPart> Parts { get; init; }
     }
@@ -91,9 +107,30 @@ partial class ArabicAnalysisTools
     {
         public required string Type { get; init; }
         public required string Description { get; init; }
+
+        [Description("Verb form for verbs (Roman numerals I-X); null for non-verbs.")]
         public required string? Form { get; init; }
+
+        [Description(
+            $$"""
+            Arabic root letters (e.g. كتب). Pass to {{GetArabicRootWordAnalysisName}} for
+            every Quranic occurrence of the root, or to
+            {{DictionaryTools.GetDictionaryEntriesName}} for lexical definitions.
+            """)]
         public required string? ArabicRoot { get; init; }
+
+        [Description(
+            $$"""
+            Latin-letter transliteration of ArabicRoot for display when Arabic script is
+            unavailable.
+            """)]
         public required string? RomanizedRoot { get; init; }
+
+        [Description(
+            $$"""
+            Linguistic feature tags from the morphological analysis (e.g. person, gender,
+            number, mood, voice).
+            """)]
         public required IReadOnlyList<string> Decorators { get; init; }
     }
 }

@@ -19,7 +19,13 @@ partial class CommentaryTools
         Idempotent = true,
         Destructive = false,
         OpenWorld = false)]
-    [Description("Get a list of available commentators (aka Mufassir/Mufassiroon).")]
+    [Description(
+        $$"""
+        Lists available commentators (Mufassirs/Mufassiroon) and their codes. Call before
+        passing values to commentatorCodes on {{GetCommentariesForVerseName}} or to
+        subContext on {{SearchTools.SearchName}} when
+        context={{nameof(SearchTools.SearchContext.Commentaries)}}.
+        """)]
     public GetAvailableCommentatorsResult GetAvailableCommentators()
     {
         Commentator[] commentators = CommentatorRepository.GetAll().ToArray();

@@ -17,16 +17,43 @@ partial class SearchTools
 
     public enum SearchContext
     {
-        [Description("Search everything.")]
+        [Description(
+            $$"""
+            Search the literal text of every corpus (Quran, commentaries, hadiths). Does
+            NOT return hadiths LINKED to matched verses by citation - for that, use
+            {{nameof(Quran)}} context then {{HadithTools.GetHadithsForVerseName}} on each
+            {{nameof(VerseReference)}}.
+            """)]
         WholeSite,
 
-        [Description("Search the Quran only.")]
+        [Description(
+            $$"""
+            Search the Quran. Use when the user asks about verses on a topic. Returned
+            {{nameof(SearchResult.VerseReferences)}} feed {{QuranTools.GetVersesName}}
+            (text), {{CommentaryTools.GetCommentariesForVerseName}} (tafsirs per verse),
+            and {{HadithTools.GetHadithsForVerseName}} (linked hadiths per verse).
+            """)]
         Quran,
 
-        [Description("Search commentaries (tafsirs).")]
+        [Description(
+            $$"""
+            Search classical commentaries (tafsirs). Use when looking for tafsirs that
+            mention a term. Returned {{nameof(SearchResult.Commentaries)}}[] feed
+            {{CommentaryTools.GetCommentariesForVerseName}}(
+                {{nameof(CommentarySearchResult.VerseReference)}},
+                [{{nameof(CommentarySearchResult.CommentatorCode)}}]).
+            """)]
         Commentaries,
 
-        [Description("Search hadiths.")]
+        [Description(
+            $$"""
+            Search the literal narration text of hadiths. Use when looking for hadiths
+            whose own text matches a keyword. Returned
+            {{nameof(SearchResult.HadithReferences)}} feed {{HadithTools.GetHadithsName}}.
+            NOTE: this finds hadiths whose text matches; for hadiths LINKED to a Quran
+            verse by citation, search {{nameof(Quran)}} context then call
+            {{HadithTools.GetHadithsForVerseName}}.
+            """)]
         Hadiths
     }
 
@@ -39,19 +66,49 @@ partial class SearchTools
         Destructive = false,
         OpenWorld = false)]
     [Description(
-        "Search Quran verses, commentaries, and hadiths. Returns up to 100 references " +
-        "ranked by relevance; the full match count is in `TotalResults`. " +
-        "Follow up to fetch content: get_verses (verse text), " +
-        "get_commentaries_for_quran_verses (tafsirs of a verse), " +
-        "get_hadiths_for_verse (hadiths linked to a verse), or " +
-        "get_hadiths (specific hadiths by reference).")]
+        $$"""
+        Search Quran verses, commentaries, and hadiths.
+
+        OUTPUT IS REFERENCES, NOT CONTENT. Returns up to 100 ranked items across three
+        arrays: {{nameof(SearchResult.VerseReferences)}} (chapter+verse coordinates),
+        {{nameof(SearchResult.HadithReferences)}} (collection + reference codes), and
+        {{nameof(SearchResult.Commentaries)}} (commentator code + verse reference).
+
+        To deliver a useful answer you almost always need a follow-up content fetch:
+        - {{nameof(SearchResult.VerseReferences)}} -> {{QuranTools.GetVersesName}} for
+            verse text.
+        - {{nameof(SearchResult.VerseReferences)}} ->
+            {{CommentaryTools.GetCommentariesForVerseName}} (one call per verse) for
+            tafsirs on those verses.
+        - {{nameof(SearchResult.VerseReferences)}} ->
+            {{HadithTools.GetHadithsForVerseName}} (one call per verse) for hadiths
+            linked by citation.
+        - {{nameof(SearchResult.HadithReferences)}} -> {{HadithTools.GetHadithsName}} for
+            hadith text and narrator chains.
+        - {{nameof(SearchResult.Commentaries)}}[] - each item has
+            {{nameof(CommentarySearchResult.CommentatorCode)}} and
+            {{nameof(CommentarySearchResult.VerseReference)}}; pass to
+            {{CommentaryTools.GetCommentariesForVerseName}}(
+                {{nameof(CommentarySearchResult.VerseReference)}},
+                [{{nameof(CommentarySearchResult.CommentatorCode)}}])
+            for the specific tafsirs.
+
+        {{nameof(SearchResult.TotalResults)}} reports the true match count - warn the
+        user when it exceeds the 100 returned. Default operator is OR; 2-5 alternative
+        terms typically work well, ANDing many terms usually returns zero. For
+        comprehensive answers, run multiple follow-up fetchers on the same search
+        results (e.g. for a topic, fetch verses + tafsirs + linked hadiths in parallel).
+        """)]
     public SearchResult Search(
         [Description(
             $$"""
             The Apache Lucene 4.8.0 QueryParser query string used to search indexed text.
-            The default operator is `OR`: bare space-separated terms match documents containing any of the terms, with documents matching more terms ranked higher. Use `AND` when every term must co-occur, and quotes for exact phrases.
+            The default operator is `OR`: bare space-separated terms match documents
+            containing any of the terms, with documents matching more terms ranked
+            higher. Use `AND` when every term must co-occur, and quotes for exact phrases.
 
-            Use uppercase Boolean operators: AND, OR, and NOT. Use parentheses when combining clauses so precedence is unambiguous.
+            Use uppercase Boolean operators: AND, OR, and NOT. Use parentheses when
+            combining clauses so precedence is unambiguous.
 
             Supported syntax:
             - Single term: mercy
@@ -84,9 +141,14 @@ partial class SearchTools
         SearchContext context = SearchContext.WholeSite,
         [Description(
             $$"""
-            Narrows the search within {{nameof(context)}}. Pass an empty string to skip this filter.
-            * When {{nameof(context)}} is {{nameof(SearchContext.Hadiths)}}: a hadith collection code (use {{HadithTools.GetAvailableHadithCollectionsName}} for valid codes).
-            * When {{nameof(context)}} is {{nameof(SearchContext.Commentaries)}}: a commentator code (use {{CommentaryTools.GetAvailableCommentatorsName}} for valid codes).
+            Narrows the search within {{nameof(context)}}. Pass an empty string to skip
+            this filter.
+            * When {{nameof(context)}} is {{nameof(SearchContext.Hadiths)}}: a hadith
+                collection code (use {{HadithTools.GetAvailableHadithCollectionsName}}
+                for valid codes).
+            * When {{nameof(context)}} is {{nameof(SearchContext.Commentaries)}}: a
+                commentator code (use {{CommentaryTools.GetAvailableCommentatorsName}}
+                for valid codes).
             * Otherwise pass an empty string
             """)]
         string subContext = "")
@@ -179,16 +241,59 @@ partial class SearchTools
         public required string RequestQuery { get; init; }
         public required SearchContext RequestContext { get; init; }
         public required string? RequestSubContext { get; init; }
+
+        [Description(
+            $$"""
+            True when the Lucene parser rejected the query - fix the syntax (uppercase
+            Boolean operators, balanced parens, no leading wildcard) and retry.
+            """)]
         public required bool BadQuery { get; init; }
+
+        [Description(
+            $$"""
+            Total match count in the index; may exceed the 100 references returned. Warn
+            the user when results are truncated.
+            """)]
         public required int TotalResults { get; init; }
+
+        [Description(
+            $$"""
+            Verse references from text matches. Pass to {{QuranTools.GetVersesName}} for
+            verse text, {{CommentaryTools.GetCommentariesForVerseName}} for tafsirs, or
+            {{HadithTools.GetHadithsForVerseName}} for linked hadiths.
+            """)]
         public required VerseReference[] VerseReferences { get; init; }
+
+        [Description(
+            $$"""
+            Tafsirs whose text matched the query. Each entry has the commentator code
+            and the verse the tafsir is on; pass to
+            {{CommentaryTools.GetCommentariesForVerseName}}.
+            """)]
         public required CommentarySearchResult[] Commentaries { get; init; }
+
+        [Description(
+            $$"""
+            Hadiths whose own narration text matched the query. Pass to
+            {{HadithTools.GetHadithsName}}.
+            """)]
         public required HadithReference[] HadithReferences { get; init; }
     }
 
     public sealed class CommentarySearchResult
     {
+        [Description(
+            $$"""
+            Code identifying the commentator (mufassir). See
+            {{CommentaryTools.GetAvailableCommentatorsName}}.
+            """)]
         public required string CommentatorCode { get; init; }
+
+        [Description(
+            $$"""
+            Verse this tafsir is anchored to. Pass to
+            {{CommentaryTools.GetCommentariesForVerseName}} to fetch the tafsir text.
+            """)]
         public required VerseReference VerseReference { get; init; }
     }
 }

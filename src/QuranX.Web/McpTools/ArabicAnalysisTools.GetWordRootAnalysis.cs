@@ -23,7 +23,27 @@ partial class ArabicAnalysisTools
         Idempotent = true,
         Destructive = false,
         OpenWorld = false)]
-    [Description("Get all occurrences of an Arabic root word in the Quran, grouped by word type and form.")]
+    [Description(
+        $$"""
+        Returns every occurrence of an Arabic root in the Quran, grouped by word type and
+        form (I-X). Each occurrence carries a {{nameof(VerseReference)}}, the selected
+        word in Buckwalter and English, and the surrounding +/-3 words for context.
+
+        ENTRY POINTS: a root supplied by the user, picked from a
+        {{nameof(AnalysisWord.Parts)}}[].{{nameof(AnalysisWordPart.ArabicRoot)}} in
+        {{GetVerseRootWordAnalysisName}}, or matched from
+        {{DictionaryTools.GetDictionaryEntriesName}}.
+
+        FOLLOW-UPS - usually required to give a useful answer:
+        - Read the matching verses: pass each occurrence's {{nameof(VerseReference)}} to
+            {{QuranTools.GetVersesName}}.
+        - Tafsirs on those verses: {{CommentaryTools.GetCommentariesForVerseName}} per
+            {{nameof(VerseReference)}}.
+        - Hadiths linked to those verses: {{HadithTools.GetHadithsForVerseName}} per
+            {{nameof(VerseReference)}}.
+        - Lexical definitions of the same root:
+            {{DictionaryTools.GetDictionaryEntriesName}}.
+        """)]
     public GetArabicRootWordAnalysisResult GetArabicRootWordAnalysis(
         [Description("The Arabic root word letters (e.g. كتب).")]
         string arabicRootWord)
@@ -140,11 +160,20 @@ partial class ArabicAnalysisTools
 
     public sealed class ArabicRootWordOccurrence
     {
+        [Description(
+            $$"""
+            Verse where this occurrence appears. Pass to {{QuranTools.GetVersesName}} to
+            read the verse, {{CommentaryTools.GetCommentariesForVerseName}} for tafsirs,
+            or {{HadithTools.GetHadithsForVerseName}} for hadiths citing it.
+            """)]
         public required VerseReference VerseReference { get; init; }
+
         public required string SelectedWordBuckwalter { get; init; }
         public required string SelectedWordEnglish { get; init; }
         public required string WordPartDescription { get; init; }
         public required IReadOnlyList<string> WordPartDecorators { get; init; }
+
+        [Description("+/-3 words around the selected word for context.")]
         public required IReadOnlyList<ContextWord> ContextWords { get; init; }
     }
 
@@ -152,6 +181,11 @@ partial class ArabicAnalysisTools
     {
         public required string Buckwalter { get; init; }
         public required string English { get; init; }
+
+        [Description(
+            $$"""
+            True for the word matching the queried root; false for surrounding context.
+            """)]
         public required bool IsSelected { get; init; }
     }
 }

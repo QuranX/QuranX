@@ -20,7 +20,12 @@ partial class QuranTools
         Idempotent = true,
         Destructive = false,
         OpenWorld = false)]
-    [Description("Gets a list of available translators.")]
+    [Description(
+        $$"""
+        Lists the codes and names of available English translators of the Quran. Call
+        before passing values to translatorCodes on {{GetVersesName}} to filter which
+        translations are returned.
+        """)]
     public GetAvailableTranslatorsResult GetAvailableTranslators()
     {
         Verse firstVerse = VerseRepository.GetVerse(new VerseReference(1, 1));

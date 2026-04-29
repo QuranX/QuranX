@@ -20,7 +20,12 @@ partial class DictionaryTools
         Idempotent = true,
         Destructive = false,
         OpenWorld = false)]
-    [Description("Gets a list of all available Arabic dictionaries.")]
+    [Description(
+        $$"""
+        Lists available Arabic dictionaries with their codes and copyright notices. Call
+        before passing a value to dictionaryCode on {{GetDictionaryEntriesName}} to
+        restrict to a specific dictionary.
+        """)]
     public GetAvailableDictionariesResult GetAvailableDictionaries()
     {
         var dictionaries = DictionaryRepository
