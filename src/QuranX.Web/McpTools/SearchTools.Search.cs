@@ -69,6 +69,14 @@ partial class SearchTools
         $$"""
         Search Quran verses, commentaries, and hadiths.
 
+        DO NOT use this when the user has already named a specific verse (e.g. "4.34",
+        "Al-Baqarah 255") and is asking about words/meaning/roots inside it - use
+        {{ArabicAnalysisTools.GetVerseRootWordAnalysisName}} instead. Search finds
+        verses by TOPIC across the corpus, NOT specific words within a named verse. For
+        other by-verse queries on a named verse, see also {{QuranTools.GetVersesName}},
+        {{CommentaryTools.GetCommentariesForVerseName}}, and
+        {{HadithTools.GetHadithsForVerseName}}.
+
         OUTPUT IS REFERENCES, NOT CONTENT. Returns up to 100 ranked items across three
         arrays: {{nameof(SearchResult.VerseReferences)}} (chapter+verse coordinates),
         {{nameof(SearchResult.HadithReferences)}} (collection + reference codes), and

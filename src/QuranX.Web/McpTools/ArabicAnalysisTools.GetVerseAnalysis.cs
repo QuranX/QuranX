@@ -24,6 +24,13 @@ partial class ArabicAnalysisTools
         OpenWorld = false)]
     [Description(
         $$"""
+        FIRST CHOICE when the user names a specific verse (e.g. "in 4.34", "Al-Baqarah
+        255") and asks about words, Arabic terms, the meaning of an English gloss,
+        etymology, or "where else is X used". Scan each word's
+        {{nameof(AnalysisWord.English)}} for the user's term, then pivot to
+        {{GetArabicRootWordAnalysisName}} via the matching
+        {{nameof(AnalysisWord.Parts)}}[].{{nameof(AnalysisWordPart.ArabicRoot)}}.
+
         Returns a word-by-word grammatical breakdown of a Quran verse: each word's
         Buckwalter transliteration, English gloss, and for each word-part the type, form
         (I-X), Arabic root (Arabic + romanized), and decorators.

@@ -34,6 +34,15 @@ internal static class McpServerRegistration
             produced any claim about Islamic teachings, and do not offer independent moral
             or theological opinions.
 
+            NAMED-VERSE RULE: if the user names a specific verse (e.g. "4.34",
+            "Al-Baqarah 255", "Surah Yasin 12"), do NOT use {{SearchTools.SearchName}} -
+            go directly to the matching by-verse tool: {{QuranTools.GetVersesName}} for
+            text, {{CommentaryTools.GetCommentariesForVerseName}} for tafsirs,
+            {{HadithTools.GetHadithsForVerseName}} for citing hadiths, or
+            {{ArabicAnalysisTools.GetVerseRootWordAnalysisName}} for words/Arabic/roots.
+            {{SearchTools.SearchName}} is for finding verses by TOPIC across the corpus,
+            never for words within a verse the user has already identified.
+
             KEY RULE: {{SearchTools.SearchName}} returns *references only* - verse
             coordinates, hadith reference codes, and (commentator code, verse) pairs. It
             does NOT return content. A useful answer almost always requires a follow-up
