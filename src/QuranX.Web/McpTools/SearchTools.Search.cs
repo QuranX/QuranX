@@ -46,17 +46,18 @@ partial class SearchTools
         [Description(
             $$"""
             The Apache Lucene 4.8.0 QueryParser query string used to search indexed text.
+            The default operator is `OR`: bare space-separated terms match documents containing any of the terms, with documents matching more terms ranked higher. Use `AND` when every term must co-occur, and quotes for exact phrases.
 
             Use uppercase Boolean operators: AND, OR, and NOT. Use parentheses when combining clauses so precedence is unambiguous.
 
             Supported syntax:
             - Single term: mercy
             - Exact phrase: "all knowing"
+            - Topical search (any term matches): charity OR orphans OR poor
             - Required combination: benevolent AND merciful
-            - Alternatives: Muhammad OR Mohammed
+            - Spelling variants: Muhammad OR Mohammed
             - Exclusion: fight NOT kill or fight -kill
             - Grouping: (Muhammad OR Mohammed) AND love
-            - Field search, if fields are supported by this tool: title:"The Right Way"
             - Single-character wildcard: M?hamm?d
             - Multiple-character wildcard: Muham*
             - Regular expression term: /[mb]oat/
@@ -73,22 +74,17 @@ partial class SearchTools
             - Wildcards apply to single terms, not quoted phrases.
             - NOT cannot be used by itself with only one term.
             - Escape literal query syntax characters with a backslash.
-            - Prefer simple terms and quoted phrases unless Boolean logic, wildcards, fuzzy matching, proximity, boosting, regex, fields, or ranges are required.
             """)]
             
         string luceneSearchQuery,
-        [Description("The scope of the search.")]
+        [Description("The scope of the search. Defaults to WholeSite (search everything).")]
         SearchContext context = SearchContext.WholeSite,
         [Description(
             $$"""
-            A commentator code when context is Commentaries, or a hadith collection
-            code when context is Hadiths.
-            Pass an empty string to search all subcontexts within the {{nameof(context)}}.
-            * When {{nameof(context)}} is {{nameof(SearchContext.Hadiths)}} you can use
-              {{HadithTools.GetAvailableHadithCollectionsName}} for a list of valid codes.
-            * When {{nameof(context)}} is {{nameof(SearchContext.Commentaries)}} you can use
-              {{CommentaryTools.GetAvailableCommentatorsName}} for a list of valid codes.
-            * Otherwise it should be empty.
+            Narrows the search within {{nameof(context)}}. Pass an empty string to skip this filter.
+            * When {{nameof(context)}} is {{nameof(SearchContext.Hadiths)}}: a hadith collection code (use {{HadithTools.GetAvailableHadithCollectionsName}} for valid codes).
+            * When {{nameof(context)}} is {{nameof(SearchContext.Commentaries)}}: a commentator code (use {{CommentaryTools.GetAvailableCommentatorsName}} for valid codes).
+            * Otherwise pass an empty string
             """)]
         string subContext = "")
     {

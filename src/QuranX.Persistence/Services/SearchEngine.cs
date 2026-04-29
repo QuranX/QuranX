@@ -50,7 +50,7 @@ public class SearchEngine : ISearchEngine
         var queryParser = new QueryParser(Consts.LuceneVersion, Consts.FullTextFieldName, analyzer)
         {
             AllowLeadingWildcard = true,
-            DefaultOperator = Operator.AND
+            DefaultOperator = Operator.OR
         };
 
         Query userQuery = queryParser.Parse(queryString);
