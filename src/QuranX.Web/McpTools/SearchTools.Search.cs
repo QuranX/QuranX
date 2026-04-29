@@ -39,9 +39,7 @@ partial class SearchTools
             $$"""
             Search classical commentaries (tafsirs). Use when looking for tafsirs that
             mention a term. Returned {{nameof(SearchResult.Commentaries)}}[] feed
-            {{CommentaryTools.GetCommentariesForVerseName}}(
-                {{nameof(CommentarySearchResult.VerseReference)}},
-                [{{nameof(CommentarySearchResult.CommentatorCode)}}]).
+            {{CommentaryTools.GetCommentariesForVerseName}}({{nameof(CommentarySearchResult.VerseReference)}}, [{{nameof(CommentarySearchResult.CommentatorCode)}}]).
             """)]
         Commentaries,
 
@@ -77,7 +75,7 @@ partial class SearchTools
         {{CommentaryTools.GetCommentariesForVerseName}}, and
         {{HadithTools.GetHadithsForVerseName}}.
 
-        OUTPUT IS REFERENCES, NOT CONTENT. Returns up to 100 ranked items across three
+        OUTPUT IS REFERENCES, NOT CONTENT. Returns up to 1000 ranked items across three
         arrays: {{nameof(SearchResult.VerseReferences)}} (chapter+verse coordinates),
         {{nameof(SearchResult.HadithReferences)}} (collection + reference codes), and
         {{nameof(SearchResult.Commentaries)}} (commentator code + verse reference).
@@ -96,13 +94,11 @@ partial class SearchTools
         - {{nameof(SearchResult.Commentaries)}}[] - each item has
             {{nameof(CommentarySearchResult.CommentatorCode)}} and
             {{nameof(CommentarySearchResult.VerseReference)}}; pass to
-            {{CommentaryTools.GetCommentariesForVerseName}}(
-                {{nameof(CommentarySearchResult.VerseReference)}},
-                [{{nameof(CommentarySearchResult.CommentatorCode)}}])
+            {{CommentaryTools.GetCommentariesForVerseName}}({{nameof(CommentarySearchResult.VerseReference)}}, [{{nameof(CommentarySearchResult.CommentatorCode)}}])
             for the specific tafsirs.
 
         {{nameof(SearchResult.TotalResults)}} reports the true match count - warn the
-        user when it exceeds the 100 returned. Default operator is OR; 2-5 alternative
+        user when it exceeds the 1000 returned. Default operator is OR; 2-5 alternative
         terms typically work well, ANDing many terms usually returns zero. For
         comprehensive answers, run multiple follow-up fetchers on the same search
         results (e.g. for a topic, fetch verses + tafsirs + linked hadiths in parallel).
@@ -190,7 +186,8 @@ partial class SearchTools
                     luceneSearchQuery,
                     searchContext,
                     subContext,
-                    out totalResults);
+                    out totalResults,
+                    maxResults: 1000);
 
             foreach (Persistence.Models.SearchResult result in searchResults)
             {
@@ -259,7 +256,7 @@ partial class SearchTools
 
         [Description(
             $$"""
-            Total match count in the index; may exceed the 100 references returned. Warn
+            Total match count in the index; may exceed the 1000 references returned. Warn
             the user when results are truncated.
             """)]
         public required int TotalResults { get; init; }
