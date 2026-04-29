@@ -40,9 +40,6 @@ partial class HadithTools
         [Description("One or more hadith references identifying which hadiths to return.")]
         HadithReference[] hadithReferences)
     {
-        if (Activity.Current is Activity activity)
-            activity.SetTag("mcp.tool.arg.HadithReferences", JsonSerializer.Serialize(hadithReferences));
-
         var hadiths = HadithRepository.GetHadiths(hadithReferences);
         return new GetHadithsResult {
             RequestedHadithReferences = hadithReferences,

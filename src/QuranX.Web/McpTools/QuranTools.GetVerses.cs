@@ -58,14 +58,6 @@ partial class QuranTools
         string[] translatorCodes)
     {
         var translatorCodesSet = new HashSet<string>(translatorCodes ?? [], StringComparer.OrdinalIgnoreCase);
-
-        if (Activity.Current is Activity activity)
-        {
-            activity.SetTag("mcp.tool.arg.VerseRangeReferences", JsonSerializer.Serialize(verseRangeReferences));
-            if (translatorCodesSet.Any())
-                activity.SetTag("mcp.tool.arg.TranslatorCodes", string.Join(",", translatorCodesSet));
-        }
-
         IEnumerable<Verse> retrievedVerses = VerseRepository.GetVerses(verseRangeReferences);
 
         if (translatorCodesSet.Any())

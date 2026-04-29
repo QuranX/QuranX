@@ -58,15 +58,6 @@ partial class DictionaryTools
         string root = ArabicHelper.SubstituteAndOmit(arabicWordRoot);
         string romanized = ArabicHelper.ArabicToLetterNames(root);
 
-        if (Activity.Current is Activity activity)
-        {
-            activity.SetTag("mcp.tool.arg.ArabicRootWord", arabicWordRoot);
-            activity.SetTag("mcp.tool.arg.RomanizedRootWord", romanized);
-            if (!string.IsNullOrEmpty(dictionaryCode))
-                activity.SetTag("mcp.tool.arg.DictionaryCode", dictionaryCode);
-        }
-
-
         IEnumerable<DictionaryEntry> entries =
             string.IsNullOrWhiteSpace(dictionaryCode)
             ? DictionaryEntryRepository.Get(root)

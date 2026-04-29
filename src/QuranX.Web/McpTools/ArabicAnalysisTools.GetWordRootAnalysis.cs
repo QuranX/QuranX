@@ -51,12 +51,6 @@ partial class ArabicAnalysisTools
         string root = ArabicHelper.SubstituteAndOmit(arabicRootWord);
         string romanized = ArabicHelper.ArabicToLetterNames(root);
 
-        if (Activity.Current is Activity activity)
-        {
-            activity.SetTag("mcp.tool.arg.ArabicRootWord", arabicRootWord);
-            activity.SetTag("mcp.tool.arg.RomanizedRootWord", romanized);
-        }
-
         IEnumerable<VerseAnalysis> verses =
             VerseAnalysisRepository
             .GetForRoot(root)

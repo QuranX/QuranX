@@ -54,15 +54,8 @@ partial class CommentaryTools
             """)]
         string[] commentatorCodes)
     {
-
         var commentatorCodesSet = new HashSet<string>(commentatorCodes ?? [], StringComparer.OrdinalIgnoreCase);
-        if (Activity.Current is Activity activity)
-        {
-            activity.SetTag("mcp.tool.arg.VerseReference", verseReference);
-            if (commentatorCodesSet.Any())
-                activity.SetTag("mcp.tool.arg.CommentatorCodes", string.Join(",", commentatorCodesSet));
-        }
-
+        
         IEnumerable<Commentary> commentaries = CommentaryRepository.GetForVerse(verseReference.Chapter, verseReference.Verse);
         if (commentatorCodesSet.Any())
         {

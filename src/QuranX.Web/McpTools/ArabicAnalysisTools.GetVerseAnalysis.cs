@@ -60,9 +60,6 @@ partial class ArabicAnalysisTools
                     """
             };
 
-        if (Activity.Current is Activity activity)
-            activity.SetTag("mcp.tool.arg.VerseReference", verseReference);
-
         VerseAnalysis analysis =
             VerseAnalysisRepository.GetForVerse(verseReference.Chapter, verseReference.Verse);
 

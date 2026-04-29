@@ -19,8 +19,9 @@ if (!builder.Environment.IsDevelopment())
     .Services
     .AddOpenTelemetry()
     .WithTracing(builder => builder
-        .AddSource("Experimental.ModelContextProtocol")
-        .AddSource("QuranX.Mcp")
+        //.AddSource("Experimental.ModelContextProtocol")
+        //.AddSource("QuranX.Mcp")
+        .AddSource("*")
         .AddAspNetCoreInstrumentation()
         .AddHttpClientInstrumentation()
         .AddOtlpExporter()
@@ -58,6 +59,9 @@ app.UseStaticFiles(new StaticFileOptions
 
 app.UseRouting();
 app.UseMiddleware<OpenTelemetryEnrichmentMiddleware>();
+app.UseWhen(
+    context => context.Request.Path.StartsWithSegments("/mcp"),
+    branch => branch.UseMiddleware<McpTracingMiddleware>());
 
 app.MapMcp("/mcp");
 

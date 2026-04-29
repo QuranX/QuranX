@@ -62,13 +62,6 @@ partial class HadithTools
     {
         var hadithCollectionCodesSet = new HashSet<string>(hadithCollectionCodes ?? [], StringComparer.OrdinalIgnoreCase);
 
-        if (Activity.Current is Activity activity)
-        {
-            activity.SetTag("mcp.tool.arg.VerseReference", verseReference);
-            if (hadithCollectionCodesSet.Any())
-                activity.SetTag("mcp.tool.arg.HadithCollectionCodes", string.Join(",", hadithCollectionCodesSet));
-        }
-
         IEnumerable<Hadith> hadiths = HadithRepository.GetForVerse(verseReference);
         if (hadithCollectionCodesSet.Any())
             hadiths = hadiths.Where(x => hadithCollectionCodesSet.Contains(x.CollectionCode));

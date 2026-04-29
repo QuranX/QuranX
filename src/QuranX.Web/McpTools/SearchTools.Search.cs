@@ -139,7 +139,7 @@ partial class SearchTools
             - NOT cannot be used by itself with only one term.
             - Escape literal query syntax characters with a backslash.
             """)]
-            
+
         string luceneSearchQuery,
         [Description("The scope of the search. Defaults to WholeSite (search everything).")]
         SearchContext context = SearchContext.WholeSite,
@@ -157,14 +157,6 @@ partial class SearchTools
             """)]
         string subContext = "")
     {
-        if (Activity.Current is Activity activity)
-        {
-            activity.SetTag("mcp.tool.arg.LuceneSearchQuery", luceneSearchQuery);
-            activity.SetTag("mcp.tool.arg.Context", context.ToString());
-            if (!string.IsNullOrEmpty(subContext))
-                activity.SetTag("mcp.tool.arg.SubContext", subContext);
-        }
-
         string searchContext = context switch
         {
             SearchContext.Quran => SearchContexts.Quran,
