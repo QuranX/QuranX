@@ -13,13 +13,13 @@ internal static class McpServerRegistration
             Version = "1.0.0",
             WebsiteUrl = "https://quranx.com",
             Description =
-              $"""
-            An encyclopaedia of Islam.
-            Search and explore the Quran, classical commentaries (tafsirs), and hadith collections.
-            Look up verses with multiple English translations, Arabic text, and transliteration.
-            Find scholarly commentary from classical scholars on any verse.
-            Search across major hadith collections by reference or keyword.
-            """,
+               $"""
+                An encyclopaedia of Islam.
+                Search and explore the Quran, classical commentaries (tafsirs), and hadith collections.
+                Look up verses with multiple English translations, Arabic text, and transliteration.
+                Find scholarly commentary from classical scholars on any verse.
+                Search across major hadith collections by reference or keyword.
+                """,
         };
         options.ServerInstructions =
             $$"""
@@ -38,6 +38,5 @@ internal static class McpServerRegistration
             - Tafsirs from a specific commentator by keyword: call {{CommentaryTools.GetAvailableCommentatorsName}} for valid codes, then call {{SearchTools.SearchName}} with context=Commentaries and subContext=<commentator code>, then call {{CommentaryTools.GetCommentariesForVerseName}} to fetch the commentaries' contents for the verses in the search result.
             Note: search with context=WholeSite returns keyword matches across all corpora — it does NOT return hadiths linked to matched verses.
             """;
-
     }
 }
