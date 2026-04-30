@@ -1,4 +1,5 @@
-﻿using System;
+﻿using QuranX.Shared;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -7,7 +8,8 @@ namespace QuranX.DocumentModel;
 public class HadithReference :
     IComparable,
     IComparable<HadithReference>,
-    IEnumerable<string>
+    IEnumerable<string>,
+    IGetDisplayText
 {
     public string Code { get; private set; }
     public string[] Values { get; private set; }
@@ -70,7 +72,9 @@ public class HadithReference :
         return true;
     }
 
-    public override string ToString()
+    public override string ToString() => GetDisplayText();
+
+    public string GetDisplayText()
     {
         return Code + " " +
             string.Join(

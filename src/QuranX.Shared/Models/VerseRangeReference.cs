@@ -7,7 +7,7 @@ using System.Xml.Linq;
 namespace QuranX.Shared.Models;
 
 // TODO: Ensure chapter + verse are valid
-public class VerseRangeReference : IComparable, IComparable<VerseRangeReference>
+public class VerseRangeReference : IComparable, IComparable<VerseRangeReference>, IGetDisplayText
 {
     [Description("Quran chapter in the range 1 to 114.")]
     public int Chapter { get; set; }
@@ -80,7 +80,9 @@ public class VerseRangeReference : IComparable, IComparable<VerseRangeReference>
             && verse <= LastVerse;
     }
 
-    public override string ToString()
+    public override string ToString() => GetDisplayText();
+
+    public string GetDisplayText()
     {
         if (LastVerse == FirstVerse)
             return string.Format("{0}.{1}", Chapter, FirstVerse);

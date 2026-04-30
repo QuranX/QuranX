@@ -5,7 +5,8 @@ namespace QuranX.Shared.Models;
 
 public class VerseReference :
     IComparable,
-    IComparable<VerseReference>
+    IComparable<VerseReference>,
+    IGetDisplayText
 {
     [Description("Quran chapter in the range 1 to 114.")]
     public int Chapter { get; set; }
@@ -35,7 +36,9 @@ public class VerseReference :
             );
     }
 
-    public override string ToString()
+    public override string ToString() => GetDisplayText();
+
+    public string GetDisplayText()
     {
         return string.Format("{0}.{1}", Chapter, Verse);
     }

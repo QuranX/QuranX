@@ -1,6 +1,8 @@
-﻿namespace QuranX.DocumentModel;
+﻿using QuranX.Shared;
 
-public class WordReference
+namespace QuranX.DocumentModel;
+
+public class WordReference : IGetDisplayText
 {
     public readonly string Root;
     public readonly int ChapterIndex;
@@ -34,7 +36,9 @@ public class WordReference
         this.EnglishText = englishText;
     }
 
-    public override string ToString()
+    public override string ToString() => GetDisplayText();
+
+    public string GetDisplayText()
     {
         return string.Format(
                 "{0}:{1}.{2}",

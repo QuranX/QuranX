@@ -1,15 +1,28 @@
 #nullable enable
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
+using System.Reflection;
 using System.Text.Json;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
+using ModelContextProtocol.Server;
+using QuranX.Shared;
 
 namespace QuranX.Web.Middlewares;
 
 public class McpTracingMiddleware
 {
+    private static readonly Lazy<Dictionary<string, ParameterInfo[]>> ToolParameters =
+        new(BuildToolParameterMap);
+
+    private static readonly JsonSerializerOptions DeserializeOptions = new()
+    {
+        PropertyNameCaseInsensitive = true
+    };
+
     private readonly RequestDelegate Next;
 
     public McpTracingMiddleware(RequestDelegate next)
@@ -29,47 +42,24 @@ public class McpTracingMiddleware
         }
 
         context.Request.EnableBuffering();
-        (string? toolName, Dictionary<string, string>? arguments) =
-            await TryReadToolCall(context);
-
-        if (toolName is not null)
-        {
-            activity.SetTag("mcp.tool.name", toolName);
-            if (arguments is not null)
-            {
-                foreach ((string key, string value) in arguments)
-                {
-                    activity.SetTag($"mcp.tool.arg.{key}", value);
-                }
-            }
-        }
-
-        await Next(context);
-    }
-
-    private static async Task<(string? ToolName, Dictionary<string, string>? Arguments)>
-        TryReadToolCall(HttpContext context)
-    {
         try
         {
             using JsonDocument document = await JsonDocument.ParseAsync(
                 context.Request.Body,
                 cancellationToken: context.RequestAborted);
-            return ExtractToolCall(document.RootElement);
+            TryTagFromDocument(activity, document.RootElement);
         }
-        catch (JsonException)
-        {
-            return (null, null);
-        }
+        catch (JsonException) { }
         finally
         {
             if (context.Request.Body.CanSeek)
                 context.Request.Body.Position = 0;
         }
+
+        await Next(context);
     }
 
-    private static (string? ToolName, Dictionary<string, string>? Arguments) ExtractToolCall(
-        JsonElement root)
+    private static void TryTagFromDocument(Activity activity, JsonElement root)
     {
         JsonElement target = root.ValueKind switch
         {
@@ -87,29 +77,147 @@ public class McpTracingMiddleware
             || !paramsElement.TryGetProperty("name", out JsonElement nameElement)
             || nameElement.ValueKind != JsonValueKind.String)
         {
-            return (null, null);
+            return;
         }
 
         string? toolName = nameElement.GetString();
         if (toolName is null)
-            return (null, null);
+            return;
 
-        Dictionary<string, string>? arguments = null;
-        if (paramsElement.TryGetProperty("arguments", out JsonElement argsElement)
-            && argsElement.ValueKind == JsonValueKind.Object)
+        activity.SetTag("mcp.tool.name", toolName);
+
+        if (!paramsElement.TryGetProperty("arguments", out JsonElement argsElement)
+            || argsElement.ValueKind != JsonValueKind.Object)
         {
-            arguments = new Dictionary<string, string>();
-            foreach (JsonProperty property in argsElement.EnumerateObject())
+            return;
+        }
+
+        ToolParameters.Value.TryGetValue(toolName, out ParameterInfo[]? parameters);
+
+        foreach (JsonProperty property in argsElement.EnumerateObject())
+        {
+            ParameterInfo? param = parameters?.FirstOrDefault(p =>
+                string.Equals(p.Name, property.Name, StringComparison.OrdinalIgnoreCase));
+            TagArgument(activity, property.Name, property.Value, param?.ParameterType);
+        }
+    }
+
+    private static void TagArgument(
+        Activity activity,
+        string name,
+        JsonElement value,
+        Type? paramType)
+    {
+        string tagKey = $"mcp.tool.arg.{name}";
+
+        if (paramType is not null
+            && TryFormatWithDisplayText(value, paramType, out object? formatted))
+        {
+            activity.SetTag(tagKey, formatted);
+            return;
+        }
+
+        string fallback = value.ValueKind switch
+        {
+            JsonValueKind.String => value.GetString() ?? string.Empty,
+            JsonValueKind.Null => string.Empty,
+            _ => value.GetRawText()
+        };
+        activity.SetTag(tagKey, fallback);
+    }
+
+    private static bool TryFormatWithDisplayText(
+        JsonElement value,
+        Type paramType,
+        out object? formatted)
+    {
+        formatted = null;
+
+        if (typeof(IGetDisplayText).IsAssignableFrom(paramType))
+        {
+            if (TryDeserialize(value, paramType, out object? instance)
+                && instance is IGetDisplayText displayable)
             {
-                arguments[property.Name] = property.Value.ValueKind switch
-                {
-                    JsonValueKind.String => property.Value.GetString() ?? string.Empty,
-                    JsonValueKind.Null => string.Empty,
-                    _ => property.Value.GetRawText()
-                };
+                formatted = displayable.GetDisplayText();
+                return true;
             }
         }
 
-        return (toolName, arguments);
+        Type? elementType = GetCollectionElementType(paramType);
+        if (elementType is not null
+            && typeof(IGetDisplayText).IsAssignableFrom(elementType))
+        {
+            if (TryDeserialize(value, paramType, out object? instance)
+                && instance is IEnumerable enumerable)
+            {
+                formatted = enumerable
+                    .Cast<IGetDisplayText>()
+                    .Select(x => x.GetDisplayText())
+                    .ToArray();
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    private static bool TryDeserialize(JsonElement value, Type type, out object? result)
+    {
+        try
+        {
+            result = JsonSerializer.Deserialize(value, type, DeserializeOptions);
+            return result is not null;
+        }
+        catch (JsonException)
+        {
+            result = null;
+            return false;
+        }
+        catch (NotSupportedException)
+        {
+            result = null;
+            return false;
+        }
+    }
+
+    private static Type? GetCollectionElementType(Type type)
+    {
+        if (type == typeof(string))
+            return null;
+        if (type.IsArray)
+            return type.GetElementType();
+        foreach (Type iface in type.GetInterfaces())
+        {
+            if (iface.IsGenericType
+                && iface.GetGenericTypeDefinition() == typeof(IEnumerable<>))
+            {
+                return iface.GetGenericArguments()[0];
+            }
+        }
+        return null;
+    }
+
+    private static Dictionary<string, ParameterInfo[]> BuildToolParameterMap()
+    {
+        Dictionary<string, ParameterInfo[]> map = new();
+        Assembly assembly = typeof(McpTracingMiddleware).Assembly;
+        const BindingFlags flags =
+            BindingFlags.Public | BindingFlags.Instance | BindingFlags.Static;
+
+        foreach (Type type in assembly.GetTypes())
+        {
+            foreach (MethodInfo method in type.GetMethods(flags))
+            {
+                McpServerToolAttribute? attr =
+                    method.GetCustomAttribute<McpServerToolAttribute>();
+                if (attr is null)
+                    continue;
+                string toolName = string.IsNullOrEmpty(attr.Name)
+                    ? method.Name
+                    : attr.Name;
+                map[toolName] = method.GetParameters();
+            }
+        }
+        return map;
     }
 }
