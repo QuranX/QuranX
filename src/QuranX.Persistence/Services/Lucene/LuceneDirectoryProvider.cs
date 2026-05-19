@@ -1,4 +1,4 @@
-﻿using Lucene.Net.Store;
+using Lucene.Net.Store;
 using System;
 
 namespace QuranX.Persistence.Services.Lucene;
@@ -11,23 +11,14 @@ public interface ILuceneDirectoryProvider
 
 public class LuceneDirectoryProvider : ILuceneDirectoryProvider
 {
-    private static object _syncRoot = new Object();
-    private static ISettings _settings;
-    private static Lazy<Directory> _directory = new Lazy<Directory>(() => FSDirectory.Open(_settings.DataPath));
+    private readonly ISettings _settings;
+    private readonly Lazy<Directory> _directory;
 
     public LuceneDirectoryProvider(ISettings settings)
     {
-        if (_settings is null)
-        {
-            lock (_syncRoot)
-            {
-                _settings = _settings ?? settings;
-            }
-        }
+        _settings = settings;
+        _directory = new Lazy<Directory>(() => FSDirectory.Open(_settings.DataPath));
     }
 
-    public Directory GetDirectory()
-    {
-        return _directory.Value;
-    }
+    public Directory GetDirectory() => _directory.Value;
 }

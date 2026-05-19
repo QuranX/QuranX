@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -7,21 +7,15 @@ namespace QuranX.Shared;
 
 public static class ArabicHelper
 {
-    const string ArabicAlphabet = "إ أ آ ا ب ت ة ث ج ح خ د ذ ر ز س ش ص ض ط ظ ع غ ف ق ك ل م ن ه و ي ؤ ء ة ئ ى ي ئ";
-    static HashSet<char> PermittedChars;
-    public static readonly Dictionary<char, string> LetterNames;
-    public static readonly Dictionary<string, char> LettersByName;
-    public static readonly Dictionary<char, char> AlternateChars;
+    const string ArabicAlphabet =
+        "إ أ آ ا ب ت ة ث ج ح خ د ذ ر ز س ش ص ض ط ظ ع غ ف ق ك ل م ن ه و ي ؤ ء ة ئ ى ي ئ";
 
-    static ArabicHelper()
-    {
-        LetterNames = new Dictionary<char, string>();
-        PopulateLetterNames();
-        LettersByName = LetterNames.ToDictionary(x => x.Value, x => x.Key, StringComparer.OrdinalIgnoreCase);
-        PermittedChars = new HashSet<char>(ArabicAlphabet.ToCharArray().Distinct());
-        AlternateChars = new Dictionary<char, char>();
-        PopulateAlternateChars();
-    }
+    static readonly HashSet<char> PermittedChars =
+        new(ArabicAlphabet.ToCharArray().Distinct());
+    public static readonly Dictionary<char, string> LetterNames = BuildLetterNames();
+    public static readonly Dictionary<string, char> LettersByName =
+        LetterNames.ToDictionary(x => x.Value, x => x.Key, StringComparer.OrdinalIgnoreCase);
+    public static readonly Dictionary<char, char> AlternateChars = BuildAlternateChars();
 
     public static string ArabicToLetterNames(string source)
     {
@@ -32,7 +26,7 @@ public static class ArabicHelper
         {
             if (!LetterNames.TryGetValue(arabicChar, out string? letterName))
             {
-                throw new ArgumentException("No letter name for: " + arabicChar);
+                throw new ArgumentException($"No letter name for: {arabicChar}");
             }
             if (string.IsNullOrEmpty(letterName))
                 continue;
@@ -82,55 +76,50 @@ public static class ArabicHelper
         return resultBuilder.ToString();
     }
 
-    static void PopulateAlternateChars()
+    static Dictionary<char, char> BuildAlternateChars() => new()
     {
-        AlternateChars['ٱ'] = 'ا';
-        AlternateChars['آ'] = 'ا';
-        AlternateChars['أ'] = 'ا';
-        AlternateChars['ة'] = 'ت';
-        AlternateChars['ى'] = 'ي';
-        AlternateChars['ئ'] = 'ي';
-        AlternateChars['ء'] = '\0';
-    }
+        ['ٱ'] = 'ا',
+        ['آ'] = 'ا',
+        ['أ'] = 'ا',
+        ['ة'] = 'ت',
+        ['ى'] = 'ي',
+        ['ئ'] = 'ي',
+        ['ء'] = '\0',
+    };
 
-    static char GetArabicSubstituteChar(char c)
-    {
-        char alternateChar;
-        if (AlternateChars.TryGetValue(c, out alternateChar))
-            return alternateChar;
-        return c;
-    }
+    static char GetArabicSubstituteChar(char c) =>
+        AlternateChars.TryGetValue(c, out char alternateChar) ? alternateChar : c;
 
-    static void PopulateLetterNames()
+    static Dictionary<char, string> BuildLetterNames() => new()
     {
-        LetterNames['ا'] = "alif";
-        LetterNames['ب'] = "ba";
-        LetterNames['ت'] = "ta";
-        LetterNames['ث'] = "tha";
-        LetterNames['ج'] = "jim";
-        LetterNames['ح'] = "ha";
-        LetterNames['خ'] = "kha";
-        LetterNames['د'] = "dal";
-        LetterNames['ذ'] = "thal";
-        LetterNames['ر'] = "ra";
-        LetterNames['ز'] = "zay";
-        LetterNames['س'] = "sin";
-        LetterNames['ش'] = "shin";
-        LetterNames['ص'] = "sad";
-        LetterNames['ض'] = "dad";
-        LetterNames['ط'] = "tta";
-        LetterNames['ظ'] = "dha";
-        LetterNames['ع'] = "ayn";
-        LetterNames['غ'] = "ghayn";
-        LetterNames['ف'] = "fa";
-        LetterNames['ق'] = "qaf";
-        LetterNames['ك'] = "kaf";
-        LetterNames['ل'] = "lam";
-        LetterNames['م'] = "mim";
-        LetterNames['ن'] = "nun";
-        LetterNames['ه'] = "heh";
-        LetterNames['و'] = "waw";
-        LetterNames['ي'] = "ya";
-        LetterNames['ء'] = "";
-    }
+        ['ا'] = "alif",
+        ['ب'] = "ba",
+        ['ت'] = "ta",
+        ['ث'] = "tha",
+        ['ج'] = "jim",
+        ['ح'] = "ha",
+        ['خ'] = "kha",
+        ['د'] = "dal",
+        ['ذ'] = "thal",
+        ['ر'] = "ra",
+        ['ز'] = "zay",
+        ['س'] = "sin",
+        ['ش'] = "shin",
+        ['ص'] = "sad",
+        ['ض'] = "dad",
+        ['ط'] = "tta",
+        ['ظ'] = "dha",
+        ['ع'] = "ayn",
+        ['غ'] = "ghayn",
+        ['ف'] = "fa",
+        ['ق'] = "qaf",
+        ['ك'] = "kaf",
+        ['ل'] = "lam",
+        ['م'] = "mim",
+        ['ن'] = "nun",
+        ['ه'] = "heh",
+        ['و'] = "waw",
+        ['ي'] = "ya",
+        ['ء'] = "",
+    };
 }

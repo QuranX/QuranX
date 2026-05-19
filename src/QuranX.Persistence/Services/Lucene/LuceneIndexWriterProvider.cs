@@ -1,4 +1,4 @@
-﻿using Lucene.Net.Analysis;
+using Lucene.Net.Analysis;
 using Lucene.Net.Index;
 using Lucene.Net.Util;
 using System;
@@ -12,50 +12,34 @@ public interface ILuceneIndexWriterProvider
 
 public class LuceneIndexWriterProvider : ILuceneIndexWriterProvider, IDisposable
 {
-    private static readonly object SyncRoot = new object();
-    private static ILuceneDirectoryProvider LuceneDirectoryProvider;
-    private static Analyzer Analyzer;
-    private static Lazy<IndexWriter> IndexWriter;
+    private readonly ILuceneDirectoryProvider _directoryProvider;
+    private readonly Analyzer _analyzer;
+    private readonly Lazy<IndexWriter> _indexWriter;
 
-    public LuceneIndexWriterProvider(ILuceneDirectoryProvider luceneDirectoryProvider, Analyzer analyzer)
+    public LuceneIndexWriterProvider(
+        ILuceneDirectoryProvider luceneDirectoryProvider,
+        Analyzer analyzer)
     {
-        if (LuceneDirectoryProvider is null)
+        _directoryProvider = luceneDirectoryProvider;
+        _analyzer = analyzer;
+        _indexWriter = new Lazy<IndexWriter>(() =>
         {
-            lock (SyncRoot)
+            var indexWriterConfig = new IndexWriterConfig(LuceneVersion.LUCENE_48, _analyzer)
             {
-                if (LuceneDirectoryProvider is null)
-                {
-                    LuceneDirectoryProvider = luceneDirectoryProvider;
-                    Analyzer = analyzer;
-
-                    IndexWriter = new Lazy<IndexWriter>(() =>
-                    {
-                        var indexWriterConfig = new IndexWriterConfig(LuceneVersion.LUCENE_48, Analyzer)
-                        {
-                            OpenMode = OpenMode.CREATE_OR_APPEND
-                        };
-                        return new IndexWriter(LuceneDirectoryProvider.GetDirectory(), indexWriterConfig);
-                    });
-                }
-            }
-        }
+                OpenMode = OpenMode.CREATE_OR_APPEND
+            };
+            return new IndexWriter(_directoryProvider.GetDirectory(), indexWriterConfig);
+        });
     }
 
-    public IndexWriter GetIndexWriter()
-    {
-        return IndexWriter.Value;
-    }
+    public IndexWriter GetIndexWriter() => _indexWriter.Value;
 
     public void Dispose()
     {
-        if (IndexWriter is not null && IndexWriter.IsValueCreated)
+        if (_indexWriter.IsValueCreated)
         {
-            IndexWriter.Value.Dispose();
+            _indexWriter.Value.Dispose();
         }
-
-        if (LuceneDirectoryProvider is not null)
-        {
-            LuceneDirectoryProvider.GetDirectory().Dispose();
-        }
+        _directoryProvider.GetDirectory().Dispose();
     }
 }
