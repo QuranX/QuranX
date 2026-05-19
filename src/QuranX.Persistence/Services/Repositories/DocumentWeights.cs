@@ -1,7 +1,7 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 
-namespace QuranX.Persistence;
+namespace QuranX.Persistence.Services.Repositories;
 
 public static class DocumentWeights
 {

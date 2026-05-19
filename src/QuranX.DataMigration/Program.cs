@@ -9,8 +9,8 @@ class Program
     static void Main(string[] args)
     {
         var services = new ServiceCollection();
-        Services.Registration.Register(services);
-        Persistence.Services.Registration.Register(services);
+        Registration.Register(services);
+        Persistence.Registration.Register(services);
 
         var serviceProvider = services.BuildServiceProvider();
         var dataMigrator = serviceProvider.GetRequiredService<IDataMigrator>();

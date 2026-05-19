@@ -1,6 +1,6 @@
 using Lucene.Net.Util;
 
-namespace QuranX.Persistence.Services;
+namespace QuranX.Persistence.LuceneSupport;
 
 public static class LuceneConsts
 {

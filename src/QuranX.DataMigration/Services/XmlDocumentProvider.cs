@@ -1,5 +1,6 @@
 ﻿using NLog;
 using QuranX.DocumentModel;
+using QuranX.DocumentModel.Factories;
 
 namespace QuranX.DataMigration.Services;
 

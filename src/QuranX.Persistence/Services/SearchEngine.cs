@@ -3,6 +3,7 @@ using Lucene.Net.Index;
 using Lucene.Net.QueryParsers.Classic;
 using Lucene.Net.Search;
 using Lucene.Net.Search.VectorHighlight;
+using QuranX.Persistence.LuceneSupport;
 using QuranX.Persistence.Models;
 using System.Collections.Generic;
 using System.Linq;

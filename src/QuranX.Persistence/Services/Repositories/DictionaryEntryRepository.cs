@@ -17,6 +17,12 @@ public interface IDictionaryEntryRepository
 public class DictionaryEntryRepository : IDictionaryEntryRepository
 {
     public const string RootWordsIndexName = nameof(DictionaryEntry) + "_WordIndex";
+
+    private static readonly char[] ArabicLetters = [
+        'ا', 'ب', 'ت', 'ث', 'ج', 'ح', 'خ', 'د', 'ذ', 'ر', 'ز', 'س', 'ش', 'ص', 'ض',
+        'ط', 'ظ', 'ع', 'غ', 'ف', 'ق', 'ك', 'ل', 'م', 'ن', 'ه', 'و', 'ي'
+    ];
+
     private readonly ILuceneIndexSearcherProvider IndexSearcherProvider;
 
     public DictionaryEntryRepository(ILuceneIndexSearcherProvider indexSearcherProvider)
@@ -82,7 +88,7 @@ public class DictionaryEntryRepository : IDictionaryEntryRepository
         string[] roots;
         if (string.IsNullOrWhiteSpace(root))
         {
-            roots = ArabicLetters.Letters.Select(x => x.ToString()).ToArray();
+            roots = ArabicLetters.Select(x => x.ToString()).ToArray();
         }
         else
         {

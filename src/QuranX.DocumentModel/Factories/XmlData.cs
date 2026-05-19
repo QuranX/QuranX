@@ -1,7 +1,7 @@
-﻿using System.IO;
+using System.IO;
 using NLog;
 
-namespace QuranX.DocumentModel;
+namespace QuranX.DocumentModel.Factories;
 
 public class XmlData
 {
@@ -14,7 +14,7 @@ public class XmlData
 
     private Document CreateDocument(string dataDirectory, ILogger logger)
     {
-        var factory = new QuranX.DocumentModel.Factories.DocumentFactory(logger);
+        var factory = new DocumentFactory(logger);
         return factory.Create(
             generatedTranslationsDirectory: Path.Combine(dataDirectory, "Translations"),
             generatedHadithsDirectory: Path.Combine(dataDirectory, "Hadiths"),

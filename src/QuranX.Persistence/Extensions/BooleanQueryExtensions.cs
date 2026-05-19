@@ -2,7 +2,7 @@
 using Lucene.Net.Index;
 using Lucene.Net.QueryParsers.Classic;
 using Lucene.Net.Search;
-using QuranX.Persistence.Services;
+using QuranX.Persistence.LuceneSupport;
 using System;
 using System.Linq.Expressions;
 

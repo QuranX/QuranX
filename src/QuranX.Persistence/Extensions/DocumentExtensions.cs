@@ -1,4 +1,5 @@
 ﻿using Lucene.Net.Documents;
+using QuranX.Persistence.LuceneSupport;
 using QuranX.Persistence.Services;
 using System;
 using System.Collections.Generic;

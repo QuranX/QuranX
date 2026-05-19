@@ -1,7 +1,8 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection;
+using QuranX.Persistence.Services;
 using QuranX.Persistence.Services.Repositories;
 
-namespace QuranX.Persistence.Services;
+namespace QuranX.Persistence;
 
 public static class Registration
 {

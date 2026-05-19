@@ -1,8 +1,8 @@
-﻿using QuranX.Shared;
+using QuranX.Shared;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace QuranX.Persistence;
+namespace QuranX.Persistence.Services.Repositories;
 
 public static class ArabicWordIndexer
 {
