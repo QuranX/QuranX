@@ -1,8 +1,8 @@
-﻿using Lucene.Net.Util;
+using Lucene.Net.Util;
 
 namespace QuranX.Persistence.Services;
 
-public static class Consts
+public static class LuceneConsts
 {
     public const string FullTextFieldName = "_FullText";
     public static readonly LuceneVersion LuceneVersion = LuceneVersion.LUCENE_48;

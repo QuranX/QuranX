@@ -47,7 +47,7 @@ public class SearchEngine : ISearchEngine
         IndexSearcher indexSearcher = SearcherProvider.GetIndexSearcher();
         Analyzer analyzer = AnalyzerProvider.GetAnalyzer();
 
-        var queryParser = new QueryParser(Consts.LuceneVersion, Consts.FullTextFieldName, analyzer)
+        var queryParser = new QueryParser(LuceneConsts.LuceneVersion, LuceneConsts.FullTextFieldName, analyzer)
         {
             AllowLeadingWildcard = true,
             DefaultOperator = Operator.OR
@@ -72,13 +72,13 @@ public class SearchEngine : ISearchEngine
                 fieldQuery: fieldQuery,
                 reader: indexSearcher.IndexReader,
                 docId: scoreDoc.Doc,
-                fieldName: Consts.FullTextFieldName,
+                fieldName: LuceneConsts.FullTextFieldName,
                 fragCharSize: 150, // Adjust fragment size as needed
                 maxNumFragments: 5);
 
             var doc = indexSearcher.Doc(scoreDoc.Doc);
             var searchResult = new SearchResult(
-                type: doc.Get(Consts.SerializedObjectTypeFieldName),
+                type: doc.Get(LuceneConsts.SerializedObjectTypeFieldName),
                 document: doc,
                 snippets: fragments
             );
@@ -101,12 +101,12 @@ public class SearchEngine : ISearchEngine
         switch (context.ToUpperInvariant())
         {
             case SearchContexts.Quran:
-                var quranCriteria = new TermQuery(new Term(Consts.SerializedObjectTypeFieldName, nameof(Verse)));
+                var quranCriteria = new TermQuery(new Term(LuceneConsts.SerializedObjectTypeFieldName, nameof(Verse)));
                 booleanQuery.Add(quranCriteria, Occur.MUST);
                 break;
 
             case SearchContexts.Commentaries:
-                var commentariesCriteria = new TermQuery(new Term(Consts.SerializedObjectTypeFieldName, nameof(Commentary)));
+                var commentariesCriteria = new TermQuery(new Term(LuceneConsts.SerializedObjectTypeFieldName, nameof(Commentary)));
                 booleanQuery.Add(commentariesCriteria, Occur.MUST);
 
                 if (!string.IsNullOrWhiteSpace(subContext))
@@ -117,7 +117,7 @@ public class SearchEngine : ISearchEngine
                 break;
 
             case SearchContexts.Hadiths:
-                var hadithsCriteria = new TermQuery(new Term(Consts.SerializedObjectTypeFieldName, nameof(Hadith)));
+                var hadithsCriteria = new TermQuery(new Term(LuceneConsts.SerializedObjectTypeFieldName, nameof(Hadith)));
                 booleanQuery.Add(hadithsCriteria, Occur.MUST);
 
                 if (!string.IsNullOrWhiteSpace(subContext))

@@ -12,7 +12,7 @@ public class QuranXAnalyzer : Analyzer
     {
         Tokenizer tokenizer = new QuranXLetterTokenizer(reader);
         TokenStream tokenStream = tokenizer;
-        tokenStream = new LowerCaseFilter(Consts.LuceneVersion, tokenStream);
+        tokenStream = new LowerCaseFilter(LuceneConsts.LuceneVersion, tokenStream);
         tokenStream = new ArabicNormalizationFilter(tokenStream);
         tokenStream = new ArabicStemFilter(tokenStream);
         return new TokenStreamComponents(tokenizer, tokenStream);

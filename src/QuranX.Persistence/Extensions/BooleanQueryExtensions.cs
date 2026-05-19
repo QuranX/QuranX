@@ -12,7 +12,7 @@ public static class BooleanQueryExtensions
 {
     public static BooleanQuery FilterByType<T>(this BooleanQuery instance)
     {
-        var term = new Term(Consts.SerializedObjectTypeFieldName, typeof(T).Name);
+        var term = new Term(LuceneConsts.SerializedObjectTypeFieldName, typeof(T).Name);
         var query = new PhraseQuery();
         query.Add(term);
         instance.Add(query, Occur.MUST);
@@ -43,7 +43,7 @@ public static class BooleanQueryExtensions
         }
         else
         {
-            var parser = new QueryParser(Consts.LuceneVersion, indexName, new StandardAnalyzer(Consts.LuceneVersion));
+            var parser = new QueryParser(LuceneConsts.LuceneVersion, indexName, new StandardAnalyzer(LuceneConsts.LuceneVersion));
             var query = parser.Parse($"ISNULL:{indexName}");
         }
         return instance;
@@ -73,7 +73,7 @@ public static class BooleanQueryExtensions
         }
         else
         {
-            var parser = new QueryParser(Consts.LuceneVersion, indexName, new StandardAnalyzer(Consts.LuceneVersion));
+            var parser = new QueryParser(LuceneConsts.LuceneVersion, indexName, new StandardAnalyzer(LuceneConsts.LuceneVersion));
             var query = parser.Parse($"ISNULL:{indexName}");
         }
         return instance;

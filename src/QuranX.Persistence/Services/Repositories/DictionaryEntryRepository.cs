@@ -82,7 +82,7 @@ public class DictionaryEntryRepository : IDictionaryEntryRepository
         string[] roots;
         if (string.IsNullOrWhiteSpace(root))
         {
-            roots = ArabicAlphabet.Letters.Select(x => x.ToString()).ToArray();
+            roots = ArabicLetters.Letters.Select(x => x.ToString()).ToArray();
         }
         else
         {

@@ -7,7 +7,7 @@ namespace QuranX.Persistence.LuceneSupport;
 
 public sealed class QuranXLetterTokenizer : LetterTokenizer
 {
-    public QuranXLetterTokenizer(TextReader @in) : base(Consts.LuceneVersion, @in)
+    public QuranXLetterTokenizer(TextReader @in) : base(LuceneConsts.LuceneVersion, @in)
     {
     }
 

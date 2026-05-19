@@ -147,7 +147,7 @@ public static class DocumentExtensions
         if (text is null)
             throw new ArgumentNullException(nameof(text));
 
-        Add(document, Consts.FullTextFieldName, text, IndexKind.FullText, boostValue);
+        Add(document, LuceneConsts.FullTextFieldName, text, IndexKind.FullText, boostValue);
         return document;
     }
 
@@ -167,14 +167,14 @@ public static class DocumentExtensions
     public static Document AddObject<T>(this Document document, T instance)
     {
         string json = Newtonsoft.Json.JsonConvert.SerializeObject(instance);
-        Add(document, Consts.SerializedObjectFieldName, json, IndexKind.Store);
-        Add(document, Consts.SerializedObjectTypeFieldName, typeof(T).Name, IndexKind.StoreAndIndex);
+        Add(document, LuceneConsts.SerializedObjectFieldName, json, IndexKind.Store);
+        Add(document, LuceneConsts.SerializedObjectTypeFieldName, typeof(T).Name, IndexKind.StoreAndIndex);
         return document;
     }
 
     public static T GetObject<T>(this Document document)
     {
-        string json = document.Get(Consts.SerializedObjectFieldName);
+        string json = document.Get(LuceneConsts.SerializedObjectFieldName);
         T result = Newtonsoft.Json.JsonConvert.DeserializeObject<T>(json);
         return result;
     }

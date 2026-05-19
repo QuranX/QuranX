@@ -1,8 +1,8 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 
 namespace QuranX.Persistence;
 
-internal static class ArabicAlphabet
+internal static class ArabicLetters
 {
     public static readonly IEnumerable<char> Letters = [
         'ا', 'ب', 'ت', 'ث', 'ج', 'ح', 'خ', 'د', 'ذ', 'ر', 'ز', 'س', 'ش', 'ص', 'ض',
