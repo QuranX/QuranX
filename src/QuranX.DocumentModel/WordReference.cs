@@ -16,24 +16,20 @@ public class WordReference : IGetDisplayText
 
     public WordReference(
         string root,
-        int chapterIndex,
-        int verseIndex,
-        int wordIndex,
-        int wordPartIndex,
-        string wordPartType,
-        string wordPartTypeDescription,
+        WordPartLocation location,
+        WordTypeInfo wordType,
         string buckwalterText,
         string englishText)
     {
-        this.Root = root;
-        this.ChapterIndex = chapterIndex;
-        this.VerseIndex = verseIndex;
-        this.WordIndex = wordIndex;
-        this.WordPartIndex = wordPartIndex;
-        this.WordType = wordPartType;
-        this.WordTypeDescription = wordPartTypeDescription;
-        this.BuckwalterText = buckwalterText;
-        this.EnglishText = englishText;
+        Root = root;
+        ChapterIndex = location.ChapterIndex;
+        VerseIndex = location.VerseIndex;
+        WordIndex = location.WordIndex;
+        WordPartIndex = location.WordPartIndex;
+        WordType = wordType.Type;
+        WordTypeDescription = wordType.Description;
+        BuckwalterText = buckwalterText;
+        EnglishText = englishText;
     }
 
     public override string ToString() => GetDisplayText();

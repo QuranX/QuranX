@@ -23,6 +23,8 @@ namespace QuranX.DataMigration.Services
 			services.AddSingleton<ICorpusMigrator, CorpusMigrator>();
 			services.AddSingleton<IDictionariesMigrator, DictionariesMigrator>();
 			services.AddSingleton<ILisaanDictionaryMigrator, LisaanDictionaryMigrator>();
+			services.AddSingleton<SitemapRepositories>();
+			services.AddSingleton<MigratorSet>();
 		}
 
 		private static void RegisterConfiguration(IServiceCollection services)

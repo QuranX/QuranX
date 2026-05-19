@@ -16,12 +16,14 @@ public class RootWordsDocumentFactory
             where (!string.IsNullOrEmpty(wordPartNode.Element("root").Value))
             select new WordReference(
                     root: wordPartNode.Element("root").Value,
-                    chapterIndex: int.Parse(chapterNode.Attribute("index").Value),
-                    verseIndex: int.Parse(verseNode.Attribute("index").Value),
-                    wordIndex: int.Parse(wordNode.Attribute("index").Value),
-                    wordPartIndex: int.Parse(wordPartNode.Attribute("index").Value),
-                    wordPartType: wordPartNode.Element("type").Value,
-                    wordPartTypeDescription: WordTypes.Values[wordPartNode.Element("type").Value],
+                    location: new WordPartLocation(
+                        ChapterIndex: int.Parse(chapterNode.Attribute("index").Value),
+                        VerseIndex: int.Parse(verseNode.Attribute("index").Value),
+                        WordIndex: int.Parse(wordNode.Attribute("index").Value),
+                        WordPartIndex: int.Parse(wordPartNode.Attribute("index").Value)),
+                    wordType: new WordTypeInfo(
+                        Type: wordPartNode.Element("type").Value,
+                        Description: WordTypes.Values[wordPartNode.Element("type").Value]),
                     buckwalterText: wordNode.Element("buckwalter").Value,
                     englishText: wordNode.Element("english").Value
                 );

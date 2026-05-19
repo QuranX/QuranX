@@ -38,25 +38,18 @@ public sealed class SitemapGenerator : ISitemapGenerator
 
     public SitemapGenerator(
         ILogger logger,
-        IVerseRepository verseRepository,
-        IDictionaryRepository dictionaryRepository,
-        IDictionaryEntryRepository dictionaryEntryRepository,
-        ICommentatorRepository commentatorRepository,
-        ICommentaryRepository commentaryRepository,
-        IVerseAnalysisRepository verseAnalysisRepository,
-        IHadithRepository hadithRepository,
-        IHadithCollectionRepository hadithCollectionRepository,
+        SitemapRepositories repositories,
         ISettings settings)
     {
         Logger = logger;
-        VerseRepository = verseRepository;
-        DictionaryRepository = dictionaryRepository;
-        DictionaryEntryRepository = dictionaryEntryRepository;
-        CommentatorRepository = commentatorRepository;
-        CommentaryRepository = commentaryRepository;
-        VerseAnalysisRepository = verseAnalysisRepository;
-        HadithRepository = hadithRepository;
-        HadithCollectionRepository = hadithCollectionRepository;
+        VerseRepository = repositories.Verse;
+        DictionaryRepository = repositories.Dictionary;
+        DictionaryEntryRepository = repositories.DictionaryEntry;
+        CommentatorRepository = repositories.Commentator;
+        CommentaryRepository = repositories.Commentary;
+        VerseAnalysisRepository = repositories.VerseAnalysis;
+        HadithRepository = repositories.Hadith;
+        HadithCollectionRepository = repositories.HadithCollection;
         Settings = settings;
     }
 

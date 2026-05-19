@@ -22,21 +22,17 @@ public class DataMigrator : IDataMigrator
     private readonly ISettings Settings;
 
     public DataMigrator(
-        ICorpusMigrator corpusMigrator,
-        IQuranMigrator quranMigrator,
-        ICommentaryMigrator commentaryMigrator,
-        IHadithMigrator hadithMigrator,
+        MigratorSet migrators,
         ILuceneIndexWriterProvider indexWriterProvider,
-        IDictionariesMigrator dictionariesMigrator,
         ISitemapGenerator sitemapGenerator,
         ISettings settings)
     {
-        CorpusMigrator = corpusMigrator;
-        QuranMigrator = quranMigrator;
-        CommentaryMigrator = commentaryMigrator;
-        HadithMigrator = hadithMigrator;
+        CorpusMigrator = migrators.Corpus;
+        QuranMigrator = migrators.Quran;
+        CommentaryMigrator = migrators.Commentary;
+        HadithMigrator = migrators.Hadith;
+        DictionariesMigrator = migrators.Dictionaries;
         IndexWriterProvider = indexWriterProvider;
-        DictionariesMigrator = dictionariesMigrator;
         SitemapGenerator = sitemapGenerator;
         Settings = settings;
     }
