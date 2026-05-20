@@ -1,8 +1,8 @@
-using FluentAssertions;
 using QuranX.Web.E2ETests.Infrastructure;
 
 namespace QuranX.Web.E2ETests.Tests;
 
+[Trait("Category", "E2E")]
 public sealed class CrossCuttingTests : QuranXPageTest
 {
     public CrossCuttingTests(WebHostFixture host) : base(host) { }
@@ -16,11 +16,11 @@ public sealed class CrossCuttingTests : QuranXPageTest
     public async Task SmokeUrls_ReturnHtmlContentType(string path)
     {
         var response = await GotoAsync(path);
-        (await StatusAsync(response)).Should().Be(200);
+        Assert.Equal(200, await StatusAsync(response));
 
         var headers = response!.Headers;
-        headers.Should().ContainKey("content-type");
-        headers["content-type"].Should().Contain("text/html");
+        Assert.True(headers.ContainsKey("content-type"));
+        Assert.Contains("text/html", headers["content-type"]);
     }
 
     [Theory]
@@ -31,26 +31,26 @@ public sealed class CrossCuttingTests : QuranXPageTest
     public async Task Returning200_HasTitleAndCanonical(string path)
     {
         var response = await GotoAsync(path);
-        (await StatusAsync(response)).Should().Be(200);
+        Assert.Equal(200, await StatusAsync(response));
 
         var title = await Page.TitleAsync();
-        title.Should().NotBeNullOrWhiteSpace();
+        Assert.False(string.IsNullOrWhiteSpace(title));
 
         var canonicalCount = await Page.Locator("link[rel=canonical]").CountAsync();
-        canonicalCount.Should().BeGreaterThan(0);
+        Assert.True(canonicalCount > 0);
     }
 
     [Fact]
     public async Task RepeatedRequest_ToSamePath_ProducesSameContent()
     {
         var first = await GotoAsync("/1.1");
-        (await StatusAsync(first)).Should().Be(200);
+        Assert.Equal(200, await StatusAsync(first));
         var bodyA = await Page.Locator("body").InnerTextAsync();
 
         var second = await GotoAsync("/1.1");
-        (await StatusAsync(second)).Should().Be(200);
+        Assert.Equal(200, await StatusAsync(second));
         var bodyB = await Page.Locator("body").InnerTextAsync();
 
-        bodyB.Should().Be(bodyA);
+        Assert.Equal(bodyA, bodyB);
     }
 }

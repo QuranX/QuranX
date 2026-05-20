@@ -1,8 +1,8 @@
-using FluentAssertions;
 using QuranX.Web.E2ETests.Infrastructure;
 
 namespace QuranX.Web.E2ETests.Tests;
 
+[Trait("Category", "E2E")]
 public sealed class DictionaryTests : QuranXPageTest
 {
     public DictionaryTests(WebHostFixture host) : base(host) { }
@@ -11,10 +11,10 @@ public sealed class DictionaryTests : QuranXPageTest
     public async Task DictionariesIndex_Renders()
     {
         var response = await GotoAsync("/Dictionaries");
-        (await StatusAsync(response)).Should().Be(200);
+        Assert.Equal(200, await StatusAsync(response));
 
         var roots = await Page.Locator("a[href^='/Dictionaries/']").CountAsync();
-        roots.Should().BeGreaterThan(0);
+        Assert.True(roots > 0);
     }
 
     [Fact]
@@ -23,10 +23,10 @@ public sealed class DictionaryTests : QuranXPageTest
         var root = await Resolvers.FindDictionaryRootWithEntriesAsync(Page, Host.BaseAddress);
 
         var response = await GotoAsync($"/Dictionaries/{Uri.EscapeDataString(root)}");
-        (await StatusAsync(response)).Should().Be(200);
+        Assert.Equal(200, await StatusAsync(response));
 
         var entries = await Page.Locator(".dictionary-entries__entry").CountAsync();
-        entries.Should().BeGreaterThan(0);
+        Assert.True(entries > 0);
     }
 
     [Fact]
@@ -36,16 +36,16 @@ public sealed class DictionaryTests : QuranXPageTest
         var (code, word) = await Resolvers.GetFirstDictionaryEntryAsync(Page, Host.BaseAddress, root);
 
         var response = await GotoAsync($"/Dictionary/{code}/{Uri.EscapeDataString(word)}");
-        (await StatusAsync(response)).Should().Be(200);
+        Assert.Equal(200, await StatusAsync(response));
 
         var body = await Page.Locator("body").InnerTextAsync();
-        body.Should().NotBeNullOrWhiteSpace();
+        Assert.False(string.IsNullOrWhiteSpace(body));
     }
 
     [Fact]
     public async Task UnknownDictionary_Returns404()
     {
         var response = await GotoAsync("/Dictionary/NotADict/foo");
-        (await StatusAsync(response)).Should().BeOneOf(404, 500);
+        Assert.Contains(await StatusAsync(response), new[] { 404, 500 });
     }
 }

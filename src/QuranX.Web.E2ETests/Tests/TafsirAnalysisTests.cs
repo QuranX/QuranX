@@ -1,8 +1,8 @@
-using FluentAssertions;
 using QuranX.Web.E2ETests.Infrastructure;
 
 namespace QuranX.Web.E2ETests.Tests;
 
+[Trait("Category", "E2E")]
 public sealed class TafsirAnalysisTests : QuranXPageTest
 {
     public TafsirAnalysisTests(WebHostFixture host) : base(host) { }
@@ -11,11 +11,11 @@ public sealed class TafsirAnalysisTests : QuranXPageTest
     public async Task TafsirsForVerse_1_1_HasCanonical()
     {
         var response = await GotoAsync("/Tafsirs/1.1");
-        (await StatusAsync(response)).Should().Be(200);
+        Assert.Equal(200, await StatusAsync(response));
 
         var canonical = await Page.Locator("link[rel=canonical]").First.GetAttributeAsync("href");
-        canonical.Should().NotBeNullOrEmpty();
-        canonical!.Should().EndWith("/Tafsirs/1.1");
+        Assert.False(string.IsNullOrEmpty(canonical));
+        Assert.EndsWith("/Tafsirs/1.1", canonical);
     }
 
     [Fact]
@@ -24,34 +24,34 @@ public sealed class TafsirAnalysisTests : QuranXPageTest
         var code = await Resolvers.GetFirstCommentatorCodeAsync(Page, Host.BaseAddress);
 
         var response = await GotoAsync($"/Tafsir/{code}/1.1");
-        (await StatusAsync(response)).Should().Be(200);
+        Assert.Equal(200, await StatusAsync(response));
 
         var body = await Page.Locator("body").InnerTextAsync();
-        body.Should().NotBeNullOrWhiteSpace();
+        Assert.False(string.IsNullOrWhiteSpace(body));
     }
 
     [Fact]
     public async Task UnknownCommentator_Returns404()
     {
         var response = await GotoAsync("/Tafsir/NOT-A-REAL-CODE/1.1");
-        (await StatusAsync(response)).Should().BeOneOf(404, 500);
+        Assert.Contains(await StatusAsync(response), new[] { 404, 500 });
     }
 
     [Fact]
     public async Task InvalidVerseForTafsirs_Returns404()
     {
         var response = await GotoAsync("/Tafsirs/999.999");
-        (await StatusAsync(response)).Should().Be(404);
+        Assert.Equal(404, await StatusAsync(response));
     }
 
     [Fact]
     public async Task VerseAnalysis_1_1_RendersRootMarkup()
     {
         var response = await GotoAsync("/Analysis/1.1");
-        (await StatusAsync(response)).Should().Be(200);
+        Assert.Equal(200, await StatusAsync(response));
 
         var rootLinks = await Page.Locator("a[href^='/Analysis/Root/']").CountAsync();
-        rootLinks.Should().BeGreaterThan(0, because: "verse 1.1 has known Arabic roots");
+        Assert.True(rootLinks > 0);
     }
 
     [Fact]
@@ -60,9 +60,9 @@ public sealed class TafsirAnalysisTests : QuranXPageTest
         var root = await Resolvers.GetFirstAnalysisRootAsync(Page, Host.BaseAddress);
 
         var response = await GotoAsync($"/Analysis/Root/{root}");
-        (await StatusAsync(response)).Should().Be(200);
+        Assert.Equal(200, await StatusAsync(response));
 
         var body = await Page.Locator("body").InnerTextAsync();
-        body.Should().NotBeNullOrWhiteSpace();
+        Assert.False(string.IsNullOrWhiteSpace(body));
     }
 }

@@ -1,8 +1,8 @@
-using FluentAssertions;
 using QuranX.Web.E2ETests.Infrastructure;
 
 namespace QuranX.Web.E2ETests.Tests;
 
+[Trait("Category", "E2E")]
 public sealed class HadithRoutingTests : QuranXPageTest
 {
     public HadithRoutingTests(WebHostFixture host) : base(host) { }
@@ -12,7 +12,7 @@ public sealed class HadithRoutingTests : QuranXPageTest
     {
         var response = await GotoAsync("/Hadiths/2.255");
         var status = await StatusAsync(response);
-        status.Should().BeOneOf(200, 404);
+        Assert.Contains(status, new[] { 200, 404 });
     }
 
     [Fact]
@@ -21,10 +21,10 @@ public sealed class HadithRoutingTests : QuranXPageTest
         var (collection, primary) = await Resolvers.GetFirstHadithIndexAsync(Page, Host.BaseAddress);
 
         var response = await GotoAsync($"/Hadith/{collection}/{primary}");
-        (await StatusAsync(response)).Should().Be(200);
+        Assert.Equal(200, await StatusAsync(response));
 
         var subLinks = await Page.Locator($"a[href^='/Hadith/{collection}/']").CountAsync();
-        subLinks.Should().BeGreaterThan(0);
+        Assert.True(subLinks > 0);
     }
 
     [Fact]
@@ -35,14 +35,14 @@ public sealed class HadithRoutingTests : QuranXPageTest
             Page, Host.BaseAddress, collection, primary);
 
         var response = await GotoAsync($"/Hadith/{collection}/{primary}/{drill}");
-        (await StatusAsync(response)).Should().Be(200);
+        Assert.Equal(200, await StatusAsync(response));
     }
 
     [Fact]
     public async Task UnknownHadithCollection_Returns404()
     {
         var response = await GotoAsync("/Hadith/NotACollection/foo");
-        (await StatusAsync(response)).Should().BeOneOf(404, 500);
+        Assert.Contains(await StatusAsync(response), new[] { 404, 500 });
     }
 
     [Fact]
@@ -52,6 +52,6 @@ public sealed class HadithRoutingTests : QuranXPageTest
 
         var response = await GotoAsync($"/Hadith/{collection}/9999-1");
         var status = await StatusAsync(response);
-        status.Should().BeOneOf(200, 301, 302, 404);
+        Assert.Contains(status, new[] { 200, 301, 302, 404 });
     }
 }

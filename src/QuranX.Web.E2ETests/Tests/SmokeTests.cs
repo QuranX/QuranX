@@ -1,9 +1,9 @@
-using FluentAssertions;
 using Microsoft.Playwright;
 using QuranX.Web.E2ETests.Infrastructure;
 
 namespace QuranX.Web.E2ETests.Tests;
 
+[Trait("Category", "E2E")]
 public sealed class SmokeTests : QuranXPageTest
 {
     public SmokeTests(WebHostFixture host) : base(host) { }
@@ -12,53 +12,53 @@ public sealed class SmokeTests : QuranXPageTest
     public async Task Home_Returns200_AndShowsQuranHeading()
     {
         var response = await GotoAsync("/");
-        (await StatusAsync(response)).Should().Be(200);
+        Assert.Equal(200, await StatusAsync(response));
 
         var h1Text = await Page.Locator("h1").First.InnerTextAsync();
-        h1Text.Should().Contain("Qur'an");
+        Assert.Contains("Qur'an", h1Text);
 
         var canonical = await Page.Locator("link[rel=canonical]").CountAsync();
-        canonical.Should().BeGreaterThan(0);
+        Assert.True(canonical > 0);
     }
 
     [Fact]
     public async Task About_Returns200_AndTitleContainsAbout()
     {
         var response = await GotoAsync("/About");
-        (await StatusAsync(response)).Should().Be(200);
+        Assert.Equal(200, await StatusAsync(response));
 
         var title = await Page.TitleAsync();
-        title.Should().Contain("About", because: $"actual title was \"{title}\"");
+        Assert.Contains("About", title);
     }
 
     [Fact]
     public async Task Help_Returns200_WithCanonical()
     {
         var response = await GotoAsync("/Help");
-        (await StatusAsync(response)).Should().Be(200);
+        Assert.Equal(200, await StatusAsync(response));
 
         var canonicalHref = await Page.Locator("link[rel=canonical]").First.GetAttributeAsync("href");
-        canonicalHref.Should().NotBeNullOrEmpty();
-        canonicalHref!.Should().EndWith("/Help");
+        Assert.False(string.IsNullOrEmpty(canonicalHref));
+        Assert.EndsWith("/Help", canonicalHref);
     }
 
     [Fact]
     public async Task Tafsirs_ListsCommentators()
     {
         var response = await GotoAsync("/Tafsirs");
-        (await StatusAsync(response)).Should().Be(200);
+        Assert.Equal(200, await StatusAsync(response));
 
         var count = await Page.Locator("a[href^='/Tafsir/']").CountAsync();
-        count.Should().BeGreaterOrEqualTo(5);
+        Assert.True(count >= 5);
     }
 
     [Fact]
     public async Task Hadiths_ListsCollections()
     {
         var response = await GotoAsync("/Hadiths");
-        (await StatusAsync(response)).Should().Be(200);
+        Assert.Equal(200, await StatusAsync(response));
 
         var count = await Page.Locator("a[href^='/Hadith/']").CountAsync();
-        count.Should().BeGreaterOrEqualTo(5);
+        Assert.True(count >= 5);
     }
 }

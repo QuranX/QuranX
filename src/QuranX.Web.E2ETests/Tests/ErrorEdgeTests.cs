@@ -1,8 +1,8 @@
-using FluentAssertions;
 using QuranX.Web.E2ETests.Infrastructure;
 
 namespace QuranX.Web.E2ETests.Tests;
 
+[Trait("Category", "E2E")]
 public sealed class ErrorEdgeTests : QuranXPageTest
 {
     public ErrorEdgeTests(WebHostFixture host) : base(host) { }
@@ -11,7 +11,7 @@ public sealed class ErrorEdgeTests : QuranXPageTest
     public async Task UnknownRoute_Returns404()
     {
         var response = await GotoAsync("/this-route-does-not-exist");
-        (await StatusAsync(response)).Should().Be(404);
+        Assert.Equal(404, await StatusAsync(response));
     }
 
     [Fact]
@@ -23,11 +23,11 @@ public sealed class ErrorEdgeTests : QuranXPageTest
         if (status == 200)
         {
             var refs = await Page.Locator(".verse__reference").CountAsync();
-            refs.Should().Be(0, because: "verse 0 is not a valid Quran verse");
+            Assert.Equal(0, refs);
         }
         else
         {
-            status.Should().BeOneOf(404, 500);
+            Assert.Contains(status, new[] { 404, 500 });
         }
     }
 
@@ -35,6 +35,6 @@ public sealed class ErrorEdgeTests : QuranXPageTest
     public async Task TafsirsForInvalidVerse_0_0_Returns404()
     {
         var response = await GotoAsync("/Tafsirs/0.0");
-        (await StatusAsync(response)).Should().Be(404);
+        Assert.Equal(404, await StatusAsync(response));
     }
 }
