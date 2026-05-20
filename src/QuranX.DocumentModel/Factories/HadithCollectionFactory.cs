@@ -14,7 +14,7 @@ public class HadithCollectionFactory
 
     public HadithCollection Create(string hadithFilePath, string additionalHadithXRefsDirectory)
     {
-        var doc = XDocument.Load(File.OpenText(hadithFilePath));
+        var doc = XDocument.Load(hadithFilePath);
         var collectionNode = doc.Document.Root;
 
         string code = collectionNode.Element("code").Value;

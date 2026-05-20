@@ -70,7 +70,7 @@ public class QuranDocumentFactory
 
     void ReadTranslation(string translationFilePath)
     {
-        var doc = XDocument.Load(File.OpenRead(translationFilePath));
+        var doc = XDocument.Load(translationFilePath);
         var quranNode = doc.Document.Root;
         string translatorCode = quranNode.Element("translatorCode").Value;
         string translatorName = quranNode.Element("translatorName").Value;

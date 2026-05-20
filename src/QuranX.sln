@@ -27,6 +27,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuranX.DocumentModel.Tests"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuranX.Persistence.Tests", "QuranX.Persistence.Tests\QuranX.Persistence.Tests.csproj", "{02E75F1E-5905-465B-9802-4A59DE2BCBA5}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuranX.Web.Tests", "QuranX.Web.Tests\QuranX.Web.Tests.csproj", "{19C9AC64-AB52-4510-B1E2-1F9C71B6E323}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -183,6 +185,22 @@ Global
 		{02E75F1E-5905-465B-9802-4A59DE2BCBA5}.Release|x86.Build.0 = Release|Any CPU
 		{02E75F1E-5905-465B-9802-4A59DE2BCBA5}.Release|x64.ActiveCfg = Release|Any CPU
 		{02E75F1E-5905-465B-9802-4A59DE2BCBA5}.Release|x64.Build.0 = Release|Any CPU
+		{19C9AC64-AB52-4510-B1E2-1F9C71B6E323}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{19C9AC64-AB52-4510-B1E2-1F9C71B6E323}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{19C9AC64-AB52-4510-B1E2-1F9C71B6E323}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{19C9AC64-AB52-4510-B1E2-1F9C71B6E323}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{19C9AC64-AB52-4510-B1E2-1F9C71B6E323}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{19C9AC64-AB52-4510-B1E2-1F9C71B6E323}.Debug|x86.Build.0 = Debug|Any CPU
+		{19C9AC64-AB52-4510-B1E2-1F9C71B6E323}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{19C9AC64-AB52-4510-B1E2-1F9C71B6E323}.Debug|x64.Build.0 = Debug|Any CPU
+		{19C9AC64-AB52-4510-B1E2-1F9C71B6E323}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{19C9AC64-AB52-4510-B1E2-1F9C71B6E323}.Release|Any CPU.Build.0 = Release|Any CPU
+		{19C9AC64-AB52-4510-B1E2-1F9C71B6E323}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{19C9AC64-AB52-4510-B1E2-1F9C71B6E323}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{19C9AC64-AB52-4510-B1E2-1F9C71B6E323}.Release|x86.ActiveCfg = Release|Any CPU
+		{19C9AC64-AB52-4510-B1E2-1F9C71B6E323}.Release|x86.Build.0 = Release|Any CPU
+		{19C9AC64-AB52-4510-B1E2-1F9C71B6E323}.Release|x64.ActiveCfg = Release|Any CPU
+		{19C9AC64-AB52-4510-B1E2-1F9C71B6E323}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

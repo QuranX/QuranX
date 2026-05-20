@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RunSettings>
+    <DataCollectionRunSettings>
+        <DataCollectors>
+            <DataCollector friendlyName="XPlat code coverage">
+                <Configuration>
+                    <Format>cobertura</Format>
+                    <Include>[QuranX.*]*</Include>
+                    <Exclude>[QuranX.*.Tests]*,[QuranX.DataMigration]*</Exclude>
+                    <ExcludeByAttribute>Obsolete,GeneratedCodeAttribute,CompilerGeneratedAttribute,ExcludeFromCodeCoverageAttribute</ExcludeByAttribute>
+                    <ExcludeByFile>**/Program.cs,**/Properties/Resources.Designer.cs,**/obj/**/*.cs,**/*.g.cs,**/*.Designer.cs,**/*.cshtml.cs</ExcludeByFile>
+                    <IncludeTestAssembly>false</IncludeTestAssembly>
+                    <UseSourceLink>true</UseSourceLink>
+                    <DeterministicReport>true</DeterministicReport>
+                    <SkipAutoProps>true</SkipAutoProps>
+                </Configuration>
+            </DataCollector>
+        </DataCollectors>
+    </DataCollectionRunSettings>
+</RunSettings>
