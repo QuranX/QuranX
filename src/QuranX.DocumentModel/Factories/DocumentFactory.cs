@@ -10,13 +10,11 @@ public class DocumentFactory
     TafsirDocument Tafsir;
     WordsDocument RootWords;
     CorpusDocument Corpus;
-    LexiconDocument Lexicons;
     string GeneratedTranslationsDirectory;
     string GeneratedHadithsDirectory;
     string AdditionalHadithXRefsDirectory;
     string GeneratedTafsirsDirectory;
     string GeneratedCorpusXmlFilePath;
-    string GeneratedLexiconsXmlDirectory;
 
     public DocumentFactory(ILogger logger)
     {
@@ -28,8 +26,7 @@ public class DocumentFactory
         string generatedHadithsDirectory,
         string additionalHadithXRefsDirectory,
         string generatedTafsirsDirectory,
-        string generatedCorpusXmlFilePath,
-        string generatedLexiconsXmlDirectory
+        string generatedCorpusXmlFilePath
         )
     {
         GeneratedTranslationsDirectory = generatedTranslationsDirectory;
@@ -37,21 +34,18 @@ public class DocumentFactory
         AdditionalHadithXRefsDirectory = additionalHadithXRefsDirectory;
         GeneratedTafsirsDirectory = generatedTafsirsDirectory;
         GeneratedCorpusXmlFilePath = generatedCorpusXmlFilePath;
-        GeneratedLexiconsXmlDirectory = generatedLexiconsXmlDirectory;
 
         CreateQuran();
         CreateHadith();
         CreateTafsir();
         CreateRootWords();
         CreateCorpus();
-        CreateLexicons();
         return new Document(
                 quranDocument: Quran,
                 hadithDocument: Hadith,
                 tafsirDocument: Tafsir,
                 rootWordsDocument: RootWords,
-                corpusDocument: Corpus,
-                lexiconDocument: null
+                corpusDocument: Corpus
             );
     }
 
@@ -93,11 +87,5 @@ public class DocumentFactory
         Corpus = factory.Create(GeneratedCorpusXmlFilePath);
     }
 
-    void CreateLexicons()
-    {
-        Logger.Debug("Loading Lexicons");
-        var factory = new LexiconDocumentFactory();
-        Lexicons = factory.Create(GeneratedLexiconsXmlDirectory);
-    }
 
 }

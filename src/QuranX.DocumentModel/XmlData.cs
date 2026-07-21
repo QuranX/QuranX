@@ -20,7 +20,6 @@ public class XmlData
             generatedHadithsDirectory: Path.Combine(dataDirectory, "Hadiths"),
             additionalHadithXRefsDirectory: Path.Combine(dataDirectory, "HadithXRefs"),
             generatedTafsirsDirectory: Path.Combine(dataDirectory, "Tafsirs"),
-            generatedCorpusXmlFilePath: Path.Combine(dataDirectory, "CorpusQuran.xml"),
-            generatedLexiconsXmlDirectory: Path.Combine(dataDirectory, "LaneLexicon/LaneLexicon.xml"));
+            generatedCorpusXmlFilePath: Path.Combine(dataDirectory, "CorpusQuran.xml"));
     }
 }
