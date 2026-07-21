@@ -1,4 +1,4 @@
-﻿using QuranX.Shared;
+using QuranX.Shared;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -149,7 +149,17 @@ public class HadithReference :
         return ((HadithReference)obj).CompareTo(this) == 0;
     }
 
-    public override int GetHashCode() => HashCode.Combine(Code, ToString());
+    public override int GetHashCode()
+    {
+        // Must stay consistent with Equals/CompareTo, which are case-insensitive on
+        // Code and Suffix and treat numeric values (e.g. "5" and "05") as equal.
+        var hash = new HashCode();
+        hash.Add(Code ?? "", StringComparer.OrdinalIgnoreCase);
+        foreach (string value in Values)
+            hash.Add(int.TryParse(value, out int numeric) ? numeric.ToString() : value);
+        hash.Add(Suffix ?? "", StringComparer.OrdinalIgnoreCase);
+        return hash.ToHashCode();
+    }
 
     public static HadithReference ParseDottedReference(string code, string hadithNumber)
     {

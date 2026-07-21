@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 
 namespace QuranX.DocumentModel;
 
@@ -26,12 +26,14 @@ public class ChapterAndVerse : IComparable
 
     public static bool operator ==(ChapterAndVerse left, ChapterAndVerse right)
     {
-        return (left.Equals(right));
+        if (left is null)
+            return right is null;
+        return left.Equals(right);
     }
 
     public static bool operator !=(ChapterAndVerse left, ChapterAndVerse right)
     {
-        return (!left.Equals(right));
+        return !(left == right);
     }
 
     public int CompareTo(ChapterAndVerse other)
@@ -47,7 +49,7 @@ public class ChapterAndVerse : IComparable
         return 0;
     }
 
-    public override int GetHashCode() => HashCode.Combine(Chapter, Verse.GetHashCode);
+    public override int GetHashCode() => HashCode.Combine(Chapter.Number, Verse.Index);
 
     int IComparable.CompareTo(object obj)
     {

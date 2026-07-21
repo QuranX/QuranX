@@ -119,12 +119,16 @@ public class HadithReference : IComparable<HadithReference>
 
     public override int GetHashCode()
     {
-        string hashString =
-            $"{CollectionCode}/{ReferenceCode}"
-            + $"/{ReferenceValue1}/{ReferenceValue2}/{ReferenceValue3}"
-            + $"/{Suffix}";
-        return hashString.GetHashCode();
-
+        // Must stay consistent with Equals, which is case-insensitive on
+        // CollectionCode, ReferenceCode and Suffix.
+        var hash = new HashCode();
+        hash.Add(CollectionCode ?? "", StringComparer.OrdinalIgnoreCase);
+        hash.Add(ReferenceCode ?? "", StringComparer.OrdinalIgnoreCase);
+        hash.Add(ReferenceValue1);
+        hash.Add(ReferenceValue2);
+        hash.Add(ReferenceValue3);
+        hash.Add(Suffix ?? "", StringComparer.OrdinalIgnoreCase);
+        return hash.ToHashCode();
     }
 
     public override bool Equals(object obj)
@@ -195,8 +199,8 @@ public class HadithReference : IComparable<HadithReference>
 
     public static bool operator ==(HadithReference a, HadithReference b)
     {
-        if (Object.ReferenceEquals(a, null) && Object.ReferenceEquals(b, null))
-            return true;
+        if (Object.ReferenceEquals(a, null))
+            return Object.ReferenceEquals(b, null);
         return a.Equals(b);
     }
 
