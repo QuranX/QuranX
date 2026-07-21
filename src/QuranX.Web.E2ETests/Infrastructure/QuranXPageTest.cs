@@ -3,8 +3,7 @@ using Microsoft.Playwright.Xunit;
 
 namespace QuranX.Web.E2ETests.Infrastructure;
 
-[Collection(QuranXCollection.Name)]
-public abstract class QuranXPageTest : PageTest
+public abstract class QuranXPageTest : PageTest, IClassFixture<WebHostFixture>
 {
     protected WebHostFixture Host { get; }
 
