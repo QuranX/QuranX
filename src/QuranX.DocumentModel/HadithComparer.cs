@@ -44,7 +44,7 @@ public class HadithComparer : IComparer<Hadith>
         foreach (string definitionCode in CollectionCodesInPriorityOrder)
         {
             if (firstHadithReferences.ContainsKey(definitionCode)) return -1;
-            if (firstHadithReferences.ContainsKey(definitionCode)) return 1;
+            if (secondHadithReferences.ContainsKey(definitionCode)) return 1;
         }
 
         // Just return the same

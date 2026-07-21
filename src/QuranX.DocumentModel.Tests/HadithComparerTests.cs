@@ -105,4 +105,30 @@ public sealed class HadithComparerTests
 
         Assert.Equal(0, result);
     }
+
+    [Fact]
+    public void Compare_DisjointReferences_HigherPriorityFirst_ReturnsNegative()
+    {
+        var collection = Collection();
+        var comparer = new HadithComparer(collection.ReferenceDefinitions);
+        var first = Build(collection, new HadithReference("USC", ["1"], null));
+        var second = Build(collection, new HadithReference("InBook", ["1"], null));
+
+        int result = comparer.Compare(first, second);
+
+        Assert.True(result < 0);
+    }
+
+    [Fact]
+    public void Compare_DisjointReferences_HigherPrioritySecond_ReturnsPositive()
+    {
+        var collection = Collection();
+        var comparer = new HadithComparer(collection.ReferenceDefinitions);
+        var first = Build(collection, new HadithReference("InBook", ["1"], null));
+        var second = Build(collection, new HadithReference("USC", ["1"], null));
+
+        int result = comparer.Compare(first, second);
+
+        Assert.True(result > 0);
+    }
 }
