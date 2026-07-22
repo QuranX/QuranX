@@ -571,6 +571,18 @@ dl.boxed > dd {
     margin-bottom: 1rem;
 }
 
+/* Prevent the flash of not-yet-hidden translations: start transparent (only when
+   JS is available, so no-JS visitors still see everything), then fade in as soon
+   as quranx.verse-translations.js has finished hiding the non-preferred ones. */
+html.js .verse__translations {
+    opacity: 0;
+    transition: opacity 0.5s ease;
+}
+
+    html.js .verse__translations.ready {
+        opacity: 1;
+    }
+
 .verse__translation {
     margin: 0.25em 0 0.75em 0;
 }

@@ -11,9 +11,7 @@
 	}
 }
 
-console.log('1');
 $(function () {
-	console.log('2');
 	var quranXShowAllTranslations = (window.location.search || "").toLowerCase().indexOf("alltranslations=y") > -1;
 	// Buttons to show translations
 	$(".verse__translation-hidden-item")
@@ -50,4 +48,8 @@ $(function () {
 			window.localStorage.removeItem("show-" + translatorCode, true);
 			toggleTranslation(translatorCode);
 		});
+	// Non-preferred translations have now been hidden above (while the container is
+	// still transparent), so reveal the settled result with the CSS opacity fade.
+	// This avoids the flash of not-yet-hidden translations on each page load.
+	$(".verse__translations").addClass("ready");
 });
