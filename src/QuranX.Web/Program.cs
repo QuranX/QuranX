@@ -36,6 +36,7 @@ if (!builder.Environment.IsDevelopment())
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 builder.Services.AddHttpContextAccessor();
+builder.Services.AddOutputCache();
 builder.Services
   .AddMcpServer(McpServerRegistration.Register)
   .WithHttpTransport(options => options.Stateless = true)
@@ -73,6 +74,7 @@ app.UseStaticFiles(new StaticFileOptions
 });
 
 app.UseRouting();
+app.UseOutputCache();
 app.UseMiddleware<OpenTelemetryEnrichmentMiddleware>();
 app.UseWhen(
     context => context.Request.Path.StartsWithSegments("/mcp"),
