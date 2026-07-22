@@ -226,6 +226,67 @@ public sealed class SearchEngineTests : IClassFixture<LuceneIndexFixture>
         Assert.True(total >= 1);
     }
 
+    [Theory]
+    [InlineData("\"guidance")]   // unbalanced quote
+    [InlineData("guidance AND")] // trailing operator
+    [InlineData("guidance^")]    // dangling boost
+    [InlineData("guidance~~")]   // malformed fuzzy
+    public void Search_MalformedQuery_FallsBackToLiteralAndStillMatches(string queryString)
+    {
+        SeedMixedDocuments();
+
+        // Malformed Lucene syntax would throw ParseException (→ 500) without the
+        // escaped-literal fallback. The word "guidance" is still present, so the
+        // escaped query should match rather than fail.
+        var results = _searchEngine.Search(
+            queryString: queryString,
+            context: SearchContexts.WholeSite,
+            subContext: "",
+            out _,
+            maxResults: 10).ToList();
+
+        Assert.NotEmpty(results);
+    }
+
+    [Theory]
+    [InlineData("*")]
+    [InlineData("*guidance")]
+    [InlineData("?guidance")]
+    public void Search_LeadingWildcard_DoesNotThrow(string queryString)
+    {
+        SeedMixedDocuments();
+
+        // Leading wildcards are disabled (DoS vector). The parse throws, then the
+        // escaped-literal fallback keeps the request from surfacing as a 500.
+        var exception = Record.Exception(() => _searchEngine.Search(
+            queryString: queryString,
+            context: SearchContexts.WholeSite,
+            subContext: "",
+            out _,
+            maxResults: 10).ToList());
+
+        Assert.Null(exception);
+    }
+
+    [Fact]
+    public void Search_OverlyLongQuery_IsTruncatedAndStillMatches()
+    {
+        SeedMixedDocuments();
+
+        // A query far longer than the cap is truncated before parsing; it must not
+        // throw and, since it starts with the term, should still match.
+        string longQuery = "guidance " + new string('a', Consts.MaxQueryLength * 2);
+
+        var results = _searchEngine.Search(
+            queryString: longQuery,
+            context: SearchContexts.WholeSite,
+            subContext: "",
+            out _,
+            maxResults: 10).ToList();
+
+        Assert.NotEmpty(results);
+    }
+
     private sealed class StubWriter : ILuceneIndexWriterProvider
     {
         private readonly IndexWriter _writer;

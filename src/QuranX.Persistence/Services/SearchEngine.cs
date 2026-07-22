@@ -1,4 +1,5 @@
-﻿using Lucene.Net.Analysis;
+using Lucene.Net.Analysis;
+using Lucene.Net.Analysis.TokenAttributes;
 using Lucene.Net.Index;
 using Lucene.Net.QueryParsers.Classic;
 using Lucene.Net.Search;
@@ -44,16 +45,22 @@ public class SearchEngine : ISearchEngine
         if (string.IsNullOrWhiteSpace(queryString))
             return new List<SearchResult>();
 
+        // Cap the length so a pathologically long query can't drive parsing/search cost.
+        if (queryString.Length > Consts.MaxQueryLength)
+            queryString = queryString.Substring(0, Consts.MaxQueryLength);
+
         IndexSearcher indexSearcher = SearcherProvider.GetIndexSearcher();
         Analyzer analyzer = AnalyzerProvider.GetAnalyzer();
 
         var queryParser = new QueryParser(Consts.LuceneVersion, Consts.FullTextFieldName, analyzer)
         {
-            AllowLeadingWildcard = true,
+            // Leading wildcards (e.g. "*foo" or a bare "*") force Lucene to enumerate the
+            // entire term dictionary — a cheap DoS on a public endpoint. Keep them disabled.
+            AllowLeadingWildcard = false,
             DefaultOperator = Operator.OR
         };
 
-        Query userQuery = queryParser.Parse(queryString);
+        Query userQuery = ParseUserQuery(queryParser, analyzer, queryString);
         BooleanQuery mainQuery = AddContextCriteria(userQuery, context, subContext);
 
         // Perform the search and get the top documents
@@ -86,6 +93,43 @@ public class SearchEngine : ISearchEngine
         }
 
         return result;
+    }
+
+    // Parses raw user input into a Lucene query. Malformed query syntax — unbalanced
+    // quotes, a trailing operator, a reserved keyword like AND/OR, a stray special
+    // character — throws ParseException, which would otherwise surface as a 500. Fall
+    // back to a query built directly from the analyzer's tokens (an OR of the terms),
+    // which bypasses query syntax entirely and can never throw on the user's input.
+    private static Query ParseUserQuery(QueryParser queryParser, Analyzer analyzer, string queryString)
+    {
+        try
+        {
+            return queryParser.Parse(queryString);
+        }
+        catch (ParseException)
+        {
+            return BuildTermFallbackQuery(analyzer, queryString);
+        }
+    }
+
+    // Tokenizes the raw input with the same analyzer used at index time and ORs the
+    // resulting terms together. An input that yields no tokens (e.g. a bare "*")
+    // produces an empty query that simply matches nothing — no exception either way.
+    private static Query BuildTermFallbackQuery(Analyzer analyzer, string queryString)
+    {
+        var fallbackQuery = new BooleanQuery();
+        using TokenStream tokenStream = analyzer.GetTokenStream(Consts.FullTextFieldName, queryString);
+        ICharTermAttribute termAttribute = tokenStream.AddAttribute<ICharTermAttribute>();
+        tokenStream.Reset();
+        while (tokenStream.IncrementToken())
+        {
+            string term = termAttribute.ToString();
+            if (term.Length == 0)
+                continue;
+            fallbackQuery.Add(new TermQuery(new Term(Consts.FullTextFieldName, term)), Occur.SHOULD);
+        }
+        tokenStream.End();
+        return fallbackQuery;
     }
 
     private BooleanQuery AddContextCriteria(Query mainQuery, string context, string subContext)
