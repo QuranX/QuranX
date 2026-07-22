@@ -1,6 +1,7 @@
-﻿using Lucene.Net.Search;
+using Lucene.Net.Search;
 using QuranX.Persistence.Extensions;
 using QuranX.Persistence.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -66,7 +67,12 @@ public class DictionaryEntryRepository : IDictionaryEntryRepository
         var query = new BooleanQuery(disableCoord: true);
         query.FilterByType<DictionaryEntry>();
         IndexSearcher searcher = IndexSearcherProvider.GetIndexSearcher();
-        TopDocs docs = searcher.Search(query, int.MaxValue);
+        // Bound the result window to the number of documents that actually exist rather than
+        // int.MaxValue: Lucene sizes its HitQueue array to numHits, so int.MaxValue attempts a
+        // multi-gigabyte allocation. MaxDoc is the true upper bound on matches; guard the empty
+        // index case, where MaxDoc == 0 would make Search throw ("numHits must be > 0").
+        int maxResults = Math.Max(1, searcher.IndexReader.MaxDoc);
+        TopDocs docs = searcher.Search(query, maxResults);
         string[] roots = docs
             .ScoreDocs
             .Select(x => searcher.Doc(x.Doc))

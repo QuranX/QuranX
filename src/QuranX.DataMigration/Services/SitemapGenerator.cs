@@ -67,9 +67,13 @@ public sealed class SitemapGenerator : ISitemapGenerator
         Directory.Delete(outputDir, true);
         Directory.CreateDirectory(outputDir);
 
+        // Materialize the hadith sitemaps once: GetAllReferences returns a lazy,
+        // re-searching pipeline, so we must not enumerate it more than necessary.
+        (string FileName, IReadOnlyList<SitemapUrl> Urls)[] hadithSitemaps = GetHadithSitemaps();
+
         string[] sitemapFileNames =
             Enumerable.Empty<string>()
-            .Concat(GetHadithSitemapFileNames())
+            .Concat(hadithSitemaps.Select(s => s.FileName))
             .Concat([
                 "verse-hadiths.xml",
                     "static-pages.xml",
@@ -101,7 +105,7 @@ public sealed class SitemapGenerator : ISitemapGenerator
             .Concat(GetTafsirUrls());
         WriteFile(Path.Combine(outputDir, "verse-tafsirs.xml"), BuildUrlSitemapXml(tafsirUrls));
 
-        foreach ((string FileName, IEnumerable<SitemapUrl> Urls) hadithSitemap in GetHadithSitemaps())
+        foreach ((string FileName, IReadOnlyList<SitemapUrl> Urls) hadithSitemap in hadithSitemaps)
             WriteFile(Path.Combine(outputDir, hadithSitemap.FileName), BuildUrlSitemapXml(hadithSitemap.Urls));
     }
 
@@ -171,40 +175,43 @@ public sealed class SitemapGenerator : ISitemapGenerator
         return sb.ToString();
     }
 
-    private IEnumerable<string> GetHadithSitemapFileNames()
-        => GetHadithSitemaps().Select(s => s.FileName);
-
-    private IEnumerable<(string FileName, IEnumerable<SitemapUrl> Urls)> GetHadithSitemaps()
+    private (string FileName, IReadOnlyList<SitemapUrl> Urls)[] GetHadithSitemaps()
     {
-        IEnumerable<HadithCollection> collections = HadithCollectionRepository.GetAll();
+        var sitemaps = new List<(string FileName, IReadOnlyList<SitemapUrl> Urls)>();
 
-        foreach (HadithCollection collection in collections)
+        foreach (HadithCollection collection in HadithCollectionRepository.GetAll())
         {
-            IEnumerable<string> referenceCodes =
+            // Enumerate (and deserialize) each collection's references exactly once,
+            // then group in memory by reference code.
+            ILookup<string, HadithReference> referencesByCode =
                 HadithRepository
                     .GetAllReferences(collection.Code)
-                    .Select(r => r.ReferenceCode)
-                    .Where(code => !string.IsNullOrWhiteSpace(code))
-                    .Distinct(StringComparer.OrdinalIgnoreCase)
+                    .Where(r => !string.IsNullOrWhiteSpace(r.ReferenceCode))
+                    .ToLookup(r => r.ReferenceCode, StringComparer.OrdinalIgnoreCase);
+
+            IEnumerable<string> referenceCodes =
+                referencesByCode
+                    .Select(g => g.Key)
                     .OrderBy(code => code, StringComparer.OrdinalIgnoreCase);
 
             foreach (string referenceCode in referenceCodes)
             {
                 Logger.Debug($"Generating sitemap for Hadiths {collection.Code}/{referenceCode}");
-                IEnumerable<SitemapUrl> urls =
-                    HadithRepository
-                        .GetAllReferences(collection.Code)
-                        .Where(r => string.Equals(r.ReferenceCode, referenceCode, StringComparison.OrdinalIgnoreCase))
+                SitemapUrl[] urls =
+                    referencesByCode[referenceCode]
                         .Select(reference =>
                         {
                             HadithReferenceDefinition referenceDefinition = collection.GetReferenceDefinition(reference.ReferenceCode);
                             string referencePath = reference.GetPath(referenceDefinition);
                             return new SitemapUrl($"/Hadith/{referencePath}", Priority: 0.4m);
-                        });
+                        })
+                        .ToArray();
 
-                yield return ($"hadiths_{collection.Code}_{referenceCode}.xml", urls);
+                sitemaps.Add(($"hadiths_{collection.Code}_{referenceCode}.xml", urls));
             }
         }
+
+        return sitemaps.ToArray();
     }
 
     private IEnumerable<SitemapUrl> GetStaticUrls()

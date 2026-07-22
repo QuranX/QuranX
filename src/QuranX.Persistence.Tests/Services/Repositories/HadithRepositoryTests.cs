@@ -183,6 +183,32 @@ public sealed class HadithRepositoryTests : IClassFixture<LuceneIndexFixture>
     }
 
     [Fact]
+    public void GetHadiths_MultipleHadithsShareReferencePath_ReturnsAll()
+    {
+        const string sharedPath = "Bukhari/USC/Volume-1/Book-2/Number-3";
+        _fixture.Reseed(writer =>
+        {
+            var collectionWriteRepo = new HadithCollectionWriteRepository(
+                new SeededWriterProvider(writer));
+            collectionWriteRepo.Write(BukhariCollection());
+
+            var hadithWriteRepo = new HadithWriteRepository(new SeededWriterProvider(writer));
+            hadithWriteRepo.Write(MakeHadith(primaryReferencePath: sharedPath));
+            hadithWriteRepo.Write(MakeHadith(primaryReferencePath: sharedPath));
+        });
+        (IHadithRepository repo, _) = BuildRepos();
+
+        var hadiths = repo
+            .GetHadiths(CollectionCode, primaryReferencePaths: [sharedPath])
+            .ToList();
+
+        // Both hadiths share the single requested path; capping numHits at paths.Length (1) would
+        // silently drop one. All matching documents must be returned.
+        Assert.Equal(2, hadiths.Count);
+        Assert.All(hadiths, h => Assert.Equal(sharedPath, h.PrimaryReferencePath));
+    }
+
+    [Fact]
     public void GetHadiths_NullPaths_ReturnsEmpty()
     {
         SeedSingleHadith(out _, out _);

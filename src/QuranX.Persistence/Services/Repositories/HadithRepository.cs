@@ -50,7 +50,12 @@ public class HadithRepository : IHadithRepository
             .AddStringEqualsQuery<HadithReference>(x => x.CollectionCode, collectionCode, Occur.MUST);
 
         IndexSearcher searcher = IndexSearcherProvider.GetIndexSearcher();
-        TopDocs docs = searcher.Search(query, int.MaxValue);
+        // Bound the result window to the number of documents that actually exist rather than
+        // int.MaxValue: Lucene sizes its HitQueue array to numHits, so int.MaxValue attempts a
+        // multi-gigabyte allocation. MaxDoc is the true upper bound on matches; guard the empty
+        // index case, where MaxDoc == 0 would make Search throw ("numHits must be > 0").
+        int maxResults = Math.Max(1, searcher.IndexReader.MaxDoc);
+        TopDocs docs = searcher.Search(query, maxResults);
         IEnumerable<int> documentIds = docs.ScoreDocs.Select(x => x.Doc);
         IEnumerable<HadithReference> references = documentIds
             .Select(x => searcher.Doc(x).GetObject<HadithReference>());
@@ -105,7 +110,11 @@ public class HadithRepository : IHadithRepository
         query.Add(new BooleanClause(pathQuery, Occur.MUST));
 
         IndexSearcher searcher = IndexSearcherProvider.GetIndexSearcher();
-        TopDocs docs = searcher.Search(query, paths.Length);
+        // numHits must bound the number of matching *documents*, not the number of distinct paths:
+        // several hadiths can share a PrimaryReferencePath, so paths.Length silently truncated the
+        // results. MaxDoc is the true upper bound; guard the empty-index case (MaxDoc == 0 throws).
+        int maxResults = Math.Max(1, searcher.IndexReader.MaxDoc);
+        TopDocs docs = searcher.Search(query, maxResults);
         return docs.ScoreDocs
             .Select(x => searcher.Doc(x.Doc).GetObject<Hadith>());
     }
