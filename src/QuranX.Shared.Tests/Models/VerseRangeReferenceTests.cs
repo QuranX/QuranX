@@ -24,6 +24,86 @@ public sealed class VerseRangeReferenceTests
     }
 
     [Fact]
+    public void Parse_Malformed_ThrowsFormatExceptionWithContext()
+    {
+        var exception = Assert.Throws<FormatException>(() => VerseRangeReference.Parse("not-a-reference"));
+        Assert.Contains("not-a-reference", exception.Message);
+    }
+
+    [Theory]
+    [InlineData("2.3")]
+    [InlineData("2.3-5")]
+    public void TryParse_ValidReference_ReturnsTrue(string source)
+    {
+        Assert.True(VerseRangeReference.TryParse(source, out var range));
+        Assert.NotNull(range);
+    }
+
+    [Fact]
+    public void TryParse_SingleVerse_PopulatesFirstEqualsLast()
+    {
+        Assert.True(VerseRangeReference.TryParse("2.3", out var range));
+        Assert.Equal(2, range!.Chapter);
+        Assert.Equal(3, range.FirstVerse);
+        Assert.Equal(3, range.LastVerse);
+    }
+
+    [Fact]
+    public void TryParse_VerseRange_PopulatesFirstAndLast()
+    {
+        Assert.True(VerseRangeReference.TryParse("2.3-5", out var range));
+        Assert.Equal(2, range!.Chapter);
+        Assert.Equal(3, range.FirstVerse);
+        Assert.Equal(5, range.LastVerse);
+    }
+
+    [Fact]
+    public void TryParse_ZeroLastVerse_NormalisesToFirstVerse()
+    {
+        Assert.True(VerseRangeReference.TryParse("2.3-0", out var range));
+        Assert.Equal(3, range!.FirstVerse);
+        Assert.Equal(3, range.LastVerse);
+    }
+
+    [Theory]
+    [InlineData(null)]
+    [InlineData("")]
+    [InlineData("   ")]
+    [InlineData("garbage")]
+    [InlineData("2")]
+    [InlineData("2.")]
+    [InlineData(".3")]
+    [InlineData("2.a")]
+    [InlineData("a.3")]
+    [InlineData("2.3.4")]
+    [InlineData("2.3-4-5")]
+    public void TryParse_MalformedInput_ReturnsFalse(string? source)
+    {
+        Assert.False(VerseRangeReference.TryParse(source, out var range));
+        Assert.Null(range);
+    }
+
+    [Theory]
+    [InlineData("0.1")]     // chapter below range
+    [InlineData("115.1")]   // chapter above range (only 114 chapters)
+    [InlineData("999.1")]   // chapter far above range
+    [InlineData("2.0")]     // verse below range
+    [InlineData("1.8")]     // verse above range (chapter 1 has 7 verses)
+    [InlineData("1.1-8")]   // last verse above range
+    public void TryParse_OutOfRange_ReturnsFalse(string source)
+    {
+        Assert.False(VerseRangeReference.TryParse(source, out var range));
+        Assert.Null(range);
+    }
+
+    [Fact]
+    public void TryParse_InvertedRange_ReturnsFalse()
+    {
+        Assert.False(VerseRangeReference.TryParse("2.5-3", out var range));
+        Assert.Null(range);
+    }
+
+    [Fact]
     public void LastVerse_ZeroNormalisesToFirstVerse()
     {
         Assert.Equal(3, new VerseRangeReference(2, 3, 0).LastVerse);

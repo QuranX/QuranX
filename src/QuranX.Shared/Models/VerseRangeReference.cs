@@ -1,6 +1,7 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Xml.Linq;
 
@@ -43,22 +44,63 @@ public class VerseRangeReference : IComparable, IComparable<VerseRangeReference>
 
     public static VerseRangeReference Parse(string source)
     {
-        string[] chapterVerseParts = source.Split('.');
-        string[] verseRangeParts = chapterVerseParts[1].Split('-');
-        int chapter = int.Parse(chapterVerseParts[0]);
-        int firstVerse = int.Parse(verseRangeParts[0]);
-        int lastVerse = firstVerse;
-        if (verseRangeParts.Length > 1)
-        {
-            lastVerse = int.Parse(verseRangeParts[1]);
-            if (lastVerse == 0)
-                lastVerse = firstVerse;
-        }
+        if (!TryParseComponents(source, out int chapter, out int firstVerse, out int lastVerse))
+            throw new FormatException(
+                $"'{source}' is not a valid verse range reference " +
+                "(expected 'chapter.verse' or 'chapter.firstVerse-lastVerse').");
         return new VerseRangeReference(
                 chapter: chapter,
                 firstVerse: firstVerse,
                 lastVerse: lastVerse
             );
+    }
+
+    /// <summary>
+    /// Parses a verse range reference and validates it against the bounds of the Quran
+    /// (chapter 1-114, verse within the chapter's verse count) and rejects inverted ranges.
+    /// Returns <c>false</c> for null, malformed, or out-of-range input instead of throwing.
+    /// </summary>
+    public static bool TryParse(string? source, [NotNullWhen(true)] out VerseRangeReference? result)
+    {
+        result = null;
+        if (!TryParseComponents(source, out int chapter, out int firstVerse, out int lastVerse))
+            return false;
+        if (!QuranStructure.TryValidateChapterAndVerse(chapter, firstVerse))
+            return false;
+        if (!QuranStructure.TryValidateChapterAndVerse(chapter, lastVerse))
+            return false;
+        if (lastVerse < firstVerse)
+            return false;
+        result = new VerseRangeReference(chapter, firstVerse, lastVerse);
+        return true;
+    }
+
+    private static bool TryParseComponents(string? source, out int chapter, out int firstVerse, out int lastVerse)
+    {
+        chapter = 0;
+        firstVerse = 0;
+        lastVerse = 0;
+        if (string.IsNullOrWhiteSpace(source))
+            return false;
+        string[] chapterVerseParts = source.Split('.');
+        if (chapterVerseParts.Length != 2)
+            return false;
+        string[] verseRangeParts = chapterVerseParts[1].Split('-');
+        if (verseRangeParts.Length > 2)
+            return false;
+        if (!int.TryParse(chapterVerseParts[0], out chapter))
+            return false;
+        if (!int.TryParse(verseRangeParts[0], out firstVerse))
+            return false;
+        lastVerse = firstVerse;
+        if (verseRangeParts.Length > 1)
+        {
+            if (!int.TryParse(verseRangeParts[1], out lastVerse))
+                return false;
+            if (lastVerse == 0)
+                lastVerse = firstVerse;
+        }
+        return true;
     }
 
     public static VerseRangeReference ParseXml(XElement parentNode)

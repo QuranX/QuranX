@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.OutputCaching;
 using QuranX.Persistence.Models;
 using QuranX.Persistence.Services.Repositories;
@@ -25,14 +25,21 @@ public class QuranVersesController : Controller
 
     public ActionResult Index(string verses, int? context)
     {
+        if (string.IsNullOrWhiteSpace(verses))
+            return NotFound();
+
         if (verses == "1.1")
             ViewBag.Canonical = "";
 
-        IEnumerable<VerseRangeReference> verseRangeReferences = verses.Split(',')
-            .ToList()
-            .ConvertAll(x => VerseRangeReference.Parse(x));
-        if (!verseRangeReferences.Any())
-            verseRangeReferences = new VerseRangeReference[] { new VerseRangeReference(1, 1, 1) };
+        var parsedReferences = new List<VerseRangeReference>();
+        foreach (string versePart in verses.Split(','))
+        {
+            if (!VerseRangeReference.TryParse(versePart, out VerseRangeReference reference))
+                return NotFound();
+            parsedReferences.Add(reference);
+        }
+
+        IEnumerable<VerseRangeReference> verseRangeReferences = parsedReferences;
 
         VerseRangeReference firstReference = verseRangeReferences.First();
         bool autoScrollToSelectedVerse = verseRangeReferences.Count() == 1 && context.HasValue && context > 0;
