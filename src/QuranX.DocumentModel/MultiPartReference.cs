@@ -84,10 +84,11 @@ public class MultiPartReference :
             }
             else
             {
-                left = left.PadRight(right.Length, '0');
-                right = right.PadRight(left.Length, '0');
+                int padLength = Math.Max(left.Length, right.Length);
+                left = left.PadRight(padLength, '0');
+                right = right.PadRight(padLength, '0');
                 if (left != right)
-                    return left.CompareTo(right);
+                    return string.CompareOrdinal(left, right);
             }
         }
         if (this.Length < other.Length)

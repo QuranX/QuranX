@@ -27,6 +27,21 @@ public sealed class VerseReferenceTests
     }
 
     [Fact]
+    public void EqualityOperators_WithNullOperands_DoNotThrow()
+    {
+        VerseReference? nonNull = new VerseReference(1, 5);
+        VerseReference? @null = null;
+
+        Assert.False(@null == nonNull);
+        Assert.False(nonNull == @null);
+        Assert.True((VerseReference?)null == (VerseReference?)null);
+
+        Assert.True(@null != nonNull);
+        Assert.True(nonNull != @null);
+        Assert.False((VerseReference?)null != (VerseReference?)null);
+    }
+
+    [Fact]
     public void CompareTo_OrdersByChapterThenVerse()
     {
         Assert.True(new VerseReference(1, 5).CompareTo(new VerseReference(2, 1)) < 0);

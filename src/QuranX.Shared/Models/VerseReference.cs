@@ -53,14 +53,16 @@ public class VerseReference :
         return Chapter == other.Chapter && Verse == other.Verse;
     }
 
-    public static bool operator ==(VerseReference left, VerseReference right)
+    public static bool operator ==(VerseReference? left, VerseReference? right)
     {
-        return (left.Equals(right));
+        if (left is null && right is null) return true;
+        if (left is null != right is null) return false;
+        return left!.Equals(right);
     }
 
-    public static bool operator !=(VerseReference left, VerseReference right)
+    public static bool operator !=(VerseReference? left, VerseReference? right)
     {
-        return (!left.Equals(right));
+        return !(left == right);
     }
 
     public int CompareTo(VerseReference? other)
