@@ -1,48 +1,107 @@
-﻿/*
-	Colors:
-		Header border
-			hsl(70, 48%, 40%);
+﻿/* ===========================================================================
+   Theme colours
+   ---------------------------------------------------------------------------
+   Every colour used in this file is defined here as a --color-* custom
+   property. Light values are the defaults on :root; the dark values override
+   them when the visitor's operating system requests dark mode. Rules below
+   this block must always reference a --color-* variable and never a raw
+   colour literal.
 
-		Title bar
-			hsl(40, 94.7%, 92.5%);
-		Title bar shadow
-			hsl(40, 94.7%, 92.5%);
-		Title bar text
-			hsl(31, 63.2%, 56.3%);
-		Title bar sub text
-			hsl(204, 100%, 51.5%);
-
-		H1
-			hsl(69, 39.2%, 44.5%);
-		H2
-			hsl(69, 41.4%, 48.8%);
-		H3+
-			hsl(67, 45.7%, 61.0%);
-
-		Striped 1
-			hsl(0, 0%, 93.3%);
-		Striped 2
-			hsl(0, 0%, 100.0%);
-
-		Tab
-			hsl(0, 0%, 86.77%);
-		Tab text
-			hsl(0, 0%, 26.7%);
-		Tab selected
-			hsl(67, 45.7%, 61.0%);
-		Tab text hover/active
-			hsl(70, 48%, 40%);
-
-		Link hover/active
-			hsl(67, 46%, 61%);
-			
-		Highlight
-			hsl(69, 99.2%, 54.5%);
-		Highlight text
-			hsl(0, 0%, 26.7%);
-*/
+   The theme follows the OS setting only (prefers-color-scheme) - there is no
+   in-page toggle. color-scheme: light dark also lets native controls
+   (form fields, scrollbars) match the active theme automatically.
+   =========================================================================== */
 :root {
     box-sizing: border-box;
+
+    /* ----- Light theme (default) ----- */
+    color-scheme: light dark;
+
+    /* Base surfaces / text */
+    --color-body-bg: hsl(0, 0%, 100%);
+    --color-body-text: hsl(0, 0%, 20%);
+    --color-text-muted: hsl(0, 0%, 45%);
+    --color-surface: hsl(0, 0%, 100%);
+    --color-link: #337ab7;
+    /* Text sitting on the coloured brand surfaces (header image, donate badge,
+       dropdown button); stays white in both themes so it is not overridden. */
+    --color-on-brand: white;
+
+    /* Title bar */
+    --color-titlebar-bg: hsl(40, 94.7%, 92.5%);
+    --color-titlebar-border: hsl(40, 94.7%, 85%);
+    --color-titlebar-text: hsl(31, 63.2%, 56.3%);
+    --color-titlebar-subtext: hsl(204, 100%, 51.5%);
+
+    /* Headings / accents */
+    --color-h1: hsl(69, 39.2%, 44.5%);
+    --color-h2: hsl(69, 41.4%, 48.8%);
+    --color-h3: hsl(67, 45.7%, 61.0%);
+    --color-accent: hsl(67, 45.7%, 61.0%);
+
+    /* Striped rows */
+    --color-striped-1: hsl(0, 0%, 93.3%);
+    --color-striped-2: hsl(0, 0%, 100.0%);
+
+    /* Tabs */
+    --color-tab-bg: hsl(0, 0%, 86.77%);
+    --color-tab-text: hsl(0, 0%, 26.7%);
+    --color-tab-text-hover: hsl(70, 48%, 40%);
+
+    /* Highlight */
+    --color-highlight-bg: hsl(69, 99.2%, 54.5%);
+    --color-highlight-text: hsl(0, 0%, 26.7%);
+
+    /* Borders / misc */
+    --color-border-subtle: #ddd;
+    --color-border-strong: black;
+    --color-shadow-soft: #f0f0f0;
+    --color-hadith-border: hsl(208, 37%, 43%);
+    --color-help-em-bg: #ffffcc;
+}
+
+/* ----- Dark theme (applied when the OS requests dark mode) ----- */
+@media (prefers-color-scheme: dark) {
+    :root {
+        /* Base surfaces / text */
+        --color-body-bg: hsl(0, 0%, 11%);
+        --color-body-text: hsl(0, 0%, 85%);
+        --color-text-muted: hsl(0, 0%, 55%);
+        --color-surface: hsl(0, 0%, 16%);
+        --color-link: hsl(204, 85%, 72%);
+
+        /* Title bar */
+        --color-titlebar-bg: hsl(40, 25%, 20%);
+        --color-titlebar-border: hsl(40, 25%, 30%);
+        --color-titlebar-text: hsl(31, 70%, 62%);
+        --color-titlebar-subtext: hsl(204, 90%, 68%);
+
+        /* Headings / accents */
+        --color-h1: hsl(69, 42%, 58%);
+        --color-h2: hsl(69, 44%, 62%);
+        --color-h3: hsl(67, 50%, 66%);
+        --color-accent: hsl(67, 40%, 42%);
+
+        /* Striped rows */
+        --color-striped-1: hsl(0, 0%, 17%);
+        --color-striped-2: hsl(0, 0%, 13%);
+
+        /* Tabs */
+        --color-tab-bg: hsl(0, 0%, 25%);
+        --color-tab-text: hsl(0, 0%, 85%);
+        --color-tab-text-hover: hsl(70, 55%, 62%);
+
+        /* Highlight */
+        --color-highlight-bg: hsl(69, 80%, 50%);
+        --color-highlight-text: hsl(0, 0%, 15%);
+
+        /* Borders / misc */
+        --color-border-subtle: hsl(0, 0%, 30%);
+        --color-border-strong: hsl(0, 0%, 45%);
+        --color-shadow-soft: hsl(0, 0%, 20%);
+        --color-hadith-border: hsl(208, 40%, 50%);
+        --color-help-em-bg: hsl(56, 60%, 25%);
+    }
 }
 
 *, ::before, ::after {
@@ -56,9 +115,9 @@
 
 .highlight {
     /*Col:Highlight*/
-    background-color: hsl(69, 99.2%, 54.5%);
+    background-color: var(--color-highlight-bg);
     /*Col:Highlight text*/
-    color: hsl(0, 0%, 26.7%);
+    color: var(--color-highlight-text);
     font-weight: bold;
     padding: 4px 0px;
 }
@@ -68,7 +127,7 @@
     top: 3.75em;
     left: 0;
     z-index: 9999;
-    background-color: white;
+    background-color: var(--color-surface);
     display: inline-block;
     padding: 2px;
     border-radius: 4px;
@@ -163,9 +222,9 @@
     justify-content: center;
     align-items: center;
     z-index: 9999;
-    background-color: hsl(67, 45.7%, 61.0%);
+    background-color: var(--color-accent);
     border-radius: 50%;
-    border: 4px solid white;
+    border: 4px solid var(--color-on-brand);
     overflow: hidden;
     animation-name: pulse-subhan-Allah;
     animation-duration: 5s;
@@ -216,7 +275,7 @@
 }
 
 #donate-container .donate-text {
-    color: white;
+    color: var(--color-on-brand);
     text-align: center;
     font-size: 1.5em;
     font-weight: bold;
@@ -242,12 +301,12 @@
 
 .striped > * {
     /* Col:Striped 1*/
-    background-color: hsl(0, 0%, 93.3%);
+    background-color: var(--color-striped-1);
 }
 
     /* Col:Striped 2*/
     .striped > *:nth-child(2n) {
-        background-color: hsl(0, 0%, 100.0%);
+        background-color: var(--color-striped-2);
     }
 
 .quranx.navbar {
@@ -267,24 +326,24 @@
 
 .quranx.navbar-toggle {
     /* Col:H1 */
-    background-color: hsl(69, 39.2%, 44.5%);
-    color: white;
+    background-color: var(--color-h1);
+    color: var(--color-on-brand);
 }
 
     /* Col:H2 */
     .quranx.navbar-toggle:hover {
-        background-color: hsl(69, 41.4%, 48.8%);
-        color: white;
+        background-color: var(--color-h2);
+        color: var(--color-on-brand);
     }
 
     /* Col:H2 */
     .quranx.navbar-toggle:focus {
-        background-color: hsl(69, 41.4%, 48.8%);
-        color: white;
+        background-color: var(--color-h2);
+        color: var(--color-on-brand);
     }
 
 .navbar a {
-    color: white !important;
+    color: var(--color-on-brand) !important;
     text-decoration: none;
 }
 
@@ -309,9 +368,9 @@
     margin-bottom: 1rem;
     width: 100%;
     /*Col:Tab text*/
-    color: hsl(0, 0%, 26.7%);
+    color: var(--color-tab-text);
     /*Col:Tab*/
-    background-color: hsl(0, 0%, 86.77%) !important;
+    background-color: var(--color-tab-bg) !important;
     padding: 0.5rem 1rem;
     border-radius: 0.25rem;
 }
@@ -347,7 +406,7 @@
 .chapter-and-verse-selector__navigator-buttons .btn {
     margin: 4px 0 -4px 0;
     width: 9rem;
-    border: 1px solid black;
+    border: 1px solid var(--color-border-strong);
 }
 
 .search__criteria {
@@ -356,9 +415,9 @@
     margin-bottom: 1rem;
     width: 100%;
     /*Col:Tab text*/
-    color: hsl(0, 0%, 26.7%);
+    color: var(--color-tab-text);
     /*Col:Tab*/
-    background-color: hsl(0, 0%, 86.77%) !important;
+    background-color: var(--color-tab-bg) !important;
     padding: 0.5em 1rem;
     border-radius: 0.25rem;
     width: 22em;
@@ -375,13 +434,13 @@
 
 dl.search__result > dt {
     /* Col:Striped 1*/
-    background-color: hsl(0, 0%, 93.3%);
+    background-color: var(--color-striped-1);
 }
 
 .btn.dropdown-toggle {
     /*Col:H2*/
-    background-color: hsl(69, 41.4%, 48.8%);
-    color: white;
+    background-color: var(--color-h2);
+    color: var(--color-on-brand);
 }
 
 .verse-analysis__word-list {
@@ -438,17 +497,17 @@ h1, h2, h3, h4, h5, h6 {
 
 h1 {
     /*Col:H1*/
-    color: hsl(69, 39.2%, 44.5%);
+    color: var(--color-h1);
 }
 
 h2 {
     /*Col:H2*/
-    color: hsl(69, 41.4%, 48.8%);
+    color: var(--color-h2);
 }
 
 h3, h4, h5, h6 {
     /*Col:H3+*/
-    color: hsl(67, 45.7%, 61.0%);
+    color: var(--color-h3);
 }
 
 @media(max-width: 480px) {
@@ -493,9 +552,9 @@ h3, h4, h5, h6 {
 
 dl.count-and-label {
     /*Col:Title bar text*/
-    color: hsl(31, 63.2%, 56.3%);
+    color: var(--color-titlebar-text);
     /*Col:Title bar*/
-    background-color: hsl(40, 94.7%, 92.5%);
+    background-color: var(--color-titlebar-bg);
     padding: 0.25em 0.5rem;
     border-radius: 0.5rem;
     border: none;
@@ -508,7 +567,7 @@ dl.count-and-label {
 
     dl.count-and-label dt {
         /*Col:Title bar sub text*/
-        color: hsl(204, 100%, 51.5%);
+        color: var(--color-titlebar-subtext);
         font-weight: normal;
         font-size: 0.75rem;
         text-align: center;
@@ -529,9 +588,9 @@ dl > dd:not(:first-child) {
 }
 
 .boxed {
-    border: 2px solid #ddd;
+    border: 2px solid var(--color-border-subtle);
     border-radius: 0.5rem;
-    box-shadow: #f0f0f0 5px 5px;
+    box-shadow: var(--color-shadow-soft) 5px 5px;
     padding: 2px;
 }
 
@@ -547,9 +606,9 @@ dl.boxed > dd {
     display: inline-block;
     width: auto;
     /*Col:Title bar text*/
-    color: hsl(31, 63.2%, 56.3%);
+    color: var(--color-titlebar-text);
     /*Col:Title bar*/
-    background-color: hsl(40, 94.7%, 92.5%);
+    background-color: var(--color-titlebar-bg);
     padding: 0.25em 0.5rem;
     border-radius: 0.5rem;
     font-size: 2rem;
@@ -589,9 +648,9 @@ html.js .verse__translations {
 
     .verse__translation > dt {
         /*Col:Title bar sub text*/
-        color: hsl(204, 100%, 51.5%);
+        color: var(--color-titlebar-subtext);
         /*Col:Title bar*/
-        background-color: hsl(40, 94.7%, 92.5%);
+        background-color: var(--color-titlebar-bg);
         font-weight: bold;
         position: relative;
         padding-left: 1.5em !important;
@@ -604,9 +663,9 @@ html.js .verse__translations {
             margin: 0 0.5em 0 -1rem;
             border: 1px solid;
             /*Col:Tab text*/
-            color: hsl(0, 0%, 26.7%);
+            color: var(--color-tab-text);
             /*Col:Tab*/
-            border-color: hsl(0, 0%, 86.77%);
+            border-color: var(--color-tab-bg);
             padding: 0.25rem;
         }
 
@@ -621,9 +680,9 @@ html.js .verse__translations {
 .verse__translation-hidden-item {
     display: none;
     /*Col:Title bar sub text*/
-    color: hsl(204, 100%, 51.5%);
+    color: var(--color-titlebar-subtext);
     /*Col:Title bar*/
-    background-color: hsl(40, 94.7%, 92.5%);
+    background-color: var(--color-titlebar-bg);
     padding: 0.5rem;
     margin: 0.1rem;
     cursor: pointer;
@@ -660,9 +719,9 @@ html.js .verse__translations {
 
 .hadith-reference-list__item {
     /*Col:Tab text*/
-    color: hsl(0, 0%, 26.7%);
+    color: var(--color-tab-text);
     /*Col:Tab*/
-    background-color: hsl(0, 0%, 86.77%);
+    background-color: var(--color-tab-bg);
     font-weight: bold;
     font-size: 1.25rem;
     text-decoration: none;
@@ -670,35 +729,35 @@ html.js .verse__translations {
 
     .hadith-reference-list__item.selected {
         /*Col:Tab selected*/
-        background-color: hsl(67, 45.7%, 61.0%);
+        background-color: var(--color-accent);
     }
 
         .hadith-reference-list__item.selected:hover {
             /*Col:Tab selected*/
-            background-color: hsl(67, 45.7%, 61.0%);
+            background-color: var(--color-accent);
         }
 
         .hadith-reference-list__item.selected:active {
             /*Col:Tab selected*/
-            background-color: hsl(67, 45.7%, 61.0%);
+            background-color: var(--color-accent);
         }
 
     .hadith-reference-list__item:active {
         /*Col:Tab selected*/
-        color: hsl(70, 48%, 40%);
+        color: var(--color-tab-text-hover);
         /*Col:Tab*/
-        background-color: hsl(0, 0%, 86.77%);
+        background-color: var(--color-tab-bg);
     }
 
     .hadith-reference-list__item:hover {
         /*Col:Tab selected*/
-        color: hsl(70, 48%, 40%);
+        color: var(--color-tab-text-hover);
         /*Col:Tab*/
-        background-color: hsl(0, 0%, 86.77%);
+        background-color: var(--color-tab-bg);
     }
 
 .hadith {
-    border: 1px solid hsl(208, 37%, 43%);
+    border: 1px solid var(--color-hadith-border);
     margin-bottom: 2rem;
     border-radius: 4px;
     padding: 2px;
@@ -706,7 +765,7 @@ html.js .verse__translations {
 
 .hadith__reference-count {
     /*Col:H1*/
-    color: hsl(69, 39.2%, 44.5%);
+    color: var(--color-h1);
     font-weight: bold;
 }
 
@@ -722,14 +781,14 @@ html.js .verse__translations {
 
     .hadith__text.arabic {
         /*Col:Striped 1*/
-        background-color: hsl(0, 0%, 93.3%);
+        background-color: var(--color-striped-1);
         text-align: right;
         padding: 0.5rem 0.5rem 0px 0.5rem;
     }
 
 .hadith__references {
     /*Col:Striped 1*/
-    background-color: hsl(0, 0%, 93.3%);
+    background-color: var(--color-striped-1);
     padding: 1rem;
 }
 
@@ -830,9 +889,9 @@ html.js .verse__translations {
         margin-left: 2rem;
         padding: 4px;
         /*Col:Title bar*/
-        background-color: hsl(40, 94.7%, 92.5%);
+        background-color: var(--color-titlebar-bg);
         /*Col:Title bar text*/
-        color: hsl(31, 63.2%, 56.3%);
+        color: var(--color-titlebar-text);
     }
 
 .root-analysis__extract-list {
@@ -860,9 +919,9 @@ html.js .verse__translations {
     margin-left: 2rem;
     padding: 4px;
     /*Col:Title bar*/
-    background-color: hsl(40, 94.7%, 92.5%);
+    background-color: var(--color-titlebar-bg);
     /*Col:Title bar text*/
-    color: hsl(31, 63.2%, 56.3%);
+    color: var(--color-titlebar-text);
 }
 
 .root-analysis__dictionary-list {
@@ -889,8 +948,8 @@ html.js .verse__translations {
     min-width: 8em;
     font-weight: bold;
     /*Col:Title bar shadow*/
-    border: solid 2px hsl(40, 94.7%, 85%);
-    background-color: hsl(40, 94.7%, 92.5%);
+    border: solid 2px var(--color-titlebar-border);
+    background-color: var(--color-titlebar-bg);
 }
 
 .dictionary__details--Lane .sub-sense {
@@ -903,18 +962,18 @@ html.js .verse__translations {
     margin-left: 2em;
     text-align: center;
     /*Col:Title bar shadow*/
-    border: solid 2px hsl(40, 94.7%, 85%);
-    background-color: hsl(40, 94.7%, 92.5%);
+    border: solid 2px var(--color-titlebar-border);
+    background-color: var(--color-titlebar-bg);
 }
 
 .dictionary__details abbr {
     /*Col:H1*/
-    color: hsl(69, 39.2%, 44.5%);
+    color: var(--color-h1);
 }
 
 .dictionary__copyright {
     clear: both;
-    border: 1px solid black;
+    border: 1px solid var(--color-border-strong);
     border-radius: 0.25rem;
     margin: 1rem;
     padding: 1rem;
@@ -927,6 +986,8 @@ html.js .verse__translations {
 body {
     padding-top: 50px;
     padding-bottom: 20px;
+    background-color: var(--color-body-bg);
+    color: var(--color-body-text);
 }
 
 /* Set padding to keep content from hitting the edges */
@@ -960,6 +1021,7 @@ textarea {
 
 a {
     text-decoration: underline dotted;
+    color: var(--color-link);
 }
 
 dl.about > dt, dl.search-tips > dt {
@@ -967,7 +1029,7 @@ dl.about > dt, dl.search-tips > dt {
     margin: 0;
     padding: 0;
     /*Col:H2*/
-    color: hsl(69, 41.4%, 48.8%);
+    color: var(--color-h2);
 }
 
 dl.about > dd, dl.search-tips > dd {
@@ -999,7 +1061,7 @@ dl.about > dd {
     .help-list > li {
         padding: 0px;
         /*Col:Tab*/
-        background-color: hsl(0, 0%, 86.77%);
+        background-color: var(--color-tab-bg);
     }
 
         .help-list > li .header {
@@ -1009,7 +1071,7 @@ dl.about > dd {
 
         .help-list > li > ul {
             list-style: none;
-            background-color: white;
+            background-color: var(--color-surface);
         }
 
             .help-list > li > ul > li {
@@ -1026,20 +1088,20 @@ dl.about > dd {
     }
 
     .help-list em {
-        background-color: #ffffcc;
+        background-color: var(--color-help-em-bg);
         padding: 0.25rem;
         text-decoration: none;
         font-style: normal;
         font-weight: bold;
         text-shadow: 2px 2px rgba(0, 0, 0, 0.1);
-        border: 1px solid black;
+        border: 1px solid var(--color-border-strong);
     }
 
 .adverts {
     margin: 2rem 0 1rem 0;
-    border: 1px solid black;
+    border: 1px solid var(--color-border-strong);
     border-radius: 1rem;
-    background-color: hsl(0, 0%, 93.3%);
+    background-color: var(--color-striped-1);
     text-align: center;
 }
 
@@ -1062,7 +1124,7 @@ dl.about > dd {
     gap: 1em;
     padding: 1em;
     align-items: center;
-    border: 1px solid hsl(69, 39.2%, 44.5%);
+    border: 1px solid var(--color-h1);
     border-radius: 8px;
     text-decoration: none;
     white-space: nowrap;
@@ -1076,11 +1138,56 @@ dl.about > dd {
 }
 
 .dictionary-entries__entry {
-    border: 1px solid hsl(69, 39.2%, 44.5%);
+    border: 1px solid var(--color-h1);
     padding: 2em;
     border-radius: 2em;
 }
 
 .adsbygoogle {
     margin: 0.5rem 0;
+}
+
+/* ---------------------------------------------------------------------------
+   Dark-theme overrides for Bootstrap components that don't read our palette
+   variables. Applied on the OS dark preference so light rendering is untouched.
+   --------------------------------------------------------------------------- */
+@media (prefers-color-scheme: dark) {
+    .form-control {
+        background-color: var(--color-surface);
+        color: var(--color-body-text);
+        border-color: var(--color-border-subtle);
+    }
+
+        .form-control::placeholder {
+            color: var(--color-text-muted);
+        }
+
+    .btn-default {
+        background-color: var(--color-tab-bg);
+        color: var(--color-body-text);
+        border-color: var(--color-border-subtle);
+    }
+
+        .btn-default:hover,
+        .btn-default:focus,
+        .btn-default:active {
+            background-color: var(--color-border-subtle);
+            color: var(--color-body-text);
+            border-color: var(--color-border-strong);
+        }
+
+    .dropdown-menu {
+        background-color: var(--color-surface);
+        border-color: var(--color-border-subtle);
+    }
+
+        .dropdown-menu > li > a {
+            color: var(--color-body-text);
+        }
+
+            .dropdown-menu > li > a:hover,
+            .dropdown-menu > li > a:focus {
+                background-color: var(--color-tab-bg);
+                color: var(--color-body-text);
+            }
 }
